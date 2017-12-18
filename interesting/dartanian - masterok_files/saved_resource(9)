@@ -1,0 +1,1093 @@
+/* ---------------------------------------------------------------------------------
+   file-start: js/ads/montblanc.js 
+*/
+
+(function(){
+/**
+ * namespace
+ * @const
+ */
+var montblanc = {};
+/**
+ * String namespace
+ * @const
+ */
+montblanc.string = {};
+/**
+ * @param {string} str
+ * @param {string} prefix
+ * @return {boolean}
+ */
+montblanc.string.startsWith = function(str, prefix) {
+    return str.lastIndexOf(prefix, 0) == 0;
+};
+/**
+ * @param {string} str
+ */
+montblanc.string.urlDecode = function(str) {
+    return decodeURIComponent(str.replace(/\+/g, ' '));
+};
+/**
+ * @param {Document} context
+ * constructor
+ */
+montblanc.Cookies = function(context){
+    this.document_ = context;
+};
+/**
+ * @type {RegExp}
+ * @private
+ */
+montblanc.Cookies.SPLIT_RE_ = /\s*;\s*/;
+/**
+ * @return {string}
+ * @private
+ */
+montblanc.Cookies.prototype.getCookie_ = function(){
+    return this.document_.cookie;
+};
+/**
+ * @return {Array}
+ * @private
+ */
+montblanc.Cookies.prototype.getParts_ = function(){
+    return (this.getCookie_() || '').split(montblanc.Cookies.SPLIT_RE_);
+};
+/**
+ * @param {string} name
+ * @param {string} opt_default
+ * @return {string|undefined}
+ */
+montblanc.Cookies.prototype.get = function(name, opt_default){
+    var nameEq = name + '=';
+    var parts = this.getParts_();
+    for (var i = 0, part; part = parts[i]; i++) {
+        if (montblanc.string.startsWith(part, nameEq)) {
+            return part.substr(nameEq.length);
+        }
+        if (part == name) {
+            return '';
+        }
+    }
+    return opt_default;
+};
+/**
+ * @type {montblanc.Cookies}
+ */
+montblanc.cookies = new montblanc.Cookies(document);
+/**
+ * DOM namespace
+ * @const
+ */
+montblanc.dom = {};
+/**
+ * @param {string} name
+ * @return {Element}
+ */
+montblanc.dom.createElement = function(name){
+    return document.createElement(name);
+};
+/**
+ * @param {string} src
+ * @param {=Boolean} opt_async
+ * @return {Element}
+ */
+montblanc.dom.createScript = function(src, opt_async){
+    var el = montblanc.dom.createElement('script');
+    el.src = src;
+    el.type = 'text/javascript';
+    el.async = !!opt_async;
+    return el;
+};
+/**
+ * @param {Element} script
+ */
+montblanc.dom.injectScript = function(script){
+    var fscript = document.getElementsByTagName('script')[0];
+    fscript.parentNode.insertBefore(script, fscript);
+};
+
+
+/** **/
+montblanc.COOKIE_KEY = '_montblanc';
+montblanc.PROTOCOL = 'https:' == document.location.protocol ? 'https:' : 'http:';
+montblanc.SYNC_URL = montblanc.PROTOCOL + '//montblanc.rambler.ru/mb';
+montblanc.sync = function(){
+    montblanc.dom.injectScript(
+        montblanc.dom.createScript(montblanc.SYNC_URL, true));
+};
+montblanc.getParts_ = function(){
+    var val = montblanc.cookies.get(montblanc.COOKIE_KEY, '');
+    return montblanc.string.urlDecode(val).split('&');
+};
+/**
+ * @param {string} key
+ * @param {string} opt_default
+ * @return {string|undefined}
+ */
+montblanc.get = function(key, opt_default){
+    var keyEq = key + '=';
+    var parts = montblanc.getParts_();
+    for (var i = 0, part; part = parts[i]; i++){
+        if (montblanc.string.startsWith(part, keyEq)) {
+            return montblanc.string.urlDecode(part.substr(keyEq.length));
+        }
+        if (part == key) {
+            return ''
+        }
+    }
+    return opt_default;
+};
+montblanc.sync();
+
+//api
+window['_montblanc'] = {};
+window['_montblanc']['get'] = montblanc.get;
+
+})();;
+
+/* file-end: js/ads/montblanc.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/ads/adfox.custom.js 
+*/
+
+(function() {
+
+  if (typeof _montblanc != 'undefined') {
+    var _mon = true;
+  } else {
+    var _mon = false;
+    console.log('_montblanc doesnt included');
+  }
+
+  var Adf = {};
+
+  Adf.dom = {};
+
+  Adf.counter = 1;
+
+  Adf.util = {
+
+    debugBase: window.location.search.indexOf('adfox_debug=1') !== -1,
+
+    debugExtend: window.location.search.indexOf('adfox_debug=2') !== -1,
+
+    DOC_READY: false,
+
+    CRTG_CONTENT: (typeof crtg_getCookie == 'function') ? crtg_getCookie(crtg_cookiename) : '',
+
+    getBodyScrollTop: function(opt_win) {
+
+      var _window = opt_win || window;
+
+      return _window.pageYOffset || (_window.document.documentElement && _window.document.documentElement.scrollTop) || (_window.document.body && _window.document.body.scrollTop);
+
+    },
+
+    getBodyScrollLeft: function(opt_win) {
+
+      var _window = opt_win || window;
+
+      return _window.pageXOffset || (_window.document.documentElement && _window.document.documentElement.scrollLeft) || (_window.document.body && _window.document.body.scrollLeft);
+
+    },
+
+    trackPixel: function(url) {
+
+      var tracking_url = url;
+      var Pixel_imp = new Image();
+
+      if (tracking_url != '') {
+
+        Pixel_imp.src = tracking_url;
+        tracking_url = '';
+
+      }
+
+    },
+
+    getElementPosition: function(id, opt_doc) {
+
+      var _document = opt_doc || document,
+        elem = _document.getElementById(id),
+        elemPos = {};
+      if (elem) {
+        elemPos['width'] = elem.offsetWidth;
+        elemPos['height'] = elem.offsetHeight;
+        elemPos['left'] = 0;
+        elemPos['top'] = 0;
+
+        while (elem) {
+          elemPos['left'] += elem.offsetLeft;
+          elemPos['top'] += elem.offsetTop;
+          elem = elem.offsetParent;
+        }
+
+        return elemPos;
+      } else {
+        return false;
+      }
+
+
+    },
+
+    createScript: function(src, is_async, opt_doc) {
+
+      var _document = opt_doc || document,
+        el = _document.createElement('script');
+
+      el.src = src;
+      el.type = 'text/javascript';
+      el.async = !!is_async;
+
+      return el;
+
+    },
+
+    insertScript: function(script, opt_doc) {
+
+      var _document = opt_doc || document,
+        f = _document.getElementsByTagName('script')[0];
+
+      f.parentNode.insertBefore(script, f);
+
+    },
+
+    getProtocol: function(opt_doc) {
+
+      var _document = opt_doc || document;
+
+      return _document.location.protocol == 'https:' ? 'https:' : 'http:';
+
+    },
+
+    getScreenSize: function() {
+
+      var scrheight = '',
+        scrwidth = '';
+
+      if (self.screen) {
+
+        scrwidth = screen.width;
+        scrheight = screen.height;
+
+      } else if (self.java) {
+
+        var jkit = java.awt.Toolkit.getDefaultToolkit(),
+          scrsize = jkit.getScreenSize();
+
+        scrwidth = scrsize.width;
+        scrheight = scrsize.height;
+
+      }
+
+      if (scrwidth && scrheight) {
+
+        return [scrwidth, scrheight]
+
+      } else {
+
+        return ['', '']
+
+      }
+
+    },
+
+    getWindowSize: function(opt_win) {
+
+      var width,
+        height,
+        _window = opt_win || window;
+
+      if (typeof(_window.innerWidth) == 'number') {
+
+        width = _window.innerWidth;
+        height = _window.innerHeight;
+
+      } else if (_window.document.documentElement && (_window.document.documentElement.clientWidth || _window.document.documentElement.clientHeight)) {
+
+        width = _window.document.documentElement.clientWidth;
+        height = _window.document.documentElement.clientHeight;
+
+      } else if (_window.document.body && (_window.document.body.clientWidth || _window.document.body.clientHeight)) {
+
+        width = _window.document.body.clientWidth;
+        height = _window.document.body.clientHeight;
+
+      }
+
+      return {
+        "width": width,
+        "height": height
+      };
+
+    },
+
+    getDate: function() {
+
+      var addate = new Date();
+
+      return {
+        'date': addate.getDate(),
+        'day': addate.getDay(),
+        'hour': addate.getHours()
+      }
+
+    },
+
+    wrapScript: function(source) {
+
+      return '<scr' + 'ipt type="text/javascript">' + source + '</scr' + 'ipt>';
+
+    },
+
+    createElement: function(elem, opt_id, opt_class, opt_doc) {
+
+      var _document = opt_doc || document,
+        elm = _document.createElement(elem);
+
+      if (typeof opt_id == 'string') elm.setAttribute('id', opt_id);
+      if (typeof opt_class == 'string') elm.className += opt_class;
+
+      return elm;
+
+    },
+
+    getCodeScript: function(i, src, id, banner_place, opt_callback) {
+
+      var frameDocument;
+
+      if (i < 10) {
+        try {
+          if (document.all && !window.opera) {
+            frameDocument = window.frames[id].document;
+          } else if (document.getElementById) {
+            frameDocument = document.getElementById(id).contentDocument;
+          }
+        } catch (e) {}
+
+        if (frameDocument) {
+
+          frameDocument.write('<scr' + 'ipt type="text/javascript" src="' + src + '"><\/scr' + 'ipt>');
+
+          // LJ.Sale.elementEvent
+          frameDocument.getElementsByTagName('script').item(0).onload = function(e) {
+            var event = document.createEvent('Event');
+
+            event.data = {
+              place: banner_place.getAttribute('id'),
+              script: e.target.src
+            };
+            event.initEvent('ljsale-adfox-init', true, false);
+            banner_place.dispatchEvent(event);
+          };
+
+          Adf.inner.checkBannerLoaded(banner_place, opt_callback, true);
+
+        } else {
+
+          setTimeout(function() {
+            Adf.util.getCodeScript(++i, src, id)
+          }, 100);
+
+        }
+
+      } else if (i == 10) {
+
+        window.console.log('Can not access to frameDocument && frameWindow; id = ' + id);
+        Adf.inner.checkBannerLoaded(banner_place, opt_callback, false);
+      }
+
+    },
+
+    createAdIframe: function(id, opt_doc) {
+
+      var _document = opt_doc || document,
+        ifr = _document.createElement('iframe');
+
+      ifr.setAttribute('id', id);
+      ifr.setAttribute('marginwidth', '0');
+      ifr.setAttribute('marginheight', '0');
+      ifr.setAttribute('scrolling', 'no');
+      ifr.setAttribute('frameBorder', '0');
+      ifr.setAttribute('width', '1');
+      ifr.setAttribute('height', '1');
+      ifr.style.position = 'absolute';
+
+      return ifr;
+
+    },
+
+    getReferrer: function() {
+
+      if (typeof(document.referrer) != 'undefined') {
+        if (typeof(afReferrer) == 'undefined') {
+          var afReferrer = escape(document.referrer);
+        }
+      } else {
+        var afReferrer = '';
+      }
+
+      return afReferrer;
+
+    },
+
+    ajaxLoad: function(url, callback) {
+
+      var _xmlhttp;
+
+      if (window.XMLHttpRequest) {
+        _xmlhttp = new XMLHttpRequest();
+      } else {
+        _xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      _xmlhttp.onreadystatechange = function() {
+
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+          callback(_xmlhttp.responseText);
+
+        }
+
+      };
+
+      _xmlhttp.open("GET", url, true);
+      _xmlhttp.send();
+
+    }
+
+  };
+
+  Adf.init = {
+
+    criteo: function(site_id) {
+
+      var crtg_nid = site_id,
+        crtg_cookiename = 'crtg_rta',
+        crtg_varname = 'crtg_content';
+
+      function crtg_getCookie(c_name) {
+
+        var i, x, y, ARRCookies = document.cookie.split(";");
+
+        for (i = 0; i < ARRCookies.length; i++) {
+          x = ARRCookies[i].substr(0, ARRCookies[i].indexOf("="));
+          y = ARRCookies[i].substr(ARRCookies[i].indexOf("=") + 1);
+          x = x.replace(/^\s+|\s+$/g, "");
+          if (x == c_name) {
+            return unescape(y);
+          }
+        }
+
+        return '';
+
+      };
+
+      (function() {
+
+        var crtg_url = Adf.util.getProtocol() + '//rtax.criteo.com/delivery/rta/rta.js?netId=' + escape(crtg_nid) + '&amp;cookieName=' + escape(crtg_cookiename) + '&amp;rnd=' + Math.floor(Math.random() * 99999999999) + '&amp;varName=' + escape(crtg_varname);
+
+        Adf.util.insertScript(Adf.util.createScript(crtg_url, true));
+
+      })();
+
+      if (Adf.util.debugBase || Adf.util.debugExtend) console.log('Criteo is initialized. Crtg_nid = ' + crtg_nid);
+
+      Adf.util.CRTG_CONTENT = crtg_getCookie(crtg_cookiename);
+
+    },
+
+    begun: function() {
+
+      var begun_url = Adf.util.getProtocol() + '//autocontext.begun.ru/autocontext2_async.js';
+
+      Adf.util.insertScript(Adf.util.createScript(begun_url, false));
+
+      if (Adf.util.debugBase || Adf.util.debugExtend) console.log('Begun is initialized');
+
+    }
+
+  };
+
+  Adf.inner = {
+
+    getBegunLevel: function(feed) {
+
+      var level = 0,
+        bannersCount = 0;
+
+      for (var bannersType in feed.banners) {
+        for (i = 0; i < feed.banners[bannersType].length; i++) {
+          banner = feed.banners[bannersType][i];
+          bannersCount++;
+          if (banner.priority && banner.priority > level) {
+            level = banner.priority;
+          }
+        }
+      }
+      return bannersCount > 0 ? level + 1 : 0;
+
+    },
+
+    show_b: function(threshold, startTime, _rand, number, i, div_id, options, options_b, opt_class, win) {
+
+
+      if (div_id == 'begun_test') {
+
+        var unicID = Math.floor(Math.random() * 10000000000000),
+          funcName = 'renderBegunResponse' + unicID;
+
+        window[funcName] = function(callback_options) {
+
+          options['puid52'] = Adf.inner.getBegunLevel(callback_options);
+          options['puid53'] = callback_options['params']['impression_id'];
+
+          var begunCallbackBeforeAdCall = new Date();
+          var delta = begunCallbackBeforeAdCall - startTime;
+          if (threshold) {
+            Adf.util.trackPixel('http://rcounter.rambler.ru/count?v=0.1&id=124&pid=1&path=' + options_b["begun-block-id"] + '.d' + Adf.inner.returnTimeInterval(delta));
+
+          }
+
+          Adf.banner.show(div_id, options, opt_class);
+
+        };
+
+        var _auctionScriptURL = 'http://autocontext.begun.ru/context.jsp?pad_id=' + options_b['begun-auto-pad'] + '&block_id=' + options_b['begun-block-id'] + '&json=1&callback=' + funcName + '&first=1&rq_sess=' + unicID + '&secure=' + (document.location.protocol == 'https:' ? '1' : '0') + '&real_refer=' + document.location.href;
+
+        var divIdType = typeof div_id;
+
+        if (divIdType == 'string') {
+
+          var banner_place = document.getElementById(div_id);
+
+        } else if (divIdType == 'object') {
+
+          var banner_place = div_id;
+
+        };
+
+        var _auctionScript = Adf.util.createScript(_auctionScriptURL, true);
+
+        if (banner_place) {
+
+          banner_place.appendChild(_auctionScript);
+
+        } else {
+
+          console.log('adfox can not insert Begun auction request. Start ordinary adfox adcall');
+
+          Adf.banner.show(div_id, options, opt_class);
+
+        };
+
+
+      } else {
+
+        if (Adf.util.debugExtend) console.log('before_begun_check_call: adCall = ' + number + '; bid = ' + options_b['begun-block-id'] + '; div_id = ' + div_id + '; unic_id = ' + _rand);
+
+        if (i < 20) {
+
+          if (win.Begun && win.Begun.Autocontext && win.Begun.Autocontext.addBlock) {
+
+            Begun.Autocontext.addBlock(options_b, function(level, auction_id, block_id) {
+              options['puid52'] = level;
+              options['puid53'] = auction_id;
+
+              // debug info
+
+              if (Adf.util.debugExtend) console.log('before_ban_call: adCall = ' + number + '; bid = ' + options_b['begun-block-id'] + '; div_id = ' + div_id + '; unic_id = ' + _rand);
+              var begunCallbackBeforeAdCall = new Date();
+              var delta = begunCallbackBeforeAdCall - startTime;
+              if (Adf.util.debugExtend) console.log('begun_callback_time : ' + delta + '; adCall = ' + number + '; bid = ' + options_b['begun-block-id'] + '; div_id = ' + div_id + '; unic_id = ' + _rand);
+              if (threshold) {
+                Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=124&pid=1&path=' + options_b["begun-block-id"] + '.d' + Adf.inner.returnTimeInterval(delta));
+                Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=125&pid=1&path=' + options_b["begun-block-id"] + '.d_yes');
+                Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=127&pid=1&path=' + options_b["begun-block-id"] + '.d' + level);
+              }
+              //
+              Adf.banner.show(div_id, options, opt_class, function(b, s) {
+
+                var bannerLoadedTime = new Date();
+                var fullDelta = bannerLoadedTime - startTime;
+                var bannerLoadDelta = bannerLoadedTime - begunCallbackBeforeAdCall;
+                if (threshold) {
+                  Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=126&pid=1&path=' + options_b["begun-block-id"] + '.d' + Adf.inner.returnTimeInterval(fullDelta) + '.d' + Adf.inner.returnTimeInterval(bannerLoadDelta));
+                  Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=126&pid=1&path=' + s);
+                }
+
+              });
+
+              if (Adf.util.debugExtend) console.log('after_ban_call: adCall = ' + number + '; bid = ' + options_b['begun-block-id'] + '; div_id = ' + div_id + '; unic_id = ' + _rand);
+            });
+
+          } else {
+            setTimeout(function() {
+              Adf.inner.show_b(threshold, startTime, _rand, number, ++i, div_id, options, options_b, opt_class, win)
+            }, 100);
+          }
+
+        } else {
+
+          if (Adf.util.debugExtend) console.log('win.Begun.Autocontext.addBlock is not defined.' + '; div_id = ' + div_id);
+          if (threshold) {
+            Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=125&pid=1&path=' + options_b["begun-block-id"] + '.d_no');
+          }
+          Adf.banner.show(div_id, options, opt_class);
+
+        }
+
+        if (Adf.util.debugExtend) console.log('after_begun_check_call: adCall = ' + number + '; bid = ' + options_b['begun-block-id'] + '; div_id = ' + div_id + '; unic_id = ' + _rand);
+
+      };
+
+
+
+
+    },
+
+    checkBannerLoaded: function(banner_place, opt_callback, status) {
+
+      if (typeof opt_callback === 'function') opt_callback(banner_place, status);
+
+    },
+
+    getMonblanc: function(key) {
+
+      if (_mon) {
+        return _montblanc.get(key, '');
+      } else {
+        return '';
+      }
+
+    },
+
+    returnTimeInterval: function(time) {
+
+      if (time < 500) {
+        return '05';
+      };
+      if (time >= 500 && time < 1000) {
+        return '0510';
+      };
+      if (time >= 1000 && time < 1500) {
+        return '1015';
+      };
+      if (time >= 1500 && time < 2000) {
+        return '1520';
+      };
+      if (time >= 2000 && time < 2500) {
+        return '2025';
+      };
+      if (time >= 2500 && time < 3000) {
+        return '2530';
+      };
+      if (time >= 3000 && time < 4000) {
+        return '3040';
+      };
+      if (time >= 4000 && time < 5000) {
+        return '4050';
+      };
+      if (time >= 5000) {
+        return '50';
+      };
+
+    }
+
+  };
+
+  Adf.banner = {
+
+    needReload: false,
+
+    account_id: 171817,
+
+    pr: Math.floor(Math.random() * 1000000),
+
+    dl: escape(document.location),
+
+    montblanc: {
+
+      'puid3': Adf.inner.getMonblanc('4i'),
+      'puid4': Adf.inner.getMonblanc('c6'),
+      'puid11': Adf.inner.getMonblanc('dd'),
+      'puid22': Adf.inner.getMonblanc('y1'),
+      'puid33': Adf.inner.getMonblanc('bj'),
+      'puid37': Adf.inner.getMonblanc('k4'),
+      'puid38': Adf.inner.getMonblanc('x3')
+
+    },
+
+    show: function(div_id, options, opt_class, opt_callback) {
+
+      var divIdType = typeof div_id;
+
+      if (typeof opt_class === 'function') opt_callback = opt_class;
+
+      if (divIdType == 'string') {
+        var banner_place = document.getElementById(div_id);
+      } else if (divIdType == 'object') {
+        var banner_place = div_id;
+      };
+
+      var pr1 = Math.floor(Math.random() * 1000000),
+        pr2 = Math.floor(Math.random() * 1000000),
+        criteo = 0,
+        ban_block = Adf.util.createElement('div', 'AdFox_banner_' + pr1, opt_class),
+        ifr = Adf.util.createAdIframe('AdFox_iframe_' + pr1),
+        reloadPr = !Adf.banner.needReload ? Adf.banner.pr : Math.floor(Math.random() * 1000000),
+
+        url = Adf.util.getProtocol() + '//ads.adfox.ru/' +
+        (options['account_id'] ? options['account_id'] : Adf.banner.account_id) +
+        '/prepareCode?pfc=' +
+        (options['pfc'] ? options['pfc'] : 'a') +
+        '&amp;pfb=' +
+        (options['pfb'] ? options['pfb'] : 'a') +
+        '&amp;pt=b' +
+        '&amp;pd=' + Adf.util.getDate()['date'] +
+        '&amp;pw=' + Adf.util.getDate()['day'] +
+        '&amp;pv=' + Adf.util.getDate()['hour'] +
+        '&amp;prr=' + Adf.util.getReferrer() +
+        '&amp;pdw=' + Adf.util.getScreenSize()[0] +
+        '&amp;pdh=' + Adf.util.getScreenSize()[1] +
+        '&amp;dl=' + Adf.banner.dl +
+        '&amp;pr1=' + pr1 +
+        '&amp;random=' + pr2 +
+        '&amp;pr=' + reloadPr;
+
+
+      //include montblanc params
+
+      for (var prop in Adf.banner.montblanc) {
+
+        url += '&amp;' + prop + '=' + Adf.banner.montblanc[prop]
+
+      }
+
+      //check banner params
+
+      if (typeof options == 'object') {
+
+        for (var prop in options) {
+
+          if (prop == 'criteo') {
+
+            if (Adf.util.CRTG_CONTENT) {
+              criteo = ((Adf.util.CRTG_CONTENT.indexOf(options[prop]) != -1)) ? (options[prop]) : ("0");
+            }
+
+            url += '&amp;puid23=' + criteo;
+
+          } else {
+
+            url += '&amp;' + prop + '=' + options[prop]
+
+          }
+
+        }
+
+      } else {
+        console.log('options =' + typeof options)
+      };
+
+      //insert banner
+
+      if (banner_place) {
+
+        banner_place.appendChild(ban_block);
+        banner_place.appendChild(ifr);
+
+      } else {
+
+        console.log('adfox can not access banner_place');
+
+      };
+
+      if (Adf.util.debugBase || Adf.util.debugExtend) console.log('div_id = ' + div_id);
+      if (Adf.util.debugBase || Adf.util.debugExtend) console.log(options);
+
+      Adf.util.getCodeScript(1, url, 'AdFox_iframe_' + pr1, banner_place, opt_callback);
+
+
+
+    },
+
+    reload: function(div_id, options, opt_class, opt_callback) {
+
+      Adf.banner.needReload = true;
+
+      document.getElementById(div_id).innerHTML = '';
+
+      Adf.banner.show(div_id, options, opt_class, opt_callback);
+
+      Adf.banner.needReload = false;
+
+    },
+
+    showScroll: function(div_id, options, opt_class, opt_callback) {
+
+      var winPos = Adf.util.getWindowSize(),
+        winWidth = winPos.width,
+        winHeight = winPos.height,
+        scrollY = Adf.util.getBodyScrollTop(),
+        scrollX = Adf.util.getBodyScrollLeft(),
+        ltwhPos = Adf.util.getElementPosition(div_id);
+      var lPos = (ltwhPos) ? ltwhPos.left : 20 * winWidth;
+      var tPos = (ltwhPos) ? ltwhPos.top : 20 * winHeight;
+
+      if (Adf.util.debugExtend) console.log('div_id = ' + div_id + '; elementPosition = ' + ltwhPos);
+
+      if (scrollY + winHeight + 5 >= tPos && scrollX + winWidth + 5 >= lPos) {
+        Adf.banner.show(div_id, options, opt_class, opt_callback);
+      } else {
+        setTimeout(function() {
+          Adf.banner.showScroll(div_id, options, opt_class, opt_callback);
+        }, 100);
+      }
+
+    },
+
+    showRich: function(div_id, options, opt_class, opt_callback) {
+
+      var winPos = Adf.util.getWindowSize(),
+        winHeight = winPos.height,
+        scrollY = Adf.util.getBodyScrollTop();
+
+      if (scrollY + 5 >= winHeight) {
+        Adf.banner.show(div_id, options, opt_class, opt_callback);
+      } else {
+        setTimeout(function() {
+          Adf.banner.showRich(div_id, options, opt_class, opt_callback);
+        }, 100);
+      }
+
+    },
+
+    showScroll_b: function(div_id, options, options_b, opt_class, opt_win) {
+
+      var winPos = Adf.util.getWindowSize(),
+        winWidth = winPos.width,
+        winHeight = winPos.height,
+        scrollY = Adf.util.getBodyScrollTop(),
+        scrollX = Adf.util.getBodyScrollLeft(),
+        ltwhPos = Adf.util.getElementPosition(div_id);
+      var lPos = (ltwhPos) ? ltwhPos.left : 20 * winWidth;
+      var tPos = (ltwhPos) ? ltwhPos.top : 20 * winHeight;
+
+      if (Adf.util.debugExtend) console.log('div_id = ' + div_id + '; elementPosition = ' + ltwhPos);
+
+      if (scrollY + winHeight + 5 >= tPos && scrollX + winWidth + 5 >= lPos) {
+        Adf.banner.show_b(div_id, options, options_b, opt_class, opt_win);
+      } else {
+        setTimeout(function() {
+          Adf.banner.showScroll_b(div_id, options, options_b, opt_class, opt_win);
+        }, 100);
+      }
+
+    },
+
+    show_b: function(div_id, options, options_b, opt_class, opt_win) {
+
+      if (Adf.util.debugExtend) console.log('show_b start; div_id = ' + div_id + '; adCall = ' + Adf.counter);
+
+      var _window = opt_win || window;
+
+      // debug variables -- start
+      var startTime = new Date(),
+        _rand = Math.floor(Math.random() * 100000000),
+        forPersentageThreshold = Math.floor(Math.random() * 1000),
+        threshold = (forPersentageThreshold >= 5 && forPersentageThreshold < 55) ? true : false;
+      // debug variables -- end
+
+      Adf.inner.show_b(threshold, startTime, _rand, Adf.counter, 1, div_id, options, options_b, opt_class, _window);
+
+      if (Adf.util.debugExtend) console.log('show_b end; div_id = ' + div_id + '; adCall = ' + Adf.counter);
+
+      Adf.counter = Adf.counter + 1;
+
+    },
+
+
+
+    reload_b: function(div_id, options, options_b) {
+
+      Adf.banner.needReload = true;
+
+      document.getElementById(div_id).innerHTML = '';
+
+      Adf.banner.show_b(div_id, options, options_b);
+
+      Adf.banner.needReload = false;
+
+    }
+
+  };
+
+  //api
+
+  window['Adf'] = {};
+  window['Adf']['util'] = Adf.util;
+  window['Adf']['init'] = Adf.init;
+  window['Adf']['banner'] = Adf.banner;
+
+
+})();
+
+function AdFox_SetLayerVis(spritename, state) {
+
+  document.getElementById(spritename).style.visibility = state;
+
+}
+
+function AdFox_Open(AF_id) {
+
+  AdFox_SetLayerVis('AdFox_DivBaseFlash_' + AF_id, "hidden");
+  AdFox_SetLayerVis('AdFox_DivOverFlash_' + AF_id, "visible");
+
+}
+
+function AdFox_Close(AF_id) {
+
+  AdFox_SetLayerVis('AdFox_DivOverFlash_' + AF_id, "hidden");
+  AdFox_SetLayerVis('AdFox_DivBaseFlash_' + AF_id, "visible");
+
+}
+
+function adfoxSdvigContent(banID, flashWidth, flashHeight) {
+
+  var obj = document.getElementById('adfoxBanner' + banID).style;
+  if (flashWidth == '100%') obj.width = flashWidth;
+  else obj.width = flashWidth + "px";
+  if (flashHeight == '100%') obj.height = flashHeight;
+  else obj.height = flashHeight + "px";
+
+}
+
+function adfoxVisibilityFlash(banName, flashWidth, flashHeight) {
+
+  var obj = document.getElementById(banName).style;
+  if (flashWidth == '100%') obj.width = flashWidth;
+  else obj.width = flashWidth + "px";
+  if (flashHeight == '100%') obj.height = flashHeight;
+  else obj.height = flashHeight + "px";
+
+}
+
+function adfoxStart(banID, FirShowFlNum, constVisFlashFir, sdvigContent, flash1Width, flash1Height, flash2Width, flash2Height) {
+
+  if (FirShowFlNum == 1) adfoxVisibilityFlash('adfoxFlash1' + banID, flash1Width, flash1Height);
+  else if (FirShowFlNum == 2) {
+    adfoxVisibilityFlash('adfoxFlash2' + banID, flash2Width, flash2Height);
+    if (constVisFlashFir == 'yes') adfoxVisibilityFlash('adfoxFlash1' + banID, flash1Width, flash1Height);
+    if (sdvigContent == 'yes') adfoxSdvigContent(banID, flash2Width, flash2Height);
+    else adfoxSdvigContent(banID, flash1Width, flash1Height);
+  }
+
+}
+
+function adfoxOpen(banID, constVisFlashFir, sdvigContent, flash2Width, flash2Height) {
+
+  var aEventOpenClose = new Image();
+  var obj = document.getElementById("aEventOpen" + banID);
+  if (obj) aEventOpenClose.src = obj.title + '&rand=' + Math.random() * 1000000 + '&prb=' + Math.random() * 1000000;
+  adfoxVisibilityFlash('adfoxFlash2' + banID, flash2Width, flash2Height);
+  if (constVisFlashFir != 'yes') adfoxVisibilityFlash('adfoxFlash1' + banID, 1, 1);
+  if (sdvigContent == 'yes') adfoxSdvigContent(banID, flash2Width, flash2Height);
+
+}
+
+
+function adfoxClose(banID, constVisFlashFir, sdvigContent, flash1Width, flash1Height) {
+
+  var aEventOpenClose = new Image();
+  var obj = document.getElementById("aEventClose" + banID);
+  if (obj) aEventOpenClose.src = obj.title + '&rand=' + Math.random() * 1000000 + '&prb=' + Math.random() * 1000000;
+  adfoxVisibilityFlash('adfoxFlash2' + banID, 1, 1);
+  if (constVisFlashFir != 'yes') adfoxVisibilityFlash('adfoxFlash1' + banID, flash1Width, flash1Height);
+  if (sdvigContent == 'yes') adfoxSdvigContent(banID, flash1Width, flash1Height);
+
+}
+;
+
+/* file-end: js/ads/adfox.custom.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/ljlive/iframe.js 
+*/
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/core/angular/radioGroup.js 
+*/
+
+!function(){"use strict";function a(){function a(){this._models={}}function b(b){return c[b]?c[b]:(c[b]=new a,c[b])}var c={};return a.prototype.models=function(){return this._models},a.prototype.reset=function(){var a,b=this._models;for(a in b)b.hasOwnProperty(a)&&b[a]&&(this._models[a]=!1);return this},a.prototype.set=function(a,b){return b?this.reset()._models[a]=!0:this._models[a]=!1,this},a.prototype.on=function(a){return this.set(a,!0)},a.prototype.off=function(a){return"undefined"==typeof a?this.reset():this.set(a,!1),this},a.prototype.toggle=function(a){this._models[a]?this.off(a):this.on(a)},b}angular.module("LJ.RadioGroup",[]),angular.module("LJ.RadioGroup").factory("radioGroup",a)}();;
+
+/* file-end: js/core/angular/radioGroup.js 
+----------------------------------------------------------------------------------*/
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/core/angular/api.js 
+*/
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/core/angular/messages.js 
+*/
+
+Site.page.template['angular/ljMessages.ng.tmpl'] = '<div\n    class=\"b-msgsystem-wrapper b-msgsystem-wrapper-fixed\"\n    ng-class=\"{\'b-msgsystem-wrapper-ontop\': directive.top }\"\n    ng-hide=\"directive.messages.length === 0\"\n    >\n    <div\n        ng-repeat=\"message in directive.messages\"\n        class=\"b-msgsystem b-msgsystem-type-{{message.type}}\"\n        ng-animate=\"\'b-msgsystem\'\"\n        >\n        <header\n            class=\"b-msgsystem-head\"\n            lj-html=\"message.title\"\n            ng-if=\"message.title\"\n            ></header>\n        <div class=\"b-msgsystem-wrap\">\n            <div class=\"b-msgsystem-body\" lj-html=\"message.body\"></div>\n        </div>\n        <span class=\"b-msgsystem-close\" ng-click=\"directive.close(message)\">\n            <span class=\"b-msgsystem-close-text\" lj-ml=\"component.messages.close\"></span>\n            <span class=\"b-msgsystem-close-ctrl\" lj-ml=\"component.messages.close\" lj-ml-attr=\"title\">&times;</span>\n        </span>\n    </div>\n</div>\n';
+LJ.injectStyle('/* System Message\n----------------------------------- */\n.b-msgsystem-wrapper {\n    width: 100%;\n    height: auto;\n    }\n    .b-msgsystem-wrapper.b-msgsystem-wrapper-fixed {\n        position: fixed;\n        top: 0;\n        left: 0;\n        z-index: 5000;\n        overflow: hidden;\n        padding: 0 0 10px;\n        }\n\n    .g-sensor .b-msgsystem-wrapper.b-msgsystem-wrapper-fixed,\n    .mobile-msg .b-msgsystem-wrapper.b-msgsystem-wrapper-fixed {\n        position: static;\n        padding: 0;\n        background-image: none;\n        }\n\n    /* open popup */\n    .flatpopup-open .b-msgsystem-wrapper.b-msgsystem-wrapper-fixed {\n        z-index: 5001;\n        }\n\n    /* on top */\n    .b-msgsystem-wrapper-ontop.b-msgsystem-wrapper.b-msgsystem-wrapper-fixed {\n        position: absolute;\n        top: 60px;\n        z-index: 4998;\n        }\n    .flatpopup-open .b-msgsystem-wrapper-ontop.b-msgsystem-wrapper.b-msgsystem-wrapper-fixed {\n        z-index: 5001;\n        }\n\n.b-msgsystem {\n    position: relative;\n    min-height: 50px;\n    padding: 10px 140px 10px 120px;\n    font: 14px/1.357 Arial, Helvetica, sans-serif;\n    }\n    .b-msgsystem DD,\n    .b-msgsystem DT,\n    .b-msgsystem TH,\n    .b-msgsystem TD,\n    .b-msgsystem P,\n    .b-msgsystem DIV,\n    .b-msgsystem LI,\n    .b-msgsystem PRE,\n    .b-msgsystem CODE,\n    .b-msgsystem KBD {\n        font-size: 100%;\n        }\n    .b-msgsystem .i-ljuser-userhead {\n        vertical-align: top !important;\n        margin: 3px 0 0 0;\n        }\n.b-msgsystem:after {\n    position: absolute;\n    bottom: -10px;\n    left: 0;\n    display: block;\n    content: \'\';\n    width: 100%;\n    height: 10px;\n    background-image: -webkit-linear-gradient(top, rgba(53, 99, 161, 0.3), rgba(53, 99, 161, 0));\n    background-image:    -moz-linear-gradient(top, rgba(53, 99, 161, 0.3), rgba(53, 99, 161, 0));\n    background-image:      -o-linear-gradient(top, rgba(53, 99, 161, 0.3), rgba(53, 99, 161, 0));\n    background-image:   linear-gradient(to bottom, rgba(53, 99, 161, 0.3), rgba(53, 99, 161, 0));\n    -webkit-background-size: 10px 10px;\n         -o-background-size: 10px 10px;\n            background-size: 10px 10px;\n    background-position: 0 100%;\n    background-repeat: repeat-x;\n    }\n    .b-msgsystem-head {\n        margin: 0 0 0.357em;\n        padding: 0;\n        font-size: 1.142em;\n        font-weight: bold;\n        }\n    .b-msgsystem-wrap {\n        line-height: 50px;\n        min-height: 50px;\n        }\n\n    .b-msgsystem-head ~ .b-msgsystem-wrap {\n        line-height: inherit;\n        min-height: 0;\n        }\n\n    .b-msgsystem-body {\n        display: inline-block;\n        vertical-align: middle;\n        line-height: 1.571;\n        font-size: 1em;\n        color: #787878;\n        }\n    .b-msgsystem-intext {\n        margin-bottom: 2em;\n        }\n\n.b-msgsystem .i-ljuser-username,\n.b-msgsystem .i-ljuser-username:link,\n.b-msgsystem .i-ljuser-username:visited {\n    color: #0051B7 !important;\n    }\n.b-msgsystem .i-ljuser-username:hover,\n.b-msgsystem .i-ljuser-username:active {\n    color: #C00 !important;\n    }\n\n.b-msgsystem-type-error {\n    background: #FFEFEF no-repeat 2.7em 50% url(\'data:image/png;base64,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\');\n    color: #CB1427;\n    }\n    .b-msgsystem-type-error + .b-msgsystem-type-error {\n        border-top: 1px solid #FFDFDF;\n        }\n.b-msgsystem-type-warning {\n    background: #FCF8E3 no-repeat 2.7em 50% url(\'data:image/png;base64,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\');\n    color: #C09853;\n    }\n    .b-msgsystem-type-warning + .b-msgsystem-type-warning {\n        border-top: 1px solid #F9F1C7;\n        }\n.b-msgsystem-type-success {\n    background: #DFF0D8 no-repeat 2.7em 50% url(\'data:image/png;base64,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\');\n    color: #468847;\n    }\n    .b-msgsystem-type-success + .b-msgsystem-type-success {\n        border-top: 1px solid #BFE1B1;\n        }\n.b-msgsystem-type-info {\n    background: #D9EDF7 no-repeat 2.7em 50% url(\'data:image/png;base64,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\');\n    color: #3A87AD;\n    }\n    .b-msgsystem-type-info + .b-msgsystem-type-info {\n        border-top: 1px solid #B3DBEF;\n        }\n\n.b-msgsystem-close {\n    position: absolute;\n    right: 0;\n    top: 50%;\n    width: 100px;\n    margin: -0.714em 0 0;\n    padding: 0 2em 0 0;\n    text-align: right;\n    cursor: pointer;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n        -ms-user-select: none;\n            user-select: none;\n    color: #000;\n    }\n.b-msgsystem-close:hover {\n    color: #C00;\n    }\n    .b-msgsystem-close-text {\n        border-bottom: 1px dotted;\n        }\n    .b-msgsystem-close-ctrl {\n        margin: 0 0 0 0.1em;\n        vertical-align: middle;\n        font-size: 1.3em;\n        }\n\n\n/* xs-size screen (45em) ~ 630px */\n@media all and (max-width: 45em) {\n    .b-msgsystem {\n        padding: 10px 50px 10px 44px;\n        background-position: 10px 10px;\n        -webkit-background-size: 24px;\n             -o-background-size: 24px;\n                background-size: 24px;\n        }\n\n    .b-msgsystem-close {\n        position: absolute;\n        top: 0;\n        right: 0;\n        bottom: 0;\n        margin: 0;\n        width: 50px;\n        }\n        .b-msgsystem-close-text {\n            display: none;\n            }\n        .b-msgsystem-close-ctrl {\n            position: absolute;\n            top: 50%;\n            left: 50%;\n            margin: -0.6em 0 0 -0.2em;\n            text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.5);\n            font-size: 1.7em;\n            color: rgba(0, 0, 0, 0.5);\n            }\n}\n\n/* Toggle */\n.b-msgsystem {\n    top: 0;\n    opacity: 1;\n    -webkit-transition: 0.3s top, 0.3s opacity;\n       -moz-transition: 0.3s top, 0.3s opacity;\n        -ms-transition: 0.3s top, 0.3s opacity;\n         -o-transition: 0.3s top, 0.3s opacity;\n            transition: 0.3s top, 0.3s opacity;\n    }\n.b-msgsystem-enter,\n.b-msgsystem-leave {\n    top: -100px;\n    opacity: 0;\n    }\n\n@media print {\n    .b-msgsystem-wrapper {\n        display: none;\n        }\n}\n');
+//= require_ml component.messages.close
+!function(){"use strict";angular.module("LJ.Messages",["LJ.Templates","LJ.Directives"]).run(["$compile","$rootScope",function(a,b){angular.element("div[lj-messages]").length<1&&a("<div lj-messages></div>")(b).appendTo("body")}]).factory("Messages",[function(){function a(a){return-1===g.indexOf(a.type)||h[a.body]?void 0:(h[a.body]=!0,f.push(a),e)}function b(){return f.length=0,h={},e}function c(a){return f=f.filter(function(b){return b!==a}),delete h[a.body],e}function d(){return f}var e,f=[],g=["error","info","success","warning"],h={};return e={get:d,add:a,remove:c,clear:b},LJ.get("messages")&&LJ.get("messages").forEach(a),g.forEach(function(b){e[b]=function(c){"string"==typeof c&&(c={body:c}),c.type=b,a(c)}}),e}]).directive("ljMessages",["$timeout","Messages",function(a,b){return{templateUrl:"ljMessages.ng.tmpl",scope:!0,controllerAs:"directive",controller:["$scope","$document",function(c,d){function e(){a(function(){f.top=d.scrollTop()<=62})}var f=this;d.on("scroll",e),this.messages=b.get(),this.close=b.remove,c.$watchCollection(b.get,function(a){f.messages=a}),c.$on("$destroy",function(){d.off("scroll",e)}),e()}]}}])}();;
+
+/* file-end: js/core/angular/messages.js 
+----------------------------------------------------------------------------------*/
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/core/angular/activity.js 
+*/
+
+!function(){"use strict";function a(a,b){function c(){return f}function d(a){f=a}function e(){b.cancel(g),d(!0),g=b(d.bind(this,!1),9e5)}var f,g;return e(),a.on("click touchstart touchend keydown mousemove mousewheel",LJ.Function.debounce(e,100,!0)),{isActive:c}}angular.module("LJ.Activity",[]),angular.module("LJ.Activity").factory("Activity",a),a.$inject=["$document","$timeout"]}();;
+
+/* file-end: js/core/angular/activity.js 
+----------------------------------------------------------------------------------*/
+
+angular.module("LJ.Api",["LJ.Messages","LJ.Activity"]).factory("Api",["$timeout","$cacheFactory","$rootScope","$q","Messages","Activity",function(a,b,c,d,e,f){"use strict";function g(a,b){return"undefined"==typeof b?a:a+JSON.stringify(h(b))}function h(a){if(!angular.isObject(a))return a;var b={};return Object.keys(a).sort().forEach(function(c){b[c]=h(a[c])}),b}function i(a,b){l.remove(g(a,b))}function j(b,h,i,j){var k,m,n=d.defer(),o={cache:!1,silent:!1,meta:!1},p=!1;return f.isActive()?(("object"!=typeof h||null===h)&&(h={}),"object"==typeof i&&(j=i,i=null),j=angular.extend(o,j||{}),m=g(b,h),j.cache&&(k=l.get(m),k&&(p=!0)),p||(k=n.promise,LJ.Api.call(b,h,function(b){a(function(){b.error?n.reject(b.error):n.resolve(b),c.$apply()},0)}),j.cache&&l.put(m,k)),LJ.Event.trigger("api:request:change",b,!0),k.then(function(){LJ.Event.trigger("api:request:change",b,!1)}),j.silent||k.then(function(a){var b=a.message;"undefined"!=typeof b&&(b.body=b.content,e.add(b))},function(a){"undefined"!=typeof a.message&&1!==a.code&&e.error({body:a.message})}),j.meta&&(k=k.then(function(a){return{response:a,fromCache:p}})),"function"==typeof i&&k.then(i),k):(n.reject(),n.promise)}var k={call:j,invalidate:i},l=b("LJApiPromises");return k}]);;
+
+/* file-end: js/core/angular/api.js 
+----------------------------------------------------------------------------------*/
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/core/angular/users.js 
+*/
+
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/core/angular/options.js 
+*/
+
+angular.module("LJ.Options",[]).factory("Options",[function(){return{create:function(a){function b(b,c){"undefined"==typeof c?angular.extend(a,b):a[b]=c}function c(b){return a[b]}function d(){return a}if("undefined"==typeof a&&(a={}),"object"!=typeof a)throw new TypeError("Options should be an object.");return{set:b,get:c,raw:d}}}}]);;
+
+/* file-end: js/core/angular/options.js 
+----------------------------------------------------------------------------------*/
+
+!function(){"use strict";angular.module("Users",["LJ.Api","LJ.Options"]).factory("Relations",["$q","$timeout","UsersCache",function(a,b,c){function d(d,e,f){var g=a.defer(),h={addFriend:{is_invite_sent:!0},removeFriend:{is_friend:!1},subscribe:{is_subscribedon:!0},unsubscribe:{is_subscribedon:!1},join:{is_invite_sent:!0},leave:{is_member:!1},setBan:{is_banned:!0},setUnban:{is_banned:!1}},i={addFriend:{is_invite_sent:!1},removeFriend:{is_friend:!0},subscribe:{is_subscribedon:!1},unsubscribe:{is_subscribedon:!0},join:{is_invite_sent:!1},leave:{is_member:!0},setBan:{is_banned:!1},setUnban:{is_banned:!0}},j=angular.copy(c.get(d)||{});return"undefined"==typeof f&&(f={}),f.wait||c.update(d,h[e]||{}),LJ.Event.trigger("relations.change",{username:d,action:e,callback:function(a){b(function(){if(a.error)return f.wait||c.update(d,angular.extend(i[e],j)),void g.reject(a.error.message);var b=LJ.Object.pick(a,"is_banned","is_friend","is_member","is_subscriber","is_subscribedon","is_friend_of","is_invite_sent");c.update(d,b),g.resolve(a)})}}),g.promise}function e(a,b,e){var f=d(a,b?"subscribe":"unsubscribe",e);return b||f.then(function(){c.update(a,{filtermask:0})}),f}function f(a,b,c){return d(a,b?"addFriend":"removeFriend",c)}function g(a,b,c){return d(a,b?"join":"leave",c)}function h(a,b,c){return d(a,b?"setBan":"setUnban",c)}function i(a,b,c){return d(a,b?"banEverywhere":"unbanEverywhere",c)}return{toggleFriend:f,toggleSubscription:e,toggleMember:g,toggleBan:h,toggleBanEverywhere:i}}]).factory("Mask",function(){function a(a){return a>>>0}var b={};return b.change=function(b,c){var d=c.add,e=c.remove;return"undefined"!=typeof d&&(Array.isArray(d)||(d=[d]),b=d.reduce(function(b,c){return a(b|Math.pow(2,c))},b)),"undefined"!=typeof e&&(Array.isArray(e)||(e=[e]),b=e.reduce(function(b,c){var d=Math.pow(2,32)-1-Math.pow(2,c);return a(b&d)},b)),b},b.check=function(a,b){var c=Math.pow(2,b);return Boolean(a&c)},b}).factory("UsersCache",["$q","$cacheFactory","Options",function(a,b,c){function d(a){if("undefined"!=typeof a){var b=j.get(k.get("journal"))||{},c=a;return Array.isArray(a)||(a=[a]),a.forEach(function(a){if(a&&"object"==typeof a&&"undefined"!=typeof a.username){var c=b[a.username];b[a.username]=c?angular.extend(c,a):a}}),j.put(k.get("journal"),b),c}}function e(a){var b=j.get(k.get("journal"));return Boolean(b[a])}function f(a){var b,c=typeof a;if("string"===c)return b=j.get(k.get("journal")),b&&b[a]?b[a]:null;if("function"===c)return g(a);if("undefined"===c)return g();throw new TypeError("Incorrect argument passed.")}function g(a){var b,c=j.get(k.get("journal")),d=[];for(b in c)if(c.hasOwnProperty(b)){if(a&&!a(c[b]))continue;d.push(c[b])}return d}function h(a,b){var c=f(a)||{username:a};return angular.extend(c,b),d(c),c}var i,j=b("users"),k=c.create({journal:LJ.get("remoteUser")});return i={add:d,update:h,set:k.set,get:f,exists:e}}]).factory("Users",["$q","$timeout","Api","Mask","UsersCache","Options",function(a,b,c,d,e,f){function g(a){return B[C.get("type")][a]}function h(a){return"subscriptions"===C.get("type")?Boolean(a.is_subscribedon):!0}function i(a,b){return"undefined"==typeof b?a[j()]||1:void(a[j()]=b)}function j(){return"subscriptions"===C.get("type")?"filtermask":"groupmask"}function k(a,b,d){return c.call("user.get",{target:a,fields:b},d).then(function(a){var b=a.user;return e.add(b),b})}function l(a,b){return c.call("relations.list_friends",{journal:C.get("journal"),fields:a},b).then(p("is_friend"))}function m(a){return c.call("groups.list_users",{journal:C.get("journal"),fields:a}).then(function(a){return e.add(a.users),a})}function n(a){return c.call("relations.list_subscriptions",{journal:C.get("journal"),fields:a}).then(p("is_subscribedon"))}function o(a){return c.call("relations.list_banned",{journal:C.get("journal"),fields:a}).then(p("is_banned"))}function p(a){return function(b){var c=b.users;return c.forEach(LJ.Function.set(a,!0)),e.add(c),c}}function q(a){return c.call("relations."+a+"_count").then(function(a){return a.count})}function r(b){return angular.isArray(b)||(b=[b]),0===b.length?a.reject("You should provide users to sync."):c.call(g("update"),{users:b,journal:C.get("journal")}).then(function(a){return e.add(a.users),a})}function s(a,b){var c=e.get(a);return c?d.check(i(c),b):!1}function t(a){return a.filter(e.exists).map(e.get).filter(h)}function u(a){var b=(a.filter||"").toLowerCase(),c=e.get(function(c){return h(c)&&d.check(i(c),a.id)?b&&-1===c.display_username.toLowerCase().indexOf(b)?!1:!0:!1});return a.limit&&(c=c.slice(0,a.limit)),c}function v(a){var b=(a.filter||"").toLowerCase(),c=e.get(function(c){return h(c)?d.check(i(c),a.id)?!1:b&&-1===c.display_username.toLowerCase().indexOf(b)?!1:!0:!1});return a.limit&&(c=c.slice(0,a.limit)),c}function w(a,b){Array.isArray(b)||(b=[b]);var c;return c="subscriptions"===C.get("type")?t(b):b.map(function(a){return e.get(a)||{username:a}}),c.forEach(function(b){i(b,d.change(i(b),{add:a}))}),r(c)}function x(a,b,c){Array.isArray(b)||(b=[b]);var e=t(b);return e.forEach(function(b){i(b,d.change(i(b),{remove:a}))}),c&&c.silent?void 0:r(e)}function y(a,b){return e.update(a,{alias:b}),c.call("user.alias_set",{target:a,alias:b})}function z(a){return function(b,c){return b[a].toLowerCase().localeCompare(c[a].toLowerCase())}}function A(){var a,b=C.get("journal");C.set.apply(null,arguments),a=C.get("journal"),a!==b&&e.set("journal",a)}var B={friends:{read:"relations.list_friends",readOne:"relations.get_friend",update:"groups.update_users"},subscriptions:{read:"relations.list_subscriptions",readOne:"relations.get_subscription",update:"filters.update_users"}},C=f.create({type:"friends",journal:LJ.get("remoteUser")});return{USERHEAD_FIELDS:{alias:1,journal_url:1,profile_url:1,userhead_url:1,is_invisible:1,journaltype:1},set:A,get:C.get,Cache:e,fetchUser:k,fetchBanned:o,fetchFriends:l,fetchGroupUsers:m,fetchSubscriptions:n,fetchCount:q,sync:r,alias:y,isUserInGroup:s,getExisting:t,fromGroup:u,outOfGroup:v,addToGroup:w,removeFromGroup:x,comparator:z}}])}();;
+
+/* file-end: js/core/angular/users.js 
+----------------------------------------------------------------------------------*/
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/core/angular/ljUser.js 
+*/
+
+
+
+Site.page.template['angular/ljUser.ng.tmpl'] = '<span\n    class=\"\n        ljuser\n        i-ljuser\n        i-ljuser-type-{{user.journaltype}}\n        \"\n    ng-class=\"{\n        \'i-ljuser-deleted\': user.is_invisible,\n        \'i-ljuser-nopopup noctxpopup\': user.noctxpopup,\n        \'i-ljuser-withalias\': user.alias,\n        \'i-ljuser-showalias\': user.showalias\n    }\"\n    data-ljuser=\"{{user.username}}\"\n    lj:user=\"{{user.username}}\"\n    ><!--\n\n    Userhead\n    --><a\n        class=\"i-ljuser-profile\"\n        ng-href=\"{{user.profile_url}}\"\n        ng-attr-target=\"{{user.target ? user.target : \'_self\'}}\"\n        ><!--\n        --><img\n            class=\"i-ljuser-userhead\"\n            ng-src=\"{{user.userhead_url}}\"\n            ><!--\n    --></a><!--\n\n    Username\n    --><a\n        class=\"i-ljuser-username\"\n        ng-href=\"{{user.journal_url}}\"\n        ng-attr-title=\"{{user.display_username || user.alias}}\"\n        ng-attr-target=\"{{user.target ? user.target : \'_self\'}}\"\n        ><b ng-bind=\"user.display_name || user.display_username\"></b></a><!--\n\n    Alias\n    --><span\n        class=\"i-ljuser-alias\"\n        ng-bind=\"user.alias\"\n        ></span><!--\n\n--></span>\n';
+!function(){"use strict";function a(a,b,c,d,e,f,g){function h(a){var b=c.defer(),d=g.Cache.get(a);return d&&d.userhead_url?(b.resolve(d),b.promise):g.fetchUser(a,g.USERHEAD_FIELDS,{cache:!0,silent:!0})}function i(b,d){var i=c.defer(),l=a.$new();return h(b).then(function(){var a;l.user=angular.extend({},g.Cache.get(b),d||{}),a=e(k)(l),f(function(){i.resolve(j.empty().append(a).html()),l.$destroy()})}),i.promise}var j=angular.element("<div />"),k=d.get("ljUser.ng.tmpl");return{prepare:h,get:i}}function b(a,b,c){return{templateUrl:"ljUser.ng.tmpl",replace:!0,scope:!0,compile:function(d,e){var f=a(e.ljUserDynamic),g=a(e.ljUserDynamicOptions);return function(a){var d=g(a);a.$watch(function(){return f(a)},function(e){var f=e;a.user=angular.extend({username:f,display_username:f},d||{}),c.prepare(f).then(function(){a.$watch(function(){return b.Cache.get(f)},function(b){angular.extend(a.user,b)},!0)})})}}}}angular.module("LJ.User",["LJ.Api","LJ.Templates","Users"]),angular.module("LJ.User").factory("ljUser",a).directive("ljUserDynamic",b),a.$inject=["$rootScope","Api","$q","$templateCache","$compile","$timeout","Users"],b.$inject=["$parse","Users","ljUser"]}();;
+
+/* file-end: js/core/angular/ljUser.js 
+----------------------------------------------------------------------------------*/
+
+!function(){"use strict";angular.module("LJLive",["LJ.Directives","LJ.RadioGroup","LJ.Api","LJ.User","Users"]).controller("LJLiveCtrl",["$scope","$timeout","$interval","radioGroup","Api","Users",function(a,b,c,d,e,f){function g(){o+=1,o>=a.items.length&&(o=0),j.on(a.items[o].post_id)}function h(a){window.parent!==window&&window.parent.postMessage(a,n||"*")}var i,j=d("active"),k=5e3,l=LiveJournal.parseGetArgs(),m={journalid:Number(l.journalid),entryditemid:Number(l.entryditemid)},n=l.origin,o=-1;a.active=j.reset().models(),a.items=LJ.get("items").filter(Boolean),f.Cache.add(a.items.map(LJ.Function.get("user"))),a.showRecommend=LJ.get("showRecommend"),a.isRecommended=LJ.get("isRecommended"),a.showBranding=angular.isDefined(l.branding),a.recommend=function(){e.call("discovery.recommend",m),a.isRecommended=!0},a.close=function(){h("ljlive close")},h("ljlive ready"),h(JSON.stringify({type:"track",label:LJ.get("remote")?"Site:LJTimes:Load_logged":"Site:LJTimes:Load_unlogged"})),0!==a.items.length&&(g(),i=c(g,k),a.$on("$destroy",function(){c.cancel(i)}))}])}();;
+
+/* file-end: js/ljlive/iframe.js 
+----------------------------------------------------------------------------------*/

@@ -1,0 +1,1 @@
+crtg_content = ''; (function(){document.cookie = 'usertag=' + escape(crtg_content) + '; path=/; expires=Wed, 24 Aug 2016 09:23:29 GMT; domain=rambler.ru';})();

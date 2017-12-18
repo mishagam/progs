@@ -1,0 +1,44 @@
+ToDo for AnimStory, started May 10 2013.
+
+1)(+) Make format to write and read story script file.
+2)(+) Make on menu bar frame counter and place for current replica.
+3)(-) hide system menu like Android sample advised.
+4)(+) Implement save
+5)(+) Implement back
+6)(+) Implement forward
+7)(+) Implement play 
+8) Implement selecting additional suits
+9)(+) Implement suit menu button
+10)(+) Implement selecting figure suits
+11) Implement turtle context menu after long pressing selected turtle. 
+12) Implement showing list of available scripts
+13)(+) Visibly Show currently selected turtle
+14)(+) Make all images png with transparency
+15)(+) Make several images screens with ability to choose them
+16)(+-) Add not stick Art
+17)(+) implement adding clothes to current figure. 
+18)(+) Implement selecting many images for selected turtle
+19)(+) Implement switching turtle images for walking, running ...
+20)(+) Fix problem with recording sound one time only
+21)(+) test with AudioRecording and wav sound
+22)(+) Debug insert and remove cadres
+23) Implementing compressions of complete project with sounds and pictures
+24) Implement playing complete project
+25) Implement uploading complete project to website
+26) implement loading and playing complete project
+27) Add more pictures
+27a) Add more moving pictures
+28) Add basic editing of images (????)
+29) Save project to disk and check that it is written there
+30) Read list of existing projects from disk
+31) ability to read selected project
+32) make sure that projects saves/reads correctly
+33) Implement vector stick editor + rotation 180 degrees
+34) add correct saving / reading of images and sounds (+ compression)
+35)(+) Increase size of replica in the bottom
+36)(+) allow to change story name
+37)(+) Show new story name dialog like replica dialog
+38) Show at start current story
+39) rename settings menu
+40) show at menu choices including pentamino and select story (where we will have new story)
+ 

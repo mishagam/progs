@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="126cm" height="85cm" viewBox="-145 -527 2514 1681" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <line style="fill: none; fill-opacity:0; stroke-width: 120; stroke: #000000" x1="168" y1="479" x2="1097" y2="482"/>
+  <g>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 6; stroke: #000000" cx="1485.48" cy="465.992" rx="217.017" ry="212.508"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1485.48" y="469.892">
+      <tspan x="1485.48" y="469.892"></tspan>
+    </text>
+  </g>
+  <path style="fill: none; fill-opacity:0; stroke-width: 104; stroke: #000000" d="M 905.095 1093.27 C 1571.76,1113.04 2328.82,1029.14 2317.52,290.036 C 2306.23,-449.07 2196.06,-408.711 1862.72,-417.186 C 1529.39,-425.66 1730.5,-144.449 1434.5,-92.4492 C 1138.5,-40.4492 1297.75,-436.96 1118.5,-464.449 C 939.249,-491.938 591.536,-456.734 334.5,-456.449 C 77.4638,-456.164 -130.43,20.7253 -86.4299,504.725 C -42.4299,988.725 241.819,1132.09 941.819,1096.09"/>
+</svg>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+  <description>
+    <title-info>
+      <author>
+        <first-name>Misha</first-name>
+        <middle-name/>
+        <last-name/>
+      </author>
+      <book-title>Graphical Wingets Linux</book-title>
+      <annotation>
+        <p>Test fb2 doc about possible graphical engines on Linux</p>
+      </annotation>
+    </title-info>
+    <document-info>
+      <program-used>fb2edit 0.0.8</program-used>
+      <date value="2015-07-23 15:40:23">23 Jul 2015</date>
+    </document-info>
+  </description>
+  <body>
+    <title>
+      <p>Linux GUI Frameworks</p>
+    </title>
+    <section>
+      <title>
+        <p>preface</p>
+      </title>
+      <p>Я к сожалению не умею делать графические программы на линукс, кроме web интерфейса или Java. Кроме того, моя программа boxai на питоне вроде когда то успешно работала под линукс. Ниже несколько вариантов GUI kits</p>
+    </section>
+    <section>
+      <title><p>Qt</p></title>
+      <p>Qt - GUI framework, written on C++, ported to python,... Used in KDE. I hasn't written anything on it yet.</p>
+    </section>
+    <section>
+      <title>
+      <p>GTK++</p></title>
+      <p>FRamework used in Gnome. I hasn't written anything on it yet.</p>
+    </section>
+    <section>
+      <title><p>Tk</p></title>
+      <p>Tcl/Tk framework. Has ports to python (tkinter), and so on. I wrote on tkinter blockai in python.</p>
+    </section>
+    <section>
+      <title><p>wxWidgets</p></title>
+      <p>Former wxWindows. works on most OSes, ported to many languages. I didn't use it.</p>
+    </section>
+    <section>
+      <title><p>Java frameworks</p></title>
+      <p>Java has separate AWT, Swing (I used it actively), SWT</p>
+    </section>
+    <section>
+      <title><p>Windows API</p></title>
+      <p>You cant use MFC, Delphi VLC, WinForms(C#) - I used most of it rather extensively</p>
+    </section>
+  </body>
+</FictionBook>

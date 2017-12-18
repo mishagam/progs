@@ -1,0 +1,99 @@
+<html>
+<head>
+<title> canvas test </title>
+<script src = 'js/jquery-1.6.1.min.js' type = 'text/javascript'></script>
+<script language="JavScript" type="text/javascript">
+
+$(document).ready(function() {
+    drawCanvas1();
+});
+
+var lWid = 0;
+var pnts = new Array();
+
+function drawCanvas1() {
+    var bc = document.getElementById("canvas1");
+    var ctx = bc.getContext("2d");
+    var n = 8;
+    var sx = 15;
+    var sy = 10;
+    //myStage = new Kinetic.Stage(bc);
+    var idx = 1;
+    for (var i=0; i<2*n-1; i++) {
+        var jmax = Math.min(n+i, 3*n-2-i);
+        $('<p>jmax=' + jmax + '</p>').insertBefore("#rce");
+        for (var j=0; j<jmax; j++) {
+            if ((i==0 || i==2*n-2 || i==n-1) && 
+                (j==0 || j==jmax-1)) {
+                continue;
+            }
+            var x0 = 2+sx*1.1*(2*j + 2*n-1-jmax);
+            var y0 = 5+sy*3.15*i;
+            ctx.fillStyle = "#0f0";
+            var p = false;
+            if ((i+j) % 5 == 0 && i%3==1) {
+                var p = {};
+                p.x = x0+15;
+                p.y = y0+21;
+                ctx.fillStyle = "#0ff";
+                pnts.push(p);
+            }
+            ctx.beginPath();
+            ctx.moveTo(x0, y0+sy);
+            ctx.lineTo(x0+sx, y0);
+            ctx.lineTo(x0+2*sx, y0+sy);
+            ctx.lineTo(x0+2*sx, y0+3*sy);
+            ctx.lineTo(x0+sx, y0+4*sy);
+            ctx.lineTo(x0, y0+3*sy);
+            ctx.lineTo(x0, y0+sy);                
+
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = "#f00";
+            ctx.closePath();
+            ctx.stroke();
+            ctx.fillStyle = "black";
+            ctx.fillText("" + idx++, x0+8, y0+21);
+            if (p) {
+                ctx.fillStyle = "#077";
+                ctx.fillRect (p.x-3, p.y-3, 5,5);1
+            }
+        }
+    }
+}
+
+function canvasClick(e) {
+    // drawCanvas1();
+    if (!e) e = window.event;
+    var di = document.getElementById("canvas1");1
+    var pos_x = e.pageX  - di.offsetLeft;
+    var pos_y = e.pageY  - di.offsetTop;
+
+    for (var i=0; i<pnts.length; i++) {
+        p = pnts[i];
+        var dx = pos_x - p.x;
+        var dy = pos_y - p.y;
+        if (dx*dx + dy*dy < 1024) {
+            alert("We have click");
+            var msg = "<p>mouse x y = " + pos_x + " " + pos_y + "</p>";
+            $(msg).insertBefore("#rce");
+        }
+    }
+}
+</script>  
+    <style type="text/css">
+      canvas { border: 2px solid red; }
+    </style>
+</head>
+<body>
+<h1> Test HTML 5 Canvas </h1>
+<div id=canvdiv style="float:left; width:560">
+<canvas id="canvas1" width="650" height="550"    onclick="canvasClick(event)" >
+</canvas>
+</div>
+
+<div id=rc style="float:right">
+<p id=rce> ... </p>
+</div>
+</body>
+</html>

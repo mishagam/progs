@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7" lang="en" dir="ltr"><![endif]-->
+<!--[if IE 7]><html class="lt-ie9 lt-ie8" lang="en" dir="ltr"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" dir="ltr" prefix="fb: http://ogp.me/ns/fb# content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#"><!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<meta property="og:country-name" content="United States of America" />
+<meta property="og:postal-code" content="94607" />
+<meta property="og:email" content="us@becausewecan.org" />
+<meta property="og:phone_number" content="510-922-8846" />
+<link rel="shortcut icon" href="http://becausewecan.org/sites/default/files/ROBOT_squareicon_1.ico" type="image/vnd.microsoft.icon" />
+<meta property="og:site_name" content="Because We Can" />
+<meta property="og:locality" content="Oakland" />
+<meta property="og:region" content="California" />
+<meta property="og:street-address" content="2500 Kirkham Street" />
+<link rel="canonical" href="/node/65" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+<meta property="og:title" content="Follow-up to X11-over-SSH post, X11DisplayOffset explained!" />
+<link rel="shortlink" href="/node/65" />
+<meta property="og:url" content="http://becausewecan.org/node/65" />
+<meta property="og:image" content="http://www.becausewecan.org/newsite/files/BWClogo2_0.png" />
+<meta property="og:description" content="OK, so a friend (one of the two people who read this Blog) explained to me more about the whole X11-over-SSH voodoo, and I thought I&#039;d post it here as a follow up. I&#039;m very proud to present that infor" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>Follow-up to X11-over-SSH post, X11DisplayOffset explained! | Because We Can</title>
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_xE-rWrJf-fncB6ztZfd2huxqgxu4WO-qwma6Xer30m4.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_ZttFpU2ztEjURu041KQlHlneooB7JHKskk4CITjKZuc.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_vS3OCAb5U9vsAf7KFgX3QJRBj-0Jjceaov74M6LFtvU.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_lU8iLwYwjJJhkcfRmYbLWxohrpNBn07o02vhTHVbcgw.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_0WGtVpggSzfSy7_Gf9jaP8dzzMm6JBXQ5az-bT9GsmU.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_5TxylIDFcnpmO5ucPRfXTdJiyW00MUBYhBuo7SANpds.css" media="print" />
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_JeB2WL0QokGeYcZ-OcVAa3JIceOGN9vse1WNDVDUoWM.css" media="only screen" />
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_13c79LBQ6HRVlisncUUkY894CU_0rVGjGmQjy1oo-q0.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_QgkazcG_RqB5Qzs1Ax0kFxHBgaMZTo74w8uIYa0qDhI.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_Oo5b3XxkbxIvVzXS1YjvInxq7djyrveje6HR2cmLrlY.css" media="only screen" />
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_qGgvKx-sPuFbWJQyj-uWWLYp6eZt6aYZReDSPFYz0ts.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web" media="all" />
+
+<!--[if lt IE 9]>
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/default/files/css/css_nG9T673Ms0C7pWvzNWFPC8SkXHGSL8Bb34O1ZPkPR7s.css" media="screen" />
+<![endif]-->
+
+<!--[if lte IE 7]>
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/all/themes/at_headliner/css/ie/ie-lte-7.css?nzadjc" media="all" />
+<![endif]-->
+
+<!--[if lte IE 8]>
+<link type="text/css" rel="stylesheet" href="http://becausewecan.org/sites/all/themes/at_headliner/css/ie/ie-lte-8.css?nzadjc" media="all" />
+<![endif]-->
+<script src="http://becausewecan.org/sites/default/files/js/js_UWQINlriydSoeSiGQxToOUdv493zEa7dpsXC1OtYlZU.js"></script>
+<script src="http://becausewecan.org/sites/default/files/js/js_nT-3TqmhkiIn30tHICx1inWtvQizOLtaBPI9cbRYVJE.js"></script>
+<script src="//platform.twitter.com/widgets.js"></script>
+<script src="//apis.google.com/js/plusone.js"></script>
+<script src="//platform.linkedin.com/in.js"></script>
+<script src="http://becausewecan.org/sites/default/files/js/js_56bB9nd-jW49IWhm1pYn9r-6EuQLP6mSNYVO5S_fkxA.js"></script>
+<script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create", "UA-2783446-1", {"cookieDomain":"auto"});ga("set", "anonymizeIp", true);ga("send", "pageview");</script>
+<script src="http://becausewecan.org/sites/default/files/js/js_7nbfzvz9w1PnxwGHHxuNfU_4HAMuH9UT_fciKRVaL5Y.js"></script>
+<script src="http://becausewecan.org/sites/default/files/js/js_O6k7T-lOSpr-GChUfOQ_p5q8WLwaifNS2Y14UANXU8M.js"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"at_headliner","theme_token":"CYznbwAmotlKpL2lr7DjMHHQ_a_4HjUL4dLD55S9KuM","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"misc\/jquery.cookie.js":1,"misc\/jquery.form.js":1,"misc\/ajax.js":1,"\/\/platform.twitter.com\/widgets.js":1,"\/\/apis.google.com\/js\/plusone.js":1,"\/\/platform.linkedin.com\/in.js":1,"sites\/all\/modules\/views\/js\/base.js":1,"misc\/progress.js":1,"sites\/all\/modules\/views\/js\/ajax_view.js":1,"sites\/all\/modules\/google_analytics\/googleanalytics.js":1,"0":1,"sites\/all\/themes\/at_headliner\/js\/eq.js":1,"sites\/all\/themes\/at_headliner\/js\/eq-gp.js":1,"sites\/all\/themes\/adaptivetheme\/at_core\/scripts\/scalefix.js":1,"sites\/all\/themes\/adaptivetheme\/at_core\/scripts\/outside-events.js":1,"sites\/all\/themes\/adaptivetheme\/at_core\/scripts\/menu-toggle.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"sites\/all\/modules\/simplenews\/simplenews.css":1,"modules\/book\/book.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/easy_social\/css\/easy_social.css":1,"sites\/all\/themes\/adaptivetheme\/at_core\/css\/at.settings.style.headings.css":1,"sites\/all\/themes\/adaptivetheme\/at_core\/css\/at.settings.style.image.css":1,"sites\/all\/themes\/adaptivetheme\/at_core\/css\/at.settings.style.floatblocks.css":1,"sites\/all\/themes\/adaptivetheme\/at_core\/css\/at.layout.css":1,"sites\/all\/themes\/at_headliner\/css\/html-elements.css":1,"sites\/all\/themes\/at_headliner\/css\/forms.css":1,"sites\/all\/themes\/at_headliner\/css\/tables.css":1,"sites\/all\/themes\/at_headliner\/css\/page.css":1,"sites\/all\/themes\/at_headliner\/css\/articles.css":1,"sites\/all\/themes\/at_headliner\/css\/comments.css":1,"sites\/all\/themes\/at_headliner\/css\/fields.css":1,"sites\/all\/themes\/at_headliner\/css\/blocks.css":1,"sites\/all\/themes\/at_headliner\/css\/navigation.css":1,"sites\/all\/themes\/at_headliner\/css\/theme-settings-styles.css":1,"sites\/all\/themes\/at_headliner\/color\/colors.css":1,"sites\/all\/themes\/at_headliner\/css\/print.css":1,"public:\/\/adaptivetheme\/at_headliner_files\/at_headliner.responsive.layout.css":1,"public:\/\/adaptivetheme\/at_headliner_files\/at_headliner.fonts.css":1,"public:\/\/adaptivetheme\/at_headliner_files\/at_headliner.menutoggle.css":1,"public:\/\/adaptivetheme\/at_headliner_files\/at_headliner.responsive.styles.css":1,"public:\/\/adaptivetheme\/at_headliner_files\/at_headliner.custom.css":1,"\/\/fonts.googleapis.com\/css?family=Titillium+Web":1,"public:\/\/adaptivetheme\/at_headliner_files\/at_headliner.lt-ie9.layout.css":1,"sites\/all\/themes\/at_headliner\/css\/ie\/ie-lte-7.css":1,"sites\/all\/themes\/at_headliner\/css\/ie\/ie-lte-8.css":1}},"jcarousel":{"ajaxPath":"\/jcarousel\/ajax\/views"},"urlIsAjaxTrusted":{"\/node\/65":true,"\/search\/node":true},"views":{"ajax_path":"\/views\/ajax","ajaxViews":{"views_dom_id:55bc08c9228f86e28db6197235f6e1d8":{"view_name":"recentprojects","view_display_id":"block_1","view_args":"","view_path":"node\/65","view_base_path":"recentprojects","view_dom_id":"55bc08c9228f86e28db6197235f6e1d8","pager_element":0},"views_dom_id:c3b6829c7b3e5efa2e92dfcda5f7109c":{"view_name":"RecentBlogPosts","view_display_id":"block_1","view_args":"","view_path":"node\/65","view_base_path":null,"view_dom_id":"c3b6829c7b3e5efa2e92dfcda5f7109c","pager_element":0}}},"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"adaptivetheme":{"at_headliner":{"layout_settings":{"bigscreen":"three-col-grail","tablet_landscape":"two-sidebars-right-stack","tablet_portrait":"one-col-vert","smalltouch_landscape":"one-col-stack"},"media_query_settings":{"bigscreen":"only screen and (min-width:1025px)","tablet_landscape":"only screen and (min-width:769px) and (max-width:1024px)","tablet_portrait":"only screen and (min-width:481px) and (max-width:768px)","smalltouch_landscape":"only screen and (min-width:321px) and (max-width:480px)","smalltouch_portrait":"only screen and (max-width:320px)"},"menu_toggle_settings":{"menu_toggle_tablet_portrait":"false","menu_toggle_tablet_landscape":"false"}}}});</script>
+<!--[if lt IE 9]>
+<script src="http://becausewecan.org/sites/all/themes/adaptivetheme/at_core/scripts/html5.js?nzadjc"></script>
+<![endif]-->
+</head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-65 node-type-blog site-name-hidden atr-7.x-3.x atv-7.x-3.3 lang-en site-name-because-we-can section-node color-scheme-custom at-headliner">
+  <div id="skip-link" class="nocontent">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+    <div id="page-wrapper">
+	<div id="page" class="page ssc-n ssw-n ssa-l sss-n btc-sc btw-b bta-l bts-l ntc-sc ntw-b nta-l nts-l ctc-n ctw-b cta-l cts-n ptc-sc ptw-b pta-l pts-l at-mt webkit chrome linux bb-h hl-l mb-ah">
+
+		
+		<div class="menu-top-border-bottom"></div>
+
+		<div id="header-wrapper">
+			<div class="container clearfix">
+			  <header class="clearfix" role="banner">
+
+											<!-- start: Branding -->
+						<div id="branding" class="branding-elements clearfix">
+
+							
+															<!-- start: Site name and Slogan .h-group -->
+								<div id="name-and-slogan"  class="element-invisible h-group" id="name-and-slogan">
+
+																			<h1 id="site-name"  class="element-invisible" id="site-name"><a href="/" title="Home page">Because We Can</a></h1>
+									
+									
+								</div><!-- /end #name-and-slogan -->
+							
+						</div><!-- /end #branding -->
+					
+					
+			  </header>
+		  </div>
+		</div>
+
+		<div class="content-area-gradiant-top"></div>
+
+					<div id="nav-wrapper">
+				<div class="container clearfix">
+				  <div class="menu-box">
+													<div id="menu-bar" class="nav clearfix"><nav id="block-menu-block-1" class="block block-menu-block menu-wrapper menu-bar-wrapper clearfix at-menu-toggle odd first last block-count-1 block-region-menu-bar block-1"  role="navigation">  
+      <h2 class="element-invisible block-title">BecauseWeCan - Menu</h2>
+  
+  
+  <ul class="menu clearfix"><li class="first leaf menu-mlid-4358 menu-depth-1 menu-item-4358"><a href="/" title="Home">Because We Can</a></li><li class="leaf has-children menu-mlid-3117 menu-depth-1 menu-item-3117"><a href="/About" title="Who we are and what we can do for you.">About</a></li><li class="leaf has-children menu-mlid-578 menu-depth-1 menu-item-578"><a href="/projects" title="Past projects we&#039;re proud to show.">Portfolio</a></li><li class="leaf menu-mlid-360 menu-depth-1 menu-item-360"><a href="/blog" title="News, big thoughts, press, and event announcements.">Blog</a></li><li class="last leaf menu-mlid-2156 menu-depth-1 menu-item-2156"><a href="/contact" title="Contact us! We love to talk with people.">Hire Us</a></li></ul>
+
+  </nav></div>																  </div>
+			  </div>
+			</div>
+		
+		
+		<!-- Two column 66-33 -->
+		
+		<!-- Two column 2x50 -->
+		
+		
+		<div id="content-wrapper">
+			<div class="container">
+			  <div id="columns">
+					<div class="columns-inner clearfix">
+				    <div id="content-column">
+							<div class="content-inner">
+
+								
+								<section id="main-content" role="main">
+									<div class="inner">
+
+																					<div id="breadcrumb-wrapper" class="clearfix">
+												<nav class="breadcrumb" role="navigation"><div id="breadcrumb" class="clearfix"><nav class="breadcrumb-wrapper clearfix" role="navigation" aria-labelledby="breadcrumb-label"><h2 id="breadcrumb-label" class="element-invisible">You are here</h2><ol id="crumbs" class="clearfix"><li class="crumb crumb-first"><span typeof="v:Breadcrumb"><a rel="v:url"  property="v:title"  href="/blog">Blogs</a></span></li><li class="crumb crumb-last"><span class="crumb-separator"> &#187; </span><span typeof="v:Breadcrumb"><a rel="v:url"  property="v:title"  href="/blogs/jeffrey-mcgrew">Jeffrey McGrew&#039;s blog</a></span></li></ol></nav></div></nav>
+											</div>
+										
+																					<header class="clearfix">
+																																					<h1 id="page-title">Follow-up to X11-over-SSH post, X11DisplayOffset explained!</h1>
+																								
+																							</header>
+										
+										<div id="content">
+											<div id="block-system-main" class="block block-system no-title odd first last block-count-2 block-region-content block-main" >  
+  
+  <article id="article-65" class="node node-blog node-promoted article odd node-full ia-l clearfix" about="/node/65" typeof="sioc:Post sioct:BlogPost" role="article">
+  <div class="article-inner">
+
+    
+    
+    
+          <footer class="submitted">
+        <span property="dc:date dc:created" content="2005-10-17T10:19:52-06:00" datatype="xsd:dateTime" rel="sioc:has_creator">By <span class="username" xml:lang="" about="/users/jeffrey-mcgrew" typeof="sioc:UserAccount" property="foaf:name" datatype="" rel="author">Jeffrey McGrew</span> on <time datetime="2005-10-17T10:19:52-0600" pubdate="pubdate">Mon, 10/17/2005 - 10:19am</time></span>      </footer>
+    
+    <div class="node-content">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden view-mode-full view-mode-full"><div class="field-items"><div class="field-item even" property="content:encoded">OK, so a friend (one of the two people who read this Blog) explained to me more about the whole X11-over-SSH voodoo, and I thought I'd post it here as a follow up. I'm very proud to present that information to the other reader of my Blog, who probably knows it already:<br />
+So says my friend SPACEMONKEY:<br />
+Hey, I really liked that description of doing the blender  remote stuff (at <a class="moz-txt-link-freetext" href="../../../node/23">http://www.becausewecan.org/node/23</a> ); in the whole 'spirit-of-blogging' thing, I might could shed some light on the X11DisplayOffset thing: Hope you've got some coffee... <br />
+In X, you're not limited to having a single remote host fooling around on your desktop (or vice versa). If you wanted to play with two, three, or (even) four other machines, all opening up windows on your laptop, X11 does this by having all those machines open sockets up to the Xserver running on your desktop (which the Xclient finds, typically, by a environment variable called DISPLAY). 'k? <br />
+Note this is a different model than, say, telnet or ssh; with those, you connect to the server and the server starts talking to you. With X, you run a program on the server and it connects back (opens up sockets) to your client. <br />
+Back in the golden days when no one cared about security (ie, when X11 was developed) that was swell. But, when you introduce ssh, it needs to be able to hijack (tunnel) all the socket data between two machines so it can be encrypted before going over the wire (otherwise it's just a quick packet sniff away from the cover of the NY Times). <br />
+Okay, back at the server side, you run a fancy program to look at pictures of puppies. The fancy program tries to open up a window, the local X instance creates a socket (just like normal)... but it can't talk directly to your laptop, as you're running ssh. But, ssh doesn't <b class="moz-txt-star"><span class="moz-txt-tag">*</span>know<span class="moz-txt-tag">*</span></b> you're running an X11 program and there's no way for it to (cleanly) know about programs you're running that talk to your laptop, so it can't intercept the socket calls it needs to tunnel the traffic back. And, furthermore, you could ssh into one machine, telnet from that machine to <b class="moz-txt-star"><span class="moz-txt-tag">*</span>another<span class="moz-txt-tag">*</span></b> machine, and run a program on that third machine which opens a window back to your laptop (all through the magic of X). <br />
+As a clever hack, what ssh does is open up a range of <b class="moz-txt-star"><span class="moz-txt-tag">*</span>potential<span class="moz-txt-tag">*</span></b> sockets on the server machine (when you enable X11Forwarding) and waits for any program to connect any of these sockets, effectively pretending these sockets are the Xserver on your laptop. When some program (presumably the puppy program) connects to these ports, ssh intercepts the X11 data sent (to open windows, draw pictures of puppies, etc) over these fake sockets and tunnels them over an encrypted socket to the ssh on your laptop, and asks the local ssh to open up sockets to your local laptop's Xserver and pass on the commands the server program sent (and you see puppies!).. <br />
+The range of sockets the ssh server opens on the remote side starts at... wait for it.... 6000 + X11DisplayOffset. <br />
+Now, how is this useful? If you wanted to have <b class="moz-txt-star"><span class="moz-txt-tag">*</span>more<span class="moz-txt-tag">*</span></b> than one X11 connection from your laptop to a given server or if there a lot of other people running X clients off your server, you could avoid getting windows destined for your client popping up on other people's machines by setting X11DisplayOffset to a different value. Or, if you were a paranoid type, you could change <b class="moz-txt-star"><span class="moz-txt-tag">*</span>your<span class="moz-txt-tag">*</span></b> X11DisplayOffset setting on the server you're using to a different value than the default of '10', which makes it less easy for crackers to get into your machine. <br />
+man, I need coffee now...<br /></div></div></div><div class="field field-name-taxonomy-vocabulary-4 field-type-taxonomy-term-reference field-label-hidden view-mode-full view-mode-full"><ul class="field-items"><li class="field-item even"><a href="/taxonomy/term/16" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">Blender</a></li></ul></div><div class="easy_social_box clearfix vertical easy_social_lang_und">
+            <div class="easy_social-widget easy_social-widget-twitter first"><a href="http://twitter.com/share" class="twitter-share-button"
+data-url="http://becausewecan.org/node/65"
+data-count="vertical"
+data-lang = "en"
+data-via="becausewecan"
+data-related="becausewecan:Check it out!"
+data-text="Follow-up to X11-over-SSH post, X11DisplayOffset explained!">Tweet</a></div>
+          <div class="easy_social-widget easy_social-widget-facebook"><iframe src="//www.facebook.com/plugins/like.php?locale=en_US&amp;href=http%3A//becausewecan.org/node/65&amp;send=false&amp;layout=box_count&amp;width=48&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=&amp;height=90&amp;appId=" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:48px; height:90px;" allowTransparency="true"></iframe></div>
+          <div class="easy_social-widget easy_social-widget-googleplus"><div class="g-plusone" data-size="tall" data-annotation="bubble" data-href="http://becausewecan.org/node/65"></div></div>
+          <div class="easy_social-widget easy_social-widget-linkedin last"><script type="in/share" data-url="http://becausewecan.org/node/65" data-counter="top"></script></div>
+  </div> <!-- /.easy_social_box -->    </div>
+
+          <nav class="clearfix"><ul class="links inline"><li class="blog_usernames_blog first last"><a href="/blogs/jeffrey-mcgrew" title="Read Jeffrey McGrew&#039;s latest blog entries.">Jeffrey McGrew&#039;s blog</a></li></ul></nav>
+    
+    
+  </div>
+</article>
+
+  </div>										</div>
+
+									</div>
+								</section>
+
+				      </div>
+				    </div>
+
+				    				    
+			    </div>
+				</div>
+		  </div>
+		</div>
+
+		<!-- Four column Gpanel -->
+		
+		
+		<!-- Three column 3x33 Gpanel -->
+					<div class="footer-panels-border-top"></div>
+			<div id="footer-panels-wrapper">
+				<div class="container clearfix">
+				  <div class="at-panel gpanel panel-display three-3x33 clearfix">
+												<div class="region region-three-33-first"><div class="region-inner clearfix"><section id="block-simplenews-339" class="block block-simplenews odd first last block-count-3 block-region-three-33-first block-339" ><div class="block-inner clearfix">  
+      <h2 class="block-title">Because We Can newsletter</h2>
+  
+  <div class="block-content content">      <p>Sign up for open house invites &amp; more</p>
+  
+      <form class="simplenews-subscribe" action="/node/65" method="post" id="simplenews-block-form-339" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-mail">
+  <label for="edit-mail">E-mail <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-mail" name="mail" value="" size="20" maxlength="128" class="form-text required" />
+</div>
+<input type="submit" id="edit-submit" name="op" value="Subscribe" class="form-submit" /><input type="hidden" name="form_build_id" value="form-G7WngUHqH05CpdVeOjOc5BVPV9j9-CmbqWV63Lns7vw" />
+<input type="hidden" name="form_id" value="simplenews_block_form_339" />
+</div></form>  
+  
+      <div class="issues-list"><div class="item-list"><h3>Previous issues</h3><ul><li class="odd"><a href="/content/fall-2015-bwc-open-house-friday-oct-2nd">Fall 2015 BWC Open House, This Friday Oct. 2nd</a></li><li class="even"><a href="/content/2015-bwc-open-house-friday-february-6th">2015 BWC OPEN HOUSE, THIS FRIDAY FEBRUARY 6TH!</a></li><li class="odd"><a href="/content/bwc-meetup-interval-thursday-18th-starting-7">BWC Meetup at The Interval - this Thursday the 18th, starting at 7</a></li><li class="even"><a href="/content/fall-2013-bwc-open-house-friday-november-22nd">Fall 2013 BWC Open House, this Friday November 22nd!</a></li><li class="odd"><a href="/content/summer-2013-bwc-open-house-first-friday-august-2nd-0">Summer 2013 BWC Open House, this first Friday August 2nd!</a></li></ul></div></div>
+  
+      <a href="/taxonomy/term/339/feed" class="feed-icon" title="Subscribe to Because We Can newsletter feed"><img typeof="foaf:Image" class="image-style-none" src="http://becausewecan.org/sites/all/themes/at_headliner/rss.png" alt="Subscribe to Because We Can newsletter feed" /></a>  </div>
+  </div></section></div></div>						<div class="region region-three-33-second"><div class="region-inner clearfix"><section id="block-views-recentprojects-block-1" class="block block-views odd first last block-count-4 block-region-three-33-second block-recentprojects-block-1" ><div class="block-inner clearfix">  
+      <h2 class="block-title">Latest Completed Projects</h2>
+  
+  <div class="block-content content"><div class="view view-recentprojects view-id-recentprojects view-display-id-block_1 view-dom-id-55bc08c9228f86e28db6197235f6e1d8">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/fort-point-remodel">Financial Office Remodel</a></span>  </div>  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/dolby-art-walls">Dolby Art Walls</a></span>  </div>  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/shipping-container-lounge">Shipping Container Lounge</a></span>  </div>  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/shyp-kiosks-0">Shyp Kiosks</a></span>  </div>  </div>
+  <div class="views-row views-row-5 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/interval-long-now">The Interval at the Long Now</a></span>  </div>  </div>
+  <div class="views-row views-row-6 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/asbury-discovery-center">Asbury Discovery Center</a></span>  </div>  </div>
+  <div class="views-row views-row-7 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/FunSomaFlat">Fun Soma Flat</a></span>  </div>  </div>
+  <div class="views-row views-row-8 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/Office_interior_with_custom_desks">Steampunk Office Interior Design and Fabrication</a></span>  </div>  </div>
+  <div class="views-row views-row-9 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/1st-playable-office">Ship Themed Office Space</a></span>  </div>  </div>
+  <div class="views-row views-row-10 views-row-even views-row-last">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/oakland-girls-school">Oakland Girls School</a></span>  </div>  </div>
+    </div>
+  
+      <h2 class="element-invisible">Pages</h2><div class="item-list item-list-pager"><ul class="pager"><li class="pager-current even first">1</li><li class="pager-item odd"><a title="Go to page 2" href="/node/65?page=1">2</a></li><li class="pager-item even"><a title="Go to page 3" href="/node/65?page=2">3</a></li><li class="pager-item odd"><a title="Go to page 4" href="/node/65?page=3">4</a></li><li class="pager-item even"><a title="Go to page 5" href="/node/65?page=4">5</a></li><li class="pager-item odd"><a title="Go to page 6" href="/node/65?page=5">6</a></li><li class="pager-item even"><a title="Go to page 7" href="/node/65?page=6">7</a></li><li class="pager-next odd"><a title="Go to next page" href="/node/65?page=1">next ›</a></li><li class="pager-last even last"><a title="Go to last page" href="/node/65?page=6">last »</a></li></ul></div>  
+  
+  
+  
+  
+</div></div>
+  </div></section></div></div>						<div class="region region-three-33-third"><div class="region-inner clearfix"><section id="block-views-recentblogposts-block-1" class="block block-views odd first last block-count-5 block-region-three-33-third block-recentblogposts-block-1" ><div class="block-inner clearfix">  
+      <h2 class="block-title">Recent Blog Posts</h2>
+  
+  <div class="block-content content"><div class="view view-RecentBlogPosts view-id-RecentBlogPosts view-display-id-block_1 view-dom-id-c3b6829c7b3e5efa2e92dfcda5f7109c">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/choreography-space-or-how-make-your-interior-design-have-great-experience">The Choreography of Space, or how to make your interior design have a great experience.</a></span>  </div>  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/dynamo-benches-autodesk-university">Dynamo Benches at Autodesk University</a></span>  </div>  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/november-2015-make-magazine">November 2015 Make Magazine</a></span>  </div>  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/east-bay-mini-makerfaire-sunday">East Bay Mini MakerFaire - This Sunday!</a></span>  </div>  </div>
+  <div class="views-row views-row-5 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/newco-event-bwc-thursday">NewCo Event at BWC this Thursday</a></span>  </div>  </div>
+  <div class="views-row views-row-6 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/new-dolby-headquarters">New Dolby Headquarters</a></span>  </div>  </div>
+  <div class="views-row views-row-7 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/fall-2015-bwc-open-house-friday">Fall 2015 BWC Open House This Friday</a></span>  </div>  </div>
+  <div class="views-row views-row-8 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/know-wall-video">Knob Wall Video</a></span>  </div>  </div>
+  <div class="views-row views-row-9 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/come-visit-us-newco-oakland">Come visit us at NewCo Oakland!</a></span>  </div>  </div>
+  <div class="views-row views-row-10 views-row-even views-row-last">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/content/it-all-comes-together">It All Comes Together</a></span>  </div>  </div>
+    </div>
+  
+      <h2 class="element-invisible">Pages</h2><div class="item-list item-list-pager"><ul class="pager"><li class="pager-current even first">1</li><li class="pager-item odd"><a title="Go to page 2" href="/node/65?page=1">2</a></li><li class="pager-item even"><a title="Go to page 3" href="/node/65?page=2">3</a></li><li class="pager-item odd"><a title="Go to page 4" href="/node/65?page=3">4</a></li><li class="pager-item even"><a title="Go to page 5" href="/node/65?page=4">5</a></li><li class="pager-item odd"><a title="Go to page 6" href="/node/65?page=5">6</a></li><li class="pager-item even"><a title="Go to page 7" href="/node/65?page=6">7</a></li><li class="pager-item odd"><a title="Go to page 8" href="/node/65?page=7">8</a></li><li class="pager-item even"><a title="Go to page 9" href="/node/65?page=8">9</a></li><li class="pager-ellipsis odd">…</li><li class="pager-next even"><a title="Go to next page" href="/node/65?page=1">next ›</a></li><li class="pager-last odd last"><a title="Go to last page" href="/node/65?page=52">last »</a></li></ul></div>  
+  
+  
+  
+  
+</div></div>
+  </div></section></div></div>											</div>
+				</div>
+			</div>
+		
+		<div class="footer-border-top"></div>
+		<div id="footer-wrapper">
+			<div class="container clearfix">
+			  				  <footer class="clearfix" role="contentinfo">
+					  <div class="region region-footer"><div class="region-inner clearfix"><div id="block-block-12" class="block block-block no-title odd first block-count-6 block-region-footer block-12" ><div class="block-inner clearfix">  
+  
+  <div class="block-content content no-title"><div style="float: center;"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/"><img src="http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png" alt="Creative Commons License" height="30px" /></a></div></div>
+  </div></div><div id="block-block-19" class="block block-block no-title even last block-count-7 block-region-footer block-19" ><div class="block-inner clearfix">  
+  
+  <div class="block-content content no-title"><a href="http://becausewecan.org/"><img src="http://becausewecan.org/sites/default/files/BWClogo2.png" width="130px" /></a></div>
+  </div></div></div></div>					  				  </footer>
+			  		  </div>
+		</div>
+
+  </div>
+</div>
+  </body>
+</html>

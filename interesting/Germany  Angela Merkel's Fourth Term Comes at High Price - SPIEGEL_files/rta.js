@@ -1,0 +1,1 @@
+﻿criteoContent = ''; (function(){document.cookie = 'cookieName=' + escape(criteoContent) + '; path=/; expires=Wed, 25 Oct 2017 10:42:01 GMT; domain=spiegel.de';})();

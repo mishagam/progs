@@ -1,0 +1,51 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:paddingBottom="@dimen/mis_vert_margin"
+    android:paddingLeft="@dimen/mis_horiz_margin"
+    android:paddingRight="@dimen/mis_horiz_margin"
+    android:paddingTop="@dimen/mis_vert_margin"
+    tools:context=".SelectStoryTable" >
+
+    <TableLayout
+        android:id="@+id/select_story_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Select Story"
+                android:textAppearance="@style/MisBold" />
+
+            <TextView
+                android:paddingLeft="@dimen/mis_horiz_margin"
+                android:text="Delete"
+                android:textAppearance="@style/MisBold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/new_story"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_new_story" />
+
+            <TextView
+                android:paddingLeft="@dimen/mis_horiz_margin"
+                android:text=" "
+                android:textAppearance="@style/MisBold" />
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>

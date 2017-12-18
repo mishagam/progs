@@ -1,0 +1,16 @@
+OX_4696123136({
+  "ads":{
+    "medium":"w",
+    "record_tmpl":"https://ox-d.washingtonpost.servedbyopenx.com/{medium}/1.0/{rtype}?bi=47521b3e-01e2-4798-90f0-53619d9d873c&ts={txn_state}",
+    "pixels":"https://us-u.openx.net/w/1.0/pd?plm=5&ph=13efd075-f2e8-4a3c-bbe1-af728a89a00b",
+    "adunits" : [
+      {
+        "auid":"537968035",
+        "chain_revenue":"",
+        "size":"160x600",
+        "chain":[
+        ]
+      }
+    ]
+  }
+});

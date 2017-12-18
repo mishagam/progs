@@ -1,0 +1,1 @@
+crtg_content = ''; (function(){document.cookie = 'crtg_rta=' + escape(crtg_content) + '; path=/; expires=Wed, 03 Aug 2016 06:21:09 GMT; domain=gazeta.ru';})();

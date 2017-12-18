@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:id="@+id/LinearLayout01" 
+      android:layout_width="fill_parent" 
+      android:layout_height="fill_parent" 
+      xmlns:android="http://schemas.android.com/apk/res/android" 
+      android:orientation="vertical">
+      
+<Button android:id="@+id/scroll_test" 
+       android:text="TestScrollActivity" 
+       android:layout_height="wrap_content" 
+       android:layout_width="fill_parent">
+       </Button>
+       
+<Button android:layout_height="wrap_content" 
+       android:id="@+id/test_rendzu_canvas" 
+       android:text="RendzuCanvasActivity" 
+       android:layout_width="fill_parent" />
+       
+<Button android:layout_height="wrap_content" 
+       android:id="@+id/test_graphics" 
+       android:text="MisOpenGlActivity" 
+       android:layout_width="fill_parent">
+       </Button>
+       
+<Button android:layout_height="wrap_content" 
+       android:id="@+id/test_graphics_simple" 
+       android:text="SimpleFastGlActivity" 
+       android:layout_width="fill_parent">
+       </Button>
+       
+<Button android:layout_height="wrap_content" 
+       android:id="@+id/get_image" 
+       android:text="GetImageActivity"
+       android:layout_width="fill_parent">
+       </Button>
+       
+<Button android:layout_height="wrap_content" 
+       android:id="@+id/speed_test" 
+       android:text="TestSpeedActivity"
+       android:layout_width="fill_parent">
+       </Button>
+       
+<!-- Button android:layout_height="wrap_content" 
+       android:id="@+id/babylon_game" 
+       android:text="Babylon Game"
+       android:layout_width="fill_parent">
+       </Button>  -->
+</LinearLayout>

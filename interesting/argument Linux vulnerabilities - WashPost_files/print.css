@@ -1,0 +1,36 @@
+/* Stuff to get rid of */
+#nav,
+.top-video img,
+.imm-video-overlay,
+#slug_inline_bb,
+.lazy-image,
+iframe,
+embed,
+#section-comments,
+.padB30,
+.span4,
+img,
+.franklin-light,
+.bTB1S,
+.photo-stretch { display: none !important; }
+
+h2,
+h4,
+.byline,
+.span8,
+.container { 
+	border: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 100%;
+}
+
+h2, h4 { margin-bottom: 10px !important; }
+h2 { font: 36px bold Helvetica, sans-serif; }
+h4 { font: 18px bold Helvetica, sans-serif; }
+.span8 { color: #000; font: 16px Helvetica, sans-serif; letter-spacing: 0.2px; line-height: 1.4em; word-spacing: 1px; width: 100%; }
+
+/* Show URL */
+a:link, a:visited {background: transparent; color:#333; text-decoration:none;}
+a:link[href^="http://"]:after, a[href^="http://"]:visited:after {content: " (" attr(href) ") "; font-size: 11px;}
+a[href^="http://"] {color:#000;}

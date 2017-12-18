@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">KoreanTransReader</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="menu_settings">Settings</string>
+    <string name="word_trans">Word - Translation</string>
+    <string name="initial_string">옛날에 한 가난한 선비가 살고 있었어요. 설날이 돌아왔어요. 그런데 선비는 워낙 가난하여 차례 지낼 형편이 안되었어요. 그렇다고 선비 체면에 차례를 안 지낼 수도 없었지요.   선비 아버지도 워낙 가난하게 살다 돌아가셨어요. 선비는 아버지 영혼이라도 잘 잡수게 하고 싶었어요. 그러나 마음뿐이지 돈 한 푼 없는 주제에 어찌할 도리가 없었어요. 선비는 한숨만 푹푹 쉬었습니다.   선비는 무슨 좋은 방법이 없나 궁리를 했어요. 선비는 무릎을 쳤어요. 그리고 사당에 들어가 신주를 들고 나왔습니다. </string>
+    
+</resources>

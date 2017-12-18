@@ -1,0 +1,14 @@
+
+
+
+@font-face {
+    font-family: 'PFD';
+    src: url('pfdintextcondprobold.eot');
+    src: url('pfdintextcondprobold.eot?#iefix') format('embedded-opentype'),
+         url('pfdintextcondprobold.woff2') format('woff2'),
+         url('pfdintextcondprobold.woff') format('woff'),
+         url('pfdintextcondprobold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+
+}

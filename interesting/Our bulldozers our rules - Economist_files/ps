@@ -1,0 +1,11 @@
+var om_app_pix = new Array();
+om_app_pix[0] = new Image();
+om_app_pix[0].src = "http://ad.yieldlab.net/m?dm_id=50707&ext_id=303210497874";
+om_app_pix[1] = new Image();
+om_app_pix[1].src = "http://sync.adap.tv/sync?type=gif&key=394_adaramedia_336&uid=303210497874";
+om_app_pix[2] = new Image();
+om_app_pix[2].src = "http://ads.yahoo.com/cms/v1?esig=1~6c5b3567de4145700cfb73a886d4ea4a6e365b22&nwid=10000482137&sigv=1";
+om_app_pix[3] = new Image();
+om_app_pix[3].src = "http://ads.yahoo.com/pixel?id=2293332&t=2";
+
+

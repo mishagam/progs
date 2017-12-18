@@ -1,0 +1,178 @@
+/*******************************
+     Global Site Variables
+*******************************/
+/*******************************
+       Global UI Variables
+*******************************/
+/*-------------------
+        Page
+--------------------*/
+/*-------------------
+       Fonts
+--------------------*/
+/*******************************
+           BG Colors
+*******************************/
+/*******************************
+             Colors
+*******************************/
+/*-------------------
+     Background
+--------------------*/
+/*---  Colors  ---*/
+/* TNR Brand */
+/* Standard */
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+     Text Colors
+--------------------*/
+/*-------------------
+     Brand Colors
+--------------------*/
+/*-------------------
+      Borders
+--------------------*/
+/*-------------------
+     Transitions
+--------------------*/
+/*******************************
+           States
+*******************************/
+/*-------------------
+        Hover
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+    Down (:active)
+--------------------*/
+/*---  Colors  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+        Active
+--------------------*/
+/*---  Standard  ---*/
+/*---  Emotive  ---*/
+/*---  Neutrals  ---*/
+/*-------------------
+        Fonts
+--------------------*/
+/* Page Font */
+/* Headers */
+/* Articles */
+/*-------------------
+        Paths
+--------------------*/
+/*-------------------
+     Breakpoints
+--------------------*/
+/* Custom */
+/*-------------------
+        Print
+--------------------*/
+body {
+  background: #FFFFFF !important;
+}
+.page.navigation .button,
+.page.navigation .category.list,
+.page.navigation .search,
+.page.navigation .user.menu {
+  display: none !important;
+}
+.page.footer {
+  display: none;
+}
+.page.navigation {
+  overflow: hidden;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.advertisement {
+  display: none;
+}
+.page.container {
+  padding-left: 1em !important;
+  padding-right: 1em !important;
+  margin: 0em;
+}
+/*-------------------
+  Article Container
+--------------------*/
+.article.container {
+  max-width: 100%;
+  margin: 0 auto !important;
+}
+.article.container > .header {
+  background-color: #FFFFFF !important;
+  margin-top: 1em !important;
+  top: 0em !important;
+  margin-bottom: 0em !important;
+  padding-left: 0em !important;
+  padding-right: 0em !important;
+}
+.article.container > .content > .story {
+  border-left: none !important;
+  border-right: none !important;
+  padding-left: 0em !important;
+  padding-right: 0em !important;
+}
+.article.container .story.title .caption {
+  color: #333333 !important;
+}
+/*-------------------
+       Article
+--------------------*/
+#article .rail {
+  display: none;
+}
+#article .story blockquote {
+  float: none;
+  width: 100%;
+}
+#article .story.image {
+  display: none !important;
+}
+#article .inline.image {
+  display: block !important;
+}
+#article .story.image:before,
+#article .story.image:after {
+  display: none;
+}
+#article .story.title .headline {
+  color: #000000;
+}
+#article .story.title .caption {
+  color: #333333;
+}
+/*-------------------
+     Story Links
+--------------------*/
+.article .story p a[href]:after {
+  content: " - " attr(href) " - ";
+  color: #555555;
+  text-decoration: none;
+  font-style: normal;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.article .story p a[href^="javascript:"]:after,
+.article .story p a[href^="#"]:after {
+  content: "";
+}
+/* Don't show links for images, or javascript/internal links */
+/*-------------------
+     Web Content
+--------------------*/
+.ui.sidebar,
+.inline.tag,
+.inline.recirculation,
+.inline.category,
+.taboola,
+.advertisement,
+.comments {
+  display: none !important;
+}

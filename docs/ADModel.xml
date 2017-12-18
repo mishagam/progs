@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Custom Model -->
+
+<!-- Note: This model is pre-configured to load at startup of the Repository.  So, all custom -->
+<!--       types and aspects added here will automatically be registered -->
+
+<model name="adm:ADocModel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+   <!-- Optional meta-data about the model -->   
+   <description>Custom Model</description>
+   <author></author>
+   <version>1.0</version>
+
+   <imports>
+   	  <!-- Import Alfresco Dictionary Definitions -->
+      <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d"/>
+      <!-- Import Alfresco Content Domain Model Definitions -->
+      <import uri="http://www.alfresco.org/model/content/1.0" prefix="cm"/>
+   </imports>
+
+   <!-- Introduction of new namespaces defined by this model -->
+   <!-- NOTE: The following namespace custom.model should be changed to reflect your own namespace -->
+   <namespaces>
+      <namespace uri="http://adtest/model/content/1.0" prefix="adm"/>
+   </namespaces>
+
+
+
+<constraints>
+
+    <constraint name="adm:docType" type="LIST">
+        <parameter name="AllowedValues">
+            <list>
+                <value>тех.справка</value>
+                <value>ТЗ</value>
+                <value>отчет</value>
+            </list>
+        </parameter>
+       <parameter name="caseSensitive"><value>true</value></parameter>
+    </constraint>
+
+   <constraint name="adm:Organization" type="LIST">
+        <parameter name="AllowedValues">
+            <list>
+		<value>КИ</value>
+                <value>Гидропресс</value>
+                <value>АЭП</value>
+                <value>ВНИИАЭС</value>
+
+            </list>
+        </parameter>
+       <parameter name="caseSensitive"><value>true</value></parameter>
+    </constraint>
+ 
+    <constraint name="adm:Project" type="LIST">
+        <parameter name="AllowedValues">
+            <list>
+                <value>ТОИ</value>
+                <value>АЭС-2006</value>
+                <value>ВВЭР-600</value>
+		<value>Все типы РУ</value>
+            </list>
+        </parameter>
+       <parameter name="caseSensitive"><value>true</value></parameter>
+    </constraint>
+
+    <constraint name="adm:Plant" type="LIST">
+        <parameter name="AllowedValues">
+            <list>
+                <value>Нет привязки</value>
+                <value>Калининская 4</value>
+                <value>Нововоронежская 3</value>
+            </list>
+        </parameter>
+       <parameter name="caseSensitive"><value>true</value></parameter>
+    </constraint>
+
+    <constraint name="adm:kamp" type="MINMAX">
+        <parameter name="minValue"><value>0</value></parameter>
+        <parameter name="maxValue"><value>99</value></parameter>
+    </constraint>
+
+
+
+
+
+
+    <constraint name="adm:RType" type="LIST">
+       <parameter name="AllowedValues">
+            <list>
+                <value>ВВЭР-1200</value>
+                <value>ВВЭР-600</value>
+		<value>все проекты</value>
+            </list>
+        </parameter>
+        <parameter name="caseSensitive"><value>true</value></parameter>
+    </constraint>    
+
+<constraint name="adm:WType" type="LIST">
+       <parameter name="AllowedValues">
+            <list>
+                <value>НИР</value>
+                <value>Проектирование (разработка)</value>
+                <value>Робочая документация</value>
+		<value>ПНР</value>
+                <value>эксплуатация</value>
+            </list>
+        </parameter>
+        <parameter name="caseSensitive"><value>true</value></parameter>
+    </constraint>    
+
+</constraints> 
+
+
+
+
+<types>
+    <type name="adm:archDoc">
+<!-- Имя типа в более читабельном виде, чем в прошлой строке -->
+        <title>Документ архива</title>
+<!-- Родитель нашего типа. Он может быть и самостоятельным, но если мы хотим увидеть его в веб-интерфейсе и создать контент на базе нашей модели, то нужно сделать родителем "cm" -->
+        <parent>cm:content</parent>         
+        <properties>
+     
+
+
+
+
+
+        <property name="adm:Number">
+	    <title>Архивный номер</title>
+<!-- Тип метаданных. Как правило используются два стандартных варианта: строки и числа. Эти типы прописаны в стандартном словаре Alfresco и подключаются в поле imports в начале (у нас уже сделано), потому в данном случае тип имеет префикс "d" -->
+	    <type>d:text</type>
+<!-- Разрешить/запретить пользователю изменять значение этого поля. В данном случае пользователь может изменять номер заявки -->
+	    <protected>false</protected>
+<!-- Является ли заполнение этого поля обязательным? -->
+	    <mandatory>true</mandatory>
+<!-- Сколько таких полей может быть у одного документа? Номер заявки наверняка может быть только один -->
+	    <multiple>false</multiple>
+<!-- Значение поля по умолчанию. Задавать не обязательно, но желательно, если само поле является обязательным -->
+	    <default>бн</default>
+         </property>
+
+
+
+	<property name="adm:nRegDate">
+	    <title>Дата регистрации в архиве</title>
+	    <type>d:datetime</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>false</multiple>
+	 </property>
+
+	<property name="adm:docType">
+	    <title>Тип документа</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>false</multiple>
+   <index enabled="true">
+<!-- Метод обновления индекса: in foreground, in background -->
+        <atomic>true</atomic>
+<!-- Хранить контент в индексе? -->
+        <stored>false</stored>
+<!-- Разбить данные на части или хранить единым блоком? -->
+        <tokenised>true</tokenised>
+    </index>
+ 	    <constraints>
+      		  <constraint ref="adm:docType"/>
+	    </constraints>
+	 </property>
+
+
+	<property name="adm:Organization">
+	    <title>Организация разработчик</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>false</multiple>
+ 	    <constraints>
+      		  <constraint ref="adm:Organization"/>
+	    </constraints>
+<!--	    <default>КИ</default> -->
+	 </property>
+
+
+	<property name="adm:Project">
+	    <title>Проект АЭС</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>true</multiple>
+ 	    <constraints>
+      		  <constraint ref="adm:Project"/>
+	    </constraints>
+<!--		   <default>Все типы РУ</default> -->
+	 </property>
+
+	<property name="adm:Plant">
+	    <title>Блок</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>true</multiple>
+ 	    <constraints>
+      		  <constraint ref="adm:Plant"/>
+	    </constraints>
+<!--	            <default>Нет привязки</default> -->
+	 </property>
+
+<!--	 	<property name="adm:kamp">
+	    <title>Кампания</title>
+	    <type>d:number</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>true</multiple>
+    <constraints>
+      		  <constraint ref="adm:kamp"/>
+	    </constraints>
+	    <default>99</default>
+	 </property>-->
+
+	<property name="adm:Authors">
+	    <title>Авторы</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>false</multiple>
+           <default>не задан</default>
+   <index enabled="true">
+<!-- Метод обновления индекса: in foreground, in background -->
+        <atomic>true</atomic>
+<!-- Хранить контент в индексе? -->
+        <stored>false</stored>
+<!-- Разбить данные на части или хранить единым блоком? -->
+        <tokenised>true</tokenised>
+    </index>
+	 </property>
+
+
+         <property name="adm:GOST">
+	    <title>Номер по ГОСТ</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>false</multiple>
+	    <default>000</default>
+   <index enabled="true">
+<!-- Метод обновления индекса: in foreground, in background -->
+        <atomic>true</atomic>
+<!-- Хранить контент в индексе? -->
+        <stored>false</stored>
+<!-- Разбить данные на части или хранить единым блоком? -->
+        <tokenised>true</tokenised>
+    </index>
+         </property>
+
+
+         <property name="adm:STP">
+	    <title>Номер по СТП заказчика</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>false</mandatory>
+	    <multiple>false</multiple>
+	    <default>000</default>
+   <index enabled="true">
+<!-- Метод обновления индекса: in foreground, in background -->
+        <atomic>true</atomic>
+<!-- Хранить контент в индексе? -->
+        <stored>false</stored>
+<!-- Разбить данные на части или хранить единым блоком? -->
+        <tokenised>true</tokenised>
+    </index>
+         </property>
+
+
+
+         <property name="adm:RType">
+	    <title>Тип реакторной установки</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>true</multiple>
+   <index enabled="true">
+<!-- Метод обновления индекса: in foreground, in background -->
+        <atomic>true</atomic>
+<!-- Хранить контент в индексе? -->
+        <stored>false</stored>
+<!-- Разбить данные на части или хранить единым блоком? -->
+        <tokenised>true</tokenised>
+    </index>
+ 	    <constraints>
+      		  <constraint ref="adm:RType"/>
+	    </constraints>
+	 </property>
+
+
+         <property name="adm:WType">
+	    <title>Тип работ</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>false</multiple>
+ 	    <constraints>
+      		  <constraint ref="adm:WType"/>
+	    </constraints>
+	 </property>
+	 <property name="adm:Zapolnil">
+	    <title>Карточку заполнил</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>false</multiple>
+ 	 </property>
+	 <property name="adm:Proveril">
+	    <title>Карточку заполнил</title>
+	    <type>d:text</type>
+	    <protected>false</protected>
+	    <mandatory>true</mandatory>
+	    <multiple>false</multiple>
+ 	 </property>
+
+        </properties> 
+        
+ <!--      <associations>
+    
+    <association name="adm:Zapolnil">
+        <title>Заполнил карточку</title>
+        <source>
+            <mandatory>true</mandatory>
+            <many>false</many>
+        </source>
+        <target>
+            <class>cm:person</class>
+            <mandatory>true</mandatory>
+            <many>false</many>
+        </target>
+    </association>
+
+    <association name="adm:Proveril">
+        <title>Проверил карточку и опубликовал</title>
+        <source>
+            <mandatory>true</mandatory>
+            <many>false</many>
+        </source>
+        <target>
+            <class>cm:person</class>
+            <mandatory>true</mandatory>
+            <many>false</many>
+        </target>
+    </association>
+
+        </associations> -->
+    </type>
+</types>
+
+
+
+
+
+
+
+
+
+
+
+      
+</model>

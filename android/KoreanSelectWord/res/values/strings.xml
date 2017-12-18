@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">KoreanSelectWord</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="reset_str">Reset Word Weights</string>
+    <string name="dict_file_name">dict_words.txt</string>
+    <string name="dict_res_ids">dict,dict_l1,dict_l3,dict_l4,colors,dict_l4_b,dict_l5,dict_l5b,dict_week,dict_l6,dict_l6b,dict_l7,body,dict_l7b,dict_l8,dict_l8b,irreg_verbs,pig_story,dict_l9,dict_l10,dict_l10b,dict_l11,dict_l11b,verbs1,dict_l12,dict_l12b,dict_l13,dict_l14,dict_l15,prod_1,prod_1b,prod_2,prod_2b,prod_2c</string>
+    <string name="show_weights">Show Weights</string>
+    <string name="show_weights_table">Show Weights Table</string>
+    <string name="show_active_weights">Show Active Weights Table</string>
+    <string name="title_activity_show_weights">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="word_select_actions">Word Select Actions</string>
+    <string name="select_dictionary">Select Dictionary</string>
+    <string name="reset_preferences">Reset Preferences</string>
+    <string name="russian_to_korean">Russian to Korean</string>
+    <string name="korean_to_russian">Korean to Russian</string>
+    <string name="russian_to_korean_chars">Russian to Korean Chars</string>
+    <string name="training_type">Training Type</string>
+    <string name="title_activity_word_weights_table">WordWeightsTable</string>
+    <string name="korean">Korean</string>
+    <string name="russian">Russian</string>
+    <string name="english">English</string>
+    <string name="perc_error">pеrcError</string>
+    <string name="n_correct">nCorr</string>
+    <string name="delay">delay</string>
+    <string name="difficulty">diffic</string>
+    <string name="active">active</string>
+    <string name="title_activity_words_settings">Words Sel Settings</string>
+    <string name="other_language">Other language</string>
+    <string name="play_korean_words">Play Korean Words</string>
+    
+    
+</resources>

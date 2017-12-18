@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://fastsalttimes.com/comments.php?article=86 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+
+    <link rel="stylesheet" type="text/css" href="./reset(1).css">
+    <link rel="stylesheet" type="text/css" href="./fonts(1).css">
+    <link rel="stylesheet" type="text/css" href="./common(1).css">
+    <link rel="stylesheet" type="text/css" href="./safari(1).css">
+    <link rel="stylesheet" type="text/css" href="./styles(1).css">
+
+    <link rel="stylesheet" type="text/css" href="./device-tablet(1).css">
+    <link rel="stylesheet" type="text/css" href="./device-mobile(1).css">
+
+    <link rel="stylesheet" type="text/css" href="./print(1).css" media="print">
+
+    <script type="text/javascript" src="./jquery(1).js"></script>
+    <script type="text/javascript" src="./scripts(1).js"></script>
+
+</head>
+<body style="overflow: hidden; padding: 0px; margin: 0px;">
+    
+    <div id="comments">
+    
+        
+        
+        <p>У Вас нет возможности оставлять комментарии. Эта опция доступна только подписчикам.</p>  
+        
+        
+        
+        <div class="article-comments">
+            
+            
+            <div class="article-comment"><p>Нет комментариев</p></div>
+            
+            
+        </div>
+        
+        <script type="text/javascript">
+            $(function() {
+                $(document).on('click', '.remove', function() {
+                    var comment = $(this).parent();
+                    ajax('comments..RemoveComment', {comment: $(this).attr('id')}, function(data){
+                        if(data == 'ok') {
+                            comment.remove();
+                            
+                            if($('.article-comments .article-comment').length == 0) {
+                                $('.article-comments').append('<div class="article-comment"><p>Нет комментариев</p></div>');
+                            }
+                        }
+                        else {
+                            alert('Something wrong with your request, please contact the system administrator');
+                        }
+                    });
+                    return false;
+                })
+            });
+        </script>   
+        
+        
+        
+        
+        
+    </div>
+    
+    
+    
+    
+
+</body></html>

@@ -1,0 +1,41 @@
+(function() {
+try {
+    (function(){
+/**/
+
+})();
+//used to sync advertiser without leaking referer to final destination
+(function() {
+    try {
+	var frm = document.createElement('iframe');
+	frm.style.visibility = 'hidden';
+	frm.style.display = 'none';
+	frm.src = "http://pixel.mathtag.com/sync/iframe?mt_uuid=7f9255a6-a220-4a00-9c4f-000ef94f42b3&no_iframe=1";
+	frm.setAttribute("id", "mm_sync_back_ground");
+	var trys = 0;
+	var interval = setInterval(function(){
+	    if (trys++ < 20 && interval && !document.getElementById("mm_sync_back_ground")) {
+		if (document.body) {
+		    if (interval) {
+			clearInterval(interval);
+			interval = 0;
+		    }
+		    document.body.appendChild(frm);
+		}
+	    }
+	}, 100);
+    }
+    catch(ex)
+    {
+	document.createElement("img").src="//pixel.mathtag.com/error/img?error_domain=synciframe&what="+encodeURIComponent(ex.message);
+    }
+})();
+
+}
+catch(ex)
+{
+   document.createElement("img").src="//pixel.mathtag.com/error/img?error_domain=wrap&what="+encodeURIComponent(ex.message);
+}
+})();
+
+window.MathIDSet = 'Iw/MxmXlCjoS6q3mKkSqJegzvy0WRcdt+/imYI7JNjb2U0ybk9ky0MOTB9PTJ2s8IQ4Vry/0jCOo1StAcpTLb26E5FcaeJAF7H/jMNuqn14tveohzfOkIbn2XTnG+TklqNxkW77jJSZTVQUoJpR2tA==';

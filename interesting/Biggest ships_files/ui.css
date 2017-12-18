@@ -1,0 +1,346 @@
+
+/* Кнопки */
+.ui_button {
+  padding:0;
+  margin:0;
+  border:0;
+  background:none;
+  font-size:12px;
+  font-family:Arial, Tahoma;
+  color:#fff;
+  resize: none;
+  outline: none;
+  text-decoration:underline;
+  display: -moz-inline-stack;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  padding:0px 20px 0 20px;
+  cursor:pointer;
+  background:#2e77a4;
+  color:#fff !important;
+  height:28px;
+  line-height:28px;
+}
+
+a.ui_button:hover, input.ui_button:hover {
+  background:#1c5686;
+  text-decoration:none;
+}
+
+.ui_button_gray {
+  background:#a8b1ba !important;
+  color:#fff !important;
+}
+
+.ui_button_blue {
+  background:#364a60 !important;
+  color:#fff !important;
+}
+
+.ui_button_red {
+  background:#e04a32 !important;
+  color:#fff !important;
+}
+
+/* Фишки */
+
+.hidden_submit {
+  width:1px;
+  height:1px;
+  font-size:1px;
+  position:absolute;
+  z-index:19;
+  display:block;
+  top:0;
+  cursor:default;
+  left: -9999px;
+  border: none;
+}
+
+/* Стилизация */
+
+.red_border {
+  border:1px solid red !important;
+}
+
+.red_color {
+  color:red !important;
+}
+
+
+/* Очистка */
+
+.ui_clear {
+  width:100%;
+  padding:0;
+  margin:0;
+  border:0;
+  background:none;
+  font-size:12px;
+  font-family:Arial, Tahoma;
+  color:#000;
+  resize: none;
+  outline: none;
+  position:relative;
+  z-index:2;
+}
+
+.ui_placeholdered_under {
+  position:absolute;
+  z-index:1;
+  color:#898989 !important;
+}
+
+.ui_placeholdered_under.ui_clear {
+  width:auto;
+}
+
+
+.ui_clear::-webkit-input-placeholder {
+    color:#898989 !important;
+	opacity:1;
+}
+.ui_clear:-moz-placeholder {
+    color:#898989 !important;
+	opacity:1;
+}
+.ui_clear::-moz-placeholder {
+    color:#898989 !important;
+	opacity:1;
+}
+.ui_clear:-ms-input-placeholder {
+    color:#898989 !important;
+	opacity:1;
+}
+
+
+
+/* input text */
+
+.ui_input_text {
+  border:1px solid #e2e2e2;
+  height:21px;
+  padding:6px 6px 0 6px;
+  font-size:0px !important;
+  background:#fff;
+  position:relative;
+}
+
+.ui_input_text .ui_clear {
+  font-family:Arial, Tahoma, sans-serif;
+  color:#333;
+  font-size:12px;
+}
+
+/* textarea */
+
+.ui_textarea {
+  border:1px solid #e2e2e2;
+  padding:5px 5px 5px 5px;
+  font-size:0px !important;
+  background:#fff;
+  position:relative;
+}
+
+.ui_textarea  .ui_clear {
+  font-family:Arial, Tahoma, sans-serif;
+  color:#333;
+  font-size:12px;
+  line-height:1.3;
+}
+
+/* file */
+
+.ui_input_file {
+  border:1px solid #e2e2e2;
+  padding:4px 5px 0 5px;
+  height:23px;
+  font-size:0px !important;
+  background:#fff;
+}
+
+@-moz-document url-prefix() { 
+	.ui_input_file {
+		padding-top:3px;
+		height:24px;
+	}
+}
+
+@media all and (-webkit-min-device-pixel-ratio:0) {
+	.ui_input_file {
+		padding-top:2px;
+		padding-left:2px;
+		height:25px;
+	}
+}
+
+.ui_input_file input{
+  font-size:12px !important;
+  color:#333;
+  width:100%;
+  font-family:Arial, Tahoma, sans-serif;
+}
+
+
+/* select */
+
+select.ui_select {
+	width:100%;
+	padding:0;
+	margin:0;
+}
+
+.ui_select_hide {
+	overflow:hidden;
+	height:0px;
+}
+
+.ui_select_visible {
+	
+}
+
+.ui_select_link {
+  cursor:pointer;
+  display:block;
+  text-decoration:none;
+}
+
+.ui_select_c {
+  display:inline-block;
+  width:100%;
+}
+
+.ui_select_table {
+  border:1px solid #e2e2e2;
+  background:#fff;
+}
+
+.ui_select_table div.left {
+  text-align:left;
+  padding:6px 6px 0 6px;
+  overflow:hidden;
+  white-space: nowrap;
+  height:21px;
+  font-size:14px;
+  font-family:'PFD', Arial, Tahoma;
+  color:#000;
+  text-decoration:none;
+  line-height:16px;
+  
+  font-family:Arial, Tahoma, sans-serif;
+  color:#333;
+  font-size:12px;
+}
+
+@-moz-document url-prefix() { 
+	.ui_select_table div.left {
+		padding-left:7px;
+	}
+}
+
+.ui_select_table div.right {
+	float:right;
+	height:27px;
+	font-size:0px;
+	overflow:hidden;
+	width:26px;
+	text-align:left;
+	position:relative;
+	background:url(images/ui/select_ug.png) no-repeat center center;
+}
+
+.ui_select_table div.right img {
+	position:absolute;
+	top:50%;
+	margin-top:-2px;
+	left:50%;
+	margin-left:-5px;
+}
+
+.ui_select_options_c {
+	position:relative;
+	margin-right:2px;
+}
+
+.ui_select_options {
+	border:1px solid #999;
+	background:#fff;
+	position:absolute;
+	width:100%;
+	z-index:1000;
+	overflow:scroll;
+	overflow-x:visible;
+	overflow-y:scroll;
+	display:none;
+	box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
+}
+
+.ui_select_option {
+	display:block;
+	cursor:pointer;
+	padding:5px 10px;
+	height:16px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-decoration:none;
+    font-family:'PFD', Arial, Tahoma;
+	
+	font-size:12px;
+    color:#333 !important;
+	font-family:Arial, Tahoma, sans-serif;
+}
+
+.ui_select_option.selected {
+	background:#d7d7d7;
+}
+
+.ui_select_c.red_border {
+  border:0 !important;
+}
+
+.ui_select_c.red_border .ui_select_table {
+  border:1px solid red !important;
+}
+
+
+
+/* чекбокс */
+.ui_input_checkbox {
+  cursor:pointer;
+  height:13px;
+  width:13px;
+  background:url(images/ui/checkbox.png) no-repeat left top;
+  background-position:0px 0px;
+  display:block;
+  display:inline-block;
+  position:relative;
+}
+
+.ui_input_checkbox.checked {
+  background-position:0px -13px;
+}
+
+* html .ui_input_checkbox {
+  display:block;
+}
+
+/* чекбокс */
+.ui_input_radio {
+  cursor:pointer;
+  height:14px;
+  width:14px;
+  background-image:url(images/ui/radio.png);
+  background-repeat:no-repeat;
+  background-position:0px 0px;
+  display:block;
+  display:inline-block;
+  position:relative;
+  margin-bottom:3px;
+  margin-right:3px;
+}
+
+* html .ui_input_radio {
+  display:block;
+}
+

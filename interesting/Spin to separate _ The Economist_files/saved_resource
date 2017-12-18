@@ -1,0 +1,2338 @@
+mmcore.SetCookie('mmid','1558740131|SwAAAAoM/oDjNQwAAA==',365,1);mmcore.SetCookie('pd','-1126559685|XgAAAAoBQgz+gOM1DB5GN+YEAP2sZVcim9JIDwAAAM6AoJtDk9JIAAAAAJMAAAD/////AA13d3cuZ29vZ2xlLnJ1BD8MAQADAAAAAAAAAAA13AAAvnkAAHF3AAAGACZLAAAA4wZHWD8MAKqMAAAFPww/DP//AQAAAQAAAAABoOUAAIAnAQAAa0oAAABf5etwNQwA/////wE1DD8M//8XAAABAAAAAAFO5AAAlyUBAACdPgAAAHzY70k1DAD/////ATUMPwz//wUAAAEAAAAAAcDGAABOAAEAAhZ4AAABAAAAsG4AAAwAAADyRgAAAPqci901DAD/////ATUMPwz//wYAAAEAAAAAAX/bAADfGgEAA5rbAAAGAAAANdwAAAwAAACZ2wAAAgAAABBLAAAAaY9oWTYMAP////8BNgw2DP//AQAAAQAAAAABZ+UAAD4nAQABsG4AAAgAAACCIAAAAF61g28/DAD/////ATUMPwz//xcAAAGulyeMAcB2AADxmwAAA7BuAAAEAAAAvnkAAAQAAABxdwAAAgAAAAAAAAFF',365);mmcore.SetCookie('srv','ldnvwcgeu10',365);(function(){if(typeof(mmcore.GenInfo)!='object')mmcore.GenInfo={};mmcore.EH=function(e){var s=e.message+'\r\n';if(!window.mm_error)window.mm_error=s;else window.mm_error+=s;};
+mmcore.GenInfo['T20_Master_copy']={'element1':'Default'};
+try{
+;
+(function act_T28_ReturnVisits() {
+	var COOKIE_NAME = 'mm_t28_return_visit';
+	if (!mmcore.GetCookie('mm_Session', 1) && mmcore.GetCookie('mm_t28_generated', 1)) {
+		var visitNum = 1 + Number(mmcore.GetCookie(COOKIE_NAME, 1));
+
+		if (!isNaN(visitNum)) {
+			mmcore.SetCookie(COOKIE_NAME, visitNum, 180, 1);
+			mmcore.SetAction('T28_ReturnVisit', 1, 'Visit' + visitNum);
+			mmcore._async = true;
+			mmcore.SetPageID('mmevents');
+			mmcore.CGRequest();
+		}
+	}
+}());
+}catch(err){mmcore.EH(err);}
+try{
+/**
+* Receiving message from RegWall iframe to click "Login or register" link
+*/
+;(function ($) {
+	function listener(event) {
+		if (event.data == 'mm-t25-click-login') {
+			$('.show-login').trigger('click');
+		}
+	}
+	if (window.addEventListener) {
+		window.addEventListener("message", listener);
+	} else {
+		// IE8
+		window.attachEvent("onmessage", listener);
+	}
+})(window.jQuery);
+}catch(err){mmcore.EH(err);}
+try{
+(function ( window, mmcore, undefined ) {
+
+	'use strict';
+
+	var $ = window.jQuery,
+		ecOmnitureUserSubCookie = mmcore.GetCookie( 'ec_omniture_user_sub', 1 ),
+		logInState,
+		subscriber,
+		regState;
+
+	/**
+	 * Name: setCustomPersCrit function
+	 * Description: adding pers criterion to the mmcore.uat cookie.
+	 * Author: Edward Shveday
+	 */
+	function setCustomPersCrit( name, val) {
+		if (mmcore.SetPersistentCriterion) {
+			mmcore.SetPersistentCriterion(name, val)
+		} else {
+
+			var _m = mmcore,
+				_old = _m.GetCookie( 'uat' ),
+				_f = _old.indexOf( name + '=' ) + 1,
+				_re = new RegExp( name + "=[^;]*" ),
+				_new = name + '=' + val;
+
+			_m.SetCookie( 'uat', _old ? (_f ? _old.replace( _re, _new ) : _old + ';' + _new) : _new, 30 )
+
+		}
+	}
+
+	function getPaywallPersCritVal( val, type ) {
+		switch ( val.toString() ) {
+			case '1':
+				return type + '1';
+
+			case '2':
+				return type + '2';
+
+			case '3':
+				return type + '3';
+
+			case '4':
+				return type + '4';
+
+			case '5':
+				return type + '5';
+
+			case '6':
+			case '7':
+				return type + '6-7';
+
+			case '8':
+			case '9':
+				return type + '8-9';
+
+			case '10':
+			default:
+				return type + '10plus';
+		}
+	}
+
+	function handlePaywall( paywallName ) {
+		var oldCookieVal,
+			newCookieVal,
+			type;
+
+		oldCookieVal = mmcore.GetCookie( 'mm_' + paywallName, 1 );
+		oldCookieVal = parseInt( oldCookieVal, 10 );
+		type = paywallName.substring( 0, 3 );
+
+		if ( !oldCookieVal ) {
+			oldCookieVal = 0;
+		}
+
+		newCookieVal = oldCookieVal + 1;
+
+		mmcore.SetCookie( 'mm_' + paywallName, newCookieVal, 1, -1 );
+		setCustomPersCrit( paywallName, getPaywallPersCritVal( newCookieVal, type ) );
+	}
+
+	function setPaywallPersCrit() {
+		var val;
+
+		try {
+			val = window.Drupal.settings.ec_wallpage.ec_wallpage_paywall_name.toLowerCase();
+			if ( val === 'article paywall anonymous' ) {
+				handlePaywall( 'RegwallViews' );
+			} else if ( val === 'article paywall registered' ) {
+				handlePaywall( 'SubwallViews' );
+			}
+		} catch ( err ) { /* silence */ }
+	}
+
+	logInState = JSON.parse( mmcore.GetCookie( 'Econ.user.user', 1 ) || '{"name": null}' ).name === null ? 'LoggedOut' : 'LoggedIn';
+	regState = 'NotRegistered';
+
+	switch ( true ) {
+		/*case 'bulk-ip':
+			subscriber = 'BulkIP';
+			break;
+
+		case 'bulk-referrer':
+			subscriber = 'BulkReferrer';
+			break;
+
+		case 'subscriber':
+			subscriber = 'DigitalPrint';
+			break;
+
+		case 'print-subscriber':
+			subscriber = 'Print';
+			break;
+
+		case 'digital-subscriber':
+			subscriber = 'Digital';
+			break;
+        */
+		case (ecOmnitureUserSubCookie.toLowerCase().indexOf( 'ex-subscriber') !== -1):
+		case (ecOmnitureUserSubCookie.toLowerCase().indexOf( 'registered') !== -1):
+			regState = 'Registered';
+            subscriber = 'NotSubscribed';
+            break;
+        case (!ecOmnitureUserSubCookie):
+            subscriber = 'NotSubscribed';
+            break;
+		default:
+			subscriber = 'Subscribed';
+			break;
+	}
+
+	setCustomPersCrit( 'LogInState', logInState );
+	setCustomPersCrit( 'Subscriber', subscriber );
+	setCustomPersCrit( 'RegState', regState );
+	setPaywallPersCrit();
+
+
+	// -----------------------------------
+	// New Pers Criterions
+	// -----------------------------------
+	(function ( m ) {
+		var obj, PCs, temp, nowTime, filterAfterPoint;
+
+		PCs = {
+			ClickDepth: 0,
+			Recency: 0,
+			Loyalty: 0,
+			Brand: 0,
+			Interaction: 0,
+			SignedIn: 0
+		};
+
+		obj = m.GetCookie( 'mm_PCObj', 1 );
+
+		filterAfterPoint = function ( number ) {
+			number = Math.round( number * 100 ) * 0.01;
+			number = (function () {
+				switch ( true ) {
+					case number < 0.05:
+						return 0;
+					case number < 0.15:
+						return 0.1;
+					case number < 0.25:
+						return 0.2;
+					case number < 0.35:
+						return 0.3;
+					case number < 0.45:
+						return 0.4;
+					case number < 0.55:
+						return 0.5;
+					case number < 0.65:
+						return 0.6;
+					case number < 0.75:
+						return 0.7;
+					case number < 0.85:
+						return 0.8;
+					case number < 0.95:
+						return 0.9;
+					default:
+						return 1;
+				}
+			}());
+
+			return number;
+		};
+
+		if ( obj ) {
+			obj = JSON.parse( obj );
+		} else {
+			obj = {
+				wFV: false,
+				sD: [],
+				ss: [],
+				cD: 0
+			};
+		}
+
+		if ( !m.GetCookie( 'mm_Session', 1 ) ) {
+			//	m.SetCookie( 'mm_Session', 1, 5 / (24 * 60), 1 );
+			m.SetCookie( 'mm_Session', 1, 0, 1 );
+
+			temp = {
+				t: new Date().getTime(),
+				r: 0,
+				i: 0,
+				s: 0
+			};
+
+			try {
+				if ( JSON.parse( m.GetCookie( 'Econ.user.user', 1 ) ).name ) {
+					temp.s = 1;
+				}
+			} catch ( e ) { }
+
+			if ( document.referrer ) { temp.r = 1; }
+			obj.ss.push( temp );
+
+			if ( obj.wFV ) {
+				obj.sD.push( obj.cD );
+				obj.cD = 0;
+			}
+		} else {
+			obj.cD += 1;
+		}
+
+		obj.wFV = 1;
+
+		if ( location.href.indexOf( '/comments' ) + 1 ) {
+			obj.ss[obj.ss.length - 1].i = 1;
+		}
+
+		// is it first visit
+		if ( obj.sD.length ) {
+			// -----------------------------------
+			// ClickDepth
+			// -----------------------------------
+			temp = 0;
+			$.each( obj.sD, function ( idx, val ) {
+				if ( val < 4 ) { return; }
+				temp += 1;
+			} );
+
+			temp = temp / obj.sD.length;
+			PCs.ClickDepth = temp;
+			temp = filterAfterPoint( temp );
+			setCustomPersCrit( 'ClickDepth', 'Ci' + temp );
+
+			// -----------------------------------
+			// Recency
+			// -----------------------------------
+			temp = 1;
+			if ( obj.ss.length > 1 ) {
+				temp = 0;
+				temp = obj.ss.slice( -2 );
+				temp = (temp[1].t - temp[0].t) / (1000 * 60 * 60 * 24);
+				if ( temp < 1 ) {
+					temp = 1;
+				}
+			}
+			temp = 1 / temp;
+			PCs.Recency = temp;
+			temp = filterAfterPoint( temp );
+			temp = 'Ri' + temp;
+			setCustomPersCrit( 'Recency', temp );
+
+			// -----------------------------------
+			// Loyalty
+			// -----------------------------------
+			temp = 0;
+			nowTime = new Date().getTime();
+			$.each( obj.ss, function ( idx, val ) {
+				var difference = (nowTime - val.t) / (1000 * 60 * 60 * 24);
+				if ( difference > 28 ) { return; }
+				//				var difference = (nowTime - val.t) / (1000 * 60);
+				//				if ( difference > 30 ) { return; }
+				temp += 1;
+			} );
+			if ( !temp ) { temp = 1; }
+			temp = 1 - 1 / temp;
+			PCs.Loyalty = temp;
+			temp = filterAfterPoint( temp );
+			setCustomPersCrit( 'Loyalty', 'Li' + temp );
+
+			// -----------------------------------
+			// Interaction
+			// -----------------------------------
+			temp = 0;
+			$.each( obj.ss, function ( idx, val ) {
+				if ( obj.ss.length - 1 === idx ) { return; }
+				if ( !val.i ) { return; }
+				temp += 1;
+			} );
+			temp = temp / (obj.ss.length - 1);
+			PCs.Interaction = temp;
+			temp = filterAfterPoint( temp );
+			setCustomPersCrit( 'Interaction', 'Ii' + temp );
+		} else {
+			setCustomPersCrit( 'ClickDepth', 'New' );
+			setCustomPersCrit( 'Recency', 'New' );
+			setCustomPersCrit( 'Loyalty', 'New' );
+			setCustomPersCrit( 'Interaction', 'New' );
+		}
+
+		// -----------------------------------
+		// Brand
+		// -----------------------------------
+		temp = 0;
+		$.each( obj.ss, function ( idx, val ) {
+			if ( val.r ) { return; }
+			temp += 1;
+		} );
+		temp = temp / obj.ss.length;
+		PCs.Brand = temp;
+		temp = filterAfterPoint( temp );
+		setCustomPersCrit( 'Brand', 'Bi' + temp );
+
+		// -----------------------------------
+		// SignedIn
+		// -----------------------------------
+		temp = 0;
+		if ( obj.ss.length > 0 ) {
+			$.each( obj.ss, function ( idx, val ) {
+				if ( !val.s ) { return; }
+				temp += 1;
+			} );
+			temp = temp / obj.ss.length;
+		}
+		temp = filterAfterPoint( temp );
+		PCs.SignedIn = temp;
+		setCustomPersCrit( 'SignedIn', 'Si' + temp );
+
+		if ( obj.sD.length ) {
+			// -----------------------------------
+			// VEI
+			// -----------------------------------
+			temp = 0;
+			$.each( PCs, function ( idx, val ) {
+				if ( val ) {
+					temp += val;
+				}
+			} );
+			temp = filterAfterPoint( temp / 6 );
+			setCustomPersCrit( 'VEI', 'VEI' + temp );
+		} else {
+			setCustomPersCrit( 'VEI', 'New' );
+		}
+
+		obj.sD = obj.sD.slice( obj.sD.length - 25, obj.sD.length );
+		obj.ss = obj.ss.slice( obj.ss.length - 25, obj.ss.length );
+
+		m.SetCookie( 'mm_PCObj', JSON.stringify( obj ), 365, 1 );
+
+	}( window.mmcore ));
+
+	/*
+	 * Referrer
+	 * */
+
+	var drf = document.referrer;
+
+	switch ( true ) {
+		// referrer contains terms: “yahoo”, “google” or “bing”
+		// THEN set PC [Referrer] = Search
+        case drf === "" :
+        {
+            setCustomPersCrit( 'Referrer', 'TypedBM' );
+            break;
+        }
+		case !!drf.match( /^https?:\/\/[^?\/]*(yahoo|google|bing)\.\w{1,3}(\.\w{2})?/i ) :
+		{
+			setCustomPersCrit( 'Referrer', 'Search' );
+			break;
+		}
+		case !!drf.match( /^https?:\/\/[^?\/]*(facebook|reddit|digg)\.\w{1,3}(\.\w{2})?/i ) || !!drf.match( /^https?:\/\/t\.co\/\w+/i ):
+		{
+			setCustomPersCrit( 'Referrer', 'Social' );
+			break;
+		}
+		case !drf.match( /^https?:\/\/[^?\/]*economist.com/i ) :
+		{
+			setCustomPersCrit( 'Referrer', 'External' );
+			break;
+		}
+		case !!drf.match( /^https?:\/\/[^?\/]*economist.com/i ) :
+		{
+			setCustomPersCrit( 'Referrer', 'Internal' );
+			break;
+		}
+		default :
+		{
+			setCustomPersCrit( 'Referrer', 'TypedBM' );
+		}
+	}
+
+	/*
+	 * Referrer [end]
+	 * */
+
+	/*
+	 * Entry
+	 * */
+	(function () {
+		var wlh = window.location.href,
+			entryAttr = null,
+			$mediator = $( {} );
+
+		var checkIsCategory = function ( $body ) {
+			var isCategory = false,
+				classNames = [
+					'page-all-blogs',
+					'node-type-mtblog-site',
+					//'page-latest-updates',
+					'page-sections',
+                    'path-printedition-specialreports',
+					//'node-type-channel',
+					//'node-type-guest-network-forum',
+					//'page-economics-a-to-z',
+					'node-type-special-report',
+					'page-topics'//,
+					//'node-type-page',
+					//'node-type-guest-network-forum',
+					//'node-type-issue'
+				];
+
+			$.each( classNames, function ( index, className ) {
+				if ( $body.hasClass( className ) ) {
+					isCategory = true;
+				}
+			} );
+
+			return isCategory;
+		};
+
+		var checkIsBlogArticle = function () {
+			return Boolean( wlh.match( /https?:\/\/www\.economist\.com\/blogs.*/i ) );
+		};
+
+		var runWaiter = function () {
+				var $body = $( 'body' );
+
+				if ( $body.length ) {
+					entryAttr = (function () {
+						var isCategory =  checkIsCategory($body);
+
+						switch ( true ) {
+							case $body.hasClass( 'node-type-article' ):
+								return 'Article';
+
+							case isCategory:
+								return 'Category';
+
+							case !isCategory && checkIsBlogArticle():
+								return 'Blogs';
+
+							default:
+								return 'Blank';
+						}
+					})();
+					$mediator.trigger( 'finishWait' );
+				} else {
+					setTimeout( runWaiter, 19 );
+				}
+			};
+
+		if ( /https?:\/\/www\.economist\.com(\/|#.*|\?.*|\/#.*|\/\?.*)?$/i.test(wlh) ) {
+			entryAttr = 'Homepage';
+		} else if ( /https?:\/\/subscriptions\.economist\.com.*/i.test(wlh) ) {
+			entryAttr = 'SubsPage';
+		} else {
+			runWaiter();
+		}
+
+
+        //set PC entry only once per session
+        if (!mmcore.GetCookie('mm_entry_session', true)) {
+            if ( entryAttr === null ) {
+                $mediator.bind( 'finishWait', function () {
+                    setCustomPersCrit( 'Entry', entryAttr );
+                    mmcore.SetCookie('mm_entry_session', entryAttr, 0, true);
+                } );
+            } else {
+                setCustomPersCrit( 'Entry', entryAttr );
+                mmcore.SetCookie('mm_entry_session', entryAttr, 0, true);
+            }
+        } else {
+            setCustomPersCrit('Entry', mmcore.GetCookie('mm_entry_session', true));
+        }
+	})();
+    
+    
+    // Detecting site version (Mobile or Desktop) Andrey Cherepovskiy 4 Nov 2014
+    (function() {
+        
+        var siteVersionAttr = 'Desktop';
+        
+        if (mmcore.GetCookie('ec_device',1) == 'mobile-phone' || navigator.userAgent.toLowerCase().indexOf('iphone') !== -1) {
+            
+            siteVersionAttr = 'Mobile';
+            
+        }
+        
+        setCustomPersCrit('SiteVersion', siteVersionAttr);
+        
+        
+    })();
+
+    /*
+    * optlyEconomist added on 30.04.2015 by Yuliya Pshinko
+    * */
+    if(mmcore.GetCookie('optly_economist_test', 1) === 'true') {
+        setCustomPersCrit('OptlyEconomist', 'True');
+    } else {
+        setCustomPersCrit('OptlyEconomist', 'False');
+    }
+
+})( window, window.mmcore );
+
+}catch(err){mmcore.EH(err);}
+try{
+// Actions tracking:
+// "MobLogins"
+// "MobsSubsArrivals"
+
+/*----------------------------------------------------------------------
+ * Edited by Yuliya Pshinko on 06.04.2015
+ *
+ * Added action MobSubsByType
+ * Track subscriptions with a product breakdown.
+ Assign attributes based on product bought.
+ ------------------------------------------------------------------------
+ * */
+
+(function () {
+
+    var $document = $(document),
+        isSubscriptionProcess = window.location.hostname.indexOf('subscriptions.economist.com') !== -1,
+        isSubscriptionConfirmation = isSubscriptionProcess && window.location.pathname.indexOf('index.php') !== -1,
+        isPageReloadedByF5 = (mmcore.GetCookie('mm-subs', true) === location.pathname);
+
+    var getPrice = function (priceString) {
+        var clearPrices = [];
+        (priceString || '').toString().replace(/(\d{1,3}(?:\D?\d{3})*(?:\D(\d{0,2})|))(?:\D|$)/gm, function () {
+            var d = arguments[2];
+            var zeros = !d ? "00" : (d.length == 1 ? "0" : "");
+            clearPrices.push((arguments[1].replace(/\D/g, "") + zeros) * 1);
+        });
+        return clearPrices;
+    };
+
+    var getRevenue = function ($holder) {
+        var result;
+
+        result = getPrice($holder.text());
+
+        return result;
+    };
+
+    var convertValues = function ($currencyText, revenue) {
+        var exchangeRates, currentRate, finalPrice;
+
+        currentRate = 1; // default value
+        exchangeRates = {
+            'HK$': '0.078754',
+            'US$': '0.610604',
+            'NZ$': '0.500276',
+            'A$': '0.540821',
+            'C$': '0.569724',
+            'S$': '0.482690',
+            '$': '0.610604',
+            '£': '1',
+            '¥': '0.005868',
+            '€': '0.834636',
+            'NZD': '0.500276',
+            'CHF': '0.681384',
+            'CNY': '0.100576',
+            'DKK': '0.111876',
+            'INR': '0.009816',
+            'MYR': '0.186665',
+            'NOK': '0.099609',
+            'PHP': '0.013740',
+            'R': '0.059091',
+            'SEK': '0.093306',
+            'TWD': '0.020469',
+            'W': '0.000577'
+        };
+
+        $.each(exchangeRates, function (currencySign, exchangeRate) {
+            if (~$currencyText.indexOf(currencySign)) {
+                currentRate = exchangeRate;
+                return false;
+            }
+        });
+
+        finalPrice = Math.ceil(revenue * currentRate);
+        finalPrice = isNaN(finalPrice) ? revenue : finalPrice;
+
+        return finalPrice;
+    };
+
+    var trackAction = function (actionName, actionValue, attribute) {
+        mmcore._async = true;
+        mmcore.SetAction(actionName, actionValue, attribute);
+        mmcore.SetPageID('mmevents');
+        mmcore.CGRequest();
+    };
+
+    var getAttrForMobSubsByTypeAction = function () {
+        /*Attributes should have the following structure: UserProductTerm:
+
+         First (User) Parameter
+         Reg - User purchases a regular subscription
+         Stu - User purchases a student subscription
+         Gift - User purchases a gift subscription
+
+         Second (Product) Parameter
+         PrintDig - User purchases a print and digital subscription
+         Print - User purchases a print only subscription
+         Dig - User purchases a digital only subscription
+
+         Third (Term) Parameter
+         12w - User purchases a 12 week subscription
+         1y - User purchases a 1 year subscription
+         2y - User purchases a 2 year subscription
+         3y - User purchases a 3 year subscription
+         */
+        var subType = $('#sub_type_id').val(),
+            userParam = 'Gift',
+            productType = $('.css3_labelb:contains(Subscription type)').parent().text().toLowerCase(),
+            productParam = 'Dig',
+            productTerm = $('.css3_labelb:contains(Subscription term)').parent().text().toLowerCase(),
+            termParam = '3y';
+
+        if (subType === 'personal') {
+            userParam = 'Reg';
+        } else if (subType === 'student') {
+            userParam = 'Stu';
+        }
+
+        if (productType.match('print') && productType.match('digital')) {
+            productParam = 'PrintDig';
+        } else if (productType.match('print')) {
+            productParam = 'Print';
+        }
+
+        if (productTerm.match('12 weeks')) {
+            termParam = '12w';
+        } else if (productTerm.match('1 year')) {
+            termParam = '1y';
+        } else if (productTerm.match('2 year')) {
+            termParam = '2y';
+        } else if (productTerm.match('6 months')) {
+            termParam = '6m';
+        }
+
+        return userParam + productParam + termParam;
+    };
+
+    var trackMobLogins = function () {
+
+        // For all pages except subscription process
+        if (!isSubscriptionProcess) {
+
+            // Login buttons handling
+            var userName = JSON.parse(mmcore.GetCookie('Econ.user.user', 1) || '{"name": null}').name;
+            if (!mmcore.GetCookie('mm-logged-in-state', true) || !userName) {
+                mmcore.SetCookie('mm-logged-in-state', userName, 365, true);
+            }
+            if (userName && mmcore.GetCookie('mm-logged-in-state', true) !== userName.toString()) {
+                trackAction('MobLogins', 1);
+                mmcore.SetCookie('mm-logged-in-state', userName, 365, true);
+            }
+
+            // For subscription pages only
+        } else {
+
+            $(document).ajaxComplete(function (event, xhr, settings) {
+                if (settings.url.indexOf('api_request.php') !== -1) {
+                    var data = $.parseJSON(xhr.responseText);
+                    if (data.status === 200 && data.api_uid && data.api_email) {
+                        trackAction('MobLogins', 1);
+                    }
+                }
+            });
+
+        }
+
+    };
+
+    var trackMobsSubsArrivals = function () {
+
+        // For all pages except subscription process
+        var isOrderInfoPage = $('.css3_labelb:contains( Order tracking number)').length;
+
+        if (!isSubscriptionProcess && $document.delegate) {
+
+            $document.delegate('#paybarrier_subscription_link', 'click', function () {
+
+                var attr = '',
+                    paywallName = '';
+
+                if (
+                    window.Drupal &&
+                    window.Drupal.settings &&
+                    window.Drupal.settings.ec_wallpage &&
+                    window.Drupal.settings.ec_wallpage.ec_wallpage_paywall_name
+                    ) {
+
+                    paywallName = window.Drupal.settings.ec_wallpage.ec_wallpage_paywall_name;
+
+                    if (paywallName === 'Article Paywall Anonymous') {
+                        attr = 'Regwall'
+                    } else if (paywallName === 'Article Paywall Registered') {
+                        attr = 'Subwall'
+                    }
+
+                }
+
+                mmcore.SetCookie('mm-mob-subs-arrivals-attr', attr, 0, true);
+                mmcore.SetCookie('mm-mob-subs-entry-attr', attr, 0, true);
+            });
+
+            $document.delegate('a:contains(Subscribe)', 'touchstart', function () {
+                mmcore.SetCookie('mm-mob-subs-arrivals-attr', 'Masthead', 0, true);
+                mmcore.SetCookie('mm-mob-subs-entry-attr', 'Masthead', 0, true);
+            });
+
+            $document.delegate('#view-subscription', 'touchstart', function () {
+                mmcore.SetCookie('mm-mob-subs-arrivals-attr', 'Overlay', 0, true);
+                mmcore.SetCookie('mm-mob-subs-entry-attr', 'Overlay', 0, true);
+            });
+
+            // For all subscription process pages except confirmation page
+        } else if (isSubscriptionProcess && !isSubscriptionConfirmation) {
+
+            var attr = mmcore.GetCookie('mm-mob-subs-arrivals-attr', true) || '';
+            if (window.location.search.indexOf('tagsrc=/GLB/RPWMA') !== -1) {
+                attr = 'Regwall';
+            }
+            if (window.location.search.indexOf('tagsrc=/GLB/SPWMA') !== -1) {
+                attr = 'Subwall';
+            }
+
+            mmcore.mediator.trigger('MobsSubsArrivals', {
+                path: attr
+            });
+
+            trackAction('MobsSubsArrivals', 1, attr);
+            mmcore.SetCookie('mm-mob-subs-arrivals-attr', '', -1, true);
+
+            //if user came from iframe (regwall or subwall)
+            if (attr === 'Regwall' || attr === 'Subwall') {
+                mmcore.SetCookie('mm-mob-subs-entry-attr', attr, 0, true);
+            }
+        } else {
+            //or thankYouID selector
+            if (isOrderInfoPage) {
+                if (!isPageReloadedByF5) {
+                    var subscriptionRevenueHolder = $('.css3_labelb:contains("Subscription charge:")').parent(),
+                        subscriptionRevenue = getRevenue(subscriptionRevenueHolder)[0] || 0,
+                        convertedRevenueValue = convertValues(subscriptionRevenueHolder.text(), subscriptionRevenue);
+
+                    mmcore.SetAction('MobSubsByEntry', convertedRevenueValue, mmcore.GetCookie('mm-mob-subs-entry-attr', true) || '');
+                    mmcore.SetAction('MobSubsByType', convertedRevenueValue, getAttrForMobSubsByTypeAction());
+                    mmcore.mediator.trigger('MobSubsByEntry', {
+                        revenue: convertedRevenueValue,
+                        path: mmcore.GetCookie('mm-mob-subs-entry-attr', true)
+                    });
+                    mmcore
+                        .request()
+                        .done(function () {
+                            mmcore.SetCookie('mm-mob-subs-entry-attr', true, -1, true);
+                        });
+                }
+            }
+        }
+        mmcore.SetCookie('mm-subs', location.pathname, 1, true);
+
+    };
+
+    mmcore.AddDocLoadHandler(function () {
+        try {
+            trackMobLogins();
+            trackMobsSubsArrivals();
+        } catch (error) {
+            if (typeof mmcore.EH === 'function') {
+                mmcore.EH(new Error('Acts_MobileGlobal.js: something went wrong during action tracking. Possible reason: ' + error));
+            }
+        }
+    });
+
+})();
+
+}catch(err){mmcore.EH(err);}
+try{
+mmcore._IntegrationFactory=mmcore._IntegrationFactory||function(e){var t=mmcore._IntegrationFactory,n=function(e){mmcore.EH({message:"["+(r?r:"Integration")+"] "+e})};if(!e||!e.name)return n("Missing build parameters.");var r=e.name,i=e.validate,s=e.check,o=e.timeout||1e4,u=e.interval||50,a=e.exec,f=e.defaults||{};if(!r)return n("Invalid integration build, name is required.");if(!a)return n("Invalid integration build, exec is required.");t._version="1.0.7";if(t[r])return t[r];var l=function(r){r=typeof r=="object"?r:{};for(var l in this.defaults)r.hasOwnProperty(l)||(r[l]=this.defaults[l]);for(var c in f)r.hasOwnProperty(c)||(r[c]=f[c]);r._verifyVersion=function(e){var n=t._version.match(/\d+/g),r=e.match(/\d+/g),i=Math.max(n.length,r.length);for(var s=0;s<i;s++)if(+n[s]<+r[s])return!1;return!0};if(r.campaign){var h=mmcore.GenInfo[r.campaign];if(r.redirect)if(h){for(var p in h);if(h[p].toLowerCase()!="default")return mmcore.SetCookie("mm_redir_"+r.campaign,JSON.stringify(h),0,1)}else try{h=JSON.parse(mmcore.GetCookie("mm_redir_"+r.campaign,1))}catch(d){}if(!h)return n("Campaign not found: "+r.campaign);var v=[],m=[],g=[];for(var y in h){var b=h[y];m.push(y),g.push(b),v.push(y+":"+b)}r.campaignInfo=r.campaign+"="+v.join("|"),r.elements=m,r.variants=g}r.isProduction=function(){var e=["cfgid","opc.enabled","opc.vis","pt.enabled","un"];for(var t=0;t<e.length;t++)if(!!mmcore.GetParam(e[t]))return!1;return!0}();if(i){var w=i.call(e,r);if(w!==!0)return n("Data validation failed: "+w)}var E=function(){if(r.modifiers)for(var t in r.modifiers)r.modifiers[t].call(this,r,e);var i=a.call(e,r);i!==!0&&n("Execution failed: "+i)};if(s)if(s.call(e,r))E();else{var S=!1,x=setInterval(function(){s.call(e,r)&&(clearInterval(x),S=!0,E())},r.interval||u);mmcore.AddDocLoadHandler(function(){setTimeout(function(){if(S)return;clearInterval(x);var e="Integration timed out. Checks not passed.";"function"==typeof r.fail&&r.fail(e),n(e)},r.timeout||o)})}else E()};return l._version=e._version,l.defaults={},mmcore._IntegrationFactory[r]=l,l},mmcore.Integrate=function(e,t){var n=mmcore._IntegrationFactory[e];n?n.call(n,t):mmcore.EH({message:"Integration not installed: "+e})}
+}catch(err){mmcore.EH(err);}
+try{
+// Maxymiser Core - Attach Style v0.0.0 http://gitlab.maxymiser.net/gts/mmcore-attach-style/tree/master
+(function(){'use strict';mmcore.AttachStyle=function(){var c={STYLE_ID:"mm-style",createStyle:function(){var b=document.createElement("style");b.type="text/css";return b},appendCssToStyle:function(){var b,a;"styleSheet"in c.createStyle()?(b=function(a){return a.styleSheet.cssText},a=function(a,b){a.styleSheet.cssText=b}):(b=function(a){return a.innerHTML},a=function(a,b){a.innerHTML=b});return(c.appendCssToStyle=function(c,d){a(d,b(d)+c)}).apply(this,arguments)}};return function(b){var a=document.getElementById(c.STYLE_ID);a||(a=c.createStyle(),a.id=c.STYLE_ID,function(){this.parentNode.insertBefore(a,this)}.call(document.getElementsByTagName("head")[0].lastChild));c.appendCssToStyle(b,a)}}()})();
+}catch(err){mmcore.EH(err);}
+try{
+/**
+ * Prevent function execution on page refresh.
+ * 21.01.2015
+ * Alexander Tytskiy
+ */
+
+/**
+ * Refresh plugin.
+ * Exports mmcore.oncePerPageLoad() function.
+ *
+ * Execute function once per page load. Rule user left page defined by timeout in milliseconds.
+ *
+ * @author   gts media team
+ * @version  0.1.0
+ *
+ * @param verbalID {String}   Verbal identifier to store our function as done
+ * @param callback {Function} Function to execute once per page load
+ * @param timeout  {Number}   Timeout in milliseconds (5000 per default)
+ *
+ * Example:
+ *     mmcore.oncePerPageLoad('say1', function () {say(1)});
+ *     mmcore.oncePerPageLoad('say2', function () {say(2)}, 7000);
+ */
+(function () {
+	/* jshint strict: false */
+	/* jshint maxlen: false */
+	var mmcore = window.mmcore,
+		SECOND = 1000;
+
+	var getCurrentTimestamp = function () {
+		return new Date().getTime();
+	};
+
+	var manager = {
+		_stack: [],
+		_preventeds: {},
+
+		_timestamp: getCurrentTimestamp(),
+		_timeout: 5 * SECOND,
+		_oldOnunloadFn: window.onunload,
+		_isLocalStorageAvailable: false,
+
+		_storage: window.localStorage,
+		_keyName: 'mm_prevent_f5',
+
+		getCurrentTimestamp: getCurrentTimestamp,
+
+		// Main API.
+		oncePerPageLoad: function (verbalID, callback, timeout) {
+			var item;
+
+			verbalID = 'fn_' + verbalID;
+			timeout = timeout || 0;
+
+			if (!manager._preventeds[verbalID]) {
+				callback.call(null);
+			}
+
+			item = manager._constructItem(verbalID, timeout);
+
+			manager._stack.push(item);
+
+			return manager;
+		},
+
+		initialize: function () {
+			manager._isLocalStorageAvailable = manager.testLocalStorage();
+
+			manager
+				._fillPreventeds()
+				._cleanExpired()
+				._bindEvents();
+		},
+
+		testLocalStorage: function () {
+			var key = 'mm_test';
+
+			try {
+				manager._storage.setItem(key, key);
+				manager._storage.removeItem(key);
+				return true;
+			} catch (error) {
+				return false;
+			}
+		},
+
+		isEmptyObj: function (obj) {
+			for (var prop in obj) {
+				if (obj.hasOwnProperty(prop)) {
+					return false;
+				}
+			}
+
+			return true;
+		},
+
+		_fillPreventeds: function () {
+			try {
+				if (manager._isLocalStorageAvailable) {
+					manager._preventeds = JSON.parse(manager._storage.getItem(manager._keyName)) || {};
+				} else {
+					manager._preventeds = JSON.parse(mmcore.GetCookie(manager._keyName, true)) || {};
+				}
+			} catch (err) {
+				manager._preventeds = {};
+			}
+
+			return manager;
+		},
+
+		_bindEvents: function () {
+			window.onunload = function () {
+				var splitten;
+
+				for (var i = 0, len = manager._stack.length; i < len; i++) {
+					splitten = manager._stack[i].split(':');
+					splitten[1] = parseInt(splitten[1], 10);
+
+					if (splitten[1]) {
+						manager._preventeds[splitten[0]] = {
+							timestamp: manager.getCurrentTimestamp(),
+							timeout: splitten[1]
+						};
+					} else {
+						manager._preventeds[splitten[0]] = {
+							timestamp: manager.getCurrentTimestamp()
+						};
+					}
+				}
+
+				if (manager.isEmptyObj(manager._preventeds)) {
+					if (manager._isLocalStorageAvailable) {
+						manager._storage.removeItem(manager._keyName);
+					} else {
+						mmcore.SetCookie(manager._keyName, '', -1, true);
+					}
+				} else {
+					if (manager._isLocalStorageAvailable) {
+						manager._storage.setItem(manager._keyName, JSON.stringify(manager._preventeds));
+					} else {
+						mmcore.SetCookie(manager._keyName, JSON.stringify(manager._preventeds), 0, true);
+					}
+				}
+
+				if (manager._oldOnunloadFn) {
+					return manager._oldOnunloadFn.apply(this, arguments);
+				}
+			};
+
+			return manager;
+		},
+
+		_cleanExpired: function () {
+			var isExpired = false,
+				timeout = 0;
+
+			for (var prop in manager._preventeds) {
+				if (manager._preventeds.hasOwnProperty(prop)) {
+					timeout = manager._preventeds[prop].timeout || manager._timeout;
+					isExpired = Boolean((+ manager._preventeds[prop].timestamp + timeout < manager._timestamp));
+
+					if (isExpired) {
+						delete manager._preventeds[prop];
+					}
+				}
+			}
+
+			return manager;
+		},
+
+		_constructItem: function (id, timestamp) {
+			return (id + ':' + timestamp);
+		},
+
+		// Debug.
+		_cleanRefreshManager: function () {
+			manager._preventeds = {};
+			manager._stack = [];
+
+			if (manager._isLocalStorageAvailable) {
+				manager._storage.removeItem(manager._keyName);
+			} else {
+				mmcore.SetCookie(manager._keyName, '', -1, true);
+			}
+		}
+	};
+
+	try {
+		manager.initialize();
+
+		mmcore.oncePerPageLoad = manager.oncePerPageLoad;
+
+		// Export this only for debugging.
+		mmcore._cleanRefreshManager = manager._cleanRefreshManager;
+	} catch (error) {
+		// Anyway execute callback if something broken.
+		mmcore.oncePerPageLoad = function (verbalID, callback) {
+			callback.call(null);
+			mmcore.EH(new Error('Plugin_Refresh.js: something went wrong on plugin initialization. Executed possible prevented action. Possible reason: ' + error));
+		};
+	}
+}());
+}catch(err){mmcore.EH(err);}
+try{
+mmcore._IntegrationFactory({
+    name: 'CrazyEgg',
+    defaults: {
+        modifiers: {
+            Persist: function(data, buildParams){
+                if(data.persist && data.persistentCount > 0){
+                    try {
+                        var storedList = JSON.parse(mmcore.GetCookie('mm_iPersist', 1) || '[]');
+                    } catch (e) {
+                        var storedList = [];
+                    }
+                    var searchFor = data.campaign + '=';
+                    for(var i = storedList.length; i--;){
+                        if(!storedList[i].indexOf(searchFor))
+                            storedList.splice(i, 1);
+                    }
+                    storedList.push(data.campaignInfo);
+                    while(storedList.length > data.persistentCount)
+                        storedList.shift();
+
+                    mmcore.SetCookie('mm_iPersist', JSON.stringify(storedList), 365, 1);
+                    data.campaignInfo = storedList.join('&');
+                }
+            }
+        },
+        persistentCount: 10
+    },
+    validate: function(data){  
+        if(!data.campaign)
+            return 'No campaign.';
+
+        return true;  
+    },
+    check: function(data){  
+        return typeof window.jQuery === 'function';
+    },  
+    exec: function(data){
+        window.CE_SNAPSHOT_NAME = data.campaignInfo;
+
+        if(data.callback) data.callback();
+        return true;
+    },
+    _version: '1.0.7'
+});
+
+}catch(err){mmcore.EH(err);}
+try{
+//Essentials
+
+// Maxymiser Core - Try Catch v0.0.0 http://gitlab.maxymiser.net/gts/mmcore-try-catch/tree/master
+(function(){'use strict';mmcore.tryCatch=function(){return function b(c,d){var e=arguments.length;return function(){try{return c.apply(this,arguments)}catch(a){try{mmcore.EH(a)}finally{1<e&&b(d)(a)}}}}}()})();
+
+// Maxymiser Essentials - Deferred v0.0.1
+(function(){var n,r,e,t,u,i,o,l,c,s,a,f,p=[].slice;r="pending",t="resolved",e="rejected",l=function(n,r){return null!=n?n.hasOwnProperty(r):void 0},c=function(n){return l(n,"length")&&l(n,"callee")},s=function(n){return l(n,"promise")&&"function"==typeof(null!=n?n.promise:void 0)},o=function(n){return c(n)?o(Array.prototype.slice.call(n)):Array.isArray(n)?n.reduce(function(n,r){return Array.isArray(r)?n.concat(o(r)):(n.push(r),n)},[]):[n]},u=function(n,r){return 0>=n?r():function(){return--n<1?r.apply(this,arguments):void 0}},a=function(n,r){return function(){var e;return e=[n].concat(Array.prototype.slice.call(arguments,0)),r.apply(this,e)}},i=function(n,r,e){var t,u,i,l,c;for(l=o(n),c=[],u=0,i=l.length;i>u;u++)t=l[u],c.push(t.call.apply(t,[e].concat(p.call(r))));return c},n=function(){var u,l,c,a,f,h,g;return g=r,a=[],f=[],h=[],c={resolved:{},rejected:{},pending:{}},this.promise=function(u){var l,y;return u=u||{},u.state=function(){return g},y=function(n,e,t){return function(){return g===r&&e.push.apply(e,o(arguments)),n()&&i(arguments,c[t]),u}},u.done=y(function(){return g===t},a,t),u.fail=y(function(){return g===e},f,e),u.progress=y(function(){return g!==r},h,r),u.always=function(){var n;return(n=u.done.apply(u,arguments)).fail.apply(n,arguments)},l=function(r,e,t){var i,o;return o=new n,i=function(n,r,e){return u[n](e?function(){var n,t;return n=1<=arguments.length?p.call(arguments,0):[],t=e.apply(null,n),s(t)?t.done(o.resolve).fail(o.reject).progress(o.notify):o[r](t)}:o[r])},i("done","resolve",r),i("fail","reject",e),i("progress","notify",t),o},u.pipe=l,u.then=l,null==u.promise&&(u.promise=function(){return u}),u},this.promise(this),u=this,l=function(n,e,t){return function(){return g===r?(g=n,c[n]=arguments,i(e,c[n],t),u):this}},this.resolve=l(t,a),this.reject=l(e,f),this.notify=l(r,h),this.resolveWith=function(n,r){return l(t,a,n).apply(null,r)},this.rejectWith=function(n,r){return l(e,f,n).apply(null,r)},this.notifyWith=function(n,e){return l(r,h,n).apply(null,e)},this},f=function(){var r,e,t,i,l,c,a;if(e=o(arguments),1===e.length)return s(e[0])?e[0]:(new n).resolve(e[0]).promise();if(l=new n,!e.length)return l.resolve().promise();for(i=[],t=u(e.length,function(){return l.resolve.apply(l,i)}),e.forEach(function(n,r){return s(n)?n.done(function(){var n;return n=1<=arguments.length?p.call(arguments,0):[],i[r]=n.length>1?n:n[0],t()}):(i[r]=n,t())}),c=0,a=e.length;a>c;c++)r=e[c],s(r)&&r.fail(l.reject);return l.promise()},mmcore.Deferred=function(){return new n},mmcore.when=f}).call(this);
+
+// Maxymiser Essentials - Wait for v0.1.1
+!function(){"use strict";mmcore.waitFor=function(e,t){var i,o;return o=mmcore.Deferred(),o.isComplete=function(){return"pending"!==o.state()},t=t||{},t.interval=t.interval||50,t.isNotStoppedOnDocumentReadiness=t.isNotStoppedOnDocumentReadiness||!1,t.isNotPeriodicallyChecked=t.isNotPeriodicallyChecked||!1,i=function(){o.isComplete()||(e.call(o)&&o.resolve(),o.isComplete()||(!t.isNotStoppedOnDocumentReadiness&&(mmcore.$&&mmcore.$.isReady||!mmcore.$&&"complete"===document.readyState)?o.reject():t.isNotPeriodicallyChecked||setTimeout(i,t.interval)))},t.hasOwnProperty("initializer")&&t.initializer.call(o),i(),o.isComplete()||(t.hasOwnProperty("timeout")&&!function(){var e=setTimeout(o.reject,t.timeout);o.always(function(){clearTimeout(e)})}(),t.isNotStoppedOnDocumentReadiness||mmcore.AddDocLoadHandler(t.isNotPeriodicallyChecked?o.reject:i)),o.promise()}}();
+
+// Maxymiser Core - Campaign v0.3.0 http://gitlab.maxymiser.net/gts/mmcore-campaign/tree/master
+(function(){"use strict";function e(e,t){var n=false;for(var r=0;r<t.length;r++){if(t[r]===e){n=true}}return n}function n(e,t,n){this.name=e;this.maxyboxNames=t;this.prefix=n;this.preventDefaultRendering();this.preventDefaultHiding()}mmcore.Campaign=n;var t=function(e,t,n){var r,i=[],s=0,o=e.length;n=!!n;for(;s<o;s++){r=!!t(e[s],s);if(n!==r){i.push(e[s])}}return i};n.prototype.preventDefaultRendering=function(){var e=mmcore._r_mbs;var t=this.maxyboxNames;var n=t.length;while(n--){e[t[n]]=1}};n.prototype.preventDefaultHiding=function(){var n=this;mmcore.HideMaxyboxes=function(r){return function(){var i=arguments;mmcore.tryCatch(function(){i=t(i,function(t){return e(t,n.maxyboxNames)})})();if(i.length){return r.apply(this,i)}}}(mmcore.HideMaxyboxes)};n.prototype.hideContent=function(e,t){var n;var r;var i;var s;var o=document.getElementsByTagName("html")[0];var u=o.getAttribute("class");this.hidingClass=this.prefix+"-hidden-content";if(u!==null&&u===""){u=this.hidingClass}else{u=u+" "+this.hidingClass}o.setAttribute("class",u);if(arguments.length<2){t="left: -33554430px; position: absolute; top: -33554430px;"}n=this.hidingClass;s=e.split(",");i=s.length;r="";while(i--){r+="."+n+" "+s[i]+"{"+t+"}"}mmcore.AttachStyle(r)};n.prototype.showContent=function(){if(this.hasOwnProperty("hidingClass")){var e=document.getElementsByTagName("html")[0];var t=e.getAttribute("class");if(t!==null&&t!==""){t=t.replace(this.hidingClass,"");e.setAttribute("class",t)}}};n.prototype.getExperience=function(){return mmcore.GenInfo.hasOwnProperty(this.name)?mmcore.GenInfo[this.name]:null};n.prototype.hasNonDefaultExperience=function(){var e,t;e=this.getExperience();if(!e){return false}t=false;for(var n in e){if(e.hasOwnProperty(n)&&e[n]!=="Default"){t=true;return false}}return t};n.prototype.hasMaxybox=function(){return this.hasNonDefaultExperience()};n.prototype.renderMaxyboxes=function(){var n;var r;var i;r=this.maxyboxNames;if(arguments.length){r=t(arguments,function(t){return!e(t,r)})}n=this;for(i in mmcore._renderers){if(e(i,r)&&typeof mmcore._renderers[i]==="function"){mmcore._renderers[i].call(n)}}}})();
+
+// Maxymiser Essentials - Mediator 0.2.0
+(function(){"use strict";function e(){var e=function(){return((1+Math.random())*65536|0).toString(16).substring(1)};return e()+e()+"-"+e()+"-"+e()+"-"+e()+"-"+e()+e()+e()}function t(n,r,i){if(!(this instanceof t)){return new t(n,r,i)}this.id=e();this.fn=n;this.options=r;this.context=i;this.channel=null}function n(e,t){if(!(this instanceof n)){return new n(e)}this.namespace=e||"";this._subscribers=[];this._channels=[];this._parent=t;this.stopped=false}function r(){if(!(this instanceof r)){return new r}this._channels=new n("")}t.prototype={update:function(e){if(e){this.fn=e.fn||this.fn;this.context=e.context||this.context;this.options=e.options||this.options;if(this.channel&&this.options&&this.options.priority!==undefined){this.channel.setPriority(this.id,this.options.priority)}}}};n.prototype={addSubscriber:function(e,n,r){var i=new t(e,n,r);if(n&&n.priority!==undefined){n.priority=n.priority>>0;if(n.priority<0){n.priority=0}if(n.priority>=this._subscribers.length){n.priority=this._subscribers.length-1}this._subscribers.splice(n.priority,0,i)}else{this._subscribers.push(i)}i.channel=this;return i},stopPropagation:function(){this.stopped=true},getSubscriber:function(e){var t=0,n=this._subscribers.length;for(t,n;t<n;t++){if(this._subscribers[t].id===e||this._subscribers[t].fn===e){return this._subscribers[t]}}},setPriority:function(e,t){var n=0,r=0,i,s,o,u;for(r=0,u=this._subscribers.length;r<u;r++){if(this._subscribers[r].id===e||this._subscribers[r].fn===e){break}n++}i=this._subscribers[n];s=this._subscribers.slice(0,n);o=this._subscribers.slice(n+1);this._subscribers=s.concat(o);this._subscribers.splice(t,0,i)},addChannel:function(e){this._channels[e]=new n((this.namespace?this.namespace+":":"")+e,this)},hasChannel:function(e){return this._channels.hasOwnProperty(e)},returnChannel:function(e){return this._channels[e]},removeSubscriber:function(e){var t=this._subscribers.length-1;if(!e){this._subscribers=[];return}for(t;t>=0;t--){if(this._subscribers[t].fn===e||this._subscribers[t].id===e){this._subscribers[t].channel=null;this._subscribers.splice(t,1)}}},publish:function(e){var t=0,n=this._subscribers.length,r=false,i,s,o,u;for(t,n;t<n;t++){r=false;if(!this.stopped){i=this._subscribers[t];if(i.options!==undefined&&typeof i.options.predicate==="function"){if(i.options.predicate.apply(i.context,e)){i.fn.apply(i.context,e);r=true}}else{o=this._subscribers.length;i.fn.apply(i.context,e);u=this._subscribers.length;n=u;if(u===o-1){t--}r=true}}if(r&&i.options&&i.options!==undefined){i.options.calls--;if(i.options.calls<1){this.removeSubscriber(i.id);n--;t--}}}if(this._parent){this._parent.publish(e)}this.stopped=false}};r.prototype={getChannel:function(e){var t=this._channels,n=e.split(":"),r=0,i=n.length;if(e===""){return t}if(n.length>0){for(r,i;r<i;r++){if(!t.hasChannel(n[r])){t.addChannel(n[r])}t=t.returnChannel(n[r])}}return t},subscribe:function(e,t,n,r){var i=this.getChannel(e);n=n||{};r=r||{};return i.addSubscriber(t,n,r)},once:function(e,t,n,r){n=n||{};n.calls=1;return this.subscribe(e,t,n,r)},getSubscriber:function(e,t){return this.getChannel(t||"").getSubscriber(e)},remove:function(e,t){this.getChannel(e).removeSubscriber(t)},publish:function(e){var t=Array.prototype.slice.call(arguments,1),n=this.getChannel(e);t.push(n);this.getChannel(e).publish(t)}};r.prototype.on=r.prototype.subscribe;r.prototype.bind=r.prototype.subscribe;r.prototype.emit=r.prototype.publish;r.prototype.trigger=r.prototype.publish;r.prototype.off=r.prototype.remove;r.Channel=n;r.Subscriber=t;mmcore.mediator=new r})();
+
+
+// Media
+
+// Maxymiser Essentials - Request (Media team's fork) v0.3.0
+!function(){"use strict";var d,a="mmevents",b=1e3,c=6*b,e=function(){d=mmcore.Deferred(),mmcore.request.promise=d.promise()};mmcore.request=function(b,f,g){var h=d;return e(),arguments.length||(b=a),mmcore.SetPageID(b),mmcore._async=!f,mmcore.CGRequest(h.resolve),setTimeout(mmcore.tryCatch(h.reject),g||c),h.promise()},e()}();
+
+// Maxymiser Essentials - GenInfoChanged event (Media team's fork) v0.0.0
+// Dependency: mmcore.mediator
+(function(){if(typeof window.JSON!="object"){mmcore.EH(new Error("Plugin_Essentials.js says: 'GenInfoChanged' event won't fire, reason: native JSON object is not supported by browser"));return}var e=function(){var e=mmcore.GenInfo,t=mmcore.GIStorage||{},n=[];mmcore.GIStorage=JSON.parse(JSON.stringify(e));for(var r in e){if(e.hasOwnProperty(r)){if(t[r]){for(var i in e[r]){if(e[r].hasOwnProperty(i)){if(t[r][i]!==e[r][i]){n.push(r);break}}}}else{n.push(r)}}}if(n.length){mmcore.mediator.trigger("GenInfoChanged",n)}};mmcore.CGRequest=function(t){return function(n){n=n||function(){};return t.call(this,function(){e();n()})}}(mmcore.CGRequest);e()})();
+}catch(err){mmcore.EH(err);}
+try{
+// --------------------------------------------------------------------------------
+// Common show-hide solution for all campaigns at the domain level. 
+// To extend campaign with additional functions just add them to Campaign.prototype
+// --------------------------------------------------------------------------------
+;(function (m) {
+    'use strict';
+	
+    function Campaign(config) {
+        this._objStyle = {};
+        this._config = config;
+        this.name = config.name;
+        this.mmPath = config.mmPath;
+    }
+    Campaign.prototype.addStyle = (function () {
+        var cg1 = document.getElementById(m.cprefix + '1'), st;
+        return function (css, name) {
+            st = this._objStyle[name];
+            name = name || "mm_style";
+            if (!st) {
+                st = document.createElement("style");
+                st.type = "text/css";
+                cg1.parentNode.insertBefore(st, cg1);
+                this._objStyle[name] = st;
+            }
+            if (st.styleSheet) {
+                st.styleSheet.cssText += css;
+            } else {
+                st.innerHTML += css;
+            }
+        };
+    }());
+    Campaign.prototype.removeStyle = function (name) {
+        var st = this._objStyle[name];
+        name = name || "mm_style";
+        if (st) {
+            st.parentNode.removeChild(st);
+        }
+        delete this._objStyle[name];
+    };
+    Campaign.prototype.preloadImages = function (tc) {
+        if (!tc) {
+            return false;
+        }
+        var self = this, mb, con, v, tcc, src, i, gi = m.GenInfo[self._config.name];
+        self.mb = {};
+        self._rmb = [];
+        for (mb in tc) {
+            if (tc.hasOwnProperty(mb)) {
+                v = gi[mb.toLowerCase()];
+                self.mb[mb] = v;
+                if (!/undefined|default/i.test(v)) {
+                    self._rmb.push(mb);
+                    if (!self._config.mmPath) {
+                        continue;
+                    }
+                    for (con in tc[mb]) {
+                        if (tc[mb].hasOwnProperty(con)) {
+                            tcc = tc[mb][con];
+                            i = tcc.length;
+                            while (i--) {
+                                tc[mb][con][i] = tcc[i].replace(/\[mm_path\]([^)'"]+)/g, function (m, img) {
+                                    src = (new Image()).src = self._config.mmPath + img;
+                                    return src;
+                                }); 
+                            } 
+                        }
+                    } 
+                }
+            }
+        }
+        return self._rmb.length;
+    };
+    Campaign.prototype.render = function () {
+        var self = this,
+            isAsync = !!self._config.pageID,
+            content = {
+                show: function () {
+                    self.removeStyle(self._config.name);
+                },
+                hide: function () {
+                    self.addStyle(self._config.hide + '{position: relative; left:-10000px}', self._config.name);
+                }
+            },
+            checker = (function () {
+                var is_checker_set = typeof self._config.checker === 'function',
+                    exit = (isAsync) ? false : m._docEnd;
+                return function () {
+                    return is_checker_set ? (self._config.checker() || exit) : exit;
+                };
+            }()),
+            stopChecker = (function () {
+                var is_checker_set = typeof self._config.stopChecker === 'function',
+                    exit = m._docEnd;
+                if (isAsync) {
+                    exit = false;
+                    setTimeout(function () { exit = true; }, self._config.checkerTimeout || 5000);
+                }
+                return function () {
+                    return is_checker_set ? (self._config.stopChecker() || exit) : exit;
+                };
+            }());
+        if (isAsync || self.preloadImages(tc || null)) {
+            content.hide();
+        } else {
+            return;
+        }
+        (function waiter() {
+            if (checker()) {
+                if (isAsync) {
+                    m._async = true;
+                    m.SetPageID(self._config.pageID);
+                    if (typeof self._config.beforeCGRequest === 'function') {
+                        self._config.beforeCGRequest();
+                    }
+                    m.AddDocLoadHandler(function () {});
+                    m.CGRequest(function () {
+                        m.AddDocLoadHandler(function () {
+                            if (typeof self._config.afterCGRequest === 'function') {
+                                self._config.afterCGRequest();
+                            }
+                            content.show();
+                        });
+                    });
+                    m.HideMaxyboxes = function () {};
+                    setTimeout(content.show, self._config.emergencyOpenTimeout || 3000);
+                } else if (self._rmb.length) {
+                    m.RenderMaxyboxes(self._rmb);
+                    content.show();
+                }
+            } else if (!stopChecker()) {
+                setTimeout(waiter, 50);
+            } else {
+                content.show();
+            }
+        }());
+    };
+    m.initCampaign = function (config) {
+        return new Campaign(config);
+    };
+}(window.mmcore));
+}catch(err){mmcore.EH(err);}
+try{
+;(function (mmcore) {
+
+	mmcore
+		.waitFor(function () {
+			return (
+				window.utag_data &&
+				window.utag_data.node_type &&
+				(
+					window.utag_data.node_type === 'article' ||
+					window.utag_data.node_type === 'essay' ||
+					window.utag_data.node_type === 'mtblog'
+				)
+			);
+		})
+		.done(function () {
+			mmcore.HideMaxyboxes = function() {};
+			mmcore._async = true;
+			mmcore.SetPageID('ArticlePage');
+			mmcore.CGRequest();
+		});
+
+}(window.mmcore));
+
+}catch(err){mmcore.EH(err);}
+try{
+// 26.01.2015. Alexander Tytskiy. Note: Please read TODO.
+
+// Actions for successful registration completions
+
+// - MobRegistrations
+// - Registrations2 (possible attributes: Regwall, Overlay, Comment, Activate, Newsletter)
+
+
+;(function() {
+
+	var $ = window.jQuery;
+	var m = window.mmcore;
+	var wlpn = window.location.pathname;
+
+	$(function() {
+		// Registrations2 - Regwall and Overlay
+		$(document).ajaxComplete(function(e, xhr, settings) {
+			var welcomeHeading;
+			
+			if ((settings.url.indexOf('/js/ec_wallpage_js_reg_form') !== -1 || settings.url.indexOf('/ec_overlay_reg_form') !== -1)
+				&& xhr.responseText.indexOf('Thank you for registering') !== -1) {
+				welcomeHeading = $('.overlay-header h2').text().toLowerCase().indexOf('welcome to the economist') > -1;
+
+				m.$Action('MobRegistrations', '1', '');
+				m.$Action('Registrations2', '1', welcomeHeading ? 'Overlay' : 'Regwall');
+				m._async = true;
+				m.SetPageID('mmevents');
+				m.CGRequest();
+				// TODO: once T19 finished move triggering one line up.
+				// For now i leave it to not breaks the test.
+				// Use another event if you need auto-request to CG.
+				m.mediator.trigger('Registrations');
+			}
+		} );
+
+		// Registrations2 - Comment
+		$('form.context-user_register_comment').live('submit', function() {
+			m.SetCookie('mm_regComment', '1', 0, 1);
+		});
+
+		if (!$('form.context-user_register_comment').length && m.GetCookie('mm_regComment', 1)) {
+			m.SetAction('MobRegistrations', '1');
+			m.SetAction('Registrations2', '1', 'Comment');
+			m._async = true;
+			m.SetPageID('mmevents');
+			m.CGRequest();
+			m.SetCookie('mm_regComment', '', -1, 1);
+		}
+	});
+
+	if ( m.GetCookie('mmRegisterTry', 1) !== '' && m.GetCookie('ec_omniture_user_sub', 1) ) {
+		mmcore.waitFor(function () {
+			return $('footer').length;
+		})
+			.done(function () {
+				var isErrorPresent = $('.messages-error').length,
+					isNoErrorField = $('#user-register .form-item-error:visible').size() === 0;
+
+				if (!isErrorPresent && isNoErrorField) {
+					(function () {
+						var attr = '';
+						if (m.GetCookie('mm_regActivate', 1)) {
+							attr = 'Activate';
+						} else if (m.GetCookie('mm_regNewsletter', 1)) {
+							attr = 'Newsletter';
+						} else if (m.GetCookie('mmRWused', 1)) {
+							attr = 'Regwall';
+						}
+						m.$Action('MobRegistrations', '1', '');
+						m.$Action('Registrations2', '1', attr);
+					}());
+
+					m._async = true;
+					m.SetPageID('mmevents');
+					m.CGRequest();
+
+					m.SetCookie('mm_regNewsletter', '', -1, 1);
+					m.SetCookie('mm_regActivate', '', -1, 1);
+					m.SetCookie('mmRegisterTry', '', -1, 1);
+					m.SetCookie('mmRWused', '', -1, 1);
+				}
+			});
+	}
+
+	// Logic 2
+	if (wlpn === '/user/register') {
+		$(function() {
+
+			var NOerrors;
+
+			NOerrors = $('#user-register .form-item-error:visible').size() === 0;
+
+			setTimeout(function() {
+
+				$('#user-register').submit(function() {
+
+					NOerrors = $('#user-register .form-item-error:visible').size() === 0;
+
+					if (NOerrors) {
+
+						m.SetCookie('mmRegisterTry', true, 0, 1);
+
+						if (location.href.indexOf( 'destination=newsletters' ) + 1) {
+							m.SetCookie('mm_regNewsletter', 1, 0, 1);
+						}
+
+						if ($( '#page-title:contains(Activate digital access)').length) {
+							m.SetCookie('mm_regActivate', 1, 0, 1);
+						}
+
+						if (location.search.indexOf( 'rp=paywall' ) + 1) {
+							m.SetCookie('mmRWused', 1, 0, 1);
+						}
+					}
+				});
+
+			}, 1000);
+
+			if ( NOerrors === false ) {
+				m.SetCookie( 'mm_regNewsletter', '', -1, 1 );
+				m.SetCookie( 'mm_regActivate', '', -1, 1 );
+				m.SetCookie( 'mmRegisterTry', '', -1, 1 );
+				m.SetCookie( 'mmRWused', '', -1, 1 );
+			}
+		} );
+	}
+
+})();
+
+}catch(err){mmcore.EH(err);}
+try{
+// Actions tracking:
+// - Logins
+// - Logins2
+
+// To Do:
+// - "Logins" should be removed in future after T5 CID (MaxPredict) campaign update
+
+;
+(function () {
+
+	mmcore.AddDocLoadHandler(function () {
+
+		var userCookieObject,
+			userAlreadyExists = false;
+
+		var trackLoginAction = function (actionName, actionAttribute, cookieName) {
+
+			if (userAlreadyExists) {
+
+				// Action setting
+				mmcore._async = true;
+				mmcore.SetPageID('events');
+				mmcore.SetAction(actionName, '1', actionAttribute);
+				mmcore.CGRequest();
+
+				// Cookie clearance
+				mmcore.SetCookie(cookieName, '', -1, 1)
+
+			}
+
+		};
+
+		// Checking for user already exists
+		try {
+			userCookieObject = JSON.parse(mmcore.GetCookie('Econ.user.user', 1) || '{}');
+			userAlreadyExists = userCookieObject.name
+		} catch (e) {
+			mmcore.EH(
+				new Error("Acts_LoginProcess.js says: parsing client's cookie 'Econ.user.user' failed : " + e)
+			)
+		}
+
+
+		// ----------------------------------------
+		// processing standard login via form start
+		// ----------------------------------------
+
+		// Function gathering cookie for standard login attribute.
+		// Possible cookie values: Blank, Activate, Comment, Regwall
+		var loginAttributeToCookie = function (definiteAttr) {
+			mmcore.SetCookie('mm_loginForm', definiteAttr, 7, 1)
+		};
+
+		// Function that binds to all possible standard login events
+		var standardLoginAttributeDetection = function () {
+
+			// Covering login forms on "/user" pages
+			if (window.location.pathname.indexOf('/user') + 1) {
+
+				$('#user-login-block input[type="submit"], #user-login input[type="submit"]').live('click', function () {
+
+					// If validation was passed
+					if (!$(this).closest('form').find('.ec-error-msg').length) {
+
+						if ($('#page-title:contains(Activate digital access)').length) {
+							loginAttributeToCookie('Activate')
+						} else if ($('.short-reg-comment-preview').length) {
+							loginAttributeToCookie('Comment')
+						} else {
+							// Some unpredictable cases are tracked with blank attribute
+							loginAttributeToCookie('Blank')
+						}
+
+					}
+
+				})
+
+				// Covering login forms on all other pages
+			} else {
+				// Added check on regwall click from test25 (by Andrey Cherepovskiy)
+				$('.show-login').live('click', function () {
+					if (mmcore.T25 &&
+						mmcore.T25.isRegwallLoginClicked) {
+						mmcore.T25.isRegwallLoginClicked = false;
+					}
+				});
+
+				$('form[action*="www.economist.com/user/login?"]').live('submit', function () {
+
+					if (mmcore.T25 &&
+						mmcore.T25.isRegwallLoginClicked) {
+						loginAttributeToCookie('Regwall');
+					} else {
+						loginAttributeToCookie('Blank');
+					}
+
+				});
+
+
+
+				// Added case by Yulis Pshinko to track Regwall attribute from regwall or subwall popups
+				if ($.fn.ajaxComplete) {
+					$(document).ajaxComplete(function (e, xhr, settings) {
+
+						if (settings.url === "/ec-homepage/regov/js" &&
+							xhr.responseText.indexOf('You will be redirected shortly.') + 1) {
+
+							loginAttributeToCookie('Regwall')
+
+						}
+					})
+				}
+			}
+
+		};
+
+		// Function that sets standard login action in case 'mm_loginForm' cookie appeared
+		var standardLoginAction = function () {
+
+			var standardLoginAttr = mmcore.GetCookie('mm_loginForm', 1);
+
+			if (standardLoginAttr) {
+
+				if ($('.messages-error:contains(Your account already has full digital access.)').length ||
+					standardLoginAttr === 'Blank') {
+
+					standardLoginAttr = ''
+				}
+
+				trackLoginAction('Logins2', standardLoginAttr, 'mm_loginForm')
+
+			}
+
+		};
+
+		// ----------------------------------------
+		// processing standard login via form end
+		// ----------------------------------------
+
+
+
+
+
+		// ----------------------------------------
+		// processing login via social links start
+		// ----------------------------------------
+
+		// Function that binds to all possible social links login events
+		var socialLinksLoginAttributeDetection = function () {
+
+			if (window.janrain &&
+				window.janrain.engage &&
+				window.janrain.engage.signin &&
+				window.janrain.engage.signin.loginHandler) {
+
+				var _socialLoginHandler = window.janrain.engage.signin.loginHandler;
+				window.janrain.engage.signin.loginHandler = function () {
+					mmcore.SetCookie('mm_socialLogin', 'true', 365, 1);
+					_socialLoginHandler.apply(this, arguments);
+				}
+
+			} else {
+
+				$(document).ajaxComplete(function (event, XMLHttpRequest, ajaxOptions) {
+					if (ajaxOptions.url.indexOf('/ajax/login') + 1) {
+
+						(function waitForLoginHandler() {
+
+							if (window.janrain &&
+								window.janrain.engage &&
+								window.janrain.engage.signin &&
+								window.janrain.engage.signin.loginHandler) {
+
+								var _socialLoginHandler = window.janrain.engage.signin.loginHandler;
+								window.janrain.engage.signin.loginHandler = function () {
+									mmcore.SetCookie('mm_socialLogin', 'true', 365, 1);
+									_socialLoginHandler.apply(this, arguments)
+								}
+
+							} else {
+								setTimeout(waitForLoginHandler, 100)
+							}
+
+						})()
+
+					}
+				})
+
+			}
+
+		};
+
+		// Function that sets social links login action in case 'mm_socialLogin' cookie appeared
+		var socialLinksLoginAction = function () {
+
+			if (mmcore.GetCookie('mm_socialLogin', 1)) {
+				trackLoginAction('Logins', '', 'mm_socialLogin');
+				trackLoginAction('Logins2', '', 'mm_socialLogin')
+			}
+
+		};
+
+		// ----------------------------------------
+		// processing login via social links end
+		// ----------------------------------------
+
+
+
+
+		// ----------------------------------------
+		// Initialization
+		// ----------------------------------------
+
+		// All these checks run on every page load throughout the site
+		// These two for standard processing
+		standardLoginAttributeDetection();
+		standardLoginAction();
+		// These two for social links processing
+		socialLinksLoginAttributeDetection();
+		socialLinksLoginAction()
+
+
+	})
+
+})();
+}catch(err){mmcore.EH(err);}
+try{
+(function ( m, $ ) {
+	if ( !$ || !$.fn ) { return; }
+
+	var lh = window.location.href,
+		dr = document.referrer;
+
+	mmcore.AddDocLoadHandler(function () {
+		// -----------------------------------
+		// For action SubsByEntry
+		// -----------------------------------
+		$( '#reg-overlay a:contains(View subscription offers)' ).live( 'click', function () {
+			if ( lh.indexOf( '//www.economist.com//ec-homepage/regov/start' ) + 1 ) {
+				m.SetCookie( 'mm_attrSubsByEntry', 'Overlay', 0, 1 );
+			}
+		} );
+
+		$( '.paywall-left-text #paybarrier_subscription_link' ).live( 'click', function () {
+			m.SetCookie( 'mm_attrSubsByEntry', 'Subwall', 0, 1 );
+		} );
+
+		$( '.right-bottom #paybarrier_subscription_link, #reg-overlay .container-offer-button a' ).live( 'click', function () {
+			if ( lh.indexOf( '//www.economist.com//ec-homepage/regov/start' ) === -1 ) {
+				m.SetCookie( 'mm_attrSubsByEntry', 'Regwall', 0, 1 );
+			}
+		} );
+
+
+		$( '#subslug-ad a' ).live( 'click', function () {
+			var attr, width;
+
+			width = parseFloat( $( this ).find( 'img' ).attr( 'width' ), 10 );
+			attr = (width > 300) ? 'PencilSlugAd' : 'SlugAd';
+
+			m.SetCookie( 'mm_attrSubsByEntry', attr, 0, 1 );
+		} );
+
+		(function () {
+			var flag;
+
+			$( '#block-ec_ads-pencil_slug_ad' )
+				.live( 'mouseover', function () {
+					flag = true;
+				} )
+				.live( 'mouseout', function () {
+					flag = false;
+				} );
+
+			$( window ).blur( function () {
+				if ( !flag ) {return;}
+				m.SetCookie( 'mm_attrSubsByEntry', 'PencilSlugAd', 0, 1 );
+			} );
+		}());
+
+		(function () {
+			var flag;
+
+			$( '#block-ec_ads-subscription_ad' )
+				.live( 'mouseover', function () {
+					flag = true;
+				} )
+				.live( 'mouseout', function () {
+					flag = false;
+				} );
+
+			$( window ).blur( function () {
+				if ( !flag ) {return;}
+				m.SetCookie( 'mm_attrSubsByEntry', 'SlugAd', 0, 1 );
+			} );
+		}());
+
+		$(".mh-user-menu a[href$='/products/subscribe'], .show-subscribe").live( 'click', function () {
+			m.SetCookie( 'mm_attrSubsByEntry', 'Masthead', 0, 1 );
+		} );
+
+		$( '#subscription_slider #main a' ).live( 'mouseup', function () {
+			m.SetCookie( 'mm_attrSubsByEntry', 'SliderAd', 0, 1 );
+		} );
+		$("#superhero .cover-image-container a[href$='/products/subscribe']").live("click", function() {
+			m.SetCookie( 'mm_attrSubsByEntry', 'LatestIssue', 0, true);
+		});
+		$("aside.site-index a[href$='/products/subscribe']").live("click", function() {
+			m.SetCookie( 'mm_attrSubsByEntry', 'Footer', 0, true);
+		});
+		if (-1 < lh.indexOf("//www.economist.com/printedition") && !/economist\.com\/printedition\/(covers|specialreports)/i.test(lh)) {
+			$(".issue-links a[href$='/products/subscribe']").live("click", function() {
+				m.SetCookie( 'mm_attrSubsByEntry', 'PrintEd', 0, true);
+			});
+		}
+		if (-1 < lh.indexOf("//www.economist.com/digital")) {
+			$("#ec-promotion-page a[href$='/products/subscribe']").live("click", function() {
+				m.SetCookie( 'mm_attrSubsByEntry', 'DigEd', 0, true);
+			});
+		}
+		if (0 < $("meta[property='og:type'][content='article']").size()) {
+			$("#block-ec_components-print_sub a[href$='/products/subscribe']").live("click", function() {
+				m.SetCookie( 'mm_attrSubsByEntry', 'UnderArticle', 0, true);
+			});
+		}
+
+		(function () {
+			var flag;
+
+			$( '#paywall-slug-size-ad' )
+				.live( 'mouseover', function () {
+					flag = true;
+				} )
+				.live( 'mouseout', function () {
+					flag = false;
+				} );
+
+			$( window ).blur( function () {
+				if ( !flag ) {return;}
+				m.SetCookie( 'mm_attrSubsByEntry', 'Regwall', 0, 1 );
+			} );
+		}());
+
+		//if we are on subscription page
+		if (lh.indexOf('subscriptions.economist.com') !== -1) {
+			if (/google/.test(dr) || /bing/.test(dr) || /yahoo/.test(dr) || /ask/.test(dr)) {
+				m.SetCookie( 'mm_attrSubsByEntry', 'ExternalSearch', 0, 1 );
+			} else if (dr !== '' && !/economist\.com/.test(dr.split( '/' )[2]) && !/subscriptions\.economist\.com/.test(dr.split( '/' )[2]) && lh.indexOf('tagsrc=/GLB/SLG/') === -1) {
+				m.SetCookie( 'mm_attrSubsByEntry', 'ExternalOther', 0, 1 );
+			}
+		}
+
+
+		// -----------------------------------
+		// For action SubsByType
+		// -----------------------------------
+		if ( lh.indexOf( '//www.economist.com/user/password' ) + 1 ) {
+			$( '#user-pass' ).submit( function () {
+				m.SetCookie( 'mm_FPsent', 1, 0, 1 );
+			} );
+		}
+		if ( lh.indexOf( '//www.economist.com/user/password-reset' ) + 1 ) {
+			if ( m.GetCookie( 'mm_FPsent', 1 ) ) {
+				m.SetCookie( 'mm_PW', 1, 0, 1 );
+			}
+		}
+		m.SetCookie( 'mm_FPsent', '', -1, 1 );
+
+
+		// -----------------------------------
+		// For action SubsByRoute
+		// -----------------------------------
+		$( 'a.view-subscription-link' ).live( 'click', function () {
+			var $welcomeHeading = $('.overlay-header h2');
+
+			if ($welcomeHeading.text().toLowerCase().indexOf('welcome to the economist') > -1) {
+				m.SetCookie('mm_attrSubsByRoute', 1, 0, true);
+			}
+		} );
+
+
+		// -----------------------------------
+		// Thank you page
+		// -----------------------------------
+
+		if ( lh.indexOf( '//subscriptions.economist.com/GLB/ECOM/' ) === -1 ||
+			lh.indexOf( 'index.php' ) === -1 ) {
+			m.SetCookie( 'mm_attrUpsells', '', -1, 1 );
+			return;
+		}
+
+
+		var getPeriod = function () {
+			var period;
+			var periodNode = $( 'td:contains(Subscription term):last' ).text().replace( 'Subscription term:', '' );
+
+			if ( periodNode.indexOf( '12' ) + 1 ) { period = '12w'; }
+			else if ( periodNode.indexOf( '6' ) + 1 ) { period = '6m'; }
+			else if ( periodNode.indexOf( '3' ) + 1 ) { period = '3y'; }
+			else if ( periodNode.indexOf( '2' ) + 1 ) { period = '2y'; }
+			else if ( periodNode.indexOf( '1' ) + 1 ) { period = '1y'; }
+
+			return period;
+		};
+
+		var getPaymentType = function () {
+			var paymentTypeNode = $( 'td:contains(Payment type):last' ).text().replace( 'Payment type:', '' );
+			return paymentTypeNode.indexOf( 'renewal' ) + 1 ? 'R' : 'C';
+		};
+
+		var addToAttr = function ( isSecondPart ) {
+			var type;
+			var attr = m.GetCookie( 'mm_attrUpsells', 1 );
+
+			if ( isSecondPart ) {
+				if ( !attr ) {
+					return;
+				}
+				type = 'to';
+			} else {
+				attr = '';
+				type = 'F';
+			}
+			attr += type;
+
+			var period = getPeriod();
+
+			if ( !period ) {
+				return;
+			}
+
+			attr += period;
+
+			attr += getPaymentType();
+
+			m.ConfirmationDeferred = m.ConfirmationDeferred || (new m.Deferred());
+			m.ConfirmationDeferred.promise().done(function(revenue) {
+				var upsellRevenueVal = m.GetCookie("mm_U_revenue", true);
+				if (!isSecondPart) {
+					m.SetCookie( 'mm_attrUpsells', attr, 0, 1 );
+					m.SetCookie("mm_U_revenue", revenue, 0, true);
+				} else {
+					if (!!upsellRevenueVal) {
+						upsellRevenueVal = revenue - parseInt(upsellRevenueVal);
+					} else {
+						upsellRevenueVal = 1;
+					};
+				
+					m.SetAction( 'Upsells', upsellRevenueVal, attr );
+					m._async = true;
+					m.SetPageID( 'events' );
+					m.CGRequest();
+
+					m.SetCookie( 'mm_attrUpsells', '', -1, 1 );
+					m.SetCookie("mm_U_revenue", "", -1, true);
+					
+				}
+			});
+		};
+
+		if ( $( '#thankYouID:contains(your order is being processed)' ).length ) {
+			(function a( b ) {
+				var c = mmcore, d = window.onunload, e = "mm_refresh_" + (b.suffix || "default");
+				!c.GetCookie( e, 1 ) && "function" === typeof b.callback && (b.async ? c.AddDocLoadHandler( b.callback ) : b.callback());
+				window.onunload = function () {
+					c.SetCookie( e, 1, (b.sec || 3) / 86400, 1 );
+					if ( d ) {return d.apply( this, arguments );}
+				};
+			})
+			( {
+				callback: function () {
+					addToAttr( true );
+				},
+				suffix: 'upsells',
+				async: false
+			} );
+		} else {
+			addToAttr();
+		}
+
+	});
+
+}( window.mmcore, window.jQuery ));
+
+}catch(err){mmcore.EH(err);}
+try{
+;(function () {
+
+	(function (config) {
+
+		var trackOmniture = function(campaignsNamesArray, customFilterFunction) {
+
+			var campaignDataObject = {},
+				omnitureDataObject = {},
+				campaignName = '',
+				campaignInfoArray = [],
+				allCampaignsInfoString = '',
+				i = 0, element,
+				l = campaignsNamesArray.length;
+
+			// Gathering string from all campaigns present
+			for (; i < l; i++) {
+
+				campaignInfoArray = [];
+				campaignName = campaignsNamesArray[i];
+				campaignDataObject = mmcore.GenInfo[campaignName];
+
+				if (customFilterFunction && !customFilterFunction(campaignName)) {
+					continue
+				}
+
+				// Name of campaign comes first
+				campaignInfoArray.push(campaignName);
+
+				for (element in campaignDataObject) {
+					if (campaignDataObject.hasOwnProperty(element)) {
+						// Variants generated come second
+						campaignInfoArray.push(campaignDataObject[element].toLowerCase())
+					}
+				}
+
+				allCampaignsInfoString += ((allCampaignsInfoString ? ';' : '') + campaignInfoArray.join('|'))
+
+			}
+
+
+			if (allCampaignsInfoString) {
+
+				omnitureDataObject[config.eVar] = allCampaignsInfoString;
+				omnitureDataObject[config.prop] = allCampaignsInfoString;
+
+				;(function waitSgi() {
+
+					var omnitureData;
+
+					if (!window.s_gi) {
+
+						setTimeout(function () {
+							waitSgi()
+						}, 500);
+
+						return
+
+					}
+
+					omnitureData = s_gi(config.clientID);
+					omnitureData[config.eVar] = allCampaignsInfoString;
+					omnitureData[config.prop] = allCampaignsInfoString;
+					omnitureData.linkTrackVars = config.prop + ',' + config.eVar;
+
+					omnitureData.tl(true, 'o', omnitureDataObject);
+
+				}());
+				
+			}
+		}
+
+		mmcore.AddDocLoadHandler(function() {
+			setTimeout(function() {
+
+				var genInfo = mmcore.GenInfo,
+					testName,
+					campaignsNamesArray = [];
+
+				// Custom exclusive rules definition
+				var customFilterFunction = function(campaignName) {
+					return !campaignName.match(/master/i) && !campaignName.match(/^T5\D/i)
+				};
+
+				for (testName in genInfo) {
+					if (genInfo.hasOwnProperty(testName)) {
+						campaignsNamesArray.push(testName)
+					}
+				}
+
+				// First regular Omniture request
+				trackOmniture(campaignsNamesArray, customFilterFunction);
+
+				// Further optional requests, fire for new campaigns that appear only
+				mmcore.mediator.on('GenInfoChanged', function(data) {
+					trackOmniture(data, customFilterFunction)
+				})
+
+
+			}, 1000)
+		});
+
+	}({
+		clientID: 'economistcomprod',
+		eVar: 'eVar51',
+		prop: 'prop51'
+	}));
+
+}());
+}catch(err){mmcore.EH(err);}
+try{
+(function (campaign) {
+
+    var _name = campaign.pageID.replace(/\s/g, '_');
+    var t = 0;
+
+    var getPC = function (pcname) {
+
+        if (mmcore.GetPersistentCriterion) {
+
+            return mmcore.GetPersistentCriterion(pcname);
+
+        } else {
+
+            var uatStr = mmcore.GetCookie('uat');
+            var arr = uatStr.split(';');
+            var pcObj = {};
+
+            for (var i = 0; i < arr.length; i++) {
+                var _arr = arr[i].split("=");
+                var _prop = _arr[0];
+                _arr.shift();
+                var _val = _arr.join('=');
+                pcObj[_prop] = _val;
+
+            }
+
+            if (pcObj[pcname]) {
+                return pcObj[pcname];
+
+            } else {
+                return null;
+
+            }
+        }
+
+    }
+
+
+    function wait() {
+      
+        if (getPC('ClickDepth') && getPC('Recency') && getPC('Loyalty') && getPC('Brand') && getPC('Interaction') && getPC('SignedIn') && getPC('VEI')) {
+
+            mmcore.SetPageID(campaign.pageID);
+            mmcore._async = true;
+            mmcore.CGRequest();
+
+        } else if (campaign.exit(t++)) {
+            show();
+        } else {
+            setTimeout(wait, 50);
+        }
+    };
+    
+    wait();
+
+})({
+
+    pageID: 'T5Campaign',
+
+    exit: function (t) {
+
+        return (t > 100);
+
+
+    }
+});
+}catch(err){mmcore.EH(err);}
+try{
+(function ( m ) {
+	var acyncClick;
+
+	acyncClick = function ( self, e ) {
+		href = self.attr( 'href' );
+		is_done = false;
+
+		m._async = true;
+		m.SetPageID( 'events' );
+
+		function move() {
+			is_done = true;
+			if ( /firefox/i.test( navigator.userAgent ) ) {
+				location.hash = 'mm';
+			}
+			location.assign( href );
+		}
+
+		m.CGRequest( move );
+		setTimeout( function () {
+			if ( !is_done ) {
+				move();
+			}
+		}, 3000 );
+
+		e.preventDefault();
+	};
+
+
+	// -----------------------------------
+	// action T5HPClicks
+	// -----------------------------------
+	(function () {
+		var an, sa;
+
+		if ( location.pathname !== '/' || location.host.indexOf( 'www.economist.com' ) === -1 ) { return; }
+
+		an = 'T5HPClicks';
+		sa = function ( attr ) {
+			m.$Action( an, 1, attr );
+		};
+
+		$( '#leaderboard a, .mh a' ).live( 'click', function ( e ) {
+			var self, href;
+
+			self = $( this );
+			href = self.attr( 'href' );
+
+			sa( 'Header' );
+
+			if ( href.indexOf( 'moreintelligentlife.com' ) + 1 || href.indexOf( 'jobs.economist.com' ) + 1 || href.indexOf( 'store.economist.com' ) + 1 ) {
+				acyncClick( self, e );
+			} else if ( self.closest( '#leaderboard-ad' ).length || self.is( ':contains(Log in or register)' ) ) {
+				m._async = true;
+				m.SetPageID( 'events' );
+				m.CGRequest();
+			}
+		} );
+
+		$( function () {
+			var flag;
+
+			$( '.gstl_50' ).live( 'mouseup', function () {
+				if ( !flag ) {
+					sa( 'Header' );
+					flag = true;
+				}
+			} );
+			$( '#search-theme-form' ).live( 'submit', function () {
+				if ( !flag ) {
+					sa( 'Header' );
+					flag = true;
+				}
+			} );
+			if ($( '#search-theme-form' )[0]) {
+				$( '#search-theme-form' )[0].onsubmit = (function ( func ) {
+					return function () {
+						if ( !flag ) {
+							sa( 'Header' );
+							flag = true;
+						}
+						if ( func ) { return func.apply( this, arguments ); }
+					}
+				}( $( '#search-theme-form' )[0].onsubmit ));
+			}
+		} );
+
+		$( '#superhero .hero-superhero a' ).live( 'click', function () {
+			sa( 'Main' );
+		} );
+
+		$( '#superhero .cover-image-container a' ).live( 'click', function () {
+			sa( 'Print' );
+		} );
+		$( '.qtip a' ).live( 'click', function () {
+			if ( $( this ).is( '.qtip-button' ) ) {
+				return;
+			}
+			sa( 'Print' );
+			m._async = true;
+			m.SetPageID( 'events' );
+			m.CGRequest();
+		} );
+
+		$( '.side-box a' ).live( 'click', function () {
+			sa( 'LHCol' );
+		} );
+
+		$( '.news-package a' ).live( 'click', function () {
+			if ( $( this ).is( 'a:contains(More in Multimedia)' ) ) { return; }
+			sa( 'CentreCol' );
+		} );
+
+		$( '#social-share-buttons-block a' ).live( 'click', function () {
+			m.SetAction( an, 1, 'Follow' );
+			m._async = true;
+			m.SetPageID( 'events' );
+			m.CGRequest();
+		} );
+
+		$( '#block-ec_blogs-ec_blogs_block_recent .latest_blogs, #block-ec_blogs-ec_blogs_block_recent a:contains(More from our blogs)' ).live( 'click', function () {
+			sa( 'Blogs' );
+		} );
+
+		$( '#block-ec_mostx-mostpopular a' ).live( 'click', function () {
+			sa( 'MostPop' );
+			if ( $( this ).closest( '#tabs' ).length ) {
+				m._async = true;
+				m.SetPageID( 'events' );
+				m.CGRequest();
+			}
+		} );
+
+		$( function () {
+			$( '#block-block-1 div.linked' ).unbind( 'click' ).click( function ( e ) {
+				sa( 'Products' );
+				acyncClick( $( this ).find( 'a.social-link' ), e );
+			} );
+
+			$( '#block-block-1 div.linked a' ).click( function () {
+				return false;
+			} );
+		} );
+	}());
+
+
+	// -----------------------------------
+	// action T5TopNavClicks
+	// -----------------------------------
+	(function () {
+		var sa, attrs;
+
+		sa = function ( attr ) {
+			m.$Action( 'T5TopNavClicks', 1, attr );
+		};
+
+		attrs = {
+			politics: 'Politics',
+			finance: 'Business',
+			Economics: 'Economics',
+			technology: 'Science',
+			Culture: 'Culture',
+			Blogs: 'Blogs',
+			Debate: 'Debate',
+			Multimedia: 'Multimedia',
+			Print: 'PrintEdition'
+		};
+
+		$( '.mh-nav a' ).live( 'click', function ( e ) {
+			var p, text, self;
+
+			self = $( this );
+
+			if ( self.find( '.mh-logo' ).length ) {
+				sa( 'Home' );
+			} else {
+				text = self.closest( '.mh-nav-links > li' ).find( '> a' ).text()
+				for ( p in attrs ) {
+					if ( attrs.hasOwnProperty( p ) ) {
+						if ( text.indexOf( p ) + 1 ) {
+							sa( attrs[p] );
+							if ( self.attr( 'href' ).indexOf( 'moreintelligentlife.com' ) + 1 ) {
+								acyncClick( self, e );
+							}
+							break;
+						}
+					}
+				}
+			}
+		} );
+	}());
+
+
+}( window.mmcore ));
+
+}catch(err){mmcore.EH(err);}
+try{
+(function T31_Checker (mmcore) {
+	var pathname = location.pathname,
+		isMobile = mmcore.GetCookie('ec_device', 1) == 'mobile-phone' || navigator.userAgent.toLowerCase().indexOf('iphone') !== -1,
+		firstRunDate,
+		todayDate = new Date(),
+		daysFromFirstRun,
+		isInIfranme = pathname.indexOf('/regov/start') !== -1 || pathname.indexOf('/ec-wallpage-js/init/emptyframe') !== -1,
+		campaign = new mmcore.Campaign('T31_ChinaOverlay', ['A_T31Overlay']),
+		nidList = mmcore.GetCookie('ec_nidlist', true) || '',
+		userPreviouslyViewedThisArticle = window.Drupal && nidList.indexOf(Drupal.settings.nid) !== -1,
+		testDateExpired = false;
+
+	if (isMobile) {
+		firstRunDate = new Date(2015, 6, 23);
+	} else {
+		firstRunDate = new Date(2015, 6, 24);
+	}
+
+	daysFromFirstRun = ((todayDate.valueOf() - firstRunDate.valueOf()) / 1000 / 60 / 60 / 24);
+
+	if (isMobile) {
+		if (daysFromFirstRun < 0 || daysFromFirstRun > 7) {
+			testDateExpired = true;
+		}
+	} else {
+		if (daysFromFirstRun < 0 || daysFromFirstRun > 3) {
+			testDateExpired = true;
+		}
+	}
+
+	if ((!mmcore.GetCookie('mm_t31_gen', true) || (mmcore.GetCookie('mm_t31_gen', true) === '1' && !mmcore.GetCookie('mm_t31_gen_first_ses', true)))
+		&& location.host.indexOf('subscription.economist') === -1
+		&& !isInIfranme
+		&& !testDateExpired) {
+
+		mmcore.request('T31')
+			.done(function () {
+				campaign.renderMaxyboxes();
+
+				//page will be reloaded do not execute script
+				if (window.Economist
+					&& Economist.tools
+					&& Economist.tools.paywall
+					&& Economist.tools.paywall.checkPreviouslyViewed
+					&& userPreviouslyViewedThisArticle) {
+					return;
+				}
+
+				if (!mmcore.GetCookie('mm_t31_gen', true)) {
+					mmcore.SetCookie('mm_t31_gen_first_ses', '1', 0, true);
+					mmcore.SetCookie('mm_t31_gen', '1', 14, true);
+				} else {
+					mmcore.SetCookie('mm_t31_gen', '2', 14, true);
+				}
+			}, 150);
+	}
+})(window.mmcore);
+}catch(err){mmcore.EH(err);}
+if(typeof mmcore._callback=='object'&&typeof mmcore._callback[1]=='function'){try{mmcore._callback[1]();}catch(err){mmcore.EH(err);}
+finally{mmcore._callback[1]=null;}}
+})();

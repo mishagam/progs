@@ -1,0 +1,988 @@
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.comments.js 
+*/
+
+!function(a){a.comments=a.comments||{options:{selectors:{leaf:".b-leaf",levelTwig:".b-tree-twig-{level}",twig:".b-tree-twig"},classNames:{levelTwig:"b-tree-twig-{level}"}},skipAnimation:jQuery.browser.msie&&+jQuery.browser.version<=8||LJ.Support.isMobile()||!1,isMac:!!navigator.appVersion.match(/mac/i),_selector:function(a){return this.options.selectors[a]},_className:function(a){return this.options.classNames[a]}};var b=a.comments._selector.bind(a.comments),c=a.comments._className.bind(a.comments);a.extend(a.comments,{level:function(a){var d=a.is(b("twig"))?a:a.closest(b("twig")),e=RegExp(c("levelTwig").supplant({level:"(\\d+)"})).exec(d.prop("className"));return e&&parseInt(e[1],10)||1},parent:function(c,d){for(var e=c.closest(b("twig")),f=a.comments.level(e),g=e;f>1;){if(f--,g=g.prevAll(b("levelTwig").supplant({level:f})+":first"),0===g.length)return!1;if(!d||g.data("tid")===d)return g.find(b("leaf"))}return!1},hasChildren:function(c){var d=c.is(b("twig"))?c:c.closest(b("twig")),e=a.comments.level(d);return a.comments.level(d.next())>e},isChild:function(c,d){var e=c.is(b("twig"))?c:c.closest(b("twig")),f=d.is(b("twig"))?d:d.closest(b("twig")),g=a.comments.level(d),h=a.comments.level(c);if(1===h||g>=h)return!1;var i=e.prevAll(b("levelTwig").supplant({level:g})+":first");return i.get(0)===f.get(0)},getThread:function(c,d){var e,f=c.closest(b("twig")),g=a.comments.level(f),h=d?[]:jQuery(),i=f;for(d?h.push(f.find(b("leaf"))):h=h.add(f.find(b("leaf")));;){if(i=i.next(),0===i.length)break;if(e=a.comments.level(i),g>=e)break;d?h.push(i.find(b("leaf"))):h=h.add(i.find(b("leaf")))}return h}})}(jQuery);;
+
+/* file-end: js/jquery/jquery.comments.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.lj.commentsPager.js 
+*/
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.hotkeys.js 
+*/
+
+!function(a){function b(b){if("string"==typeof b.data){var c=b.handler,d=b.data.toLowerCase().split(" ");b.handler=function(b){if(this===b.target||!/textarea|select/i.test(b.target.nodeName)&&!/text|password|search|tel|url|email|number/.test(b.target.type)){var e="keypress"!==b.type&&a.hotkeys.specialKeys[b.which],f=String.fromCharCode(b.which).toLowerCase(),g="",h={};b.altKey&&"alt"!==e&&(g+="alt+"),b.ctrlKey&&"ctrl"!==e&&(g+="ctrl+"),b.metaKey&&!b.ctrlKey&&"meta"!==e&&(g+="meta+"),b.shiftKey&&"shift"!==e&&(g+="shift+"),e?h[g+e]=!0:(h[g+f]=!0,h[g+a.hotkeys.shiftNums[f]]=!0,"shift+"===g&&(h[a.hotkeys.shiftNums[f]]=!0));for(var i=0,j=d.length;j>i;i++)if(h[d[i]])return c.apply(this,arguments)}}}}a.hotkeys={version:"0.8",specialKeys:{8:"backspace",9:"tab",13:"return",16:"shift",17:"ctrl",18:"alt",19:"pause",20:"capslock",27:"esc",32:"space",33:"pageup",34:"pagedown",35:"end",36:"home",37:"left",38:"up",39:"right",40:"down",45:"insert",46:"del",96:"0",97:"1",98:"2",99:"3",100:"4",101:"5",102:"6",103:"7",104:"8",105:"9",106:"*",107:"+",109:"-",110:".",111:"/",112:"f1",113:"f2",114:"f3",115:"f4",116:"f5",117:"f6",118:"f7",119:"f8",120:"f9",121:"f10",122:"f11",123:"f12",144:"numlock",145:"scroll",187:"+",189:"-",191:"/",224:"meta"},shiftNums:{"`":"~",1:"!",2:"@",3:"#",4:"$",5:"%",6:"^",7:"&",8:"*",9:"(",0:")","-":"_","=":"+",";":": ","'":'"',",":"<",".":">","/":"?","\\":"|"}},a.each(["keydown","keyup","keypress"],function(){a.event.special[this]={add:b}})}(jQuery);;
+
+/* file-end: js/jquery/jquery.hotkeys.js 
+----------------------------------------------------------------------------------*/
+
+!function(a){"use strict";function b(a){this._switch("prev",a)}function c(a){this._switch("next",a)}function d(){return this._currentPage}function e(a){var b=Number(jQuery(a.currentTarget).text());b&&this._switch(b,a)}function f(a){var b;this._el("page").removeClass(this._cl("active")).eq(a-1).addClass(this._cl("active")),this.element.toggleClass(this._cl("first"),1===a).toggleClass(this._cl("last"),a===this._totalPages),this._ajaxLoader&&this._master&&(b=location.href.split("#")[0].replace(/\&?(page|view)=\d+/g,""),b=LiveJournal.constructUrl(b,a>1?{page:a}:null).replace("?&","?"),a!==this._currentPage&&(this._pushStateCount++,window.history.pushState(null,"",b))),this._ajaxLoader&&(b=location.href.split("#")[0].replace(/\&?(page|view)=\d+/g,""),this._el("prev").attr("href",LiveJournal.constructUrl(b,3>a?null:{page:a-1})),this._el("next").attr("href",LiveJournal.constructUrl(b,{page:a+1}))),this._currentPage=a,this._formatPages()}function g(a,b){var c,d;this._ajaxLoader?(d="next"!==a&&"prev"!==a?a:this._currentPage+("next"===a?1:-1),d=this._correctPageNumber(d),d!==this._currentPage&&this._fire("commentsPage",[d],!0)):(c=this._links[a].prop("href"),document.location=c),LJ.Event.trigger("commentsPager/change"),b&&b.preventDefault&&b.preventDefault()}function h(){var b,c=this;this._master&&(b=this._scrollTop,this._scrollTop=a(window).scrollTop(),this._scrollTop<=b||(this._bottomPager=this._bottomPager||a(".b-pager").last(),this._bottomPager.is(":screenable")&&!this._cachePages[this._currentPage]&&(this._cachePages[this._currentPage]=!0,setTimeout(function(){c._cachePages[c._currentPage]=!1},1e3*c._cachePagesTime),this._fire("cachePage",[this._correctPageNumber(this._currentPage+1)]),this._fire("cachePage",[this._correctPageNumber(this._currentPage-1)]))))}function i(a){return 1>a?1:a>this._totalPages?this._totalPages:a}function j(){a.lj.basicWidget.prototype._bindControls.apply(this);var b=this,c=a.comments.isMac?"alt":"ctrl",d=LJ.Function.threshold(this._switch,500);m||(jQuery(document).bind("keydown",c+"+left",d.bind(this,"prev")).bind("keydown",c+"+right",d.bind(this,"next")),this._ajaxLoader&&(window.onpopstate=function(){var a=1;location.href.match(/page=(\d+)/)&&(a=Number(RegExp.$1)),b._currentPage!==a&&b._pushStateCount>0&&(b._currentPage=a,b._fire("commentsPage",[a],!0))},a(window).on("scroll",LJ.Function.throttle(this._scroll.bind(this),100))),m=!0,this._master=!0),this._ajaxLoader&&(this.element.on("click",this._s("page"),this.loadPage.bind(this)).on("click",this._s("next"),this.next.bind(this)).on("click",this._s("prev"),this.prev.bind(this)),this._on("commentsPage",function(a){this._updatePager(a)}.bind(this)))}function k(){function a(a){jQuery(d[a]).after(c)}function b(a,b){LJ.Function.range(a,b).forEach(function(a){jQuery(d[a]).hide()})}jQuery(".b-pager-more__wrap",this.element).remove();var c='<li class="b-pager-page b-pager-more__wrap"><span class="b-pager-more">...</span></li>',d=this._el("page");if(d.show(),!(this._totalPages<=9)){if(10===this._totalPages)return this._currentPage<=5?(b(7,8),a(7)):(b(1,2),a(1));if(this._currentPage<=5)return b(7,this._totalPages-2),a(7);if(this._currentPage>=this._totalPages-4)return b(1,this._totalPages-8),a(1);b(1,this._currentPage-4),b(this._currentPage+2,this._totalPages-2),a(1),a(this._currentPage+2)}}function l(){a.lj.basicWidget.prototype._create.apply(this);var b=this.options.selectors,c=this.element;this._scrollTop=null,this._bottomPager=null,this._cachePages={},this._cachePagesTime=100,this._links={prev:c.find(b.prev),next:c.find(b.next)},a.comments.isMac&&this.element.addClass(this._cl("mac")),this._ajaxLoader=!(!LJ.get("ajaxPagination")||!LJ.Support.history),this._currentPage=parseInt(c.find(b.active).text(),10)||1,this._totalPages=this._el("page").length,this._master=!1,this._formatPages(),this._pushStateCount=/webkit/i.test(navigator.userAgent)?0:1,this._bindControls()}var m=!1,n={classNames:{first:"b-pager-first",last:"b-pager-last",mac:"b-pager-mac",active:"b-pager-page-active"},selectors:{page:".b-pager-page",prev:".b-pager-prev a",next:".b-pager-next a",active:".b-pager-page-active"}};a.widget("lj.commentsPager",jQuery.lj.basicWidget,{options:n,_create:l,_bindControls:j,_formatPages:k,_correctPageNumber:i,_scroll:h,_switch:g,_updatePager:f,loadPage:e,page:d,next:c,prev:b})}(jQuery);;
+
+/* file-end: js/jquery/jquery.lj.commentsPager.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.lj.comments.js 
+*/
+
+LJ.UI.registerTemplate('templates-Comments-Twig', "<div class=\" b-tree-twig {{if $data.level}} b-tree-twig-{{html $data.level}} b-tree-twig-deep-{{html $data.deepLevel}} {{/if}} \" style=\"margin-left: {{html $data.margin}}px\" data-tid=\"t{{html $data.dtalkid}}\" > {{if $data.html}} {{html $data.html}} {{else}} {{if $data.more}} <div class=\" b-leaf b-leaf-seemore {{if $data.moreclass}} b-leaf-seemore-{{html $data.moreclass}} {{/if}} \" data-parent=\"{{html $data.parent}}\" data-dtalkids=\"{{html $data.data}}\" data-updated-ts=\"{{html $data.touched}}\" data-count=\"{{html $data.more}}\" > <div class=\" b-leaf-inner svgpreloader svgpreloader-pseudo svgpreloader-16 \"> {{each ($value.actions || $data.actions)}} <span class=\"b-leaf-seemore-more\"> <a href=\"{{if ($value.href || $data.href)}}{{html ($value.href || $data.href)}}{{else}}#{{/if}}\" rel=\"nofollow\" class=\"b-pseudo\" >{{html ($value.title || $data.title)}}</a> </span> {{if ($value.is_remote_sup || $data.is_remote_sup)}} {{if ($value.ljusers || $data.ljusers)}} <span class=\"b-leaf-seemore-from\">{{html LJ.mltext(\'talk.from\')}}</span> <span class=\"b-leaf-seemore-users\">{{each ($value.ljusers || $data.ljusers)}}{{if !(($value.anonymous || $data.anonymous))}}{{if ($value.legacy || $data.legacy)}}{{html ($value.ljuser || $data.ljuser)}}{{else}}<span {{if ($value.inline_css || $data.inline_css)}} style=\" white-space:nowrap; {{if ($value.striked || $data.striked)}} text-decoration:line-through; {{/if}} \" {{/if}} class=\"ljuser {{if !(($value.inline_css || $data.inline_css))}} i-ljuser {{if ($value.striked || $data.striked)}} i-ljuser-deleted {{/if}} i-ljuser-type-{{html ($value.journaltype || $data.journaltype)}} {{/if}} {{if ($value.noctxpopup || $data.noctxpopup)}} noctxpopup i-ljuser-nopopup {{/if}} {{if ($value.alias || $data.alias)}} with-alias i-ljuser-withalias {{/if}} {{if ($value.side_alias || $data.side_alias)}} with-alias-value i-ljuser-showalias {{/if}} \" {{html ($value.attrs || $data.attrs)}} data-ljuser=\"{{html ($value.username || $data.username)}}\" lj:user=\"{{html ($value.username || $data.username)}}\" ><a href=\"{{html ($value.profile_url || $data.profile_url)}}\" {{if ($value.target || $data.target)}} target=\"{{html ($value.target || $data.target)}}\" {{/if}} class=\"i-ljuser-profile\" ><img {{if ($value.inline_css || $data.inline_css)}} width=\"16\" height=\"16\" style=\"vertical-align:text-bottom;border:0;padding-right:1px;\" {{else}} class=\"i-ljuser-userhead\" {{/if}} src=\"{{html ($value.userhead_url || $data.userhead_url)}}\" /></a><a href=\"{{html ($value.journal_url || $data.journal_url)}}\" class=\"i-ljuser-username\" {{if ($value.color || $data.color)}} style=\"color:{{html ($value.color || $data.color)}};\" {{/if}} {{if ($value.target || $data.target)}} target=\"{{html ($value.target || $data.target)}}\" {{/if}} {{if ($value.alias || $data.alias)}} title=\"{{html ($value.user_alias || $data.user_alias)}}\" {{/if}} >{{if ($value.inline_css || $data.inline_css)}}{{if ($value.bold || $data.bold)}}<b>{{/if}}{{html ($value.journal || $data.journal)}}{{if ($value.alias || $data.alias)}}<span class=\"useralias-value\">*</span>{{/if}}{{if ($value.bold || $data.bold)}}</b>{{/if}}{{else}}{{if ($value.bold || $data.bold)}}<b>{{/if}}{{html ($value.journal || $data.journal)}}{{if ($value.bold || $data.bold)}}</b>{{/if}}{{/if}}</a>{{if ($value.alias || $data.alias) && ($value.side_alias || $data.side_alias)}}<span class=\"alias-value i-ljuser-alias\">{{html ($value.user_alias || $data.user_alias)}}</span>{{/if}}</span>{{/if}}{{else}}{{html LJ.mltext(\'talk.anonuser\')}}{{/if}}{{if !(($index ===  ljusers.length - 1))}},&nbsp;{{/if}}{{/each}}{{if ($value.moreusers || $data.moreusers)}}&hellip;{{/if}}</span> {{/if}} {{/if}} <span class=\"b-leaf-seemore-expand\"> <a href=\"{{if ($value.href || $data.href)}}{{html ($value.href || $data.href)}}{{else}}#{{/if}}\" rel=\"nofollow\" class=\"b-pseudo\" >{{html LJ.mltext(\'talk.expandlink\')}}</a> </span> {{/each}} </div> </div> {{else}} {{if $data.deleted || !$data.shown}} <div class=\" b-leaf b-leaf-clipped b-leaf-{{html $data.leafclass}} \" {{if !($data.noid)}} id=\"t{{html $data.dtalkid}}\" {{/if}} > <div class=\" b-leaf-inner svgpreloader svgpreloader-pseudo svgpreloader-16 \"> <div class=\"b-leaf-cheader\"> <p class=\"b-leaf-status\"> {{if $data.leafclass == \'deleted\'}} {{html LJ.mltext(\'talk.deletedpost\')}} {{else $data.leafclass == \'screened\'}} {{html LJ.mltext(\'talk.screenedpost\')}} {{else $data.leafclass == \'spammed\'}} {{html LJ.mltext(\'talk.spammedpost\')}} {{else $data.leafclass == \'suspended\'}} {{html LJ.mltext(\'talk.suspendedpost\')}} {{/if}} </p> {{if $data.controls}} <ul class=\"b-leaf-controls\"> {{each ($value.controls || $data.controls)}} {{if ($value.allowed || $data.allowed)}} {{if !($value.nocontrols || $data.nocontrols) || ($value.name || $data.name) == \'cancel_best\'}} <li class=\"b-leaf-controls-item b-leaf-controls-item-{{html ($value.name || $data.name)}}\"><a class=\" b-controls b-controls-{{html ($value.name || $data.name)}} \" title=\"{{html ($value.title || $data.title)}}\" href=\"{{if ($value.href || $data.href)}}{{html ($value.href || $data.href)}}{{else}}#{{/if}}\" rel=\"nofollow\" ><i class=\"b-controls-bg\"></i>{{html ($value.title || $data.title)}}</a></li> {{/if}} {{/if}} {{/each}} </ul> {{/if}} {{if $data.actions}} <ul class=\"b-leaf-actions\"> {{each ($value.actions || $data.actions)}} {{if !(($value.footer || $data.footer))}} {{if ($value.name || $data.name) != \'permalink\'}} {{if !($value.noid || $data.noid) || ($value.name || $data.name) != \'collapse\'}} {{if ($value.allowed || $data.allowed)}} {{if !($value.checkbox || $data.checkbox) || ($value.massactions || $data.massactions)}} <li class=\" b-leaf-actions-item b-leaf-actions-{{if ($value.checkbox || $data.checkbox)}}check{{else}}{{html ($value.name || $data.name)}}{{/if}} {{if ($value.noid || $data.noid) && ($value.name || $data.name) == \'reply\'}} b-leaf-actions-noid {{/if}} {{if ($value.active || $data.active)}} active {{/if}} \" data-tid=\"t{{html ($value.dtalkid || $data.dtalkid)}}\" > {{if ($value.disabled || $data.disabled)}} {{html ($value.title || $data.title)}} {{else}} {{if ($value.checkbox || $data.checkbox)}} <input type=\"checkbox\" id=\"c{{html ($value.dtalkid || $data.dtalkid)}}\" name=\"selected_{{html ($value.talkid || $data.talkid)}}\" class=\"b-leaf-actions-checkbox\" autocomplete=\"off\" > <label for=\"c{{html ($value.dtalkid || $data.dtalkid)}}\" class=\"b-leaf-actions-label\" > {{html ($value.title || $data.title)}} </label> {{else}} <a href=\"{{if ($value.href || $data.href)}}{{html ($value.href || $data.href)}}{{else}}#{{/if}}\" rel=\"nofollow\" {{if ($value.name || $data.name) != \'permalink\'}} class=\"b-pseudo\" {{/if}} >{{html ($value.title || $data.title)}}</a>{{if ($value.ljusers || $data.ljusers)}}&nbsp;{{html ($value.ljusers || $data.ljusers)}}{{if ($value.moreusers || $data.moreusers)}}, &ellipsis;{{/if}}{{/if}} {{/if}} {{/if}} </li> {{/if}} {{/if}} {{/if}} {{/if}} {{/if}} {{/each}} </ul> {{/if}} </div> <div class=\"b-leaf-footer\"> {{if $data.actions}} <ul class=\"b-leaf-actions\"> {{each ($value.actions || $data.actions)}} {{if ($value.footer || $data.footer)}} {{if ($value.name || $data.name) != \'permalink\'}} {{if !($value.noid || $data.noid) || ($value.name || $data.name) != \'collapse\'}} {{if ($value.allowed || $data.allowed)}} {{if !($value.checkbox || $data.checkbox) || ($value.massactions || $data.massactions)}} <li class=\" b-leaf-actions-item b-leaf-actions-{{if ($value.checkbox || $data.checkbox)}}check{{else}}{{html ($value.name || $data.name)}}{{/if}} {{if ($value.noid || $data.noid) && ($value.name || $data.name) == \'reply\'}} b-leaf-actions-noid {{/if}} {{if ($value.active || $data.active)}} active {{/if}} \" data-tid=\"t{{html ($value.dtalkid || $data.dtalkid)}}\" > {{if ($value.disabled || $data.disabled)}} {{html ($value.title || $data.title)}} {{else}} {{if ($value.checkbox || $data.checkbox)}} <input type=\"checkbox\" id=\"c{{html ($value.dtalkid || $data.dtalkid)}}\" name=\"selected_{{html ($value.talkid || $data.talkid)}}\" class=\"b-leaf-actions-checkbox\" autocomplete=\"off\" > <label for=\"c{{html ($value.dtalkid || $data.dtalkid)}}\" class=\"b-leaf-actions-label\" > {{html ($value.title || $data.title)}} </label> {{else}} <a href=\"{{if ($value.href || $data.href)}}{{html ($value.href || $data.href)}}{{else}}#{{/if}}\" rel=\"nofollow\" {{if ($value.name || $data.name) != \'permalink\'}} class=\"b-pseudo\" {{/if}} >{{html ($value.title || $data.title)}}</a>{{if ($value.ljusers || $data.ljusers)}}&nbsp;{{html ($value.ljusers || $data.ljusers)}}{{if ($value.moreusers || $data.moreusers)}}, &ellipsis;{{/if}}{{/if}} {{/if}} {{/if}} </li> {{/if}} {{/if}} {{/if}} {{/if}} {{/if}} {{/each}} </ul> {{/if}} </div> </div> </div> {{else}} <div {{if !($data.noid)}} id=\"t{{html $data.dtalkid}}\" {{/if}} class=\" b-leaf {{if $data.leafclass}} b-leaf-{{html $data.leafclass}} {{/if}} {{if $data.suspended}} b-leaf-suspended {{/if}} {{if $data.tracked}} b-leaf-tracked {{/if}} {{if $data.subclass}} b-leaf-{{html $data.subclass}} {{/if}} {{if $data.p_tracked}} b-leaf-tracked-parent {{/if}} {{if $data.modereply}} b-leaf-modereply {{/if}} {{if $data.uname == $data.poster}} b-leaf-poster {{/if}} {{if $data.subject}} b-leaf-withsubject {{/if}} {{if $data.is_best}} b-leaf-best {{/if}} {{if $data.is_promo}} b-leaf-promo {{/if}} comment p-comment \" data-username=\"{{html $data.uname}}\" data-displayname=\"{{html $data.dname}}\" data-updated-ts=\"{{html $data.ctime_ts}}\" {{if $data.loaded}} data-full=\"1\" {{/if}} {{if $data.subject}} data-subject=\"{{html $data.subject}}\" {{/if}} > <div class=\" b-leaf-inner svgpreloader svgpreloader-pseudo svgpreloader-16 \"> <div class=\"b-leaf-header\"> <div class=\"b-leaf-userpic\"> <a href=\"{{html $data.commenter_journal_base}}\" target=\"_blank\" class=\"b-leaf-userpic-inner\"> {{if $data.userpic}} <img src=\"{{html $data.userpic}}\" alt=\"\" {{if $data.upictitle}} title=\"{{html $data.upictitle}}\" {{/if}} > {{else}} <img src=\"{{html $data.statprefix}}{{if $data.username}}/img/userpics/userpic-user.png?v=15821{{else}}/img/userpics/userpic-anonymous.png?v=15821{{/if}}\" alt=\"\" > {{/if}} </a> </div> <div class=\"b-leaf-details\"> {{if $data.shown}} {{if $data.subject}} <h4 class=\"b-leaf-subject\"><a href=\"{{html $data.thread_url}}\" class=\"b-leaf-subject-link\" >{{html $data.subject}}</a></h4> {{/if}} <p class=\"b-leaf-username\">{{if $data.is_best}}<span class=\" b-leaf-badge b-leaf-badge-best \" >{{html LJ.mltext(\'talk.comment.best\')}}</span>{{/if}}{{if $data.is_promo}}<span class=\" b-leaf-badge b-leaf-badge-promo \" >{{html LJ.mltext(\'talk.comment.promo\')}}</span>{{/if}}<span class=\"b-leaf-username-name\">{{if $data.username}}{{if $data.deleted_poster}}{{html $data.deleted_poster}}{{else}}{{each ($value.username || $data.username)}}{{if ($value.legacy || $data.legacy)}}{{html ($value.ljuser || $data.ljuser)}}{{else}}<span {{if ($value.inline_css || $data.inline_css)}} style=\" white-space:nowrap; {{if ($value.striked || $data.striked)}} text-decoration:line-through; {{/if}} \" {{/if}} class=\"ljuser {{if !(($value.inline_css || $data.inline_css))}} i-ljuser {{if ($value.striked || $data.striked)}} i-ljuser-deleted {{/if}} i-ljuser-type-{{html ($value.journaltype || $data.journaltype)}} {{/if}} {{if ($value.noctxpopup || $data.noctxpopup)}} noctxpopup i-ljuser-nopopup {{/if}} {{if ($value.alias || $data.alias)}} with-alias i-ljuser-withalias {{/if}} {{if ($value.side_alias || $data.side_alias)}} with-alias-value i-ljuser-showalias {{/if}} \" {{html ($value.attrs || $data.attrs)}} data-ljuser=\"{{html ($value.username || $data.username)}}\" lj:user=\"{{html ($value.username || $data.username)}}\" ><a href=\"{{html ($value.profile_url || $data.profile_url)}}\" {{if ($value.target || $data.target)}} target=\"{{html ($value.target || $data.target)}}\" {{/if}} class=\"i-ljuser-profile\" ><img {{if ($value.inline_css || $data.inline_css)}} width=\"16\" height=\"16\" style=\"vertical-align:text-bottom;border:0;padding-right:1px;\" {{else}} class=\"i-ljuser-userhead\" {{/if}} src=\"{{html ($value.userhead_url || $data.userhead_url)}}\" /></a><a href=\"{{html ($value.journal_url || $data.journal_url)}}\" class=\"i-ljuser-username\" {{if ($value.color || $data.color)}} style=\"color:{{html ($value.color || $data.color)}};\" {{/if}} {{if ($value.target || $data.target)}} target=\"{{html ($value.target || $data.target)}}\" {{/if}} {{if ($value.alias || $data.alias)}} title=\"{{html ($value.user_alias || $data.user_alias)}}\" {{/if}} >{{if ($value.inline_css || $data.inline_css)}}{{if ($value.bold || $data.bold)}}<b>{{/if}}{{html ($value.journal || $data.journal)}}{{if ($value.alias || $data.alias)}}<span class=\"useralias-value\">*</span>{{/if}}{{if ($value.bold || $data.bold)}}</b>{{/if}}{{else}}{{if ($value.bold || $data.bold)}}<b>{{/if}}{{html ($value.journal || $data.journal)}}{{if ($value.bold || $data.bold)}}</b>{{/if}}{{/if}}</a>{{if ($value.alias || $data.alias) && ($value.side_alias || $data.side_alias)}}<span class=\"alias-value i-ljuser-alias\">{{html ($value.user_alias || $data.user_alias)}}</span>{{/if}}</span>{{/if}}{{/each}}{{/if}}{{else}}{{html LJ.mltext(\'talk.anonuser\')}}{{/if}}</span> {{if $data.ipaddr}} <span class=\"b-leaf-ipaddr\">{{html $data.ipaddr}}</span> {{/if}} </p> <p class=\"b-leaf-meta\"> {{if $data.ctime}} <a href=\"{{html $data.thread_url}}\" class=\"b-leaf-permalink\" > <span class=\"b-leaf-createdtime\">{{html $data.ctime}}</span> </a> {{/if}} {{if $data.stime}} <span class=\"b-leaf-shorttime\">{{html $data.stime}}</span> {{/if}} {{if $data.etime}} <span class=\"b-leaf-editedtime\">{{html LJ.mltext(\'talk.edited\')}}&nbsp;{{html $data.etime}}</span> {{/if}} </p> {{if $data.actions}} <ul class=\"b-leaf-actions\"> {{each ($value.actions || $data.actions)}} {{if !(($value.footer || $data.footer))}} {{if ($value.name || $data.name) != \'permalink\'}} {{if !($value.noid || $data.noid) || ($value.name || $data.name) != \'collapse\'}} {{if ($value.allowed || $data.allowed)}} {{if !($value.checkbox || $data.checkbox) || ($value.massactions || $data.massactions)}} <li class=\" b-leaf-actions-item b-leaf-actions-{{if ($value.checkbox || $data.checkbox)}}check{{else}}{{html ($value.name || $data.name)}}{{/if}} {{if ($value.noid || $data.noid) && ($value.name || $data.name) == \'reply\'}} b-leaf-actions-noid {{/if}} {{if ($value.active || $data.active)}} active {{/if}} \" data-tid=\"t{{html ($value.dtalkid || $data.dtalkid)}}\" > {{if ($value.disabled || $data.disabled)}} {{html ($value.title || $data.title)}} {{else}} {{if ($value.checkbox || $data.checkbox)}} <input type=\"checkbox\" id=\"c{{html ($value.dtalkid || $data.dtalkid)}}\" name=\"selected_{{html ($value.talkid || $data.talkid)}}\" class=\"b-leaf-actions-checkbox\" autocomplete=\"off\" > <label for=\"c{{html ($value.dtalkid || $data.dtalkid)}}\" class=\"b-leaf-actions-label\" > {{html ($value.title || $data.title)}} </label> {{else}} <a href=\"{{if ($value.href || $data.href)}}{{html ($value.href || $data.href)}}{{else}}#{{/if}}\" rel=\"nofollow\" {{if ($value.name || $data.name) != \'permalink\'}} class=\"b-pseudo\" {{/if}} >{{html ($value.title || $data.title)}}</a>{{if ($value.ljusers || $data.ljusers)}}&nbsp;{{html ($value.ljusers || $data.ljusers)}}{{if ($value.moreusers || $data.moreusers)}}, &ellipsis;{{/if}}{{/if}} {{/if}} {{/if}} </li> {{/if}} {{/if}} {{/if}} {{/if}} {{/if}} {{/each}} <li class=\"b-leaf-actions-item b-leaf-actions-new\"><span class=\"b-thisisnew\">{{html LJ.mltext(\'talk.new\')}}</span></li> </ul> {{/if}} {{/if}} {{if $data.loaded}} {{if $data.controls}} <ul class=\"b-leaf-controls\"> {{each ($value.controls || $data.controls)}} {{if ($value.allowed || $data.allowed)}} {{if !($value.nocontrols || $data.nocontrols) || ($value.name || $data.name) == \'cancel_best\'}} <li class=\"b-leaf-controls-item b-leaf-controls-item-{{html ($value.name || $data.name)}}\"><a class=\" b-controls b-controls-{{html ($value.name || $data.name)}} \" title=\"{{html ($value.title || $data.title)}}\" href=\"{{if ($value.href || $data.href)}}{{html ($value.href || $data.href)}}{{else}}#{{/if}}\" rel=\"nofollow\" ><i class=\"b-controls-bg\"></i>{{html ($value.title || $data.title)}}</a></li> {{/if}} {{/if}} {{/each}} </ul> {{/if}} {{/if}} </div> </div> {{if $data.article}} <div class=\"b-leaf-article\"> {{html $data.article}} </div> {{/if}} <div class=\"b-leaf-footer\"> {{if $data.actions}} <ul class=\"b-leaf-actions\"> {{each ($value.actions || $data.actions)}} {{if ($value.footer || $data.footer)}} {{if ($value.name || $data.name) != \'permalink\'}} {{if !($value.noid || $data.noid) || ($value.name || $data.name) != \'collapse\'}} {{if ($value.allowed || $data.allowed)}} {{if !($value.checkbox || $data.checkbox) || ($value.massactions || $data.massactions)}} <li class=\" b-leaf-actions-item b-leaf-actions-{{if ($value.checkbox || $data.checkbox)}}check{{else}}{{html ($value.name || $data.name)}}{{/if}} {{if ($value.noid || $data.noid) && ($value.name || $data.name) == \'reply\'}} b-leaf-actions-noid {{/if}} {{if ($value.active || $data.active)}} active {{/if}} \" data-tid=\"t{{html ($value.dtalkid || $data.dtalkid)}}\" > {{if ($value.disabled || $data.disabled)}} {{html ($value.title || $data.title)}} {{else}} {{if ($value.checkbox || $data.checkbox)}} <input type=\"checkbox\" id=\"c{{html ($value.dtalkid || $data.dtalkid)}}\" name=\"selected_{{html ($value.talkid || $data.talkid)}}\" class=\"b-leaf-actions-checkbox\" autocomplete=\"off\" > <label for=\"c{{html ($value.dtalkid || $data.dtalkid)}}\" class=\"b-leaf-actions-label\" > {{html ($value.title || $data.title)}} </label> {{else}} <a href=\"{{if ($value.href || $data.href)}}{{html ($value.href || $data.href)}}{{else}}#{{/if}}\" rel=\"nofollow\" {{if ($value.name || $data.name) != \'permalink\'}} class=\"b-pseudo\" {{/if}} >{{html ($value.title || $data.title)}}</a>{{if ($value.ljusers || $data.ljusers)}}&nbsp;{{html ($value.ljusers || $data.ljusers)}}{{if ($value.moreusers || $data.moreusers)}}, &ellipsis;{{/if}}{{/if}} {{/if}} {{/if}} </li> {{/if}} {{/if}} {{/if}} {{/if}} {{/if}} {{/each}} <li class=\"b-leaf-actions-item b-leaf-actions-new\"> <span class=\"b-thisisnew\">{{html LJ.mltext(\'talk.new\')}}</span> </li> </ul> {{/if}} </div> </div> </div> {{/if}} {{/if}} {{/if}} </div> ", 'JQuery.stat');
+LJ.UI.registerTemplate('templates-Widgets-promocomment', "<div class=\"promocomment\"> {{if $data.promoAllowed}} <p class=\"promocomment-desc\">{{html LJ.mltext(\'talk.promo.place.desc\')}}<a href=\"{{html $data.siteroot}}/support/faq/424.html\" target=\"_blank\"><svg style=\"pointer-events: none; visibility: hidden;\" class=\"svgicon flaticon flaticon--helpicon\"><use xlink:href=\"#flaticon--helpicon\"/></svg></a></p> <p class=\"promocomment-buttons\"> <button type=\"button\" class=\" b-flatbutton b-flatbutton-simple promocomment-submit \" >{{html LJ.mltext(\'talk.promo.place.button\', \'tokens\', $data.tokens)}}</button> </p> {{else}} <p class=\"promocomment-desc\">{{html LJ.mltext(\'talk.promo.notokens.desc\', \'tokens\', $data.tokens)}}<a href=\"{{html $data.siteroot}}/support/faq/424.html\" target=\"_blank\"><svg style=\"pointer-events: none; visibility: hidden;\" class=\"svgicon flaticon flaticon--helpicon\"><use xlink:href=\"#flaticon--helpicon\"/></svg></a></p> <p class=\"promocomment-buttons\"> <a href=\"{{html $data.siteroot}}/shop/tokens.bml\" target=\"_blank\" class=\" b-flatbutton b-flatbutton-simple \" >{{html LJ.mltext(\'talk.promo.notokens.button\')}}</a> <small class=\"promocomment-small\">{{html LJ.mltext(\'talk.promo.notokens.window\')}}</small> </p> {{/if}} <button type=\"button\" class=\"promocomment-update\" title=\"{{html LJ.mltext(\'talk.promo.refresh\')}}\" >{{html LJ.mltext(\'talk.promo.refresh\')}}</button> </div> ", 'JQuery.stat');
+!function(a,b){"use strict";var c=function(){function a(a){var c=i[a];if(c){if(b(a))return!0;f(a)}return!1}function b(a){var b=new Date,c=j[a];return 1e3*k>b-c}function c(){for(var a;h.length>l;)a=h[0],f(a)}function d(b,d){a(b)||(d?(i[b]=d,j[b]=new Date,h.push(b),c()):m._fetchThread(b,function(a){i[b]=a,j[b]=new Date,h.push(b),c()}))}function e(b){return a(b)?i[b]:null}function f(a){i[a]&&(delete i[a],delete j[a],h=h.filter(function(b){return b!==a}))}function g(a){m=a}var h=[],i={},j={},k=180,l=10,m=null;return{init:g,add:d,remove:f,get:e,isCached:a}}();a.widget("lj.comments",a.lj.basicWidget,{options:{selectors:{linkCollapse:".b-leaf-actions-collapse a",linkExpand:".b-leaf-actions-expand a",linkExpandChildren:".b-leaf-actions-expandchilds a",linkPromote:".b-leaf-actions-promote a",linkUnpromote:".b-leaf-actions-cancel_promo a",leafMore:".b-leaf-seemore",seeMore:".b-leaf-seemore-more a, .b-leaf-seemore-expand a",commentDeleted:".b-leaf-deleted",leaf:".b-leaf",leafCollapsed:".b-leaf-collapsed",tree:".b-tree-root",twig:".b-tree-twig",pager:".b-pager",replyCounter:".b-xylem-cell-amount .js-amount",spamCounter:".b-xylem-cell-spam .js-amount",commentsJSON:"#comments_json",title:"title",metaDescription:"meta[name=description]",actionsItem:".b-leaf-actions-item"},classNames:{groveLoading:"b-grove-loading",newComment:"b-leaf-new",leafCollapsed:"b-leaf-collapsed",leafCollapsing:"b-leaf-collapsing",leafExpanding:"b-leaf-expanding",leafActive:"b-leaf-commenting",leafShow:"b-leaf-hover",leafClipped:"b-leaf-clipped",leafLevelUp:"b-leaf-seemore-parent",leafMore:"b-leaf-seemore",shortTime:"b-leaf-shorttime",seeMoreVertical:"b-leaf-seemore-depth",groveShowOnHover:"b-grove-hover",showSpam:"b-grove-showspam",twigLevel:"b-tree-twig-"},templates:{twig:'<div class="b-tree-twig b-tree-twig-{level} b-tree-twig-deep-{deepLevel}" style="margin-left: {margin}px" data-tid="t{dtalkid}">{html}</div>',emptyLeaf:'<div class="b-leaf" id="t{dtalkid}"></div>',promoBubble:"templates-Widgets-promocomment",leaf:"templates-Comments-Twig"}},_create:function(){a.lj.basicWidget.prototype._create.apply(this);var d,e=location.href.match(/(\d+)\.html/),f=this.options.selectors,g=null;this._itemid=e&&e[1],this._remoteBalance=LJ.get("remote.balance"),this._root=this._el("tree"),this._pager=this._el("pager"),this._constructionCache={},this._showSpamPage=this.element.hasClass(this._cl("showSpam")),this.element.removeClass(this._cl("groveShowOnHover")),this._bindControls(),this._pager.commentsPager(),this._pagerWidget=this._pager.first().data("commentsPager"),this._title=a(f.title),this._pageTitle=this._title.text(),this._description=a(f.metaDescription),this._pageDescription=this._description.attr("content"),this._titleMl=LJ.ml("talk.post.subject_page"),this._descriptionMl=LJ.ml("talk.post.meta_desct_page"),this._addPagerData(),this._replycount=LJ.get("replycount")||0,this._spamcount=LJ.get("spamcount")||0,this._bestTid=a(".b-tree-best .b-tree-twig").attr("data-tid")||"",this._promoTid=a(".b-tree-promo .b-tree-twig").attr("data-tid")||"",this._promoPrice=Number(a(".b-tree-promo").attr("data-currentprice")),c.init(this,this._pagerWidget),this._on("cachePage",c.add),"undefined"!=typeof LJ.get("comments")&&(this.element.addClass(this._cl("groveLoading")),this._root.css({"min-height":a(b).height()}),this._hideRoot(),this._one("commentsConstructed",function(){this._restoreRoot(),this.element.removeClass(this._cl("groveLoading"))}.bind(this)),this._on("commentsPage",function(){this._root.css({"min-height":a(b).height()}),this._loadPage.apply(this,[].slice.call(arguments)),a(b).scrollTop(this.element.offset().top+this.element.outerHeight()-this.element.height())}.bind(this)),this._on("commentsConstructed",function(){setTimeout(function(){LJ.Event.trigger("social:widgets:parse")},300),this._root.removeAttr("style"),this.hasOwnProperty("_realRoot")&&this._realRoot.removeAttr("style")}.bind(this)),g=LJ.get("comments"),this._pagerWidget&&(d=this._pagerWidget.page(),c.add(d,g)),this._constructComments(g),setTimeout(function(){document.location.hash.length>0&&(document.location.hash=document.location.hash)},0))},_loadPage:function(a){var b,d,e=this,f=!1,g=function(){f=!0},h=function(b){f||(e._one("commentsConstructed",function(){e._restoreRoot(),e.element.removeClass(e._cl("groveLoading"))}),e._hideRoot(),e._off("commentsPage",g),e._constructComments(b),e._fire("commentsPageLoaded",[a]))};return Function.defer(this._one.bind(this,"commentsPage",g)),this._constructionCache={},this._currentPage=a,this._root.empty(),c.isCached(a)?h(c.get(a)):(b=+new Date,d=1500,this.element.addClass(this._cl("groveLoading")),void this._fetchThread(a,function(e){var f=+new Date;d>f-b?setTimeout(h.bind(null,e),d-(f-b)):h(e),c.add(a,e)}))},_bindControls:function(){var b,d,e=this,f=this.options.selectors,g=this.options.classNames;a.lj.basicWidget.prototype._bindControls.apply(this),["Expand","Collapse","ExpandChildren","Promote","Unpromote"].forEach(function(b){var c=f["link"+b],d=b.toLowerCase();"expandchildren"===d&&(d="expand"),e.element.delegate(c,"click",function(b){var c=a(this),g=c.closest(f.leaf);e[d](g.prop("id"),g,c.prop("href"),c.closest(f.actionsItem)[0]),b.preventDefault()})}),d=new LJ.DelayedCall(function(a){a.addClass(g.leafShow)},150),b=new LJ.DelayedCall(this._loadTimestamp.bind(this),150),this.element.delegate(f.leaf,"click",function(){a(this).removeClass(g.newComment)}).delegate(f.seeMore,"click",function(b){var c=a(this).closest(f.leaf),d=c.hasClass(g.leafExpanding)||c.hasClass(g.leafCollapsing);c.hasClass(g.leafLevelUp)||(d||e._loadMore(c),b.preventDefault())}).delegate(f.leaf,"mouseover",function(c){var e=a(this);-1===c.target.className.indexOf(g.shortTime)||c.target.getAttribute("title")||b.run(e,a(c.target)),e.hasClass(g.leafShow)||d.run(e)}).delegate(f.leaf,"mouseout",function(c){var e=a(this),f=a(c.relatedTarget);b.stop(),0===f.closest(e).length&&(d.stop(),e.removeClass(g.leafShow))}),this.element.bind("expand",function(a,b,c){e.expand(b,null,c)}).bind("collapse",function(a,b,c){e.collapse(b,null,c)}).bind("refreshThread",this._refreshThread.bind(this)).bind("newComment",this._addNewComment.bind(this)).bind("deleteComment",this._deleteComment.bind(this)).bind("removeFromDOM",this._removeFromDOM.bind(this)),this.element.bind("commentsUpdated",function(a,b,c,d){var f=0;"addnew"===c?f=1:("delone"===c||"delmany"===c)&&(f=-d),0!==f&&(e._showSpamPage?e._spamNumberChanged(f):e._commentsNumberChanged(f)),LJ.Event.trigger("entry/fixLinks"),setTimeout(function(){LJ.Event.trigger("social:widgets:parse")},300)}),0===this._el("commentsJSON").length&&setTimeout(this._highlightNewComments.bind(this),100),LJ.Event.on("commentator/submit",function(){e._pagerWidget&&c.remove(e._pagerWidget.page())}),LJ.Event.on("commentsPager/change",e._addPagerData.bind(e))},_addPagerData:function(){var a,b=this._pageTitle,c=this._pageDescription;this._pagerWidget&&(a=this._pagerWidget.page()),a&&1!==a&&(b+=" - "+this._titleMl+" "+a,c+=" - "+this._descriptionMl+" "+a),this._title.text(b),this._description.attr("content",c)},_loadTimestamp:function(b,c){var d={journal:Site.currentJournal,thread:b.attr("id").substr(1)},e=function(a){"ok"===a.status&&c.attr("title",a.stamp)};a.get(LiveJournal.getAjaxUrl("get_thread_timestamp"),d,e,"json")},_highlightNewComments:function(){this._highlightNewLeaves(this.element.find(this.options.selectors.leaf))},_highlightNewLeaves:function(b,c){c=c||this._getPageTimestamp();var d,e=this,f=this.options.classNames.newComment,g=c||0;a.each(b,function(){var a=parseInt(this.getAttribute("data-updated-ts"),10),b=this.getAttribute("data-username"),d=this.className,h=-1!==d.indexOf(e._cl("leafMore"));a>g&&!h&&(g=a),c&&a>c&&(!Site.remoteUser||Site.remoteUser!==b)&&(this.className=d+" "+f,h&&this.setAttribute("data-max-ts",c))}),d=this._getPageTimestamp(),(!c||g>d)&&this._setPageTimestamp(g)},_getPageTimestamp:function(){var a=this._getPageHash(),b=LJ.Storage.getItem(a)||{};return b&&parseInt(b.stamp,10)},_setPageTimestamp:function(a){if(a){var b=this._getPageHash();LJ.Storage.setItem(b,{stamp:a,updated:+new Date})}},_getPageHash:function(){var a=["url="+Site.currentEntry];return a.push("thread="+(LiveJournal.parseGetArgs(location.href).thread||0)),a.push("page="+this._getCurrentPage()),a.join(";")},_getCurrentPage:function(){return 0===this._pager.length?1:this._pager.commentsPager("page")},_addPoster:function(a){a.poster=LJ.get("entry.poster")},_createComment:function(b){var c,d,e,f,g,h,i,j,k=this.options.selectors,l=this.options.templates;return b.parent?(i=this._constructionCache.hasOwnProperty(b.parent)?this._constructionCache[b.parent]:this._root.find("#t"+b.parent),j=a.comments.getThread(i,!0),e=b.level?b.level:a.comments.level(i)+1,h=j[j.length-1].closest(k.twig)):(e=1,h=this._root),g=b.margin||30*(e-1),f=e>=50?50:10*Math.floor(e/10),d={dtalkid:b.dtalkid,level:e,deepLevel:f,margin:g},b.hasOwnProperty("html")?c=a(l.twig.supplant({html:b.html||l.emptyLeaf}).supplant(d)):(b=a.extend({},b,{level:e,deepLevel:f,margin:g}),this._addPoster(b),c=this._tmpl("leaf",b)),h===this._root?h.append(c):c.insertAfter(h),this._constructionCache[b.dtalkid]=c,c},_addNewComment:function(c,d){if(this._showSpamPage||!LiveJournal.parseGetArgs(location.href).thread&&this._getCurrentPage()-d.page!==0||!d.parenttalkid&&LiveJournal.parseGetArgs(location.href).thread)return void(b.location.href=decodeURIComponent(d.result));if(0===a("#t"+d.dtalkid).length){var e=d.parenttalkid&&d.parenttalkid.substr(1)||null;this._createComment({dtalkid:d.dtalkid,parent:e,html:""}),a("#t"+d.dtalkid).empty()}this._refreshThread(null,d.dtalkid,!0,"addnew"),setTimeout(function(){b.location.hash="t"+d.dtalkid},0)},_constructComments:function(a,b){function c(){d._restoreRoot(),h.resetQueue()}var d=this,e=[],f=a.length,g=0,h=LJ.Function.threshold(function(){if(g===f)return d._off("commentsPage",c),d._highlightNewLeaves(e,b),d._fire("commentsConstructed",null,!0),LJ.Event.trigger("entry/fixLinks"),void g++;if(!(g>f)){var i=d._createComment(a[g]).find(d._s("leaf"));e.push(i.get(0)),g++,h()}},25,!0);b=b||this._getPageTimestamp(),h.batch(20),Function.defer(d._one.bind(d,"commentsPage",c)),h()},_loadMore:function(a){var b=this,c=a.data("parent");a.addClass(this.options.classNames.leafExpanding),this._fetchThread("t"+c,function(c){c.shift(),b._constructComments(c,a.data("max-ts")),a.remove()},null,a.hasClass(this._cl("seeMoreVertical"))?0:2)},_deleteComment:function(b,c,d,e){function f(){var b=0;l.each(function(c){l[c].id&&(h._bestTid===l[c].id&&(l=l.add(a(".b-tree-best .b-tree-twig .b-leaf"))),h._promoTid===l[c].id&&(l=l.add(a(".b-tree-promo .b-tree-twig .b-leaf"))),b++)}),l.replaceWith(k),h.element.trigger("commentsUpdated",["t"+c,d||e?"delmany":"delone",b]),h._checkSpamPageStatus()}var g=this.options.selectors,h=this,i=function(a){return a.clone().wrap("<div/>").parent().html()},j=this.element.find(g.commentDeleted+":first"),k=j.length&&i(j),l=this.element.find("#t"+c);0===j.length&&this._fetchThread("t"+c,function(b){var d=b.pop(),e=d.hasOwnProperty("html")?a(d.html).filter(g.commentDeleted):h._tmpl("leaf",d).find(g.commentDeleted);if(0===e.length)throw new Error("Comment t"+c+" has not been deleted");k=i(e),f()},!0),d&&(l=l.add(a.comments.getThread(l))),e&&(l=l.add(this.element.find(g.leaf+"[data-username="+e+"]"))),0!==j.length&&f()},_removeFromDOM:function(b,c,d){a.isArray(c)||(c=[c]),c.forEach(function(b){var c="#t"+b,d=a(c);d.length>0&&d.remove()}),this._checkSpamPageStatus(),!this._showSpamPage||"spamcomment"!==d&&"unspam"!==d||(this._spamNumberChanged(-c.length),this._commentsNumberChanged(c.length))},_checkSpamPageStatus:function(){var a,b,c=this.options.selectors,d=c.leaf+":not("+c.commentDeleted+"):first";this._showSpamPage&&0===this.element.find(d).length&&(a=LiveJournal.parseGetArgs(location.href),b=location.href.split("?")[0],delete a.mode,delete a.page,location.href=LiveJournal.constructUrl(b,a).replace(/\?$/,"")+"#comments")},_refreshThread:function(b,c,d,e){var f=this;this._fetchThread("t"+c,function(b){f._applyFetchResults(b,!0,function(){if(!d){var g,h,i,j,k=[];for(i=0,j=b.length;j>i;++i)k.push("t"+b[i].dtalkid);g=" "+k.join(" ")+" ",h=a.comments.getThread(a("#t"+c)).filter(function(){return-1===g.indexOf(" "+this.id+" ")}),h.addClass(f._cl("leafCollapsed")).removeAttr("data-full")}f.element.trigger("commentsUpdated",["t"+c,e])},e),/set_(promo|best)/.test(e)&&f._updateTop(b,function(){f.element.trigger("topUpdated")},e)},d)},_fetchThread:function(b,c,d,e){function f(){j._restoreRoot(),g.abort()}d=d||!1,c=c||a.noop;var g,h,i,j=this,k=b.toString().match(/t(\d+)/),l=k&&k[1],m="thread";l||(m="page",l=b),i={journal:Site.currentJournal,itemid:this._itemid,flat:d?"1":"",skip:e?e:""},h=LiveJournal.parseGetArgs(location.href),i[m]=l,"thread"===m&&(i.expand_all=d?"":"1"),h&&h.style&&"mine"===h.style&&(i.style="mine"),g=a.ajax({url:LiveJournal.getAjaxUrl("get_thread"),data:i,dataType:"json",timeout:7500}).success(function(a){j._off("commentsPage",f),a.hasOwnProperty("comments")&&(j._updateCounters(a),a=a.comments),c(a)}).error(function(a,e){"abort"!==e&&(j._off("commentsPage",f),setTimeout(j._fetchThread.bind(j,b,c,d),7500))}),Function.defer(j._one.bind(j,"commentsPage",f))},_updateCounters:function(a){"replycount"in a&&this._el("replyCounter").html(LJ.ml("talk.replycount",{count:a.replycount})),"spamcount"in a&&this._el("spamCounter").html(LJ.ml("talk.spamcount",{count:a.spamcount}))},_applyFetchResults:function(b,c,d,e){var f=this,g=b.length,h=function(){g--,g||d()};d=d||a.noop,b.forEach(function(b){var c,d,g;b.html?g=a(b.html).filter("div"):(f._addPoster(b),g=f._tmpl("leaf",b).find(f._s("leaf"))),c=g.prop("id"),d=a("#"+c),d.hasClass(f._cl("leafCollapsed"))&&!g.hasClass(f._cl("leafCollapsed"))&&g.addClass(f._cl("leafCollapsed")).data("full",1),"expand"===e&&d.hasClass(f.options.classNames.leafActive)?"expand"===e&&d.removeClass(f._cl("leafExpanding")):d.replaceWith(g),h()})},_commentsNumberChanged:function(b){var c=a(".b-watering").data("commentform");"edit"===c.previousState()?c.syncPreviousState():(this._replycount+=b,this._updateCounters({replycount:this._replycount}))},_spamNumberChanged:function(a){this._spamcount+=a,this._el("spamCounter").html(LJ.ml("talk.spamcount",{count:this._spamcount}))},expand:function(b,c,d){if(c=c||a("#"+b),!c.hasClass(this.options.classNames.leafExpanding)&&!c.hasClass(this.options.classNames.leafCollapsing)){c.addClass(this.options.classNames.leafExpanding);var e=this,f=e.options.classNames.leafCollapsed,g=this.options.selectors,h=a.comments.getThread(c),i=h.filter(g.leafCollapsed),j=function(b){return function(){var c=a(this),d=!!c.data("full");return d===b}},k=function(b){b.filter(e._s("leafMore")).each(function(){var b=a(this),c=+b.data("count");25>c&&e._loadMore(b)})};void 0===d&&(d=a.comments.skipAnimation),!c.data("full")&&c.hasClass(f)||i.filter(j(!1)).length>0?this._fetchThread(b,a.delayedCallback(function(b){e._applyFetchResults(b,!1,function(){var b=a();i.each(function(){b=b.add(a("#"+this.id))}),e._expandNodes(c,c.prop("id"),b.filter(j(!0)),d),k(h)},"expand")},3e3)):c.hasClass(f)||i.length>0?(this._expandNodes(c,c.prop("id"),i.filter(j(!0)),d),k(h)):c.removeClass(this.options.classNames.leafExpanding)}},_expandNodes:function(b,c,d,e){var f=this,g=f.options.classNames.leafCollapsed;void 0===e&&(e=a.comments.skipAnimation),b.removeClass(this.options.classNames.leafExpanding),e?d.removeClass(g):d.each(function(){var b,c=a(this),d=c.height();c.hasClass(f.options.classNames.leafActive)||(c.removeClass(g).attr("style",""),b=c.height(),c.css({opacity:0,height:d,overflow:"hidden"}).animate({opacity:1,height:b},{duration:300,complete:function(){c.attr("style","")},queue:!1}))}),this.element.trigger("commentsUpdated",[c,"expand"])},collapse:function(b,c,d){var e,f,g,h,i=this,j=i.options.classNames.leafCollapsed,k=i.options.classNames.leafClipped,l=i.options.classNames.leafCollapsing;c=c||a("#"+b),void 0===d&&(d=a.comments.skipAnimation),c.hasClass(this.options.classNames.leafExpanding)||c.hasClass(l)||(f=this.options.selectors,g=c.closest(f.twig),h=a.comments.getThread(c).filter(":not(."+j+"):not(."+l+"):not(."+k+")"),c.hasClass(j)&&0===h.length||(h.addClass(j),e=g.height(),h.removeClass(j).data("full",!0).attr("style","").addClass(l),d?h.addClass(j).removeClass(l):h.each(function(){var b=a(this),c=b.height();b.css({height:c,overflow:"hidden"}),b.animate({opacity:0,height:e},{duration:300,complete:function(){h.addClass(j).attr("style","").removeClass(l)},queue:!1})}),this.element.trigger("commentsUpdated",[b,"collapse"])))},_promoteApi:function(b,c,d){d=d||a.noop,LJ.Api.call("promo."+c,{"class":"comments",type:"comment",user:LJ.get("currentJournal"),ditemid:this._itemid,price:this._promoPrice,object_url:b},d)},_promoteDone:function(a,b,c){this.element.trigger("refreshThread",[b.slice(1),!0,c]),this._promoPrice=a.current_price},_promoteFail:function(a){alert(a.error.message),location.reload()},promote:function(b,c,d,e){var f,g,h,i,j,k,l=this;h=function(){a(this).addClass("b-flatbutton-loading"),f.addClass("promocomment-loading"),l._promoteApi(d,"promote",function(a){return a.error?void i(a):(l._promoteDone(a,b,"set_promo"),void f.bubble("hide"))})},i=function(){a(this).addClass("promocomment-update-loading"),f.addClass("promocomment-loading"),l._promoteApi(d,"get_slot",function(a){return a.error?void l._promoteFail(a):(g=!0,l._promoPrice=a.comment[0].buyout_cost,l._remoteBalance=a.comment[0].balance,f.bubble("hide"),void k())})},j=function(){c.removeClass("b-leaf-herbarium"),f.closest(".b-popup").remove()},k=function(){var a={promoMessage:g,tokens:l._promoPrice,promoAllowed:l._remoteBalance>l._promoPrice,siteroot:LJ.get("siteroot")},b={target:e};c.addClass("b-leaf-herbarium"),f=l._tmpl("promoBubble",a).delegate(".promocomment-submit","click",h).delegate(".promocomment-update","click",i).bind("bubblehide",j).bubble(b).bubble("show")},setTimeout(k,0)},unpromote:function(a,b,c){var d=this;this._promoteApi(c,"withdraw",function(b){return b.error?void d._promoteFail(b):void d._promoteDone(b,a,"unset_promo")})},_updateTop:function(b,c,d){if(b&&b[0]&&d){var e,f,g,h,i=this,j=d.split("_");if(c=c||a.noop,h=a(".b-tree-"+j[1]),f=h.find(".b-tree-twig"),"unset"===j[0])return i["_"+j[1]+"Tid"]="",f.remove(),void c();if(i["_"+j[1]+"Tid"]="t"+b[0].dtalkid,e=i._tmpl("leaf",a.extend({},b[0],{is_promo:"promo"===j[1],is_best:"best"===j[1],noid:!0,noactions:!0,nocontrols:!0,massactions:!1})),0===f.length)return h.append(e),void c();g=f.attr("data-tid").slice(1),f.replaceWith(e),a("#t"+g).length>0&&i.element.trigger("refreshThread",[g,!0]),c()}},_hideRoot:function(){this.hasOwnProperty("_realRoot")||(this._realRoot=this._root,this._root=a("<div />"))},_restoreRoot:function(){this.hasOwnProperty("_realRoot")&&(this._realRoot.append(this._root.children()),this._root=this._realRoot,delete this._realRoot)}})}(jQuery,window);;
+
+/* file-end: js/jquery/jquery.lj.comments.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.lj.commentator.js 
+*/
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/captcha.js 
+*/
+
+!function(a){"use strict";function b(){return"undefined"!=typeof k}function c(){var b=a.Deferred();return"keycaptcha"===LJ.Captcha.current?(b.resolve(),b.promise()):(j?b.resolve(j):LJ.Api.call("captcha.get_public_key",{},function(a){j=a.captcha_public,b.resolve(j)}),b.promise())}function d(){return"solve_media_captcha"===LJ.Captcha.current?"https:"===location.protocol?"https://api-secure.solvemedia.com/papi/challenge.ajax":"http://api.solvemedia.com/papi/challenge.ajax":location.protocol+"//www.google.com/recaptcha/api/js/recaptcha_ajax.js"}function e(d,e){var f=a.Deferred();return e=a.extend(l,e||{}),LJ.Captcha.current?a.when(c(),m()).then(function(){b()?k.create(j,d,e):console.error("Something went wrong. Captcha object is not defined.")}):(f.resolve(),f.promise())}function f(){b()&&k.destroy()}function g(){b()&&k.reload.apply(null,arguments)}function h(){return b()?"keycaptcha"===LJ.Captcha.current?null:k.get_challenge():void 0}function i(){return b()?"keycaptcha"===LJ.Captcha.current?a("#"+window.s_s_c_captcha_field_id).val():k.get_response():void 0}LJ.define("LJ.Captcha"),LJ.Captcha={create:e,reload:g,destroy:f,getChallenge:h,getResponse:i,isDefined:b,responseFieldName:LJ.Flags.isEnabled("solve_media_captcha")?"adcopy_response":"recaptcha_response_field",current:["keycaptcha","solve_media_captcha","recaptcha"].filter(LJ.Flags.isEnabled).shift()};var j,k,l={lang:"ru"},m=LJ.Function.once(function(){var b=a.Deferred();return window.ACPuzzleOptions={onload:function(){k=ACPuzzle,b.resolve()}},"keycaptcha"===LJ.Captcha.current?LJ.Api.call("captcha.get_public_key",{},function(c){var d=LJ.get("page.captcha_field_id")||"capcode";window.s_s_c_user_id=c.user_id,window.s_s_c_session_id=c.session_id,window.s_s_c_captcha_field_id=LJ.get("page.captcha_field_id")||"capcode",window.s_s_c_submit_button_id=LJ.get("page.submitbtn_id")||"createpage_create",window.s_s_c_web_server_sign=c.server_sign,window.s_s_c_web_server_sign2=c.server_sign2,a("#"+d).before('<input type="hidden" name="captcha_type" value='+LJ.Captcha.current+">"),LJ.injectScript(location.protocol+"//backs.keycaptcha.com/swfs/cap.js").then(function(){k={create:function(){},destroy:function(){},reload:function(a){a&&window.s_s_c_onload&&window.s_s_c_onload(a,window.s_s_c_captcha_field_id,window.s_s_c_submit_button_id)}},b.resolve()})}):LJ.injectScript(d()).then(function(){"solve_media_captcha"!==LJ.Captcha.current&&(k=Recaptcha,b.resolve())}),b.promise()})}(jQuery);;
+
+/* file-end: js/captcha.js 
+----------------------------------------------------------------------------------*/
+
+!function(a,b){a.widget("lj.commentator",{options:{publicKey:"",ajax:!0,needCaptcha:!1,keyCaptchaLoaded:!1,captchaContainerId:"",selectors:{comments:"#comments",errorWrapper:".b-msgsystem-errorbox",errorBlock:".b-postform-alert-ajax",blockingErrorBlocks:".b-bubble-warning",preloaderElem:".b-postform-preload",controls:":button, :submit",ajaxField:'input[name="json"]',captchaResponse:'input[name="captcha_response"]',captchaType:'input[name="captcha_type"]',previewControl:'input[name="submitpreview"]',inputParentTalkid:"#parenttalkid",submitControl:"button[name=submitpost]",form:"form",captchaBox:".b-postform-captchabox",anonLoginSubmit:".b-watering-authtype-user.b-watering-user-notreg"},classNames:{idle:"b-postform-preload-active",captchaActive:"b-postform-captchabox-active",errorWrapperShow:"b-msgsystem-errorbox-show",replyPage:"b-postform"},templates:{frame:'<iframe class="b-watering-commentator" name="commentator" width="0" height="0" frameborder="0" />'}},_create:function(){var c=this,d=c.element,e=c.options,f=e.selectors,g=e.classNames;c._isReplyPage=d.hasClass(g.replyPage),c._form=d.find(f.form),a(e.templates.jsonField).prependTo(c._form),a(e.templates.frame).prependTo(document.body),c._errorBlock=d.find(f.errorBlock),c._errorsWrapper=d.find(f.errorWrapper),c._blockingErrorBlocks=d.find(f.blockingErrorBlocks),c._preloaderElem=d.find(f.preloaderElem),c._controls=d.find(f.controls),c._ajaxField=d.find(f.ajaxField),c._captchaResponse=d.find(f.captchaResponse),c._captchaType=d.find(f.captchaType),c._captchaBox=d.find(f.captchaBox),c._inputParentTalkid=d.find(f.inputParentTalkid),c._isCommentFormVisible=c.element.is(":visible"),c._setOptions(e),d.bind("authtypechange",function(a,b){c._setOptions(b),c.toggleCaptcha(b.needCaptcha)}).bind("keydown",function(a){!c._disabled&&13===a.which&&a.ctrlKey&&(c._form.trigger("submit"),a.preventDefault())}),d.bind("commentformopen",function(){c._isCommentFormVisible=!0,c.toggleCaptcha(!0)}).bind("commentformclose",function(){c._errorsWrapper.removeClass(g.errorWrapperShow),c._isCommentFormVisible=!1,c.toggleCaptcha()}).bind("commentformdisable",function(a,b){c._disabled=!!b}),c._controls.on("click",function(a){"submitpreview"===jQuery(a.target).prop("name")&&(c._setOption("ajax",!1),c._form.append('<input type="hidden" name="submitpreview" value="1" />')),c.options.needCaptcha||c._controls.prop("disabled")||c._form.submit()}),c._form.bind("submit",function(){c._errorsWrapper.removeClass(g.errorWrapperShow),c._preloaderElem.addClass(g.idle),c._controls.prop("disabled",!0),c._captchaResponse.val(LJ.Captcha.getResponse())}),LJ.Event.on("commentator/submit",function(a){switch(c.option("needCaptcha",a.need_captcha),a.status){case"redirect":if(c._isReplyPage||c.element.is(f.anonLoginSubmit))a.hidden&&alert(a.message),b.location.href=decodeURIComponent(a.result);else{if(a.hidden&&(setTimeout(function(){alert(a.message)},500),!LJ.get("remote")))return;a.parenttalkid=c.element.data("parenttalkid"),c.element.trigger("newComment",a)}break;case"error":if(a.redirect)return void(b.location.href=decodeURIComponent(a.redirect));c.option("error",decodeURIComponent(a.result)),c._errorsWrapper.addClass(g.errorWrapperShow),c._preloaderElem.removeClass(g.idle),c._controls.prop("disabled",!1),c._errorsWrapper.length>0&&jQuery("html, body").scrollTop(c._errorsWrapper.offset().top)}})},_setOption:function(b,c){var d,e=this,f=e.options,g=f.classNames;switch(b){case"error":if(this._errorsWrapper.removeClass(g.errorWrapperShow),this._errorBlock.hide(),c){if(d=e._blockingErrorBlocks.filter(":visible"),d.html()===c)return this._errorBlock.hide(),d.fadeOut("fast",function(){d.fadeIn("fast")}),!0;this._errorBlock.html(c).show()}break;case"needCaptcha":e.options.needCaptcha=Boolean(c),e._captchaBox.toggleClass(g.captchaActive,Boolean(c)),e.toggleCaptcha(c);break;case"ajax":c?(this._ajaxField.val(1),this._form.attr("target","commentator")):(this._ajaxField.val(0),this._form.attr("target","_self"));break;case"authtype":return}a.lj.basicWidget.prototype._setOption.apply(this,arguments)},error:function(){return this._errorsWrapper.addClass(this.options.classNames.errorWrapperShow),this._errorBlock.show(),this},hide:function(){return this._errorBlock.slideUp("fast"),this},toggleCaptcha:function(a){if(a){if(!this.options.needCaptcha||!this._isCommentFormVisible)return;return LJ.Captcha.isDefined()?void LJ.Captcha.reload(this.options.captchaContainerId):void LJ.Captcha.create(this.options.captchaContainerId,{lang:"ru",tabindex:70})}"keycaptcha"!==LJ.Captcha.current&&LJ.Captcha.destroy()}})}(jQuery,this);;
+
+/* file-end: js/jquery/jquery.lj.commentator.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.lj.authtype.js 
+*/
+
+!function(a){a.widget("lj.authtype",a.lj.basicWidget,{options:{selectControl:{},state:"collapsed",selectedIndex:0,focusedIndex:0,nativeAuthTypes:"cookieuser, livejournal, anonymous",index:0,authType:"livejournal",authTypesControls:{},forceStartupCaptcha:!1,classNames:{expanded:"b-postform-login-services-show",startAuthTypePrefix:"b-postform-trueauth-",authTypePrefix:"b-postform-authtype-",willBeScreened:"b-postform-user-screened",notfriend:"b-postform-user-notafriend",captchaForAnonymous:"b-postform-captcha-anon",captchaForNonFriends:"b-postform-captcha-nonfriend",captchaForAll:"b-postform-captcha-all",notaspammer:"b-postform-notaspammer",activeItem:"b-watering-user-services-active"},selectors:{activeSelectItem:"a[href=#{authType}]",selectControl:".b-postform-login-services",authTypesControls:".b-postform-login-services-items a:not(.b-postform-login-services-disabled, .b-postform-login-invisible)",authInputs:"input.auth-input",authTypeNotInSelect:".b-postform-notselect",authTypesDisabledControls:".b-postform-login-services-disabled",authTypeRadios:'input[id^="{authType}"]',inputForFocus:"input:visible:first",mobileSelect:"#usertype"}},_create:function(){var b=this,c=b.options,d=c.selectors;a.lj.basicWidget.prototype._create.apply(this),c.authInputs=b.element.find(d.authInputs),c.selectControl=b.element.find(d.selectControl),c.authTypesControls=b.element.find(d.authTypesControls),c.commentWillBeScreened=b.element.hasClass(c.classNames.willBeScreened),c.captchaForAll=b.element.hasClass(c.classNames.captchaForAll),c.captchaForNonFriends=b.element.hasClass(c.classNames.captchaForNonFriends),c.captchaForAnonymous=b.element.hasClass(c.classNames.captchaForAnonymous),LJ.Support.isMobile()?this._bindControlsMobile():this._bindControls()},_bindControlsMobile:function(){var b=this,c=b.options;a.lj.basicWidget.prototype._bindControls.apply(this),b._setStartAuthType(b.element[0].className);var d=b.element.find(c.selectors.mobileSelect);b.element.bind("commentformclose",function(){b._setOption("authType",c.startAuthType)}),d.bind("change",function(){c.authType!==this.value&&b.authType(this.value)})},_bindControls:function(){var b=this,c=this.options,d=this.options.selectors,e=a.browser.webkit||a.browser.msie?"keydown":"keypress";a.lj.basicWidget.prototype._bindControls.apply(this),b._setStartAuthType(b.element[0].className),b._setActiveSelectItem(),b.element.bind("commentformclose",function(){b._setOption("authType",c.startAuthType)}).delegate(d.selectControl,"click",function(a){a.preventDefault(),b.toggleState()}).delegate(d.authTypesDisabledControls,"click",function(a){a.preventDefault()}).delegate(d.selectControl,e,function(a){switch(a.keyCode){case 38:a.preventDefault(),b.index("-1");break;case 40:a.preventDefault(),b.index("+1")}return!0}).delegate(d.authTypesControls,"click",function(c){var d=a(this),e=d.attr("href").replace("#","");c.preventDefault(),c.stopPropagation(),"expanded"==b.state()?(b.authType(e),b.state("collapsed"),b.option("activeItem",d)):b.state("expanded")}).delegate(d.authTypeNotInSelect,"click",function(c){var d=a(this),e=d.attr("href").replace("#","");c.preventDefault(),c.stopPropagation(),b.authType(e)}).delegate(d.authTypesControls,"mouseenter",function(){c.authTypesControls.trigger("blur"),b.option("focusedIndex",-1)}).delegate(":input","focus",function(){"expanded"==b.state()&&b.state("collapsed")}),a(document).bind("keydown","escape",function(){b.state("collapsed")}),c.selectControl.bind("click",function(){b._suppressNextEvent("documentClick")}),this._on("documentClick",function(){b.state("collapsed")})},_setOption:function(a,b){var c,d,e,f,g=this,h=g.options,i=h.selectors,j=h.classNames;switch(a){case"state":"expanded"==b?(h.selectControl.addClass(h.classNames.expanded),this.option("focusedIndex",-1)):h.selectControl.removeClass(h.classNames.expanded);break;case"activeItem":h.activeItem&&h.activeItem.removeClass(j.activeItem),b.addClass(j.activeItem);break;case"authType":c=-1==h.nativeAuthTypes.indexOf(b),h.authInputs.val(""),d=c&&b!==h.startAuthType||"anonymous"==b&&h.commentWillBeScreened,e=!d,f=(h.captchaForAnonymous||h.captchaForNonFriends||h.captchaForAll)&&"anonymous"==b||b===h.startAuthType&&!this.element.hasClass(j.notaspammer)&&(h.captchaForAll&&Site.currentJournal!==Site.remoteUser||h.captchaForNonFriends&&this.element.hasClass(j.notfriend)),h.forceStartupCaptcha&&(f=!0,this._setOption("forceStartupCaptcha",!1)),g.element.removeClass(h.classNames.authTypePrefix+h.authType).addClass(h.classNames.authTypePrefix+b).trigger("authtypechange",{authtype:b,ajax:e,needCaptcha:f,error:!1}).find(i.authTypeRadios.supplant({authType:b})).trigger("click").end().find(i.inputForFocus).trigger("focus"),g._setActiveSelectItem(b)}g.options[a]=b},_setStartAuthType:function(a){var b=this.options,c=RegExp(b.classNames.startAuthTypePrefix+"(\\w+)"),d=a.match(c),e=d[1];this._setOption("startAuthType",e),c=RegExp(b.classNames.authTypePrefix+"(\\w+)"),d=a.match(c),d&&(e=d[1]),this._setOption("authType",e)},_setActiveSelectItem:function(b){for(var c,d=this.options,e=d.authTypesControls,f=b||d.authType,g=d.selectors.activeSelectItem.replace("{authType}",f),h=0,i=e.length;i>h;h++)if(c=a(e[h]),c.filter(g).length)return d.selectedIndex=h,this._setOption("activeItem",c),!0},toggleState:function(){return this.state("expanded"==this.options.state?"collapsed":"expanded"),this},authType:function(a){return"undefined"==typeof a?this.options.authType:(this._setOption("authType",a),this)},state:function(a){return"undefined"==typeof a?this.options.state:(this._setOption("state",a),this)},index:function(a){var b,c,d,e=this,f=e.options,g=f.state,h=f.authTypesControls,i="expanded"==g?f.focusedIndex:f.selectedIndex;return void 0===typeof a?this.options.index:(a=parseInt(a,10),b=i+a,"collapsed"==g&&(b>=h.length||0>b)?!1:(b>=h.length?b=0:0>b&&(b=h.length-1),c=h.eq(b),void("expanded"==g?(c.trigger("focus"),f.focusedIndex=b):(d=c.attr("href").replace("#",""),e.authType(d)))))}})}(jQuery,this);;
+
+/* file-end: js/jquery/jquery.lj.authtype.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.lj.userpicker.js 
+*/
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/mixins/cursor.js 
+*/
+
+LJ.UI.mixin("cursor",function(a,b){function c(a,b,c){f.locked()||(d(null===g?0:b?a:g+a),c.preventDefault())}function d(a){if(b.items.eq(g).removeClass(b.hoverClass),null!==a){g=b.cyclic?(h+a)%h:0>a?0:a>=h?h-1:a;var c=b.items.eq(g);c.addClass(b.hoverClass);var d=b.container.scrollTop(),e=c.prop("offsetTop"),f=c.outerHeight(),i=b.container.height();e+f>d+i?b.container.scrollTop(e+f-i):d>=e&&b.container.scrollTop(e),b.cursorUpdate(a,c)}else g=null}function e(){var a;f.locked()||null!==g&&(a=b.items.eq(g),b.select(a.data("name"),a),d(null))}b=a.extend({},{target:null,items:null,container:null,cancel:a.noop,cursorUpdate:a.noop,cyclic:!1,hoverClass:"hover",columns:1},b);var f=this,g=null,h=b.items.length;return b.target.bind("keydown","esc",b.cancel).bind("keydown","return",e).bind("keydown","home",c.bind(null,0,!0)).bind("keydown","end",c.bind(null,h-1,!0)),1===b.columns?b.target.bind("keydown","up",c.bind(null,-1,!1)).bind("keydown","down",c.bind(null,1,!1)):b.target.bind("keydown","left",c.bind(null,-1,!1)).bind("keydown","right",c.bind(null,1,!1)).bind("keydown","up",c.bind(null,-b.columns,!1)).bind("keydown","down",c.bind(null,b.columns,!1)),{reset:function(){d(null)},index:function(a){return 0===arguments.length?g:void d(a)},setData:function(a,c){c=void 0===c?null:0,b.items=a,h=b.items.length,d(c)},item:function(a){return b.items.eq(a||g)}}});;
+
+/* file-end: js/jquery/mixins/cursor.js 
+----------------------------------------------------------------------------------*/
+
+LJ.injectStyle('.b-ljuserpic{margin:0}#js .b-ljuserpic-mobile .b-myuserpic,.b-myuserpic{display:none}#js .b-myuserpic{display:block}#js .b-ljuserpic-selector{display:none}#js .b-ljuserpic-mobile .b-ljuserpic-selector{display:inline}.b-ljuserpic-default{display:none}.b-myuserpic{width:100px;margin:0 0 15px;padding:8px 8px 4px;border:2px solid #59D;border-radius:5px;box-shadow:0 1px 1px rgba(0,0,0,.3);border-collapse:collapse;background:#FFF;cursor:pointer}.b-myuserpic:hover{border-color:#C00;cursor:pointer}.b-myuserpic-current:active,.b-myuserpic-current:hover,.b-myuserpic-current:link,.b-myuserpic-current:visited{display:block;width:100px;height:100px;margin:0;padding:0;border:0;background-repeat:no-repeat;background-position:50% 50%;text-decoration:none;font:0/0 serif}.b-myuserpic-current:focus{outline:dotted thin}.b-myuserpic-unfocus:focus{outline:0!important}.b-myuserpic-options{display:block;margin:0}.b-myuserpic-title{position:relative;display:inline-block;margin:0;padding:5px 0 0;font-size:11px;color:#369}.b-myuserpic-title I{overflow:hidden;position:absolute;top:6px;right:-16px;display:block;width:16px;height:16px;background:url(/img/icons/popup-expand.png?v=15718) no-repeat}.b-myuserpic:hover .b-myuserpic-title I{background-position:0 -16px}.b-myuserpic:focus .b-myuserpic-title I{background-position:0 -32px}.b-myuserpic-title .b-pseudo{overflow:hidden;margin:0;display:inline-block;max-width:80px;white-space:nowrap;text-overflow:ellipsis;font-size:11px}.b-myuserpic:hover .b-myuserpic-title .b-pseudo{color:#C00}.b-myuserpic-anonymous{padding:8px;cursor:default}.b-myuserpic-anonymous:hover{border-color:#59D;cursor:default}.b-myuserpic-anonymous .b-myuserpic-current:active,.b-myuserpic-anonymous .b-myuserpic-current:focus,.b-myuserpic-anonymous .b-myuserpic-current:hover,.b-myuserpic-anonymous .b-myuserpic-current:link,.b-myuserpic-anonymous .b-myuserpic-current:visited{outline:0;cursor:default}.b-myuserpic-nouserpics{padding:8px;cursor:default}.b-myuserpic-nouserpics:hover{border-color:#59D;cursor:default}.b-myuserpic-nouserpics .b-myuserpic-current:active,.b-myuserpic-nouserpics .b-myuserpic-current:focus,.b-myuserpic-nouserpics .b-myuserpic-current:hover,.b-myuserpic-nouserpics .b-myuserpic-current:link,.b-myuserpic-nouserpics .b-myuserpic-current:visited{outline:0;cursor:default}.b-ljuserpic-disabled .b-myuserpic{opacity:.5;padding:8px;cursor:default}.b-ljuserpic-disabled .b-myuserpic:hover{border-color:#59D;cursor:default}.b-ljuserpic-disabled .b-myuserpic-current:active,.b-ljuserpic-disabled .b-myuserpic-current:focus,.b-ljuserpic-disabled .b-myuserpic-current:hover,.b-ljuserpic-disabled .b-myuserpic-current:link,.b-ljuserpic-disabled .b-myuserpic-current:visited{outline:0;cursor:default}.b-ljuserpic-disabled .b-myuserpic-title{display:none}.b-ljuserpic-off{margin:0;padding:0;cursor:default}.b-ljuserpic-off .b-userpicselector{display:none}.b-ljuserpic-off .b-myuserpic{width:100px;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;border-collapse:collapse;background:#FFF;cursor:default}.b-ljuserpic-off .b-myuserpic-current:active,.b-ljuserpic-off .b-myuserpic-current:focus,.b-ljuserpic-off .b-myuserpic-current:hover,.b-ljuserpic-off .b-myuserpic-current:link,.b-ljuserpic-off .b-myuserpic-current:visited{outline:0;cursor:default}.b-ljuserpic-off .b-myuserpic-options{display:none}.b-userpicselector{overflow:hidden;position:absolute;z-index:100;clear:both;margin:-17px -17px 0;padding:15px 15px 0;border:2px solid #59D;-moz-border-radius:9px;border-radius:9px;-moz-box-shadow:0 10px 15px rgba(53,99,161,.8);-webkit-box-shadow:0 10px 15px rgba(53,99,161,.8);box-shadow:0 10px 15px rgba(53,99,161,.8);background:#FAFAFA;background:-moz-linear-gradient(top,#FAFCFE 0,#E2E3E7 25%,#FAFAFA 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0,#FAFCFE),color-stop(25%,#E2E3E7),color-stop(100%,#FAFAFA));background:-webkit-linear-gradient(top,#FAFCFE 0,#E2E3E7 25%,#FAFAFA 100%);background:-o-linear-gradient(top,#FAFCFE 0,#E2E3E7 25%,#FAFAFA 100%);background:-ms-linear-gradient(top,#FAFCFE 0,#E2E3E7 25%,#FAFAFA 100%);background:linear-gradient(top,#FAFCFE 0,#E2E3E7 25%,#FAFAFA 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=\'#FAFCFE\', endColorstr=\'#E2E3E7\', GradientType=0);font:14px/1.2 Arial,sans-serif}.b-userpicselector .b-popup-inner,.b-userpicselector .b-popup-outer{position:relative;z-index:100;margin:0;padding:0;-moz-border-radius:0;border-radius:0;border:0;background:0 0}.b-userpicselector .i-popup-arr{visibility:hidden}.b-userpicselector .i-popup-close{display:none}.b-userpicselector-inner{width:620px}.b-userpicselector-tiny4{width:480px}.b-userpicselector-tiny3{width:360px}.b-userpicselector-wrapper{overflow:auto;position:relative;height:308px;margin:0;padding:0;background:url(/img/preloader/preloader-circle-gray.gif?v=21229) 50% 50% no-repeat;font:14px/1.2 Arial,sans-serif}.b-userpicselector-loaded .b-userpicselector-wrapper{background:0 0}.b-userpicselector-tiny .b-userpicselector-wrapper{overflow:hidden;height:145px}.b-userpicselector-items{margin:0;padding:0;list-style:none}.b-userpicselector-items:after,.b-userpicselector-items:before{display:table;border-collapse:collapse;content:\"\"}.b-userpicselector-items:after{clear:both}.b-userpicselector-item{overflow:hidden;position:relative;float:left;width:100px;height:124px;margin:0 0 10px;padding:10px;text-align:left}.b-userpicselector-tiny3 .b-userpicselector-item,.b-userpicselector-tiny4 .b-userpicselector-item{margin-bottom:0}.b-userpicselector-item LABEL{display:block;margin:-10px;padding:10px;text-align:center;font-size:11px}#js .b-userpicselector-checkbox{position:absolute;left:-199px}.b-userpicselector-pic{display:block;width:100px;height:100px;margin:0;padding:0;cursor:pointer;color:#0051B7;background-repeat:no-repeat;background-position:50% 50%;font:0/0 serif}.b-userpicselector-item .b-pseudo{overflow:hidden;display:inline-block;height:14px;max-width:100px;margin:0;padding:5px 0 0;border-bottom:1px dotted;white-space:nowrap;text-overflow:ellipsis;color:#369;cursor:pointer}.b-userpicselector-item:hover .b-pseudo{color:#C00}.b-userpicselector-active LABEL{-moz-border-radius:5px;border-radius:5px;background:#58E;background:-moz-linear-gradient(top,#347 0,#58E 100%) #58E;background:-webkit-gradient(linear,left top,left bottom,color-stop(0,#347),color-stop(100%,#58E)) #58E;background:-webkit-linear-gradient(top,#347 0,#58E 100%) #58E;background:-o-linear-gradient(top,#347 0,#58E 100%) #58E;background:-ms-linear-gradient(top,#347 0,#58E 100%) #58E;background:linear-gradient(top,#347 0,#58E 100%) #58E;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=\'#334477\', endColorstr=\'#5588EE\', GradientType=0)}.b-userpicselector-active .b-pseudo{color:#FFF}.b-userpicselector-selected LABEL{padding:9px;border:1px dotted #000}.b-userpicselector-selected .b-pseudo{color:#C00}.b-userpicselector-selected.b-userpicselector-active LABEL{border:1px solid #473479}.b-userpicselector-selected.b-userpicselector-active .b-pseudo{color:#FFF}.b-userpicselector-selected.b-userpicselector-active:hover .b-pseudo{color:#C00}.b-userpicselector-controls{margin:15px -15px 0;padding:20px;-moz-border-radius-bottomleft:7px;-moz-border-radius-bottomright:7px;border-bottom-left-radius:7px;border-bottom-right-radius:7px;background:#CDE;background:-moz-linear-gradient(top,#CDE 0,#FFF 100%) #CDE;background:-webkit-gradient(linear,left top,left bottom,color-stop(0,#CDE),color-stop(100%,#FFF)) #CDE;background:-webkit-linear-gradient(top,#CDE 0,#FFF 100%) #CDE;background:-o-linear-gradient(top,#CDE 0,#FFF 100%) #CDE;background:-ms-linear-gradient(top,#CDE 0,#FFF 100%) #CDE;background:linear-gradient(top,#CDE 0,#FFF 100%) #CDE;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=\'#CCDDEE\', endColorstr=\'#FFFFFF\', GradientType=0);font:14px/1.2 Arial,sans-serif}.b-userpicselector-keywords{display:none;width:16em;margin:0 20px 0 0}#js .b-userpicselector-keywords{display:inline-block}#js .b-userpicselector-tiny .b-userpicselector-keywords,.b-userpicselector-tiny .placeholder-wrapper{display:none}BODY .b-userpicselector-showall,BODY .b-userpicselector-showall:link,BODY .b-userpicselector-showall:visited{margin:0;border:0;color:#0051B7!important;text-decoration:underline}BODY .b-userpicselector-showall:active,BODY .b-userpicselector-showall:hover{color:#C00!important;border:0;text-decoration:underline}BODY .b-userpicselector-close:active,BODY .b-userpicselector-close:hover,BODY .b-userpicselector-close:link,BODY .b-userpicselector-close:visited{display:none;position:absolute;bottom:21px;right:4px;z-index:3;margin:0 16px 0 0;border-bottom:1px dotted;cursor:pointer;color:#000!important;text-decoration:none}BODY .b-userpicselector-close:active,BODY .b-userpicselector-close:hover{color:#C00!important}BODY .b-userpicselector-close:after{content:\" \";position:absolute;top:2px;right:-18px;width:16px;height:16px;margin:0;padding:0;background:url(/img/icons/popup-close.png?v=15718) no-repeat;font:0/0 serif;cursor:pointer}BODY .b-userpicselector-close:hover:after{background-position:0 -16px}#js .b-userpicselector-close:active,#js .b-userpicselector-close:hover,#js .b-userpicselector-close:link,#js .b-userpicselector-close:visited{display:block}');
+LJ.UI.registerTemplate('templates-Form-UpicSelect', "{{if !($data.renderpics)}} <div class=\" b-userpicselector-inner {{if $data.hasdefaultuserpic}} {{if $data.hasuserpics < 6}} b-userpicselector-tiny {{if $data.hasuserpics < 5}} b-userpicselector-tiny4 {{/if}} {{if $data.hasuserpics < 4}} b-userpicselector-tiny3 {{/if}} {{/if}} {{else}} {{if $data.hasuserpics < 5}} b-userpicselector-tiny {{/if}} {{if $data.hasuserpics < 4}} b-userpicselector-tiny b-userpicselector-tiny4 {{/if}} {{/if}} \"> <div class=\"b-userpicselector-wrapper\"> <ul class=\"b-userpicselector-items\"> {{if !($data.hasdefaultuserpic)}} <li class=\"b-userpicselector-item b-userpicselector-item-nodefault\" data-name=\"\"><label for=\"u{{html $data.id}}\"><span class=\"b-userpicselector-pic\" data-pic=\"url({{html $data.statprefix}}/img/userpics/userpic-user.png?v=15821)\" title=\"{{html LJ.mltext(\'talk.no.default.userpic\')}}\">&nbsp;</span><span class=\"b-pseudo\">{{html LJ.mltext(\'talk.default.userpic\')}}</span> </label> </li> {{/if}} {{/if}} {{if $data.renderpics}} {{each ($value.userpics || $data.userpics)}} <li class=\" b-userpicselector-item {{if ($value.active || $data.active)}} b-userpicselector-active {{/if}}\" data-name=\"{{html ($value.keyword || $data.keyword)}}\"><label for=\"u{{html ($value.id || $data.id)}}\"><span class=\"b-userpicselector-pic\" data-pic=\"url({{html ($value.src || $data.src)}})\" title=\"{{html ($value.title || $data.title)}}\">&nbsp;</span><span class=\"b-pseudo\">{{html ($value.title || $data.title)}}</span></label> </li> {{/each}} {{/if}} {{if !($data.renderpics)}} </ul> </div> <div class=\"b-userpicselector-controls\"> {{if $data.hasuserpics >= 6}} <input type=\"search\" id=\"\" placeholder=\"{{html LJ.mltext(\"talk.searchuserpic\")}}\" class=\"b-userpicselector-keywords\" tabindex=\"31\"> {{/if}} <a href=\"{{html $data.siteroot}}/editpics.bml\" class=\"b-userpicselector-showall\" target=\"_blank\">{{html LJ.mltext(\'talk.manageuserpic\')}}</a> <a href=\"javascript:void(0)\" class=\"b-userpicselector-close b-pseudo\" tabindex=\"32\">{{html LJ.mltext(\'talk.close\')}}</a> </div> </div> {{/if}} ", 'JQuery.stat');
+!function(a){a.widget("lj.userpicker",a.lj.basicWidget,{options:{updateDefaultUserpic:!1,useCurrentJournal:!1,classNames:{active:"b-userpicselector-active",selected:"b-userpicselector-selected",unfocus:"b-myuserpic-unfocus",loaded:"b-userpicselector-loaded",nodefaultItem:"b-userpicselector-item-nodefault",startAuth:"b-watering-trueauth-"},selectors:{nodefaultItem:".b-userpicselector-item-nodefault",active:".b-userpicselector-active",listWrapper:".b-userpicselector-wrapper",pickerControl:".b-myuserpic",pickerContainer:".b-userpicselector",userpic:".b-userpicselector-item",userpicsList:".b-userpicselector-items",currentImage:".b-myuserpic-current",currentText:".b-myuserpic-title span",imageNode:".b-userpicselector-pic",textNode:".b-pseudo",closeControl:".b-userpicselector-close",keywordInput:".b-userpicselector-keywords",commentWidget:".b-watering-comment",select:"#prop_picture_keyword"},templates:{popup:"templates-Form-UpicSelect"}},_create:function(){var b=this;return a.lj.basicWidget.prototype._create.apply(this),this._currentAuthSelected=!0,this._data=null,this._loadingSkiped=!1,this._shouldUpdateHeaderPic=!0,this.options.useCurrentJournal&&LJ.get("current_journal.is_comm")?(this._user=LJ.get("currentJournal"),this._shouldUpdateHeaderPic=!1):this._user=LJ.get("remoteUser"),LJ.Support.isMobile()?void this._fallbackToMobile():(this._cachedDimensions=[],this._visible=!1,this._suppressTargetClick=!1,this._picsLoaded=!1,this._picKeyword=LJ.get("activeuserpic")||"",this._defaultKeyword=this._picKeyword,this._defaultPicUrl=this._el("currentImage").css("background-image"),this._nodefLabel=this._el("currentImage").data("nodeflabel"),this._nodefPic=this._el("currentImage").data("nodefpic"),this._currentPicNode=null,this._keywords={},this._el("select").children().each(function(){b._keywords[this.getAttribute("value")]=!0}),this._preparePopup(),this._findNodes(),this._setupCursor(),void this._bindControls())},_augmentUserpicData:function(a){var b=this;return this._data=a.userpics?a.userpics.map(function(a){var c=a.keywords.join(", ");return{title:c,keyword:c.trim().toLowerCase(),active:c===b._defaultKeyword,id:a.id,src:a.url}}):[],this._data},_preparePopup:function(){var a={hasuserpics:LJ.get("hasuserpics"),hasdefaultuserpic:LJ.get("hasdefaultuserpic"),hasactiveuserpic:!!LJ.get("activeuserpic"),statprefix:LJ.get("statprefix"),siteroot:LJ.get("siteroot")};this._popupContent=this._tmpl("popup",a),this._popupContent.bubble({target:this._el("pickerControl"),alwaysShowUnderTarget:!0,closeOnDocumentClick:!1,classNames:{containerAddClass:"b-userpicselector"},showEffect:"fade",selectors:{closeControl:this._s("closeControl")},offset:{x:-12,y:-128}}),this._el("userpicsList",this._popupContent)},_loadPics:function(){this._lock(),LJ.Api.call("userpic.get_all_userpics",{user:this._user},function(a){this._picsLoaded=!0,this._unlock(),this._popupContent.addClass(this._cl("loaded")),this._initPics(this._augmentUserpicData(a)),this._defaultActiveUserpic||(this._defaultActiveUserpic=this._popupContent.find(LJ.get("hasactiveuserpic")||LJ.get("hasdefaultuserpic")?this._s("active"):this._s("nodefaultItem")));var b=this._picKeyword!==this._defaultKeyword,c=this._picKeyword;this._findDefaultActive(),b&&this._findByKeyword(c),this._bindPopupControls(),this._updateUserpics(),0===this._cachedDimensions.length&&(this._cachedDimensions.cellheight=this._userpics.eq(0).outerHeight(!0),this._cachedDimensions.frameHeight=this._listWrapper.height())}.bind(this))},_initPics:function(a){var b={userpics:a,renderpics:!0};this._tmpl("popup",b).appendTo(this._userpicsList),this._userpicsImgList=this._userpicsList.find(this._s("imageNode")),this._userpics=this._userpicsList.find(this._s("userpic"))},_fallbackToMobile:function(){var a,b;a=this._el("select"),b=a.val(),this.element.bind("commentformclose userpic",function(c,d){a.val(d||b)})},_findDefaultActive:function(){return this._picsLoaded?void(this._defaultActiveUserpic.length&&this._setActiveUserpic(this._defaultActiveUserpic)):void this._setUserpic(this._defaultKeyword,this._defaultPicUrl)},_findNodes:function(){var a=this._popupContent;this._pickerContainer=a,this._el("keywordInput",a),this._el("listWrapper",a),this._el("currentImage"),this._el("currentText"),this._windowHeight=this._listWrapper.height()},_setupCursor:function(){var a=this;a._use("cursor",{target:this._el("pickerControl"),items:jQuery(),container:a._el("listWrapper"),cancel:a.onHide.bind(a,null),columns:5,select:function(b,c){a._visible&&(a._setActiveUserpic(c,!0),a.hide(),a._suppressTargetClick=!0)},hoverClass:this._cl("selected")}),a._("cursor").index(0)},_bindControls:function(){var b=this;a.lj.basicWidget.prototype._bindControls.apply(this),b.element.on("click",this._s("pickerControl"),function(a){b._pickerContainer.length>0&&b._currentAuthSelected&&!b._suppressTargetClick&&!b._el("select").attr("disabled")&&(b.show(),b._suppressNextEvent("documentClick"),b._picsLoaded||b.locked()||b._loadPics()),b._suppressTargetClick=!1,a.preventDefault()});var c=LJ.get("hasuserpics")||0;c>=6&&b.element.on("keypress",this._s("pickerControl"),function(a){if(!b._visible)return!0;var c=0;"undefined"==typeof a.which?c=a.keyCode:"number"==typeof a.which&&a.which>0&&(a.ctrlKey||a.metaKey||a.altKey||8==a.which||(c=a.which)),c&&(b._keywordInput.val(b._keywordInput.val()+String.fromCharCode(a.which)),Function.defer(function(){b._keywordInput.input().trigger("focus");var a=b._keywordInput.val().length;DOM.setSelectedRange(b._keywordInput.get(0),a,a)}))}),this._popupContent.on("click",this._s("userpic"),function(){b._setActiveUserpic(a(this),!0),b.hide()}).on("click",this._suppressNextEvent.bind(this,"documentClick")),this._popupContent.on("bubbleshow",this.onShow.bind(this)).on("bubblehide",this.onHide.bind(this)),b.element.on("authtypechange",function(a,c){var d=b._cl("startAuth")+c.authtype;b._currentAuthSelected=b.element.hasClass(d)}).on("commentformclose",function(){b._keywordInput.val(""),b._picsLoaded&&(b._userpics.show(),b._("cursor").setData(b._userpics,0)),b._findDefaultActive()}).on("userpic",function(a,c,d){b._picsLoaded?b._findByKeyword(c):b._setUserpic(c,"url("+d+")")}),this._on("documentClick",this.hide.bind(this))},_bindPopupControls:function(){var a=this;this._keywordInput.labeledPlaceholder().input(LJ.Function.throttle(function(){a.filter(a._keywordInput.val())},this.value),100),this._listWrapper.scroll(this._updateUserpics.bind(this)),this._currentImage.blur(function(){a._("cursor").item().removeClass(a._cl("selected"))}).focus(function(){a._("cursor").index(0)}),this._userpicsImgList.one("activate",function(){var a=jQuery(this),b=a.data("pic");a.css("background-image",b),this.loaded=!0})},_updateUserpics:function(){var a=this._listWrapper.offset().top+this._windowHeight,b=this._userpicsImgList.filter(function(){return jQuery(this).offset().top<a+200}).trigger("activate");this._userpicsImgList=this._userpicsImgList.not(b)},_findByKeyword:function(b){if(!b)return void this._findDefaultActive();b=String(b).toLowerCase();var c=this._userpicNodes=this._pickerContainer.find(this._s("userpic")).filter(function(){var c=a(this).data("name");return c?!!String(c).split(/, */).filter(function(a){return a===b}).length:!1}).first();c.length>0?this._setActiveUserpic(c):this._findDefaultActive()},filter:function(a){var b=this;a=a.trim().toLowerCase();var c=jQuery(),d=this._("cursor").index(),e=this._("cursor").item().get(0);a.length>0?this._userpics.each(function(){var f=jQuery(this),g=f.data("name").toString().indexOf(a)>-1;f.toggle(g),g?c=c.add(f):this===e&&(d=0,f.removeClass(b._cl("selected")))}):(c=this._userpics,c.show()),this._("cursor").setData(c,d),this._updateUserpics(),this._currentImage.trigger("blur")},onShow:function(){this._visible=!0,this._picsLoaded&&this._updateUserpics(),this._listWrapper.scrollTop(0),this._currentImage.trigger("focus"),Function.defer(function(){this._currentImage.trigger("focus")}.bind(this)),this._picsLoaded&&this._("cursor").index(0)},onHide:function(){this._visible=!1,this._pickerContainer.removeClass(this._cl("unfocus"))},_setActiveUserpic:function(a,b){var c,d,e;if(a.hasClass(this._cl("nodefaultItem"))?(d="",e=""):(c=a.find(this._s("imageNode")),d=c.css("background-image"),d&&"none"!==d||(d=c.data("pic")),e=a.find(this._s("textNode")).text()),this._setUserpic(e,d),!this._currentPicNode||this._currentPicNode.get(0)!==a.get(0)){var f=this._currentPicNode;this._currentPicNode=a,this._visible&&b?this._popupContent.one("bubblehide",function(){this._setUserpicNode(f,a)}.bind(this)):this._setUserpicNode(f,a)}},_setUserpic:function(b,c){var d=b.split(/, */),e=this,f=null;this.options.updateDefaultUserpic&&(f=this._getDataByTitle(b),f&&this._loadingSkiped?this._sendUpdateUserpicRequest(f.id):this._loadingSkiped=!0),a.each(d,function(a,b){e._keywords[b]&&e._el("select").val(b)}),d.indexOf(this._el("select").val())>=0&&(b=b||this._nodefLabel,c=c||this._nodefPic,this._picKeyword=b,this._currentImage.css("background-image",c),this._currentText.text(b))},_setUserpicNode:function(a,b){a&&a.removeClass(this._cl("active")),this._("cursor").item().removeClass(this._cl("selected")),b.addClass(this._cl("active")).prependTo(this._userpicsList),this._userpics=this._popupContent.find(this._s("userpic")),this._("cursor").setData(this._userpics,0)},hide:function(){this._popupContent.bubble("hide")},show:function(){this._popupContent.bubble("show")},_getDataByTitle:function(a){var b=this._data.filter(function(b){return b.title===a});return b.length>0?b[0]:null},_sendUpdateUserpicRequest:function(a){this.options.updateDefaultUserpic&&LJ.Api.call("userpic.set_default_userpic",{user:this._user,defaultpic:a},this._afterUserpicUpdate.bind(this))},_afterUserpicUpdate:function(b){var c;"ok"===b.result&&this._shouldUpdateHeaderPic&&("lanzelot"===LJ.get("scheme")?a("#header").find(".userpic").attr("src",b.url):(a(".b-userpic-wrap").removeClass("b-userpic-wrap-empty").find("#defaultpic").css("background-image","url('"+b.url+"')"),a(".s-userpic-wrap").removeClass("s-userpic-wrap-empty").find(".userpic").attr("src",b.url)),c=this._popupContent.find(this._s("nodefaultItem")),c.length&&c.remove())}})}(jQuery,this);;
+
+/* file-end: js/jquery/jquery.lj.userpicker.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.lj.commentsFormToolbar.js 
+*/
+
+
+!function(a){a.widget("lj.commentsFormToolbar",jQuery.lj.basicWidget,{options:{additionalRoles:[],selectors:{buttons:".b-updateform-button",photoPreview:".b-updateform-bubble-photo-preview",toolbar:".b-updateform-bar",htmlTextarea:"#body"},classNames:{preloader:"b-updateform-bubble-photo-preload"}},init:{},_create:function(){this._el("toolbar"),a.lj.basicWidget.prototype._create.apply(this),this._el("buttons"),this._emptyGif=null,this._imgPreload=new Image,this._bindControls()},_bindControls:function(){{var b=this;this.options.selectors}a.lj.basicWidget.prototype._bindControls.apply(this),this._on("rte_on",function(a){b.rteOn=!!a})},_checkPhotoLoad:function(a,b){var c=b.val().trim(),d=this,e=a.find(this.options.selectors.photoPreview);e.attr("src",this._emptyGif),0!==c.length&&(a.addClass(this.options.classNames.preloader),0!==c.length&&(this._imgPreload.src="",this._imgPreload.onload=function(){0!==d._imgPreload.src.length&&(a.removeClass(d.options.classNames.preloader),e.attr("src",d._imgPreload.src))},this._imgPreload.onerror=function(){a.removeClass(d.options.classNames.preloader)},clearTimeout(this._imgPreload.timer),this._imgPreload.timer=setTimeout(function(){d._imgPreload.src=c},200)))},attachHotkeys:function(a){a=jQuery(a);var b=function(a,b){this.insertContent(a),b.preventDefault(),b.stopPropagation()};a.bind("keydown","ctrl+b",b.bind(this,"bold")).bind("keydown","ctrl+i",b.bind(this,"italic")).bind("keydown","ctrl+u",b.bind(this,"underline"))}})}(jQuery,window);;
+
+/* file-end: js/jquery/jquery.lj.commentsFormToolbar.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.lj.commentform.js 
+*/
+
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.easing.js 
+*/
+
+jQuery.easing.jswing=jQuery.easing.swing,jQuery.extend(jQuery.easing,{def:"easeOutQuad",swing:function(a,b,c,d,e){return jQuery.easing[jQuery.easing.def](a,b,c,d,e)},easeInQuad:function(a,b,c,d,e){return d*(b/=e)*b+c},easeOutQuad:function(a,b,c,d,e){return-d*(b/=e)*(b-2)+c},easeInOutQuad:function(a,b,c,d,e){return(b/=e/2)<1?d/2*b*b+c:-d/2*(--b*(b-2)-1)+c},easeInCubic:function(a,b,c,d,e){return d*(b/=e)*b*b+c},easeOutCubic:function(a,b,c,d,e){return d*((b=b/e-1)*b*b+1)+c},easeInOutCubic:function(a,b,c,d,e){return(b/=e/2)<1?d/2*b*b*b+c:d/2*((b-=2)*b*b+2)+c},easeInQuart:function(a,b,c,d,e){return d*(b/=e)*b*b*b+c},easeOutQuart:function(a,b,c,d,e){return-d*((b=b/e-1)*b*b*b-1)+c},easeInOutQuart:function(a,b,c,d,e){return(b/=e/2)<1?d/2*b*b*b*b+c:-d/2*((b-=2)*b*b*b-2)+c},easeInQuint:function(a,b,c,d,e){return d*(b/=e)*b*b*b*b+c},easeOutQuint:function(a,b,c,d,e){return d*((b=b/e-1)*b*b*b*b+1)+c},easeInOutQuint:function(a,b,c,d,e){return(b/=e/2)<1?d/2*b*b*b*b*b+c:d/2*((b-=2)*b*b*b*b+2)+c},easeInSine:function(a,b,c,d,e){return-d*Math.cos(b/e*(Math.PI/2))+d+c},easeOutSine:function(a,b,c,d,e){return d*Math.sin(b/e*(Math.PI/2))+c},easeInOutSine:function(a,b,c,d,e){return-d/2*(Math.cos(Math.PI*b/e)-1)+c},easeInExpo:function(a,b,c,d,e){return 0==b?c:d*Math.pow(2,10*(b/e-1))+c},easeOutExpo:function(a,b,c,d,e){return b==e?c+d:d*(-Math.pow(2,-10*b/e)+1)+c},easeInOutExpo:function(a,b,c,d,e){return 0==b?c:b==e?c+d:(b/=e/2)<1?d/2*Math.pow(2,10*(b-1))+c:d/2*(-Math.pow(2,-10*--b)+2)+c},easeInCirc:function(a,b,c,d,e){return-d*(Math.sqrt(1-(b/=e)*b)-1)+c},easeOutCirc:function(a,b,c,d,e){return d*Math.sqrt(1-(b=b/e-1)*b)+c},easeInOutCirc:function(a,b,c,d,e){return(b/=e/2)<1?-d/2*(Math.sqrt(1-b*b)-1)+c:d/2*(Math.sqrt(1-(b-=2)*b)+1)+c},easeInElastic:function(a,b,c,d,e){var f=1.70158,g=0,h=d;if(0==b)return c;if(1==(b/=e))return c+d;if(g||(g=.3*e),h<Math.abs(d)){h=d;var f=g/4}else var f=g/(2*Math.PI)*Math.asin(d/h);return-(h*Math.pow(2,10*(b-=1))*Math.sin(2*(b*e-f)*Math.PI/g))+c},easeOutElastic:function(a,b,c,d,e){var f=1.70158,g=0,h=d;if(0==b)return c;if(1==(b/=e))return c+d;if(g||(g=.3*e),h<Math.abs(d)){h=d;var f=g/4}else var f=g/(2*Math.PI)*Math.asin(d/h);return h*Math.pow(2,-10*b)*Math.sin(2*(b*e-f)*Math.PI/g)+d+c},easeInOutElastic:function(a,b,c,d,e){var f=1.70158,g=0,h=d;if(0==b)return c;if(2==(b/=e/2))return c+d;if(g||(g=.3*e*1.5),h<Math.abs(d)){h=d;var f=g/4}else var f=g/(2*Math.PI)*Math.asin(d/h);return 1>b?-.5*h*Math.pow(2,10*(b-=1))*Math.sin(2*(b*e-f)*Math.PI/g)+c:h*Math.pow(2,-10*(b-=1))*Math.sin(2*(b*e-f)*Math.PI/g)*.5+d+c},easeInBack:function(a,b,c,d,e,f){return void 0==f&&(f=1.70158),d*(b/=e)*b*((f+1)*b-f)+c},easeOutBack:function(a,b,c,d,e,f){return void 0==f&&(f=1.70158),d*((b=b/e-1)*b*((f+1)*b+f)+1)+c},easeInOutBack:function(a,b,c,d,e,f){return void 0==f&&(f=1.70158),(b/=e/2)<1?d/2*b*b*(((f*=1.525)+1)*b-f)+c:d/2*((b-=2)*b*(((f*=1.525)+1)*b+f)+2)+c},easeInBounce:function(a,b,c,d,e){return d-jQuery.easing.easeOutBounce(a,e-b,0,d,e)+c},easeOutBounce:function(a,b,c,d,e){return(b/=e)<1/2.75?7.5625*d*b*b+c:2/2.75>b?d*(7.5625*(b-=1.5/2.75)*b+.75)+c:2.5/2.75>b?d*(7.5625*(b-=2.25/2.75)*b+.9375)+c:d*(7.5625*(b-=2.625/2.75)*b+.984375)+c},easeInOutBounce:function(a,b,c,d,e){return e/2>b?.5*jQuery.easing.easeInBounce(a,2*b,0,d,e)+c:.5*jQuery.easing.easeOutBounce(a,2*b-e,0,d,e)+.5*d+c}});;
+
+/* file-end: js/jquery/jquery.easing.js 
+----------------------------------------------------------------------------------*/
+
+/**
+ * @author dmitry.petrov@sup.com (Dmitry Petrov)
+ * @fileoverview LiveJournal comments form widget.
+ */
+
+/**
+ * @name $.lj.commentform
+ * @requires $.ui.core, $.ui.widget
+ * @class Widget represents comment page in s1 comments
+ *
+ */
+(function ($) {
+
+  /** @lends $.lj.commentform.prototype */
+  $.widget('lj.commentform', $.lj.basicWidget, {
+    options: {
+      classNames: {
+        active           : 'active',
+        startAuth        : 'b-watering-trueauth-',
+        buttonDisabled   : 'b-ljbutton-disabled',
+        activeComment    : 'b-leaf-commenting',
+        editComment      : 'b-leaf-editing',
+        controlNoId      : 'b-leaf-actions-noid',
+        formEditComment  : 'b-watering-editing',
+        formEditMyComment: 'b-watering-editing-mycomment',
+        authtypeAnonymous: 'b-watering-authtype-anonymous',
+        notfriend        : 'b-watering-user-notafriend',
+        notreg           : 'b-watering-user-notreg',
+        regonly          : 'b-watering-user-regonly',
+        friendonly       : 'b-watering-user-friendonly',
+        errorWrapperShow : 'b-msgsystem-errorbox-show',
+        commentFrozen    : 'b-leaf-frozen',
+        commentScreened  : 'b-leaf-screened',
+        commentSpammed   : 'b-leaf-spammed',
+        firstLevelParent : 'b-xylem',
+        showSpam         : 'b-grove-showspam',
+        previewVisible   : 'b-watering-preview-enabled'
+      },
+
+      selectors: {
+        form                      : '#postform',
+        errorWrapper              : '.b-msgsystem-errorbox',
+        aside                     : '.b-watering-aside',
+        tail                      : '.b-watering-arrows',
+        toolbar                   : '.b-updateform-bar',
+        submitControl             : '.b-ljbutton-submit',
+        submitButton              : '.b-ljbutton-submit [type=submit]',
+        comment                   : '#body',
+        subject                   : '[name=subject]',
+        editid                    : 'input[name=editid]',
+        inputReplyto              : '#replyto',
+        inputParentTalkid         : '#parenttalkid',
+        inputViewingThread        : '#viewing_thread',
+        commentsRoot              : '.b-grove',
+        addFirstLevelControl      : '.b-addcomment',
+        firstLevelParent          : '.b-xylem',
+        firstLevelCommentContainer: '.b-xylem-cell-add',
+        addControl                : '.b-leaf-actions-reply',
+        addControlLink            : '.b-pseudo',
+        commentContainer          : '.b-leaf',
+        twig                      : '.b-tree-twig',
+        editLink                  : '.b-controls-edit',
+        userpicImg                : '.b-leaf-userpic-inner > img',
+        commentText               : '.b-leaf-article',
+        commentSubject            : '.b-leaf-subject',
+        closeControl              : '.b-watering-close',
+        previewForm               : '.b-watering-preview',
+        showPreviewCheckbox       : 'input#preview-comment'
+      },
+
+      disabledRegex  : /b-watering-user-(deleted|suspended|banned|notmail)/,
+      //we cannot find if the user clicked on the toolbar or not, so we suppose
+      //that if user clicked on the toolbar button with smaller delay after
+      //blur than this value, the field was focused before it.
+      focusTimeout   : 700,
+
+      // show subject of comment or not
+      isSubjectEnabled: LJ.get('is_subject_enabled')
+    },
+
+    // private methods
+    _create: function () {
+      $.lj.basicWidget.prototype._create.apply(this);
+
+      this._findNodes();
+      this._bindEvents();
+
+      this._disabled = false;
+      this._authToken = this._commentsRoot.data('authtoken');
+      this._updateFormState();
+
+      // commentform state, may be add or edit
+      this._state = null;
+      // previous state of the form, to give ability other widgets know what is going on
+      this._previousState = null;
+      this._node = null; //node the form is attached to now;
+      this._blurTimeout = 0;
+    },
+
+    _findNodes: function () {
+      var selectors = this.options.selectors;
+
+      this._inputs = {
+        editid       : this.element.find(selectors.editid),
+        replyTo      : this.element.find(selectors.inputReplyto),
+        parentTalkid : this.element.find(selectors.inputParentTalkid),
+        viewingThread: this.element.find(selectors.inputViewingThread),
+        previewCheck : this.element.find(selectors.showPreviewCheckbox)
+      };
+
+      this._tail = this.element.find(selectors.tail);
+      this._tailHeight = parseInt(this._tail.css('height'), 10);
+      this._commentsRoot = $(selectors.commentsRoot);
+      this._firstLevelParent = $(selectors.firstLevelParent).eq(0);
+      this._firstLevelCommentContainer = $(selectors.firstLevelCommentContainer).eq(0);
+      this._submitControl = this.element.find(selectors.submitControl);
+      this._submitButton = this.element.find(selectors.submitButton);
+      this._commentArea = this.element.find(selectors.comment);
+      this._subject = this.element.find(selectors.subject);
+      this._errorsWrapper = this.element.find(selectors.errorWrapper);
+      this._form = this.element.find(selectors.form);
+      this._toolbar = this.element
+        .find(selectors.toolbar);
+      this._preview = this.element.find(selectors.previewForm);
+    },
+
+    _bindEvents: function () {
+      var commentform = this,
+          selectors = commentform.options.selectors,
+          classNames = commentform.options.classNames;
+
+      this._commentArea
+        .input(this._updateFormState.bind(this));
+
+      //add root comment buttons
+      this._commentsRoot.delegate(selectors.addFirstLevelControl + ':first', 'click', function (event) {
+        commentform.add();
+        event.preventDefault();
+      });
+
+      this._commentsRoot.delegate(selectors.addFirstLevelControl + ':gt(0)', 'click', function (event) {
+        commentform._scrollToForm();
+        if ( !commentform.element.is(':visible') ||
+          commentform._node.get(0) !== commentform._firstLevelCommentContainer.get(0) ) {
+          commentform.add();
+        }
+        event.preventDefault();
+      });
+
+      this._commentsRoot.delegate(selectors.addControl, 'click', function (event) {
+        var control = $(this),
+          id = control.attr('data-tid');
+
+        if (control.hasClass(classNames.controlNoId)) {
+          control = $('#' + id).find(selectors.addControl);
+        }
+
+        if (control.length === 0) {
+          return;
+        }
+
+        commentform.add(control);
+        commentform._commentArea.focus();
+        event.preventDefault();
+      });
+
+      this.element
+        .delegate(selectors.closeControl, 'click', function (event) {
+          commentform._closeForm();
+          event.preventDefault();
+        });
+
+      this._form.bind('submit', function () {
+        //we need to disable form after all submit actions
+        setTimeout(function () {
+          commentform._setDisabled(true);
+          commentform._commentArea.attr('disabled', true);
+        }, 0);
+      });
+      LJ.Event.on('commentator/submit', function (message) {
+        if ( message.hidden && !Site.remoteUser ) {
+          commentform._closeForm();
+        }
+
+        commentform._updateFormState();
+        commentform._commentArea.attr('disabled', false);
+      });
+
+      this._toolbar
+        .bind('insertText', function (ev, obj) {
+          commentform._insertText(obj.text, obj.defaultSelection, obj.insertTimeout);
+        })
+        .bind('terminateAction', function () {
+          commentform._currentSelection = null;
+        })
+        .commentsFormToolbar('attachHotkeys', this._commentArea);
+
+      //internet explorer looses selection on blur event, so we poll other events
+      this._commentArea.bind('keydown mousedown mouseup' + ((jQuery.browser.msie) ? '' : ' blur'), function () {
+        Function.defer(function () {
+          commentform._currentSelection = window.DOM.getSelectedRange(commentform._commentArea.get(0));
+        });
+      }).bind('blur', function () {
+        commentform._blurTimeout = +new Date();
+      });
+
+      this.element
+        .bind('newComment', function () {
+          jQuery.fx.off = true; //we disable animation to collapse form immediately
+          commentform._node && commentform._node.find(selectors.editLink).remove();
+          commentform._commentArea.val('');
+          commentform._subject.val('');
+          commentform._closeForm();
+          jQuery.fx.off = false;
+        })
+        .bind('authtypechange', function (ev, data) {
+          //blockers should disable form only if user selected current authentenication
+          var className = classNames.startAuth + data.authtype;
+          commentform._currentAuthSelected = commentform.element.hasClass(className);
+          commentform._updateFormState();
+        });
+
+      $(document)
+        .bind('commentsUpdated', function (ev, ditemid, action) {
+          var node = commentform._node;
+          if ( node && (
+              //close form if node was replaced by another
+            node.parent().length === 0 ||
+              //LJSUP-11325: form should not be closed if we open commenting form on the node
+              //and click *expand* on it.
+            (node.attr('id') === ditemid && action !== 'expand') ||
+              //in case of these action comment with open form will not be modified, so no need
+              //to close the form
+            (['expand', 'delone', 'screen', 'unscreen'].indexOf(action) === -1 &&
+            $.comments.parent(node, ditemid) !== false)
+            )
+          ) {
+            commentform._closeForm();
+          }
+        })
+        .bind('editComment', function (ev, node) {
+          commentform.edit(node);
+        });
+
+      this._on('commentsPage', function () {
+        /*
+         * LJSUP-14145
+         * Form should be removed from comments tree, or all event
+         * handlers will be broken
+         */
+        $.fx.off = true;
+
+        /* Move commentform to pager */
+        commentform.add();
+
+        /* Try to close it, if is attached to node */
+        if ( commentform._node ) {
+          commentform._closeForm();
+        }
+
+        $.fx.off = false;
+      });
+
+      if (LJ.Flags.isEnabled('s1comment_preview')) {
+        this._inputs.previewCheck.change(function (e) {
+          if (e.target.checked) {
+            commentform._showPreview();
+          } else {
+            commentform._hidePreview();
+          }
+        });
+      }
+    },
+
+    /**
+     * Get previous form state: 'add'/'edit'
+     * It's created for $.lj.comments to let it know what is going on
+     */
+    previousState: function () {
+      return this._previousState;
+    },
+
+    /**
+     * Sync previous state with current state
+     */
+    syncPreviousState: function () {
+      this._previousState = this._state;
+    },
+
+    /**
+     * Updates form state, whether it should be disabled or not. Check the source for conditions.
+     */
+    _updateFormState: function () {
+      var classNames = this.options.classNames;
+
+      //we do not want to post empty comment
+      var disabled = this._commentArea.val().trim().length === 0 ||
+          //condition for current auth
+        (this._currentAuthSelected &&
+          //user is banned/suspended etc
+        (this.options.disabledRegex.test(this.element.prop('className')) ||
+          //user is not a friend, but only friends' comment are allowed
+        (this.element.hasClass(classNames.friendonly) && this.element.hasClass(classNames.notfriend) ||
+          //user didn't activate his email and he is like anonymous now
+        (this.element.hasClass(classNames.notreg) &&
+        (this.element.hasClass(classNames.regonly) || this.element.hasClass(classNames.friendonly)))
+        ))) || // OR
+          //user is anonymous or didn't verified his email
+        (this.element.hasClass(classNames.authtypeAnonymous) &&
+          //end the post is only for registered users
+        (this.element.hasClass(classNames.regonly) || this.element.hasClass(classNames.friendonly)));
+
+      this._setDisabled(disabled);
+    },
+
+    _setDisabled: function (disabled) {
+      disabled = !!disabled;
+
+      if ( window.operamini ) {
+        /* Do not disable submit for opera mini */
+        disabled = false;
+      }
+
+      this._submitControl.toggleClass(this.options.classNames.buttonDisabled, disabled);
+
+      if ( disabled ) {
+        this._submitButton.attr('disabled', 'disabled');
+      } else {
+        this._submitButton.removeAttr('disabled');
+      }
+
+      this._disabled = disabled;
+      this.element.trigger('commentformdisable', this._disabled); //pass information to the commentator
+    },
+
+    /**
+     * Insert text in the textarea.
+     *
+     * @param {String} text The text to insert.
+     * @param {String=} defaultSelection If user didn't selected the text than this text
+     *    will be insert instead.
+     */
+    _insertText: function (text, defaultSelection, insertTimeout) {
+      var val = this._commentArea[0].value, //LJSV-2110: jquery trims \r and breaks selection in opera
+          newval,
+          selection = this._currentSelection,
+          pos,
+          emptyPos = '{posifempty}',
+          emptyPosIdx,
+          emptySelection = false;
+
+      defaultSelection = defaultSelection || '';
+
+      if ( !selection || (insertTimeout - this._blurTimeout > this.options.focusTimeout && !this._commentArea.is(':focus')) ) {
+        newval = val + text.supplant({caret: defaultSelection});
+        pos = newval.length;
+        emptySelection = true;
+      } else {
+        var selected = val.substring(selection.start, selection.end),
+            start = val.substring(0, selection.start),
+            end = val.substring(selection.end);
+
+        if ( selected.length === 0 ) {
+          selected = defaultSelection;
+        }
+
+        if ( selected.length === 0 ) {
+          emptySelection = true;
+        }
+
+        selected = text.supplant({caret: selected});
+
+        if ( !emptySelection ) {
+          selected = selected.supplant({posifempty: ''});
+        }
+
+        newval = start + selected + end;
+        pos = selection.start + selected.length;
+      }
+
+      //this placeholder is used to indicate the cursor position that should be used
+      //if no text was selected in time of command.
+      if ( emptySelection && ((emptyPosIdx = newval.indexOf(emptyPos)) >= 0) ) {
+        pos = emptyPosIdx;
+      }
+
+      newval = newval.replace(emptyPos, '');
+      this._commentArea
+        .val(newval);
+
+      var txt = this._commentArea.get(0);
+
+      window.DOM.setSelectedRange(txt, pos, pos);
+      this._currentSelection = null;
+      this._commentArea.focus();
+
+      this._updateFormState();
+    },
+
+    /**
+     * Scroll to the top of the page to show form.
+     */
+    _scrollToForm: function () {
+      var top = this._commentsRoot.offset().top - parseInt(this._commentsRoot.css('margin-top'), 10);
+      jQuery('html, body').animate({
+        scrollTop: top
+      });
+
+      return this;
+    },
+
+    _setOption: function (option, value) {
+      var options = this.options,
+          classNames = options.classNames,
+          activeClassName = classNames.active;
+
+      switch (option) {
+        case 'activeControl':
+          if ( options.activeControl ) {
+            options.activeControl.removeClass(activeClassName);
+          }
+          if ( value ) {
+            value.addClass(activeClassName);
+          }
+          break;
+      }
+
+      options[option] = value;
+    },
+
+    /**
+     * Fire event whether form is processing something now.
+     */
+    _setCommentPending: function (node, pending) {
+      //we trigger event and commentsOperations widget gets it on some parent node.
+      this.element.trigger('commentpending', [node, pending]);
+    },
+
+    /**
+     * Checks whether the form does that action with that node.
+     *
+     * @param {String} action "add" or "edit"
+     * @param {jQuery} node
+     */
+    _isInState: function (action, node) {
+      return ((this._state === action) && this._node &&
+      node.get(0) === this._node.get(0));
+    },
+
+    /**
+     * Just closes the form.
+     */
+    _closeForm: function () {
+      var commentform = this,
+          options = this.options,
+          classNames = this.options.classNames,
+          node = this._node,
+          collapseFunc = function () {
+            commentform._inputs.replyTo.val('0');
+            commentform._inputs.parentTalkid.val('0');
+            commentform._inputs.editid.val('0');
+            commentform.element.data('parenttalkid', null);
+            commentform._setOption('activeControl', null);
+            commentform._previousState = commentform._state;
+            commentform._state = null;
+            commentform._node && commentform._node.removeClass(classNames.activeComment);
+            commentform._node = null;
+            commentform._errorsWrapper.removeClass(classNames.errorWrapperShow);
+          };
+
+      // clear subject and body
+      this._subject.val('');
+      this._commentArea.val('');
+
+      options.activeControl && !options.activeControl.hasClass(options.classNames.firstLevelParent) &&
+      options.activeControl.find(options.selectors.addControlLink).html(Site.ml_text['talk.replytothis']);
+
+      node.removeClass(classNames.editComment);
+      this.element
+        .removeClass(classNames.formEditComment)
+        .removeClass(classNames.formEditMyComment);
+
+      this.hide(collapseFunc, null);
+    },
+
+    /**
+     * Show the form.
+     *
+     * @param {Function} oncomplete Complete callback.
+     */
+    show: function (oncomplete) {
+      var that = this;
+
+      this.element.css({display: 'block', height: ''});
+      if ( jQuery.comments.skipAnimation ) {
+        this._fixIEProblemsShow();
+        this.element.css({opacity: ''});
+        oncomplete && oncomplete();
+        this.element.trigger('commentformopen');
+      } else {
+        var elementHeight = this.element.height();
+
+        this._tail
+          .css({height: '', top: ''});
+
+        this._tailHeight = parseInt(this._tail.css('height'), 10);
+
+        this._tail
+          .css({height: '-=' + this._tailHeight, top: '+=' + this._tailHeight})
+          .animate({height: '+=' + this._tailHeight, top: '-=' + this._tailHeight}, 250);
+
+        this.element
+          .css({opacity: 0, height: '1px'});
+
+        var formOffset = this.element.offset().top,
+            doc = jQuery('html, body'),
+            win = jQuery(window),
+            winH = win.height(),
+            winOffset = win.scrollTop(),
+            edgeOffset = winOffset + winH - elementHeight - jQuery('#ljtime').height(),
+            dOffset,
+            doScroll = false;
+
+        if ( edgeOffset < winOffset ) {
+          edgeOffset = winOffset;
+        }
+        dOffset = -edgeOffset + formOffset;
+
+        if ( edgeOffset < formOffset ) {
+          doScroll = true;
+        }
+
+        this.element.animate({
+          height : elementHeight,
+          opacity: 1
+        }, {
+          duration: 500,
+          easing  : 'easeOutExpo',
+          step    : function (now, fx) {
+            if ( doScroll && fx.prop === 'opacity' ) {
+              doc.scrollTop(winOffset + dOffset * now);
+            }
+          },
+          complete: function () {
+            that.element
+              .removeAttr('style')
+              .css('display', 'block');
+            oncomplete && oncomplete();
+            that.element.trigger('commentformopen');
+          }
+        });
+      }
+    },
+
+    _fixIEProblemsShow: function () {
+      if ( !$.browser.msie || parseInt($.browser.version, 10) > 8 ) {
+        return;
+      }
+      if ( !this._aside ) {
+        this._aside = this.element.find(this.options.selectors.aside);
+      }
+
+      var node = this._aside.get(0),
+          parent = node.parentNode,
+          width = parent.clientWidth;
+
+      node.style.marginLeft = (width - parseInt(parent.currentStyle.paddingLeft, 10) -
+      parseInt(parent.currentStyle.paddingRight, 10)) * -1;
+    },
+
+    /**
+     * Hide the form.
+     *
+     * @param {Function} oncomplete Complete callback.
+     * @param {jQuery=} anchor Current comment answer anchor.
+     */
+    hide: function (oncomplete, anchor) {
+      var that = this,
+          $document = jQuery(document);
+
+      //we defer event triggering, because it blocks ui considerably in ie8
+      this.element.trigger('commentformclose');
+
+      anchor = anchor || this.options.activeControl;
+      if ( anchor.parent().length === 0 ) { //only a comment can disappear
+        anchor = jQuery('#' + this._node.attr('id'));
+      } else if ( !anchor.hasClass(this.options.classNames.firstLevelParent) ) {
+        anchor = anchor.closest(this.options.selectors.commentContainer);
+      }
+
+      // if (this.element.is(':visible'))
+      if ( this.element[0].style.display === 'block' ) { //change for speed
+
+        var screenTop = $document.scrollTop();
+
+        var screenBottom = screenTop + $(window).height();
+
+        var elTop = this.element.offset().top;
+        var elBottom = elTop + this.element.outerHeight();
+        var anchorTop = anchor.offset().top - screenTop;
+
+        // if the animated element is out of viewport
+        if ( elBottom < screenTop || elTop > screenBottom || jQuery.comments.skipAnimation ) {
+          this.element.detach();
+          $document.scrollTop(anchor.offset().top - anchorTop);
+          oncomplete && oncomplete();
+        } else {
+          var h = this.element.height();
+          this.element.css({height: h});
+          this._tail.animate({height: '-=' + this._tailHeight, top: '+=' + this._tailHeight}, 200);
+          this.element
+            .animate({
+              height : 0,
+              opacity: 0
+            }, {
+              duration: 300,
+              easing  : 'easeOutExpo',
+              step    : function () {
+                $document.scrollTop(anchor.offset().top - anchorTop);
+              },
+              complete: function () {
+                $document.scrollTop(anchor.offset().top - anchorTop);
+                that.element.css('display', '');
+                oncomplete && oncomplete();
+              }
+            });
+        }
+      } else {
+        oncomplete && oncomplete();
+      }
+
+      if (LJ.Flags.isEnabled('s1comment_preview')) {
+        this._hidePreview();
+      }
+    },
+
+    /**
+     * Toggle form to open near the comment to add new.
+     *
+     * @param {jQuery} control reply control node, if we reply to some one.
+     */
+    add: function (control) {
+      var options = this.options,
+          willBeShown = this.comment('add', control);
+
+      options.activeControl && !options.activeControl.hasClass(options.classNames.firstLevelParent) &&
+      options.activeControl.find(options.selectors.addControlLink).html(Site.ml_text['talk.replytothis']);
+      if ( willBeShown ) {
+        this._inputs.editid.val('');
+        this._submitButton.html(Site.ml_text['talk.postcomment']);
+        control && control.find(options.selectors.addControlLink).html(Site.ml_text['talk.answer']);
+      }
+      this._updateFormState();
+    },
+
+    /**
+     * Toggle form to open near comment to edit it.
+     *
+     * @param {jQuery} node Comment node.
+     */
+    edit: function (node) {
+      if ( !node ) {
+        return;
+      } //we can only reply to something
+
+      var commentform = this,
+          control = node.find(this.options.selectors.editLink),
+          itemid = node.attr('id').substr(1);
+
+      this.options.activeControl &&
+      this.options.activeControl.find(this.options.selectors.addControlLink).html(Site.ml_text['talk.replytothis']);
+
+      function toggleEdit(show, text, userpic, userpicsrc, subject) {
+        commentform.comment('edit', control);
+
+        node.toggleClass(commentform.options.classNames.editComment, show);
+        commentform.element.toggleClass(commentform.options.classNames.formEditComment, show);
+        if ( Site.remoteUser !== Site.currentJournal ) {
+          commentform.element.toggleClass(commentform.options.classNames.formEditMyComment, show);
+        }
+
+        if ( show ) {
+          commentform._inputs.editid.val(itemid);
+          commentform._commentArea
+            .val(text);
+          commentform._subject
+            .val(subject);
+          commentform._submitButton.html(Site.ml_text['talk.editcomment']);
+
+          commentform.element.trigger('userpic', [userpic, userpicsrc]);
+          commentform._updateFormState();
+        }
+      }
+
+      function loadComment(cb) {
+        commentform._setCommentPending(node, true);
+        $.getJSON(LiveJournal.getAjaxUrl('get_comment_source',
+            {thread: itemid, journal: Site.current_journal.username})
+        ).success(function (result) {
+            commentform._setCommentPending(node, false);
+            if ( result.status === 'ok' ) {
+              cb && cb(result.message, result.userpic_keyword,
+                node.find(commentform.options.selectors.userpicImg).attr('src'));
+            } else {
+              alert(result.message);
+            }
+          })
+          .error(function () {
+            setTimeout(loadComment.bind(null, cb), 200);
+          });
+      }
+
+      if ( !this._isInState('edit', node) ) {
+        var subject = node.find(this.options.selectors.commentSubject).text();
+        loadComment(function (text, userpic, userpicsrc) {
+          toggleEdit(true, text, userpic, userpicsrc, subject);
+        });
+      } else {
+        toggleEdit(false);
+      }
+    },
+
+    /**
+     * Toggle comment form visibility.
+     *
+     * @param {String} action Form action 'add' / 'edit'.
+     * @param {Object} control Comment "add reply" anchor.
+     * @return {Boolean} Returns true if form will be eventually show, and false otherwise
+     */
+    comment: function (action, control) {
+      var that = this,
+          selectors = this.options.selectors,
+          classNames = this.options.classNames,
+          node,
+          /** @ignore */
+          moveForm = function (node) {
+            //jQuery method(especially insertAfter) can take an anormous amount of time in certain browsers (ff on some macs)
+            node[0].parentNode.appendChild(that.element[0]);
+          },
+          showFunc = function (commentNode, control) {
+            that._setOption('activeControl', control);
+            that._inputs.replyTo.val(that.ditemid);
+            that._inputs.parentTalkid.val(that.ditemid);
+            that.element.data('parenttalkid', commentNode.attr('id') || null); //we need to set null if we open form at the
+            moveForm(commentNode);
+            that.show();
+            if ( that._state === 'edit' && action !== 'edit' ) {
+              that._commentArea.val('');
+              that._subject.val('');
+            }
+            that._state = action;
+            that._node && that._node.removeClass(classNames.activeComment);
+            that._node = node;
+            that._node.addClass(classNames.activeComment);
+            Function.defer(function () {
+              that._commentArea.focus();
+            });
+            that._updateFormState();
+          },
+          subject;
+
+      var viewingThread;
+      if ( !control ) { //add new root comment
+        node = this._firstLevelCommentContainer;
+        control = this._firstLevelParent;
+
+        viewingThread = this._inputs.viewingThread.val();
+        this._inputs.viewingThread.val('').data('thread', viewingThread);
+        this.ditemid = '0';
+
+        moveForm = function (node) {
+          that.element.appendTo(node);
+        };
+      } else {
+        node = control.closest(selectors.commentContainer);
+        this.ditemid = Math.floor(parseInt(node.prop('id').substr(1), 10) / 256);
+        if ( node.hasClass(classNames.commentFrozen) ||
+          (node.hasClass(classNames.commentScreened) && action !== 'edit') ||
+          (node.hasClass(classNames.commentSpammed) && !this._commentsRoot.hasClass(classNames.showSpam)) ) {
+          return false; //do nothing for frozen comments
+        }
+
+        viewingThread = this._inputs.viewingThread.data('thread');
+        viewingThread && this._inputs.viewingThread.val(viewingThread);
+
+        // reply to comment: add subject
+        if ( action === 'add' && this.options.isSubjectEnabled ) {
+          subject = that._getSubject(node);
+
+          // do not add "RE: " if parent subject is empty
+          if ( subject.length !== 0 ) {
+            this._subject.val(
+              'RE: ' + subject.replace(/^RE:\s*/, '')
+            );
+          }
+        }
+      }
+
+      if ( this._isInState(action, node) ) {
+        if ( this._state === 'edit' ) {
+          this._commentArea.val('');
+          this._subject.val('');
+        }
+        this._closeForm(); //we just need to close the form
+        return false;
+      }
+
+      if ( this._node ) {
+        this._node.removeClass(classNames.editComment);
+      }
+      this.hide(showFunc.bind(null, node, control), control);
+      this.element
+        .removeClass(classNames.formEditComment)
+        .removeClass(classNames.formEditMyComment);
+      return true;
+    },
+
+    /**
+     * Get subject of the comment
+     * @param  {jQuery} node Node of the comment
+     * @return {String}      Subject
+     */
+    _getSubject: function (node) {
+      var subject = node.data('subject');
+
+      if ( typeof subject === 'undefined' || subject === null ) {
+        subject = '';
+      }
+
+      // convert result to string, because it could contain numbers etc,
+      // because of jQuery .data() functionality
+      return String(subject).trim();
+    },
+
+    _showPreview: function () {
+      var classNames = this.options.classNames,
+          preview = this._preview,
+          commentTextForm = this._commentArea,
+          getPreview = function () {
+            LJ.Api.call('comment.preview', {
+              body: commentTextForm.val()
+            }, function (resp) {
+              preview.html(resp.preview);
+              preview.addClass(classNames.previewVisible);
+            });
+          }.bind(this),
+          getPreviewDebounced = LJ.Function.debounce(getPreview, 1000);
+
+      if (commentTextForm.val()) {
+        getPreview();
+      }
+      commentTextForm.on('keyup paste', getPreviewDebounced);
+      LJ.Event.on('contentInsert', getPreviewDebounced);
+    },
+
+    _hidePreview: function () {
+      this._preview.html('');
+      this._commentArea.off('keyup paste');
+      this._preview.removeClass(this.options.classNames.previewVisible);
+      this._inputs.previewCheck.attr('checked', false);
+      LJ.Event.off('contentInsert');
+    }
+  });
+
+}(jQuery));
+;
+
+/* file-end: js/jquery/jquery.lj.commentform.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.lj.commentsOperations.js 
+*/
+
+LJ.UI.registerTemplate('templates-Widgets-deletecomment', "<div class=\"deletecomment\"> <h3 class=\"deletecomment-header\"> {{html LJ.mltext(\'comment.delete.deleting\')}} </h3> <div class=\"deletecomment-items\"> {{if $data.markSpam}} <label class=\" deletecomment-item deletecomment-item-spam \" > <input type=\"checkbox\" name=\"spam\" tabindex=\"100\" class=\"deletecomment-checkbox\" checked disabled > <span class=\"deletecomment-label\"> {{html LJ.mltext(\'comment.mark.spam.title\')}} </span> </label> {{/if}} <label class=\" deletecomment-item deletecomment-item-delete \" > <input type=\"checkbox\" name=\"delete\" tabindex=\"100\" class=\"deletecomment-checkbox\" checked disabled > <span class=\"deletecomment-label\"> {{html LJ.mltext(\'comment.delete.q\')}} </span> </label> {{if $data.canBan}} <label class=\" deletecomment-item deletecomment-item-ban \" > <input type=\"checkbox\" name=\"ban\" tabindex=\"100\" class=\"deletecomment-checkbox\" {{if $data.markSpam}} checked disabled {{/if}} > <span class=\"deletecomment-label\"> {{html LJ.mltext(\'comment.ban.user\', \'username\', $data.author)}} </span> </label> {{/if}} {{if $data.canDelThread}} <label class=\" deletecomment-item deletecomment-item-sub \" > <input type=\"checkbox\" name=\"delthread\" tabindex=\"100\" class=\"deletecomment-checkbox\" {{if $data.markSpam}} checked disabled {{/if}} > <span class=\"deletecomment-label\"> {{html LJ.mltext(\'comment.delete.all.sub\')}} </span> </label> {{/if}} {{if $data.canDelAuthor}} <label class=\" deletecomment-item deletecomment-item-author \" > <input type=\"checkbox\" name=\"delauthor\" tabindex=\"100\" class=\"deletecomment-checkbox\" {{if $data.markSpam}} checked disabled {{/if}} > <span class=\"deletecomment-label\"> {{if $data.author == $data.user}} {{html LJ.mltext(\'comment.delete.all.my\')}} {{else}} {{html LJ.mltext(\'comment.delete.all.author\', \'author\', $data.author)}} {{/if}} </span> </label> {{/if}} {{if $data.superBanFlag}} {{if $data.canBan}} <label class=\" deletecomment-item deletecomment-item-everywhere \" > <input type=\"checkbox\" name=\"deleverywhere\" tabindex=\"100\" class=\"deletecomment-checkbox\" {{if $data.markSpam}} checked disabled {{/if}} > <span class=\"deletecomment-label\"> {{html LJ.mltext(\'comment.delete.all.everywhere\', \'author\', $data.author)}} </span> </label> {{/if}} {{/if}} </div> <div class=\"deletecomment-buttons\"> <button type=\"submit\" tabindex=\"100\" class=\" b-flatbutton b-flatbutton-simple b-flatbutton-red delete-comment-button \" > {{if $data.markSpam}} {{html LJ.mltext(\'comment.delete.delete.spam\')}} {{else}} {{html LJ.mltext(\'comment.delete.delete\')}} {{/if}} </button> </div> </div> ", 'JQuery.stat');
+!function(a,b){a.widget("lj.commentsOperations",jQuery.lj.basicWidget,{options:{selectors:{links:"a:not(.b-controls-track)",checkboxes:"input[type=checkbox]",comment:".b-leaf",ctrlPopupClose:"button"},classNames:{alwaysShowControls:"b-leaf-herbarium",deleteClass:"b-leaf-deleting",editLink:"b-controls-edit",ctrlPopup:"b-leaf-deleting-bubble",processing:"b-leaf-processing"},templates:{ctrlPopup:"templates-Widgets-deletecomment"}},_create:function(){a.lj.basicWidget.prototype._create.apply(this);var b=location.href.match(/(\d+)\.html/);this._itemid=b&&b[1],this._authToken=this.element.data("authtoken"),this._ctrlPopup=jQuery("<div/>").bubble({classNames:{containerAddClass:this.options.classNames.ctrlPopup},alwaysShowUnderTarget:!0,arrowWidth:"auto"}),this._ctrlPopupCallback=null,this._bindControls()},_bindControls:function(){var b=this,c=this.options.selectors,d=this.options.classNames;a.lj.basicWidget.prototype._bindControls.apply(this),this.element.bind("commentpending",function(a,c,d){b._pending(c,d)}),this.element.delegate(c.links,"click",function(a){var e=jQuery(this).closest(c.comment);if(0!==e.length){if(e.hasClass(b.options.classNames.processing))return void a.preventDefault();var f=this.href.match(/(\w+)\.bml/),g=f&&f[1],h="",i=this,j=!1;if(this.className.indexOf(d.editLink)>-1)return b.element.trigger("editComment",[e]),void a.preventDefault();switch(-1!==this.className.indexOf("b-controls-best")&&(h="bestComment",g="set_best"),-1!==this.className.indexOf("b-controls-cancel_best")&&(h="bestComment",g="unset_best"),g){case"delcomment":h="delete",j=a.shiftKey,-1!==this.href.indexOf("spam=1")&&(g="markAsSpam");break;case"talkscreen":g=LiveJournal.parseGetArgs(this.href).mode,h="moderate";break;case"spamcomment":h="moderate"}h&&(a.preventDefault(),setTimeout(function(){b[h](i,g,e,j)},0))}});var e,f,g,h,i,j,k=function(a){return a.length>0&&a.attr("checked")};this._ctrlPopup.delegate(c.ctrlPopupClose,"click",function(){b._ctrlPopup.bubble("hide"),b._ctrlPopupCallback&&b._ctrlPopupCallback()}).bind("bubbleshow",function(){var a=b._ctrlPopup.bubble("option","target").closest(c.comment);a.addClass(d.alwaysShowControls),e=b._ctrlPopup.find("[name=delete]"),g=b._ctrlPopup.find("[name=delthread]"),f=b._ctrlPopup.find("[name=delauthor]"),h=b._ctrlPopup.find("[name=deleverywhere]"),i=b._ctrlPopup.find("[name=ban]"),j=b._ctrlPopup.find(c.ctrlPopupClose)}).bind("bubblehide",function(){var a=b._ctrlPopup.bubble("option","target").closest(c.comment);a.removeClass(d.alwaysShowControls).removeClass(d.deleteClass)}).delegate(c.checkboxes,"click",function(){this===h[0]&&k(h)&&f.attr("checked",!0),this!==f[0]||k(f)||h.attr("checked",!1)})},_pending:function(a,b){a.toggleClass(this.options.classNames.processing,!!b)},_getComment:function(a){return"object"!=typeof a&&(a=jQuery(a)),0!==a.length?{node:a,ditemid:a.prop("id").substr(1),username:a.data("username"),displayname:a.data("displayname")}:void 0},_showDeletePopup:function(b,c,d){var e=this,f=LJ.get("remoteUser"),g=LJ.get("remote_is_maintainer");return f?(e._ctrlPopup.html(e._tmpl("ctrlPopup",{ditemid:d.ditemid,author:d.username||"",user:f,markSpam:"markAsSpam"===c,canBan:d.username&&d.username!==f&&g,canDelThread:a.comments.hasChildren(d.node)&&g,superBanFlag:LJ.Flags.isEnabled("superban_step2"),canDelAuthor:d.username&&g})),this._ctrlPopupCallback=function(){d.props=[],e._ctrlPopup.find(":checkbox:checked").each(function(){d.props.push(this.name)}),e._removeComment(d)},d.node.addClass(this.options.classNames.deleteClass),void e._ctrlPopup.bubble("option","target",jQuery(b)).bubble("show")):!0},_banUser:function(c,d){var e=function(a,e){jQuery.post(LiveJournal.getAjaxUrl("changerelation"),{target:c,action:"setBan",auth_token:a}).success(function(){b.ContextualPopup&&b.ContextualPopup.cleanCache(e),d&&d()})};a.getJSON(LiveJournal.getAjaxUrl("ctxpopup"),{user:c,mode:"getinfo"}).success(function(a){a.setBan_authtoken&&e(a.setBan_authtoken,[String(a.userid),a.username,a.url_userpic])})},_removeComment:function(a){var b=this,c=LiveJournal.getAjaxUrl("delcomment",LiveJournal.parseGetArgs(a.postLink)),d={confirm:"1",lj_form_auth:this._authToken,format:"json"},e=!1,f=!1;a.props&&a.props.forEach(function(a){"ban"!==a?(d[a]="1",f=!0):e=!0}),this._pending(a.node,!0),e&&(Site.current_journal.is_comm?d.ban=1:this._banUser(a.node.data("username"),function(){f||b.element.trigger("refreshThread",[a.ditemid,!0,"delmany"])})),f&&jQuery.post(c,d,function(c){var e="";d.delauthor&&(e=a.node.data("username")),"ok"===c.status?b.element.trigger("deleteComment",[a.ditemid,d.delthread,e]):alert(c.message)},"json")},"delete":function(a,b,c,d){var e=this._getComment(c);e&&(e.postLink=a.href,d?(e.props=["delete"],this._removeComment(e)):this._showDeletePopup(a,b,e))},bestComment:function(a,b,c){var d=this._getComment(c),e=this;d&&(this._pending(c,!0),LJ.Api.call("comment."+b,{journalid:LJ.get("journal.id"),itemid:this._itemid,talkid:d.ditemid},function(a){a.error&&(alert(a.error.message),location.reload()),e.element.trigger("refreshThread",[d.ditemid,!0,b])}))},moderate:function(a,b,c){var d=this._getComment(c),e=this;if(d){var f="spamcomment"===b?"spamcomment":"talkscreen",g=LiveJournal.getAjaxUrl(f,LiveJournal.parseGetArgs(a.href)),h={confirm:"Y",lj_form_auth:this._authToken};g+="&format=json",this._pending(c,!0),jQuery.post(g,h,function(a){if("ok"!==a.status)throw new Error(a.message);return"spamcomment"===b?void e.element.trigger("removeFromDOM",[d.ditemid,b]):void e.element.trigger("refreshThread",[d.ditemid,!b.match(/(un)?freeze/),b])},"json")}}})}(jQuery,window);;
+
+/* file-end: js/jquery/jquery.lj.commentsOperations.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/jquery/jquery.lj.commentsMassActions.js 
+*/
+
+
+!function(a,b){a.widget("lj.commentsMassActions",jQuery.lj.basicWidget,{options:{selectors:{form:"#multiform",massActions:".b-massaction",massActionsMobile:".b-massaction-mobile",ljButtons:".b-massaction .b-ljbutton button",ljButtonsMobile:".b-massaction-mobile .b-ljbutton button",massActionsCheckAll:".b-massaction-checkall input",checkboxes:".b-leaf-actions-checkbox",links:"a",comment:".b-leaf",firstLevel:".b-tree-twig-1",twig:".b-tree-twig",twigSelected:".b-tree-twig-selected",massOperationsAnchor:".b-massaction-anchor",ljtimes:"#ljtime",ditemid:"#ditemid",error:".b-massaction-error"},classNames:{hidden:"b-grove-3comments",massActionsFixed:"b-massaction-fixed",commentSelected:"b-leaf-selected",twigSelected:"b-tree-twig-selected",preload:"b-massaction-processing",error:"b-massaction-problems"}},_create:function(){a.lj.basicWidget.prototype._create.apply(this);var b=this.options.selectors;this._authToken=this.element.data("authtoken"),this._massActions=this.element.find(b.massActions),this._massActionsCheckAll=this.element.find(b.massActionsCheckAll),this._massActionsAnchor=this.element.find(b.massOperationsAnchor),this._ljtimes=jQuery(b.ljtimes),this._ditemid=this.element.find(b.ditemid).val(),this._form=this.element.find(b.form),this._buttons=this.element.find(b.ljButtons),this._hidden=this.element.hasClass(this.options.classNames.hidden),this._setActive(!1),this._bindControls()},_bindControls:function(){var c=this,d=this.options.selectors;a.lj.basicWidget.prototype._bindControls.apply(this),this.element.delegate(d.checkboxes,"click",function(){var a=jQuery(this),b=this.checked;c._markChecked(a,b),Function.defer(c._updateBoxes.bind(c),a,b)}),this._el("ljButtons").on("click",function(a){c._massAction(this.getAttribute("data-value")),a.preventDefault()}),this._el("ljButtonsMobile").on("click",function(a){var b=this.getAttribute("data-value").toLowerCase();"collapse-all"===b&&c.collapseAll(),"expand-all"===b&&c.expandAll(),a.preventDefault()}),this._massActionsCheckAll.click(function(){Function.defer(c._updateBoxes.bind(c),c.element.find(d.checkboxes),this.checked)}),jQuery(b).bind("scroll resize",this._checkMassActionsPanelPosition.bind(this)),this.element.bind("commentsUpdated",this._updateMassActionsPanel.bind(this,!1)).bind("newComment",this._checkVisibility.bind(this)),jQuery(document).bind("keyup","alt+ctrl++",this.expandAll.bind(this)).bind("keyup","alt+ctrl+-",this.collapseAll.bind(this))},_checkVisibility:function(){Function.defer(function(){this._hidden&&this.element.find(this.options.selectors.comment).length>2&&(this.element.removeClass(this.options.classNames.hidden),this._hidden=!1)}.bind(this))},_setPending:function(a){this._buttons.attr("disabled",!!a),this.element.toggleClass(this.options.classNames.preload,!!a),a&&this._massActions.removeClass(this.options.classNames.error)},_setActive:function(a){this._panelFixed=!!a,this._buttons.attr("disabled",!a)},_findTopChecked:function(){var b,c=this.options.selectors,d=this.element.find(c.twigSelected),e=0,f=jQuery();return d.each(function(){var d=jQuery(this),g=a.comments.level(d);e&&g>e&&b&&a.comments.isChild(d,b)||(e=g,f=f.add(d.find(c.comment)),b=d)}),f},_massAction:function(a){a=a.toLowerCase();var b,c=this,d=LiveJournal.constructUrl(LiveJournal.getAjaxUrl("talkmulti"),{format:"json"}),e={confirm:"1",lj_form_auth:this._authToken,mode:a,ditemid:this._ditemid,journal:Site.currentJournal},f=this._form.get(0).elements,g=[];if(["collapse","expand","freeze","unfreeze"].indexOf(a)>-1&&this._findTopChecked().each(function(){g.push(this.getAttribute("id"))}),["screen","unscreen","freeze","unfreeze","delete","deletespam","unspam"].indexOf(a)>-1)for(var h=!/((un)?freeze)/.test(a),i=0,j=f.length;j>i;++i)f[i].name.match(/selected_\d+/)&&f[i].checked&&(e[f[i].name]="on",h&&g.push(f[i].id));return"collapse"===a||"expand"===a?(b=LJ.Function.threshold(function(b){c.element.trigger(a,[b,!0])},20,!0),g.forEach(b),this._setPending(!1),void this._updateBoxes(this.element.find(this.options.selectors.checkboxes+":checked"),!1)):(this._setPending(!0),void(0!==g.length&&jQuery.post(d,e,function(b){if(c._setPending(!1),"ok"===b.status)if("unspam"===a){var d=g.map(function(a){return a.substr(1)});c.element.trigger("removeFromDOM",[d,"unspam"])}else c._refreshComments(a,g);else c.element.find(c.options.selectors.error).html(b.message),c._massActions.addClass(c.options.classNames.error)},"json")))},_refreshComments:function(a,b){var c=b.map(function(a){return a.substr(1)}),d=this;c.forEach(function(b){Function.defer(function(){a.match(/^delete/)?d.element.trigger("deleteComment",[b]):d.element.trigger("refreshThread",[b,!a.match(/^(un)?freeze/),a])})})},_checkMassActionsPanelPosition:function(){var a=jQuery.browser.msie&&jQuery.browser.version.substr(0,1)<9?document.documentElement.scrollTop:b.pageYOffset,c=0,d=this.options.classNames.massActionsFixed;this._panelFixed?(c=this._massActionsAnchor.offset().top,this._massActions.hasClass(d)&&(c+=this._massActions.height()),c+this._ljtimes.height()>jQuery(b).height()+a?this._massActions.addClass(d):this._massActions.removeClass(d)):this._massActions.removeClass(d)},_updateBoxes:function(a,b){var c=this;a.each(function(){this.checked=b,c._markChecked(jQuery(this),b)}),this._updateMassActionsPanel(b)},_markChecked:function(a,b){b=!!b;var c=this.options.selectors,d=this.options.classNames,e=a.closest(c.comment);b&&e.hasClass(d.commentSelected)||e.toggleClass(d.commentSelected,b).closest(c.twig).toggleClass(d.twigSelected,b)},_updateMassActionsPanel:function(a){var b=this.options.selectors,c=this.options.classNames.massActionsFixed;0===this._ljtimes.length&&(this._ljtimes=jQuery(b.ljtimes));var d=this._panelFixed;this._setActive(!!a||this.element.find(b.checkboxes+":checked:first").length>0),this._checkMassActionsPanelPosition(),this._panelFixed&&this._massActions.hasClass(c)&&(d||this._massActions.hide().fadeIn(100));var e=a&&0===this.element.find(b.checkboxes+":not(:checked):first").length;this._massActionsCheckAll.attr("checked",e)},_getComment:function(a){return"object"!=typeof a&&(a=jQuery(a)),0!==a.length?{node:a,ditemid:a.prop("id").substr(1),username:a.data("username"),displayname:a.data("displayname")}:void 0},_toggleAll:function(a){var b=this,c=LJ.Function.threshold(function(c){b.element.trigger(a,[c,!0])},20,!0);c.batch(2),this.element.find(this.options.selectors.firstLevel).each(function(){c(this.getAttribute("data-tid"))})},expandAll:function(){this._toggleAll("expand")},collapseAll:function(){this._toggleAll("collapse")}})}(jQuery,window);;
+
+/* file-end: js/jquery/jquery.lj.commentsMassActions.js 
+----------------------------------------------------------------------------------*/

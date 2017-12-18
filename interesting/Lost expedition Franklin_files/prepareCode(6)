@@ -1,0 +1,25 @@
+(function(URLs) {
+	for (var i = 0; i < URLs.length && URLs[i]; i++) {
+		if (!URLs[i].match(/adfox\.ru\/transparent\.gif$/)) {
+			(function(url, img) {
+				img.src = url;
+			})(URLs[i], new Image());
+		}
+	}
+})('http://banners.adfox.ru/transparent.gif'.split('|'));
+(function(){
+	var _pr1 = 2221061320,
+		_width = ('240'.indexOf('%')!=-1?'240':parseInt('240')+'px'),
+		_html = '<a href="http://ads.adfox.ru/239482/goLink?hash=abfca2e491f0bdc3&pr=hgpghwu&p5=dpbtk&rand=emkopt&p1=butrx&p2=fhxu" target="_blank">'+
+			'<img src="http://banners.adfox.ru/160421/adfox/563845/1635748.jpg" alt="" style="width: 100%; height: auto; vertical-align: middle; border: 0px;">'+
+			'</a>';
+
+	if (_pr1) {
+		setTimeout(function(){document.close();},100);
+		parent.document.getElementById('AdFox_banner_'+_pr1).innerHTML = _html;
+		parent.document.getElementById('AdFox_banner_'+_pr1).style.width = _width;
+		parent.document.getElementById('AdFox_banner_'+_pr1).style.margin = '0 auto';
+	} else {
+		document.write('<div style="width: '+_width+'; margin: 0 auto;">'+_html+'</div>');
+	}
+})();

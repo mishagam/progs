@@ -1,0 +1,111 @@
+.b-photoreport_article .wrap_main .media_content {
+	cursor: default;
+	font-size: 0;	
+}
+.b-photoreport_article .preview .wrap_pre .media_content {
+	font-size: 0;	
+}
+.b-photoreport_article .wrap_main.ended .assoc_rep {
+	display:block;
+}
+.b-photoreport_article .wrap_main.ended .media_content {
+	cursor: default;
+}
+.b-photoreport_article .wrap_main.ended #right_arrow {
+	display: none;
+}	
+
+.assoc_rep {
+	display:none;
+    z-index: 1;
+    position:absolute;
+	left:700px;
+	color: #fff;
+}
+.assoc_rep div, .assoc_rep nav, .assoc_rep figure, .assoc_rep a{
+	float:left;
+	display: block;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+    text-decoration: none;
+}
+.assoc_rep .curtain {
+    position: absolute;
+	height:100%;
+	width:100%;
+    background: #000;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+    opacity: 0.9;
+    z-index: -1;
+}
+.assoc_rep nav {
+	width: 175px;
+	height: 100%;
+}
+.assoc_rep nav a {
+    width: 175px;
+	height: 222px;
+	padding-top: 118px;
+	text-align: center !important;
+	font: 12px/1 Arial, sans-serif;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	opacity: 0.7;
+	-webkit-transition: all 400ms ease-out;
+    -moz-transition: all 400ms ease-out;
+    -ms-transition: all 400ms ease-out;
+    -o-transition: all 400ms ease-out;
+    transition: all 400ms ease-out;
+    color:#ccc;
+	
+}
+.assoc_rep nav a[href="/photo/"] {
+	background: url('http://static.gazeta.ru/nm2012/i/camera-icon-rep.png') 58px 56px no-repeat;
+}
+.assoc_rep nav a.photo_tofirst {
+	background: url('http://static.gazeta.ru/nm2012/i/back-icon-rep.png') 61px 58px no-repeat;
+	display:none;
+}
+.assoc_rep nav a:hover {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	opacity: 1;
+}
+.assoc_links {
+    width: 720px;
+    text-align: center !important;
+}
+.assoc_links a figcaption{
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    opacity: 0.7;
+    -webkit-transition: all 400ms ease-out;
+    -moz-transition: all 400ms ease-out;
+    -ms-transition: all 400ms ease-out;
+    -o-transition: all 400ms ease-out;
+    transition: all 400ms ease-out;
+    color: #ccc;
+}
+.assoc_links a:hover figcaption{
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    opacity: 1;
+}
+.assoc_rep figure{
+	height: 230px;
+    	width: 320px;
+    	padding: 45px 15px 0 40px;
+    	font: 15px/18px "PT Serif", Georgia, serif;
+    	text-align: left;
+}
+.assoc_rep figure a {
+	display: inline;
+}
+.assoc_rep figcaption {
+	font: 15px/18px "PT Serif", Georgia, serif;
+}
+.assoc_rep figure img {
+	width:265px !important;
+	height:150px !important;
+	margin-bottom: 7px !important;
+}
+.photo_href:after {
+    content: '';
+    background: none;
+}

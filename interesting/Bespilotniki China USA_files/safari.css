@@ -1,0 +1,18 @@
+
+.safari, 
+.safari td  {
+    /*font-family: Arial !important;
+    font-size: 14px;*/
+}
+
+.safari div.popup {
+    width: 700px;
+}
+
+.safari #headline .items a.s:before {
+    margin-left: -71px;
+}
+
+.safari.device-tablet #headline .items a.s:before {
+    margin-left: -41px;
+}

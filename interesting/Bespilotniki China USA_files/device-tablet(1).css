@@ -1,0 +1,140 @@
+
+.device-tablet section.banner {
+    display: none;
+}
+
+.device-tablet section#header,
+.device-tablet section#menu,
+.device-tablet section#latest,
+.device-tablet section#footer,
+.device-tablet section#copyright {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.device-tablet #menu .cats a {
+    margin-right: 40px;
+}
+
+.device-tablet #logo {
+    max-width: 575px;
+    width: 50%;
+    background-position: left center; 
+    background-size: contain !important;
+}
+
+.device-tablet #auth {
+    margin-left: calc(100% - 365px);
+}
+
+.device-tablet #headline .wr section {
+    padding-left: 20px;
+}
+
+.device-tablet #headline .wr section:before {
+    display: none;
+}
+
+.device-tablet #headline .items {
+    width: 40%;
+}
+
+.device-tablet #headline .items-view {
+    width: 60%;
+}
+
+.device-tablet #headline .items a {
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.device-tablet #headline .items a.s:before {
+    margin-left: -42px;
+}
+
+.device-tablet #headline .items a.s:after {
+    display: none;
+}
+
+.device-tablet #headline .items a.s {
+    overflow: hidden;
+}
+
+.device-tablet #headline .items a span:last-child {
+    /*font-size: 18px;*/
+}
+
+.device-tablet #headline .items a.s span:last-child {
+    font-size: 20px;
+}
+
+.device-tablet aside {
+    padding-right: 20px;
+}
+
+.device-tablet #page .page-header,
+.device-tablet #page .page-options,
+.device-tablet #page .page-content {
+    padding-left: 20px;
+}
+
+.device-tablet #page .page-options {
+    height: auto;
+}
+
+.device-tablet #page .page-options>nav>div {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: none;
+}
+
+.device-tablet #page .page-options>nav>select,
+.device-tablet #page .page-options>nav>span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.device-tablet .article-list.special {
+    width: 100%;
+}
+
+.device-tablet .article-list.special img {
+    width: 90%;
+}
+
+.device-tablet .article-list.special .table {
+    width: 100%;
+}
+
+.device-tablet .article-list.special .table>div>div:first-child {
+    width: 20%;
+    min-width: 120px;
+}
+
+.device-tablet .article-list>div span.comments {
+    margin-left: 0px;
+    margin-top: 5px;
+    display: block;
+}
+
+.device-tablet #page .page-header {
+    height: auto;
+}
+
+.device-tablet .page-content article .article-social .table>div>div {
+    padding-right: 10px;
+}
+
+.device-tablet .page-content article .article-social .table>div>div span {
+    display: none;
+}
+
+.device-tablet .page-content article .article-content img,
+.device-tablet .page-content article .article-image-frame img {
+    width: 95%;
+    max-width: 100%;
+    height: auto !important;
+}
+

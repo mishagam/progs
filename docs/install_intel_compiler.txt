@@ -1,0 +1,87 @@
+Installing Intel compiler Mint 13 Maya 32 bit
+
+1. Copy to /opt/intel 
+cp /media/Elements/Distr/linux/intel.tar.gz .
+tar xzvf intel.tar.gz
+
+2. Put changes to .bashrc, first copy archived .bashrc to /home/misha
+# definitions for intel
+export PATH="/opt/intel/bin:$HOME/bin:$PATH"
+export INTEL_LICENSE_FILE=/opt/intel/licenses
+export LD_LIBRARY_PATH=$HOME/hortitsa-devel/lib:/opt/intel/lib:$SRVHOME
+
+3. installed packages
+g++-4.4
+gfortran-4.4
+g++ -- ???
+
+4. after that make tfor worked
+ifortbin -g -check bounds -c tfor.f  
+ifortbin  -o tfor tfor.o -g -lstdc++ 
+
+5. Now tried to install iccbin (C++ STL features doesn't work)
+iccbin -g -c -I/usr/include/i386-linux-gnu cmain.cc -- worked after adding -I...
+make cformod -- worked after fixing some bugs
+
+6. Possible way is to add environment variable. For me it worked
+export CPATH=/usr/include/i386-linux-gnu
+
+7. After that hortitsa-devel just compiled, command:
+~/hortitsa-devel/project $ make r=ro2 all
+in .bashrc :
+# definitions for skif,hortitsa, mf
+export SRVHOME=$HOME/skif
+export SVRK_ROOT=$HOME/hortitsa-devel
+export MF_ROOT=$HOME/mf
+export SKIF_COMP_GROUP="GCC-4.4.7-Mint"
+export HORT_COMP_GROUP="GCC-4.4.7-Mint"
+
+8. Compiling skif
+~/skif $ make clean all
+error: /usr/bin/ld: cannot find -lXext
+added package libxext-dev
+after that skif compiled OK
+
+9. compiling FRACS
+mkdir fracs
+cd fracs
+~/fracs $ hg pull /media/MediaD/hgarchives/fracs
+~/fracs $ hg up
+~/fracs/build $ ./make_links.py   -- passed Ok
+~/fracs $ make all                -- worked after fixing one syntax error  
+~/fracs $ bin/start               -- worked
+~/fracs $ scripts/first_load.sh   -- worked
+
+10. adding some folders that were not here
+~/fracs $ mkdir data/temp
+~/fracs $ mkdir data/log
+~/fracs $ mkdir data/results
+~/fracs $ mkdir data/backupstate
+
+11. Installing intel compilers for Centos 6.5
+ - copy intel to /opt/intel
+ - Modified .bashrc as usual
+ - yum installed packages:
+   libstdc++-devel.i686 libstdc++.i686 glibc-devel.i686 glibc.i686
+  after that make tfor worked ok
+
+12.
+  /usr/bin/ld: warning: libX11.so.6, needed by /home/misha/skif/libGUMod.so, not found 
+  /usr/bin/ld: warning: libXext.so.6, needed by /home/misha/skif/libGUMod.so, not found
+  fixed these warnings instaling packages:
+  libXt-devel.i686 libX11-devel.i686 libXext-devel.i686
+  After that FRACS compiled without warnings
+
+
+
+
+
+                                                                               
+
+ 
+
+
+
+
+
+

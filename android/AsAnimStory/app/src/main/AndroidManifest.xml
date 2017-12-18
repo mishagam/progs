@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="mis.animsto">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ChooseStoryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AnimEditActivity"
+            android:label="@string/title_activity_anim_edit"
+            android:screenOrientation="sensorLandscape">
+	</activity>
+        <activity
+            android:name=".SelectImageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_select_image"
+            android:theme="@style/FullscreenTheme">
+	</activity>
+        <activity
+            android:name="mis.pentamino.PentaSolveActivity"
+            android:label="@string/solve_pentamino"
+            android:screenOrientation="sensorLandscape">
+	</activity>
+        <activity
+            android:name=".TurtlePropsActivity"
+            android:label="@string/title_activity_turtle_props">
+	</activity>
+        <activity
+            android:name=".ShowStoryActivity"
+            android:label="@string/title_activity_show_story"
+            android:theme="@style/AppTheme.NoActionBar">
+	</activity>
+    </application>
+
+</manifest>

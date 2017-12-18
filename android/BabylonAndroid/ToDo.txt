@@ -1,0 +1,5 @@
+1. Button +- doesn't work
+2. Two turn buttons in log selection - but they doesn't work either
+3. We need reaction on gestures - increase / decrease, turns.
+4. Put logs as reaction on click.
+5. Check that we have accurate positions.

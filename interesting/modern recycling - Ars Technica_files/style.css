@@ -1,0 +1,97 @@
+.manual-ad iframe {
+  position: relative;
+}
+
+body.single.fullwidth div.feature-para-left > p {
+  width: 500px;
+}
+
+body.single.fullwidth article.standalone .article-content,
+body.single.fullwidth article.standalone .page-numbers {
+    width: 700px;
+}
+
+body.single.fullwidth div#article-footer-wrap {
+  margin: 0 auto;
+}
+
+body.fullwidth .article-content aside.manual-ad.left {
+  margin-right: 15px;
+}
+
+body.fullwidth .article-content aside.manual-ad.right {
+  margin-left: 15px;
+}
+
+body.fullwidth .article-content .manual-ad.right,
+body.fullwidth .article-content .right {
+    margin-right: -140px;
+}
+
+body.fullwidth .article-content .manual-ad.left,
+body.fullwidth .article-content .left {
+    margin-left: -140px;
+}
+
+body.fullwidth #outbrain-recs-wrap {
+  margin-left: -140px;
+}
+
+body.fullwidth article.standalone figure.video,
+body.fullwidth article.standalone div.gallery,
+body.fullwidth article.standalone figure.image.full {
+  margin-left: -140px;
+  position: relative;
+}
+
+body.fullwidth article.standalone .centered-figure-container {
+  margin-left: -140px;
+  position: relative;
+  width: 980px;
+}
+
+body.fullwidth article.standalone .centered-figure-container figure.video,
+body.fullwidth article.standalone .centered-figure-container div.gallery,
+body.fullwidth article.standalone .centered-figure-container figure.image.full {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+body.fullwidth article.standalone figure.video.full-width.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.fullwidth article.standalone div.gallery {
+  margin-right: -140px;
+}
+
+body.fullwidth article.standalone figure.image.full > a {
+  display: block;
+}
+
+span.dropcap {
+	font-family: "BebasNeue",sans-serif;
+  font-size: 64px;
+  line-height: 40px;
+  margin: 5px 4px 0 0;
+  padding: 2px 0 0;
+  text-align: center;
+  color: #ff4f00;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  font-weight: normal;
+  float: left;
+}
+
+body.fullwidth article.standalone header h1,
+body.fullwidth article.standalone header h2,
+body.fullwidth article.standalone header div.post-meta,
+body.fullwidth h1#archive-head {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}

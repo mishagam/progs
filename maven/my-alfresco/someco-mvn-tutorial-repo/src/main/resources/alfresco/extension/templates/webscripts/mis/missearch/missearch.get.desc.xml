@@ -1,0 +1,8 @@
+<webscript>
+    <shortname>Mis Search test Webscript</shortname>
+    <description>Searches for mishText documents and prints list</description>
+    <url>/sample/missearch</url>
+    <authentication>user</authentication>
+    <format default="html"></format>
+    <lifecycle>sample</lifecycle>    
+</webscript>

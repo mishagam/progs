@@ -1,0 +1,1 @@
+Krux.ns._default.kxjsonp_userdata({"status":"200","body":{"code":"has_segments","kuid":"KH9NuGJ0","kuid_long":"p2hs9aupy","geo":{"domain":null,"region":"mow","country":"ru","dma":"643001","zip":"101000","longitude":"37.6411","latitude":"55.7616"},"segments":["oxtp6iwgj","ookj64uiq","ot62o7t28"]}});

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MisAudioRecordPlay</string>
+    <string name="action_settings">Settings</string>
+    <string name="record">Record</string>
+    <string name="play">Play</string>
+    <string name="stop">Stop</string>
+    <string name="play_record_audio">Play / Record Auidio</string>
+    
+</resources>

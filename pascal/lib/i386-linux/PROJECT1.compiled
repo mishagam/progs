@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Compiler Value="/usr/bin/fpc" Date="1390412489"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -g -gl -vewnhi -Fi/home/misha/progs/pascal/lib/i386-linux -Fu/home/misha/progs/pascal/ -FU/home/misha/progs/pascal/lib/i386-linux/ -l -oproject1 PROJECT1.LPR"/>
+  <Complete Value="False"/>
+</CONFIG>

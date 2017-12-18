@@ -1,0 +1,1 @@
+PARSELY.pInit({"apikey":"tnr.com","customizations":null,"bundle":"/code/slim_v05.js","settings":{"debug":false,"widget":false,"tracker":true},"uuid":"b20782d0-ac78-4734-8264-94f7e62feff6"});

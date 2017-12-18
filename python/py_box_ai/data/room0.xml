@@ -1,0 +1,79 @@
+<room>
+  <box id="1" color="bisque" x="3" y="3" width="424" height="484">
+    <parent>
+      <boxref idref="0" />
+    </parent>
+    <children>
+      <boxref idref="2" />
+      <boxref idref="3" />
+      <boxref idref="4" />
+    </children>
+  </box>
+  <box id="2" color="aquamarine" x="58" y="170" width="78"
+  height="81">
+    <parent>
+      <boxref idref="1" />
+    </parent>
+    <children />
+  </box>
+  <box id="3" color="beige" x="50" y="348" width="30" height="30">
+    <parent>
+      <boxref idref="1" />
+    </parent>
+    <children />
+  </box>
+  <box id="4" color="blanchedalmond" x="193" y="247" width="200"
+  height="135">
+    <parent>
+      <boxref idref="1" />
+    </parent>
+    <children>
+      <boxref idref="5" />
+      <boxref idref="6" />
+      <boxref idref="7" />
+      <boxref idref="8" />
+      <boxref idref="10" />
+    </children>
+  </box>
+  <box id="5" color="black" x="221" y="312" width="30" height="30">
+    <parent>
+      <boxref idref="4" />
+    </parent>
+    <children />
+  </box>
+  <box id="6" color="aqua" x="222" y="262" width="30" height="30">
+    <parent>
+      <boxref idref="4" />
+    </parent>
+    <children />
+  </box>
+  <box id="7" color="bisque" x="292" y="270" width="30"
+  height="30">
+    <parent>
+      <boxref idref="4" />
+    </parent>
+    <children />
+  </box>
+  <box id="8" color="azure" x="281" y="319" width="67" height="46">
+    <parent>
+      <boxref idref="4" />
+    </parent>
+    <children>
+      <boxref idref="9" />
+    </children>
+  </box>
+  <box id="9" color="antiquewhite" x="294" y="323" width="30"
+  height="30">
+    <parent>
+      <boxref idref="8" />
+    </parent>
+    <children />
+  </box>
+  <box id="10" color="aliceblue" x="355" y="294" width="30"
+  height="30">
+    <parent>
+      <boxref idref="4" />
+    </parent>
+    <children />
+  </box>
+</room>

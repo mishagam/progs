@@ -1,0 +1,142 @@
+/* Боксы */
+
+.kcaptcha_img {
+  display:block;
+  position:relative;
+  width:100px;
+  height:50px;
+}
+
+.box_field {
+  padding:0 0 15px 0;
+}
+
+.box_field_c {
+  padding:1px;
+  background:#fff;
+}
+
+.box_field .field_error{
+  color:#ff573c;
+  font-size:13px;
+  padding:2px 0 0 0;
+}
+
+.box_field_c  .ui_input_text {
+  border:1px solid #ffcd00;
+  height:21px;
+  padding:6px 3px 0 3px;
+}
+
+@-moz-document url-prefix() { 
+	.box_field_c  .ui_input_text {
+		padding-top:7px;
+	}
+}
+
+body.ie .box_field_c  .ui_input_text {
+  padding-top:8px;
+}
+
+.box_field_c  .ui_textarea {
+  border:1px solid #ffcd00;
+  padding:6px;
+}
+
+.box_field_c  .ui_input_file {
+  border:1px solid #ffcd00;
+}
+
+.box_field_c  .ui_input_text  .ui_clear, .box_field_c  .ui_textarea  .ui_clear {
+  font-family:Arial, Tahoma !important;
+  color:#000;
+  font-size:12px;
+}
+
+.box_field_name {
+  background:url(images/box/field_name.png) no-repeat left top #fff !important;
+  padding-left:40px !important;
+}
+
+.box_field_email {
+  background:url(images/box/field_email.png) no-repeat left top #fff !important;
+  padding-left:40px !important;
+}
+
+.box_field_password {
+  background:url(images/box/field_password.png) no-repeat left top #fff !important;
+  padding-left:40px !important;
+}
+
+.box_field_phone {
+  background:url(images/box/field_phone.png) no-repeat left top #fff !important;
+  padding-left:40px !important;
+}
+
+.box_field_place {
+  background:url(images/box/field_place.png) no-repeat left top #fff !important;
+  padding-left:40px !important;
+}
+
+/* Бокс с авторизацией */
+
+.box_auth_holder {
+  width:205px;
+}
+
+.box_auth_forget {
+  font-size:12px;
+  color:#3c3c3c;
+  padding:15px 0 15px 0;
+}
+
+.box_auth_social {
+  color:#3c3c3c;
+}
+
+.box_auth_social_icons {
+  font-size:0px;
+  padding:10px 0 0 0;
+}
+
+.box_auth_social_icons img {
+  margin-right:10px;
+}
+
+/* Бокс с регистрацией */
+
+.box_registration_holder {
+  width:205px;
+}
+
+.box_registration_code_title {
+  float:left;
+  width:80px;
+  padding:19px 0 0 10px;
+  color:#3c3c3c;
+  line-height:1.1;
+}
+
+.box_registration_gender {
+  color:#3c3c3c;
+  padding:0 0 15px 0;
+}
+
+/* Бокс с восстановлением пароля */
+
+.box_recovery_holder {
+  width:205px;
+}
+
+/* Другое */
+
+.box_attention {
+  background:#e04a32;
+  padding:5px;
+  margin-bottom:20px;
+  color:#fff;
+}
+
+.box_captcha_holder {
+  width:250px;
+}

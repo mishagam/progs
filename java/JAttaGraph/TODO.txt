@@ -1,0 +1,27 @@
+1(+). Add menu item read factorial.
+2(+). Implement Calibrate Dilog.
+2a(+). Implement Calibrate Dialog calling.
+2b(+). Implement Calibrate Dialog controls as in factorialPro
+2c(+). Implement Open files with opening set of calibrate Fsa files
+2d(+). Implement Calibrate method with validation and updating factorial peak sizes.
+2e(+). Implement Write factorial method.
+2f. Implement some form of help.
+3(+). Change First last base peaks controls to edit boxes.
+4(+). implement validation of first, last , base peaks on Ok pressed.
+5(+). again add certificate and upload to mishagam.
+6(+). remove all groups options.
+7(+). remove batch
+8(+). add buttons copy PE, copy RH in copy peaks dialog. leave "copy all" - first element always 
+   fileName: filename\nfactorialName: factName\n
+9(+). ATG file must save FSA filename info (and copy it).
+10. Make option attagraph_reader.
+11(+). change menu - "File Factorial Operations"
+12(+). Remove last tab "Web Options"in preferences dialog.
+13(+). Replace chooose peak names file file dialog with drop down list choosing from web factorials
+14(+). Remove choose red peak names file option.
+15(+). Put red peak names file to predictable place in the same place where preferences are.
+16(+). Put downloaded peak names file in preferences folder.
+17. overwrite calibrated peaks file in the same place
+18. show number of peaks and read peaks in preferences factorial page.
+19. Must not divide Rel Height on base peak.
+

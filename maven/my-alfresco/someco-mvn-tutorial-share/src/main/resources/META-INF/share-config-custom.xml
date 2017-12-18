@@ -1,0 +1,60 @@
+<!-- Share configuration related to this particular Share module extension, such as:
+     - Doclib action config
+     - Form config
+     - Aspect and Type config
+     - Advanced Search
+
+    Note. Any configuration related to the whole Share.war webapp
+           (i.e. not specific to this share extension) should be
+            placed in the environment specific config file:
+             alfresco/tomcat/shared/classes/alfresco/web-extension/share-config-custom.xml
+             
+     M.G. 2017 version adapted using alfresco content tutorial
+     https://ecmarchitect.com/alfresco-developer-series-tutorials/content/tutorial/tutorial.html
+     -->
+<alfresco-config>
+    <!--================================================================================================================
+            Make custom types and aspects visible in "Change Type" and "Manage Aspects" actions.
+             This will also make them visible when creating rules.
+            (will be merged with out-of-the-box configured types and aspects)
+        =============================================================================================================-->
+
+    <config evaluator="string-compare" condition="DocumentLibrary">
+        <aspects>
+            <visible>
+                <aspect name="sc:webable" />
+                <aspect name="sc:productRelated" />            
+                <aspect name="sc:mishaProperties" />            
+            </visible>
+            <addable> <!-- defaults to visible config -->
+            </addable>
+            <removeable> <!-- defaults to visible config -->
+            </removeable>
+        </aspects>
+        <types>
+            <type name="cm:content">
+                <subtype name="sc:doc" />
+                <subtype name="sc:whitepaper" />
+            </type>
+            <type name="sc:doc">
+                <subtype name="sc:whitepaper" />
+            </type>
+            <type name="sc:doc">
+                <subtype name="sc:marketingDoc" />
+            </type>
+            <type name="sc:doc">
+                <subtype name="sc:mishaText" />
+            </type>
+        </types>
+    </config>
+
+    <!--================================================================================================================
+          Advanced Search Forms for types
+          (search forms for aspects are not available)
+      =============================================================================================================-->
+
+    <config evaluator="string-compare" condition="AdvancedSearch" replace="true">
+        <advanced-search>
+        </advanced-search>
+    </config>
+</alfresco-config>

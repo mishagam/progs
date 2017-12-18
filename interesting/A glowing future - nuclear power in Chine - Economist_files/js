@@ -1,0 +1,15 @@
+(function() {
+try {
+    (function(){
+/**/
+
+})();
+
+}
+catch(ex)
+{
+   document.createElement("img").src="//pixel.mathtag.com/error/img?error_domain=wrap&what="+encodeURIComponent(ex.message);
+}
+})();
+
+window.MathIDSet = 'Iw/MxmXlCjoS6q3mKkSqJegzvy0WRcdt+/imYI7JNjb2U0ybk9ky0MOTB9PTJ2s8IQ4Vry/0jCOo1StAcpTLb26E5FcaeJAF7H/jMNuqn14tveohzfOkIbn2XTnG+TklqNxkW77jJSZTVQUoJpR2tA==';

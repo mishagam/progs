@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>syn_player01</title>
+<script language="javascript">AC_FL_RunContent = 0;</script>
+<!-- <script src="AC_RunActiveContent.js" language="javascript"></script> -->
+<script type="text/javascript" src="swfobject.js"></script>
+</head>
+<body bgcolor="#ffffff">
+
+<div id="flashhere"> flash here </div>
+<script type="text/javascript">
+		// <![CDATA[
+
+		var so = new SWFObject("syn_player01.swf", "tyBitTest", "630", "200", "9", "#FFFFFF");
+		//so.addVariable("flashVarText", "");  this line is optional, but this example uses the variable and displays this text inside the flash movie
+		var url = escape("http://www.audi.com?a=b&c=d");
+		//var url = "http://www.audi.com?a=b&c=d";
+		so.addVariable("url", url);
+		so.write("flashhere");
+
+		// ]]>
+	</script>
+</body>
+</html>

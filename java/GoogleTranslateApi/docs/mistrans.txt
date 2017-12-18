@@ -1,0 +1,26 @@
+Google Translate API:
+
+Compute Engine and App Engine Learn more
+Client ID   876973307003.apps.googleusercontent.com
+Email address   876973307003@developer.gserviceaccount.com
+
+Key for Android applications
+API key AIzaSyDDPpdo6dzH3MCwk3ckDJjJ6plot5bWzV8
+Android applications     Any application allowed
+Activation date Dec 31, 1969 4:00 PM
+Activated by     mishagam@gmail.com (you)
+
+My example:
+https://www.googleapis.com/language/translate/v2?q=%D0%9D%D0%B0%D1%88%D0%B0%20%D0%9C%D0%B0%D1%88%D0%B0%20%D0%B3%D0%BE%D1%80%D1%8C%D0%BA%D0%BE%20%D0%BF%D0%BB%D0%B0%D1%87%D0%B5%D1%82&target=en&source=ru&key=AIzaSyDDPpdo6dzH3MCwk3ckDJjJ6plot5bWzV8
+
+answer:
+{
+ "data": {
+  "translations": [
+   {
+    "translatedText": "Our Masha crying bitterly"
+   }
+  ]
+ }
+}
+

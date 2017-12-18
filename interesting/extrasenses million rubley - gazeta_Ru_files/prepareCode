@@ -1,0 +1,30 @@
+var AdFox_object_234997112 = '';
+var AdFox_iframeurl_234997112 = '';
+var AdFox_variable_234997112 = 0;
+var AdFox_id_234997112 = 'AdFox_banner_0';
+var AdFox_yn_234997112 = 0;
+var AdFox_pdoc_234997112 = parent.document;
+    if(AdFox_pdoc_234997112 != document){
+	   var AdFox_pde_234997112 = AdFox_pdoc_234997112.getElementById(AdFox_id_234997112);
+	   var AdFox_yn_234997112 = AdFox_pde_234997112?1:0;
+	   }
+  if(AdFox_iframeurl_234997112 != ''){
+  	 AdFox_variable_234997112 = 1;
+  	 AdFox_object_234997112 += '<iframe id="AdFox_iframeurl_234997112" src="'+AdFox_iframeurl_234997112+'" width=0 height=0 marginwidth=0 marginheight=0 scrolling=no frameborder=0></iframe>';
+    }else{
+    	AdFox_variable_234997112 = 1;
+    	AdFox_object_234997112 += '<div id="AdFox_tracking_234997112" width="0px" height="0px" style="z-index:12345678; position:absolute;"><img src="http://banners.adfox.ru/transparent.gif" border="0" width="0" height="0"></div>';
+  	}
+  
+if(AdFox_yn_234997112){
+   if(AdFox_variable_234997112){
+      AdFox_pde_234997112.innerHTML = AdFox_object_234997112;
+      if(AdFox_iframeurl_234997112 != ''){
+         AdFox_pde_234997112.style.width = '0px';
+	 AdFox_pde_234997112.style.height = '0px';
+      }
+   }
+   setTimeout("document.close();", 1000);
+}else{
+   document.write(AdFox_object_234997112);
+}

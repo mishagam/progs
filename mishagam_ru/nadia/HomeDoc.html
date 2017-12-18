@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Fish Home Page</title>
+<script language="Javascript">
+function onOver() {
+	var butImage = document.getElementById("my_button_image");
+	// alert("over, butIOmage = " + butImage);
+	butImage.src="jelleOver.jpg";
+}
+function onOut() {
+	var butImage = document.getElementById("my_button_image");
+	// alert("over, butIOmage = " + butImage);
+	butImage.src="jelleUp.jpg";
+}
+function onDown() {
+	butImage = document.getElementById("my_button_image");
+	butImage.src="jelleDown.jpg";
+}
+</script>
+</head>
+<body>
+<img src="NadezhdaMasich_logotype.jpg" alt="Piano Fishes Chirch">
+<br/> <br/>
+<div style="float:left"><a onmouseover="onOver()" 
+onmouseout="onOut()" onmousedown="onDown()"
+><img id="my_button_image" 
+src="jelleUp.jpg"></a>
+</div>
+<h1>&nbsp; &nbsp; My Home Page </h1>
+</body>
+<html>

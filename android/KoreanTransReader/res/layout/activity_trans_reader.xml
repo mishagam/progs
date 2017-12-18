@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TransReaderActivity" >
+    
+    <TextView
+        android:id="@+id/transText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/word_trans"
+        android:textAppearance="@style/TransAppearance"
+        android:textColor="@color/mytranscol"
+        android:background="@+color/mytransback" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <EditText
+            android:id="@+id/readerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:textIsSelectable="true"
+            android:ellipsize="none"
+            android:scrollHorizontally="false"
+            android:textColor="@color/mytext"
+            android:background="@+color/mytextback" >
+        </EditText>
+    </ScrollView>
+
+</LinearLayout>

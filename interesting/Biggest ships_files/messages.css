@@ -1,0 +1,210 @@
+
+.messages_box .api_box_container {
+  margin:0; background:#fff;
+}
+
+.messages_box  .api_box_table_td {
+  padding:0;
+}
+
+.opened_dialog_container {
+  width:800px;
+  text-align:left;
+}
+
+.opened_dialog_messages {
+  background:#f4f4f4;
+  height:300px;
+  margin:20px 0 10px 0;
+  overflow-y:scroll;
+  color:#000;
+  overflow-x:hidden;
+}
+
+.opened_dialog_loadmore {
+  text-align:center;
+}
+
+.opened_dialog_messages_c {
+  padding:25px 0 0 0;
+}
+
+.opened_dialog_textarea {
+  background:#ebebeb;
+  height:170px;
+  padding:10px 20px;
+  margin-bottom:10px;
+}
+
+.dialog_message {
+  padding:0 10px 25px 25px;
+}
+
+.dialog_message_author_img {
+  display:block;
+  width:50px;
+  height:50px;
+  font-size:0px;
+  float:left;
+}
+
+.dialog_message_author_img img{
+  display:block;
+}
+
+.dialog_message_author_title {
+  display:block;
+  float:left;
+  color:#3c3c3c;
+  text-decoration:none;
+  padding:13px 0 0 10px;
+}
+
+.dialog_message_author_title span.rank {
+  color:#51c1d7;
+  font-size:11px;
+  font-family:Arial, Tahoma, sans-serif;
+  display:inline-block;
+  height:14px;
+  line-height:14px;
+  padding:0 0 3px 0;
+}
+
+.dialog_message_author_title span.name{
+  font-size:18px;
+  display:inline-block;
+  line-height:20px;
+  height:20px;
+  color:#3c3c3c;
+  font-family: 'PFD', Arial, Tahoma, sans-serif;
+}
+
+.dialog_message_author_time {
+  float:left;
+  margin-top:35px;
+  padding:2px 0 5px 45px;
+  font-family:Arial, Tahoma, sans-serif;
+  font-size:11px;
+  color:#3c3c3c;
+  background:url(images/icons/messages_clock.png) no-repeat 22px 0px;
+}
+
+@media all and (-webkit-min-device-pixel-ratio:0) {
+	.dialog_message_author_time {
+		margin-top:32px;
+		padding-top:1px;
+	}
+}
+
+doesnotexist:-o-prefocus, .dialog_message_author_time {
+	margin-top:32px;
+}
+
+.dialog_message_text_c {
+  
+}
+
+.dialog_message_text {
+  padding:13px 0 0 16px;
+  line-height:1.3;
+  font-family:Arial, Tahoma, sans-serif;
+  font-size:14px;
+  color:#737373;
+  font-style:italic;
+  float:left;
+  width:720px;
+}
+
+.dialog_message_text a {
+  color:#51c1d7;
+}
+
+.dialog_message_text_c div.arrow {
+  float:left;
+  margin-top:15px;
+  width:12px;
+  height:16px;
+  font-size:0px;
+  overflow:hidden;
+  background:url(images/icons/messages_arrows.png) no-repeat 0px 0px;
+}
+
+.dialog_message_in .dialog_message_text_c div.arrow.unreaded {
+  background-position:0px -32px;
+}
+
+.dialog_message_in .dialog_message_text_c div.arrow.readed {
+  background-position:0px -48px;
+}
+
+.dialog_message_out .dialog_message_text_c div.arrow.readed {
+  background-position:0px -16px;
+}
+
+.dialog_message_out .dialog_message_text_c div.arrow.unreaded {
+  background-position:0px 0px;
+}
+
+.opened_dialog_textarea_title {
+  font-size:24px;
+  color:#3c3c3c;
+  padding:0 0 10px 0;
+  font-family: 'PFD', Arial, Tahoma, sans-serif;
+}
+
+.opened_dialog_textarea_button {
+  position:relative;
+  height:2px;
+}
+
+.opened_dialog_textarea_button a {
+  top:2px;
+  right:0;
+  position:absolute;
+  border:5px solid #ebebeb;
+}
+
+/* Список диалогов */
+
+.dialog_message_list {
+  padding:15px 10px 15px 25px;
+}
+
+.dialog_message_list .dialog_message_text_c {
+  cursor:pointer;
+}
+
+.dialog_message_list .dialog_message_text {
+  color:#51c1d7;
+  text-decoration:underline;
+}
+
+.dialog_message_list.unreaded {
+  background:#def0f4;
+}
+
+.dialog_message_all_list {
+  padding:0 0 20px 0;
+}
+
+.dialog_message_delete_link_wrap{
+	float: right;
+	padding: 38px 0 0 0;
+	font-size: 10px;
+}
+
+.dialog_message_deleted{
+	text-align: center;
+	font-style: italic;
+	color: #b3b3b3;
+}
+
+.opened_dialog_delete_all_wrap{
+	text-align: right;
+	padding: 5px 10px 10px 0;
+}
+
+.dialog_message_delete_all{
+	float: right;
+	padding: 0 5px 5px 0;
+}

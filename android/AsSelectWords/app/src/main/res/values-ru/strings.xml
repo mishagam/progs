@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ВыборКорейскихСлов</string>
+    <string name="hello_world">Привет!</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="reset_str">Вернуться к исходным весам</string>
+    <string name="dict_file_name">dict_words.txt</string>
+    <string name="dict_res_ids">dict,dict_l1,dict_l3,dict_l4,colors,dict_l4_b,dict_l5,dict_l5b,dict_week,dict_l6,dict_l6b,dict_l7,body,dict_l7b,dict_l8,dict_l8b,irreg_verbs,pig_story,dict_l9,dict_l10,dict_l10b,dict_l11,dict_l11b,verbs1,dict_l12,dict_l12b,dict_l13,dict_l14,dict_l15,prod_1,prod_1b,prod_2,prod_2b,prod_2c,prod_3a,prod_3b</string>
+    <string name="show_weights">Показать веса</string>
+    <string name="show_weights_table">Показать веса в таблице</string>
+    <string name="show_active_weights">Показать веса активных слов</string>
+    <string name="title_activity_show_weights">Веса Слов</string>
+    <string name="action_settings">Настройки</string>
+    <string name="word_select_actions">Выбирай Слова</string>
+    <string name="select_dictionary">Выбрать словарь</string>
+    <string name="reset_preferences">Вернуться к исходным настройкам</string>
+    <string name="russian_to_korean">Русский на Корейский</string>
+    <string name="korean_to_russian">Корейский на Русский</string>
+    <string name="russian_to_korean_chars">Русский на Корейский по слогам</string>
+    <string name="training_type">Тип тренировки</string>
+    <string name="title_activity_word_weights_table">Таблица Весов Слов</string>
+    <string name="korean">Корейский</string>
+    <string name="russian">Русский</string>
+    <string name="english">Английский</string>
+    <string name="perc_error">процОшибок</string>
+    <string name="n_correct">числоПрав</string>
+    <string name="delay">задержка</string>
+    <string name="difficulty">трудность</string>
+    <string name="active">активное</string>
+    <string name="title_activity_words_settings">Настройки Выбора Корейских Слов</string>
+    <string name="other_language">Другой язык</string>
+    <string name="play_korean_words">Играть корейские слова</string>
+    
+</resources>

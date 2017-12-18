@@ -1,0 +1,136 @@
+.calendar {
+  font-family:Arial, Tahoma, sans-serif;
+  font-size:12px;
+  width:260px;
+}
+
+.calendar_nav {
+  background:#51c1d7;
+}
+
+.calendar_nav_left {
+  background: url(images/main/calendar_left.png) no-repeat 10px 0px;
+  cursor: pointer;
+  display: block;
+  float: left;
+  height: 37px;
+  width: 50px;
+  font-size:0px;
+}
+
+.calendar_nav_left:hover {
+  background-position:10px -37px;
+}
+
+.calendar_nav_right {
+  background: url(images/main/calendar_right.png) no-repeat 30px 0px;
+  cursor: pointer;
+  display: block;
+  float: left;
+  height: 37px;
+  width: 50px;
+  font-size:0px;
+}
+
+.calendar_nav_right:hover {
+  background-position:30px -37px;
+}
+
+.calendar_month {
+  text-align:center;
+  color:#fff;
+  float:left;
+  width:158px;
+  padding:11px 0 0 0;
+}
+
+.calendar_days_week {
+  width:100%;
+}
+
+.calendar_days_week td {
+  padding:7px 0;
+  text-align:center;
+  background:#fff;
+  color:#909090;
+  font-size:11px;
+  border-bottom:1px solid #d1d1d1;
+}
+
+
+.calendar_days td {
+  width:37px;
+  text-align:center;
+  border-bottom:0px solid #fff;
+  border-right:0px solid #fff;
+  color:#fff;
+  font-size:12px;
+  padding:0;
+  border-bottom:1px solid #d1d1d1;
+  border-top:1px solid #fff;
+}
+
+.calendar_days td a {
+  display:block;
+  padding:7px 0;
+  color:#454545;
+  text-decoration:underline;
+  background:#e4e4e4;
+  border-right:1px solid #d1d1d1;
+  border-left:1px solid #f8f8f8;
+}
+
+.calendar_days td a.weekend {
+  background:#e9e9e9;
+}
+
+.calendar_days td:last-child a {
+  border-right:0;
+}
+
+.calendar_days td:last-child {
+  width:38px;
+}
+
+.calendar_days td:first-child a {
+  border-left:0;
+}
+
+.calendar_days tr:last-child td {
+  border-bottom:0;
+}
+
+.calendar_days td a:hover.yes_link {
+  background:#e04a32;
+  color:#fff;
+}
+
+.calendar_days td a.no_link {
+  cursor:default;
+  text-decoration:none;
+}
+
+.calendar_days td.no a:hover {
+  background:#f1f1f1;
+}
+
+.calendar_days td a.now_date_link {
+  background:#e04a32;
+  color:#fff;
+}
+
+.calendar_days td a.sel {
+  background:#2e76a3;
+}
+
+.calendar_days td.no a {
+  color:#9b9b9b;
+  text-decoration:none;
+  background:#f1f1f1;
+}
+
+/*
+.calendar_days td a:hover.no_link {
+  background:transparent !important;
+}
+*/

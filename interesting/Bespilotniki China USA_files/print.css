@@ -1,0 +1,20 @@
+.banner,
+#header,
+#menu,
+#footer,
+#copyright,
+aside,
+.article-image-social,
+.article-social,
+.article-tags,
+.page-options {
+    display: none;
+}
+
+#page section {
+    width: 100%;
+}
+
+.page-content article .article-image-frame img {
+    margin-top: 20px;
+}

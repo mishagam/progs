@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:paddingTop="200px"
+  android:paddingLeft="150px"
+  >
+
+<Button android:id="@+id/play_game_btn" 
+       android:text="Play Game" 
+       android:padding="22px"
+       android:layout_height="wrap_content" 
+       android:layout_width="fill_parent">
+       </Button>
+
+<Button android:id="@+id/options_btn" 
+       android:text="Game Options" 
+       android:padding="22px"
+       android:layout_height="wrap_content" 
+       android:layout_width="fill_parent">
+       </Button>
+
+<Button android:id="@+id/menu_stats_btn" 
+       android:text="Statistics" 
+       android:padding="22px"
+       android:layout_height="wrap_content" 
+       android:layout_width="fill_parent">
+       </Button>
+
+<Button android:id="@+id/about_btn" 
+       android:text="About MisRendzu" 
+       android:padding="22px"
+       android:layout_height="wrap_content" 
+       android:layout_width="fill_parent">
+       </Button>
+
+<Button android:id="@+id/exit_btn" 
+       android:text="Exit" 
+       android:padding="22px"
+       android:layout_height="wrap_content" 
+       android:layout_width="fill_parent">
+       </Button>
+  
+</LinearLayout>

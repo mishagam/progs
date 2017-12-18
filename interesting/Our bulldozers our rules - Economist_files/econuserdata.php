@@ -1,0 +1,1 @@
+var Economist = Economist || {}; Economist.userData = {"status":true,"data":{"uid":"7501932","username":"guest-sijanem","email":"mishagam1@mail.ru","token":"298b53b656ad0ab571ebd7ece23002e0","truncated_username":"guest-sij&hellip;","truncated_email":"mishagam1@mail.ru","share_preference":null,"user_destination":null,"status":"registered","wsub":"n","subs":"n","commenter":true}};

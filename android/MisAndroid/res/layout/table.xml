@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout android:id="@+id/TableLayout01"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<Button android:text="@+id/Button01" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:id="@+id/button">
+	</Button>
+
+	<Chronometer android:text="@+id/Chronometer01" android:id="@+id/Chronometer01"
+		android:layout_width="wrap_content" android:layout_height="wrap_content">
+	</Chronometer>
+	<DigitalClock android:text="@+id/DigitalClock01"
+		android:id="@+id/DigitalClock01" android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+	</DigitalClock>
+	<EditText android:text="@+id/EditText01" android:id="@+id/EditText01"
+		android:layout_width="wrap_content" android:layout_height="wrap_content">
+	</EditText>
+
+
+	<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<RadioButton android:id="@+id/RadioButton01"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:text="BUt1" android:padding="1px"
+			android:soundEffectsEnabled="false" android:maxWidth="150px"
+			android:minWidth="100px"></RadioButton>
+
+		<RadioButton android:id="@+id/RadioButton03"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:padding="1px" android:text="Rad3"></RadioButton>
+		<CheckBox android:id="@+id/CheckBox01" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="CheckBox"></CheckBox>
+	</TableRow>
+
+	<TableRow android:id="@+id/TableRow02" android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<Button android:text="@+id/Button01" android:id="@+id/Button01"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+		<Button android:text="@+id/Button02" android:id="@+id/Button02"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+		<Button android:text="@+id/Button03" android:id="@+id/Button03"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+	</TableRow>
+</TableLayout>

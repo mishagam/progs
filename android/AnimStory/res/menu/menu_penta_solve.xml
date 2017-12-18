@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/menu_solve" 
+        android:title="@string/solve_pentamino" 
+        android:showAsAction="always"></item>
+    <item android:id="@+id/menu_edit" 
+        android:title="@string/edit" 
+        android:showAsAction="always"></item>
+    
+</menu>

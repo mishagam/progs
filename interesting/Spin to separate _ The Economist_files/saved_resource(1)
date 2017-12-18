@@ -1,0 +1,10 @@
+mmcore.SetCookie('mmid','-1742619840|TAAAAAoM/oDjNQwAAA==',365,1);mmcore.SetCookie('pd','1642350598|XwAAAAoBQgz+gOM1DB5GN+YEACW4eFcim9JIDwAAAM6AoJtDk9JIAAAAAJMAAAD/////AA13d3cuZ29vZ2xlLnJ1BD8MAQADAAAAAAAAAAA13AAAvnkAAHF3AAAGAGtKAAAAX+XrcDUMAP////8BNQw/DP//FwAAAQAAAAABTuQAAJclAQAAJksAAADjBkdYPwwAqowAAAU/DD8M//8BAAABAAAAAAGg5QAAgCcBAACdPgAAAHzY70k1DAD/////ATUMPwz//wUAAAEAAAAAAcDGAABOAAEAAhZ4AAABAAAAsG4AAAwAAADyRgAAAPqci901DAD/////ATUMPwz//wYAAAEAAAAAAX/bAADfGgEAA5rbAAAGAAAANdwAAAwAAACZ2wAAAgAAABBLAAAAaY9oWTYMAP////8BNgw2DP//AQAAAQAAAAABZ+UAAD4nAQABsG4AAAgAAACCIAAAAF61g28/DAD/////ATUMPwz//xgAAAGulyeMAcB2AADxmwAAA7BuAAAEAAAAvnkAAAQAAABxdwAAAgAAAAAAAAFF',365);mmcore.SetCookie('srv','ldnvwcgeu10',365);(function(){if(typeof(mmcore.GenInfo)!='object')mmcore.GenInfo={};mmcore.EH=function(e){var s=e.message+'\r\n';if(!window.mm_error)window.mm_error=s;else window.mm_error+=s;};
+mmcore.GenInfo['T5MonitoringCam']={'element1':'Default'};
+var tc={'Element1':{'h':[],'c':[],'l':[]}}
+try{
+// Maxymiser Core - Attach Style v0.0.0 http://gitlab.maxymiser.net/gts/mmcore-attach-style/tree/master
+(function(){'use strict';mmcore.AttachStyle=function(){var c={STYLE_ID:"mm-style",createStyle:function(){var b=document.createElement("style");b.type="text/css";return b},appendCssToStyle:function(){var b,a;"styleSheet"in c.createStyle()?(b=function(a){return a.styleSheet.cssText},a=function(a,b){a.styleSheet.cssText=b}):(b=function(a){return a.innerHTML},a=function(a,b){a.innerHTML=b});return(c.appendCssToStyle=function(c,d){a(d,b(d)+c)}).apply(this,arguments)}};return function(b){var a=document.getElementById(c.STYLE_ID);a||(a=c.createStyle(),a.id=c.STYLE_ID,function(){this.parentNode.insertBefore(a,this)}.call(document.getElementsByTagName("head")[0].lastChild));c.appendCssToStyle(b,a)}}()})();
+}catch(err){mmcore.EH(err);}
+mmcore._RenderOnLoad();if(typeof mmcore._callback=='object'&&typeof mmcore._callback[2]=='function'){try{mmcore._callback[2]();}catch(err){mmcore.EH(err);}
+finally{mmcore._callback[2]=null;}}
+})();

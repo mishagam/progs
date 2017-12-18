@@ -1,0 +1,295 @@
+/* Enter Your Custom CSS Here */
+.avatar-default, .avatar-80{
+  display: none;
+}
+
+#bbpress-forums li div.bbp-reply-author {
+  font-size: large;
+  font-style: italic;
+  word-break: break-word;
+}
+
+#bbpress-forums ul.bbp-replies{
+  border: none;
+}
+
+.bbp-template-notice, div#qt_bbp_reply_content_toolbar {
+  display: none;
+}
+
+#bbpress-forums fieldset.bbp-form {
+  border-color: black;
+}
+
+#bbpress-forums fieldset.bbp-form fieldset.bbp-form{
+  border-color: white;
+}
+
+#bbpress-forums div.bbp-reply-content {
+  font-size: 1.2em;
+}
+
+#bbp_reply_submit {
+  background-color: gray;
+}
+
+#bbpress-forums div.bbp-reply-header {
+  background-color: transparent;
+}
+
+span.bbp-reply-author {
+  font-weight: bold;
+}
+
+#reply-arrow {
+  padding-bottom: 5px;
+}
+
+div.bbp-reply-header {
+  border-top: none !important;
+}
+
+.bbp-attachments {
+  border-top: none !important;
+}
+
+.sf_search .sf_input {
+  height: initial !important;
+  font-size: large;
+}
+.sf_search span.sf_block {
+  display: initial !important;
+}
+.scu-clear-1 .scu-clear, .scu-title-layout5.scu-title-layout5-1.scu-1.scu-layout5.scu-jq, .scu-clear.scu-clear-5.scu-5.scu-layout4, .scu-title-layout4.scu-jq, .scu-clear.scu-clear-9.scu-9.scu-layout3, .scu-title-layout3.scu-jq {
+  text-align: left;
+}
+.scu-clear.scu-clear-2.scu-2.scu-layout4{
+  padding-bottom: 0 !important;
+}
+
+.scu-layout4.scu-img, .scu-layout5.scu-img {
+  margin-right:.5em !important;
+}
+
+#readmore-wrapper {
+  text-align: center;
+  margin-top:0.6em !important;
+
+}
+.scu-excerpt-layout4 .scu-readmore, .scu-excerpt-layout5 .scu-readmore{ 
+  	font-style: initial !important;
+  	background-color: #4d96c6 !important;
+    font-weight: normal !important;
+	text-align: center !important;
+	display: inline !important;
+    /* font-size: 105% !important; */
+  	padding: 5px;
+  	color: white !important;
+}
+
+
+.scu-excerpt-layout4 .scu-readmore:hover, .scu-excerpt-layout5 .scu-readmore:hover,
+.scu-excerpt-layout3 .scu-readmore:hover, .scu-excerpt-layout2 .scu-readmore:hover{ 
+  background-color: #0099FF !important;
+  border-color: #0099FF !important;
+}
+
+.scu-excerpt-layout3 .scu-readmore, .scu-excerpt-layout2 .scu-readmore{ 
+  	font-style: initial !important;
+  	background-color: #4d96c6 !important;
+    font-weight: normal !important;
+	text-align: center !important;
+	display: block !important;
+    /* font-size: 105% !important; */
+  	color: white !important;
+  	padding: 5px;
+}
+
+.scu-excerpt-layout2 {
+  font-style: initial !important;
+  font-size: 105% !important;
+}
+.scu-excerpt-layout4 .scu-readmore, .scu-excerpt-layout5 .scu-readmore {
+  margin-top:1em !important;
+  border: 2px solid;
+  border-radius: 10px; 
+  border-color: #4d96c6;
+}
+
+.scu-excerpt-layout5 .scu-readmore {
+  margin-top: 2em !important;
+}
+
+.table .entry-header .entry-meta {
+  display: none !important;
+}
+
+.single-table .fb_ltr{
+   display: none !important; 
+}
+
+.single-table #menu-item-2909 {
+  background: #4d96c6;
+}
+
+/* a.scu-jq {
+  display: inline !important;
+}
+*/
+
+.number-posts, .number-posts:hover{
+  display: inline !important;
+  color: #009900 !important;
+  margin: 4px 0 0 0 !important;
+  padding: 0 !important;
+  font-size: 70% !important;
+}
+
+a.scu-jq{
+  font-size: 120% !important;
+}
+
+#dinner-picture{
+  max-width:60% !important;
+}
+
+.page-id-1565 .logo h1, .single-table .logo h1{
+  margin-bottom: 1em !important;
+  color: #ffaa39 !important;
+}
+.page-id-1565  .entry-header h1 {
+  display: none !important;
+}
+.page-id-1565  h1 a[title="Wait But Why"], .single-table h1 a[title="Wait But Why"] {
+  display: none !important;
+}
+
+#dinner-picture-post{
+  max-width: 25% !important;
+  margin-left: 1em !important;
+  margin-top: -10em !important;
+  float:right !important;
+}
+
+#table-header h1{
+  display: inline !important;
+  line-height: initial !important;
+}
+
+.scu-layout5 img.scu-img, .scu-layout4 img.scu-img{
+border: 1px solid black;
+}
+
+.single-table .entry-content img {
+  margin: 0 auto !important;
+}
+
+.page-id-1565 #mc-embedded-subscribe {
+  margin-left: 1em !important;
+}
+
+#dsq-comments{
+  display: none !important;
+}
+
+.new-table-wrapper {
+  display: relative;
+}
+
+.new-ribbon {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index: 105;
+  height: 200px;
+  width: 200px;
+}
+
+.mobile-new-ribbon {
+	position:absolute;
+  	top:0;
+  	left: 50% !important;
+  	margin-left: -100px !important;
+	height: 200px !important;
+  	width: 200px !important;
+  	z-index:105;
+}
+.scu-vpostspace1.scu-2.scu-layout4 {
+  margin-top: -1em !important;
+}
+
+.scu-layout4 a.scu-jq {
+  display: block !important;
+}
+
+#mobile-table-layout{
+  display: none !important;
+}
+
+.desktop-layout-5 .scu-elementspace{
+  display: none !important;
+}
+
+@media (min-width : 320px) 
+and (max-width : 480px) {
+  	#desktop-table-layout{
+    	display: none !important;
+  	}
+	#mobile-table-layout {
+    	display: block !important;
+  		margin-bottom: 200px !important;
+  		margin-top: 30px !important;
+  	}
+
+	.scu-layout3 .scu-overimage{
+  		margin-top: 210px !important;
+	}
+	.scu-layout2 .scu-overimage{
+  		margin-top: 160px !important;
+	}
+
+	.scu-layout3.scu-vpostspace1 .scu-clear {
+  		margin-top:0px !important;
+	}
+	.scu-layout2.scu-vpostspace1 .scu-clear {
+  		margin-top: 0 !important;
+	}
+
+	.mobile-layout-2 img.scu-img, .mobile-layout-3 img.scu-img{
+  		opacity: 1 !important;
+		border: black solid 1px !important;
+	}
+
+	.new-table-wrapper img.scu-img {
+  		display: block !important;
+  		margin: 0 auto !important;
+	}
+
+	.scu-title-layout3, .scu-title-layout2 {
+  		vertical-align: initial !important;
+	}
+
+	.mobile-layout-2 .scu-layout2 img.scu-layout2.scu-jq {
+  		display: block !important;
+  		margin: 0 auto !important;
+	}
+
+	/*#sidebar {
+  		margin-top: -100px !important;
+	}*/
+
+	#dinner-picture {
+		max-width: 100% !important;
+	}
+
+	.scu-excerpt-layout3, .scu-excerpt-layout2,
+	.scu-title-layout3, .scu-title-layout2{
+  		font-family: inherit !important;
+	}
+
+	.type-table p img, .type-table li img {
+  		height: 100px !important;
+  		width: 100px !important;
+  		border: 1px solid black !important;
+}
+

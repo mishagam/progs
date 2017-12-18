@@ -1,0 +1,58 @@
+hg push https://mishagam@bitbucket.org/mishagam/misalfresco
+   // push myalfresco to bitbucket, password Wf1
+   
+scp Makefile misha@192.168.3.222:Makefile
+   //  copying Makefile to Centos6 comp, asks for password.
+
+scp misha@192.168.3.222:./resarchive.tar.gz .
+   //  copy from Centos6 to my computer
+
+svn co svn://sharaban.rrcki.ru/fracs/trunk/trunk .     // works to checkout FRACS svn (assumes user misha)
+
+// to restart network in Linux
+# /etc/init.d/networking restart    (from Root)
+//   OR
+$ sudo /etc/init.d/networking restart (doesn't work on home Mint)
+
+// push hg repository changes to bitbucket (asks bitbucket password [Wf1])
+hg push https://mishagam@bitbucket.org/mishagam/progs
+
+// add 192.168.3.53 ip address
+$ sudo /sbin/ifconfig eth0:0 192.168.3.53
+
+// add networking to ascur centos
+// need to edit file /etc/sysconfig/network-scripts/ifcfg-eth0 
+// make
+BOOTPROTO=dhcp   (it was none)
+# IPADDR 10.1.3.31
+# NETMASK 255.255.255.0
+
+// acept push from other computer on hg serve
+// add to ~/.hgrc
+[web]
+allow_push=*
+push_ssl=false
+
+// work hg ci -A - add to .hgrc
+[ui]
+username = Misha Gambarian Mint9 <mishagam@yahoo.com>
+
+# connect with show windows on client
+ssh -X svrk@OCUD-Fracs2
+
+#connect with name svrk to OCUD-Fracs2
+# first add lines to .ssh/config
+Host OCUD-Fracs2
+HostName OCUD-Fracs2
+User svrk
+#then issue ssh command
+ssh OCUD-Fracs2
+
+# connect using ssh without password
+# look here: http://www.linuxproblem.org/art_9.html
+ssh-keygen -t rsa   # plus several enter
+cat .ssh/id_rsa.pub | ssh svrk@OCUD-Fracs2 'cat >> .ssh/authorized_keys'
+# mb Change the permissions of .ssh to 700, .ssh/authorized_keys2 to 640
+
+
+

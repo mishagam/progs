@@ -1,0 +1,59 @@
+{
+
+var google_ads = new Array();
+var google_ad;
+var google_radlinks = new Array();
+var google_radlink;
+var google_info = new Object();
+google_ad = {}; 
+google_ad.n = 1; 
+google_ad.type = "text"; 
+google_ad.bidtype = "CPC"; 
+google_ad.targeting_type = "contextual"; 
+google_ad.url = "http://www.googleadservices.com/pagead/aclk?sa=L&amp;ai=C0cEU2ajkVITyBKfByAOXzoH4DeGxkZ0G0eCR0bsBnf-cqCsQASDnhfQSKANghJXshdwdoAG70MLoA8gBAakCgOOV4UTfuT6oAwGqBJYBT9AkFb3Mc0SOrM-yxts8buOtll6GZkZ5V9z9POEjNdIYqyGioY26Fo5OJ5VqnRS_cDOYZIwP7NQvXzrVTgjm7-gMmS2JoQQRRJhOy7PjGTKaY4gt3PxU0ig_WBdJrYcdGUk_vYYgmZOjnyWsbYbmedXUDlNs5ntmeITCpaAE9tKPyxpPko54no58zdNRmJg9KLVb-hSXiAYBgAetr70X2AcB&amp;num=1&amp;cid=5GiQP2ZYJG8tbnWGilaFP0nw&amp;sig=AOD64_39PPghkMrrKmEtfJeOTWtpb-_ysw&amp;client=ca-bbccom&amp;adurl=http://expatpensionreview.com/bbc-pension-review-01/%3Futm_source%3Dgoogle%26utm_medium%3Dtext%26utm_term%3Dkwbbc%26utm_content%3DNov14ad1%26utm_name%3DRussia%26bc_keys%3Dqrops%23inner"; 
+google_ad.visible_url = "your.expatpensionreview.com"; 
+google_ad.log_info = "BmeJ52ajkVITyBKfByAOXzoH4DQDR4JHRuwEAABABOAHIAQHCEwMQgAE";
+google_ad.activeview_js_immediate_enabled = "true";
+google_ad.line1 = "British Expat In Russia?"; 
+google_ad.line2 = "Avoid Needless Tax On \x26#163;70k+ Pension"; 
+google_ad.line3 = "Try a Free Expat Pension Review Now"; 
+google_ad.regionname = ""; 
+google_ads[0] = google_ad; 
+google_ad = {}; 
+google_ad.n = 2; 
+google_ad.type = "text"; 
+google_ad.bidtype = "CPC"; 
+google_ad.targeting_type = "contextual"; 
+google_ad.url = "http://www.googleadservices.com/pagead/aclk?sa=L&amp;ai=C8DvF2ajkVITyBKfByAOXzoH4DeSlgpgG_Ny76-QBwI23ARACIOeF9BIoA2CEleyF3B2gAdD1wfcDyAEBqQLCH4W4YBOzPqgDAaoElgFP0DRSt8xwRI6sz7LG2zxu462WXoZmRnlX3P084SM10hirIaKhjboWjk4nlWqdFL9wM5hkjA_s1C9fOtVOCObv6AyZLYmhBBFEmE7Ls-MZMppjiC3c_FTSKD9YF0mthx0ZST-9hiDc1aSrJaxthuZ51dQOU2zme2Z4hMKloAT20o_LGk-SjniejnzN01GYmD0otSymVYiIBgGAB5iKvgjYBwE&amp;num=2&amp;cid=5GiQP2ZYJG8tbnWGilaFP0nw&amp;sig=AOD64_0f3ovFyYBEf40O7OoNsM_p88ghFg&amp;client=ca-bbccom&amp;adurl=https://www.busuu.com/ru/%3Fb_source%3Dadwords%26b_campaign%3Dx_ru%26b_group%3Dcom%26b_subnetwork%3DCN%26b_term%3Dlivemocha%26b_placement%3Dwww.bbc.com%26utm_nooverride%3D1"; 
+google_ad.visible_url = "www.busuu.com"; 
+google_ad.log_info = "BmeJ52ajkVITyBKfByAOXzoH4DQDR4JHRuwEAABABOAHIAQHCEwMQgAE";
+google_ad.activeview_js_immediate_enabled = "true";
+google_ad.line1 = "\x26#1048;\x26#1079;\x26#1091;\x26#1095;\x26#1072;\x26#1081;\x26#1090;\x26#1077; \x26#1071;\x26#1079;\x26#1099;\x26#1082; \x26#1041;\x26#1077;\x26#1089;\x26#1087;\x26#1083;\x26#1072;\x26#1090;\x26#1085;\x26#1086;"; 
+google_ad.line2 = "\x26#1059;\x26#1095;\x26#1080;\x26#1090;\x26#1077; \x26#1086;\x26#1076;\x26#1080;\x26#1085; \x26#1080;\x26#1079; 12 \x26#1080;\x26#1085;\x26#1086;\x26#1089;\x26#1090;\x26#1088;\x26#1072;\x26#1085;\x26#1085;\x26#1099;\x26#1093; \x26#1103;\x26#1079;\x26#1099;\x26#1082;\x26#1086;\x26#1074;"; 
+google_ad.line3 = "\x26#1086;\x26#1085;\x26#1083;\x26#1072;\x26#1081;\x26#1085; \x26#1080; \x26#1089;\x26#1086;\x26#1074;\x26#1077;\x26#1088;\x26#1096;\x26#1077;\x26#1085;\x26#1085;\x26#1086; \x26#1073;\x26#1077;\x26#1089;\x26#1087;\x26#1083;\x26#1072;\x26#1090;\x26#1085;\x26#1086;!"; 
+google_ad.regionname = ""; 
+google_ads[1] = google_ad; 
+google_ad = {}; 
+google_ad.n = 3; 
+google_ad.type = "text"; 
+google_ad.bidtype = "CPC"; 
+google_ad.targeting_type = "contextual"; 
+google_ad.url = "http://www.googleadservices.com/pagead/aclk?sa=L&amp;ai=Ch3Hy2ajkVITyBKfByAOXzoH4Dfzx-_IF7N6ZsrcBnf-cqCsQAyDnhfQSKANghJXshdwdoAHQ6P30A8gBAakCgOOV4UTfuT6oAwGqBJMBT9BkO6TMcUSOrM-yxts8buOtll6GZkZ5V9z9POEjNdIYqyGioY26Fo5OJ5VqnRS_cDOYZIwP7NQvXzrVTgjm7-gMmS2JoQQRRJhOy7PjGTKaY4gt3PxU0ig_WBdJrYcdGQE_GJTRLZVJO8hH2VAEjwXc-1AqE3gCj4fiUqMEA9GPPhlPZ4t4a4t8ONBQeJ7wcy2GiAYBgAeYl4IL2AcB&amp;num=3&amp;cid=5GiQP2ZYJG8tbnWGilaFP0nw&amp;sig=AOD64_23HnS0rjGiXUs6FeH_AIsnIDyHKQ&amp;client=ca-bbccom&amp;adurl=http://expatsavingsreview.com/lp2-bbc/%3Futm_source%3Dgoogle%26utm_medium%3Dtext%26utm_campaign%3Dkwrow%26utm_term%3Dkwbbc%26utm_content%3Dsep14ad2"; 
+google_ad.visible_url = "expatsavingsreview.com"; 
+google_ad.log_info = "BmeJ52ajkVITyBKfByAOXzoH4DQDR4JHRuwEAABABOAHIAQHCEwMQgAE";
+google_ad.activeview_js_immediate_enabled = "true";
+google_ad.line1 = "Best Expat Interest Rates"; 
+google_ad.line2 = "\x26#163;50k-\x26#163;1m Or \x26#163;500+ Regular Savings?"; 
+google_ad.line3 = "Review Your Interest Rates Today!"; 
+google_ad.regionname = ""; 
+google_ads[2] = google_ad; 
+google_info.feedback_url = "https://www.google.com/url?ct\x3dabg\x26q\x3dhttp://www.bbc.co.uk/bbc.com/faq/ads_by_google.shtml\x26usg\x3dAFQjCNGQLzJUBzcGrnHtvrzROxupHcrkxg";
+var google_attribution_text = "AdChoices";
+var google_is_rtl = false;
+if (window.google_ad_request_done) {
+google_ad_request_done(google_ads);
+}
+if (window.google_radlink_request_done) {
+google_radlink_request_done(google_radlinks);
+}
+}

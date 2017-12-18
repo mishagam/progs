@@ -1,0 +1,10 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="myselect">#0060C060</color>
+    <color name="mytranscol">#FF202090</color>
+    <color name="mytransback">#FFD0F080</color>
+    <color name="mytext">#501010</color>
+    <color name="mytextback">#90C0C0</color>
+    
+</resources>

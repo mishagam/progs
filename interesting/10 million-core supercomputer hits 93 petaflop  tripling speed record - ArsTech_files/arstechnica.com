@@ -1,0 +1,1 @@
+PARSELY.pInit({"apikey":"arstechnica.com","settings":{"debug":false,"widget":false,"tracker":true},"customizations":null,"track_ip_addresses":true,"bundle":"/code/ptrack-engagedslots-v10.js","track_third_party_cookies":true,"uuid":"f75520aa-3c1c-44b0-80e1-edf7073d0b35","network_uuid":"81a3ab07-f21c-4301-987f-9e83c689ce90","apikey_uuid":"f75520aa-3c1c-44b0-80e1-edf7073d0b35"});

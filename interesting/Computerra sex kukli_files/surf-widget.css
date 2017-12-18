@@ -1,0 +1,222 @@
+html, body, div, span, a, i {
+    background: transparent;
+    border: 0;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: baseline;
+    }
+b {
+    font-style: normal;
+    font-weight: normal;
+    }
+a, a:hover {
+    text-decoration: none;
+    }
+/** widget */
+body {
+    background: transparent;
+    font: 11px Tahoma, sans-serif;
+    }
+.surf-widget {
+    line-height: 0.9;
+    position: relative;
+    }
+.surf-widget_type_vert {
+    text-align: center;
+    width: 47px;
+    }
+    .like-btn-container {
+        color: #fff;
+        cursor: pointer;
+        float: left;
+        margin-right: 7px;
+        line-height: 1.1;
+        overflow: hidden;
+        position: relative;
+        }
+    .surf-widget_type_vert .like-btn-container {
+        float: none;
+        margin-bottom: 6px;
+        margin-right: 0;
+        }
+        .like-btn {
+            background: #13b5fd;
+            border-radius: 2px;
+                -moz-border-radius: 2px;
+                -webkit-borde-radius: 2px;
+            color: #fff;
+            display: inline-block;
+            font-family: Tahoma, sans-serif;
+            line-height: 1.2;
+            overflow: hidden;
+            padding: 3px 6px 2px 4px;
+            position: relative;
+            white-space: nowrap;
+        }
+        .like-btn:hover,
+        .like-btn_type_vert:hover {
+            background: #12a1e0;
+            }
+        .like-btn_color_green {
+            background: #7fe500;
+            }
+        .like-btn_color_green:hover {
+            background: #86bb04;
+            }
+        .like-btn_color_gray {
+            background: #f2f3f5;
+            border: #ced5e3 solid 1px;
+            padding: 2px 5px 1px 3px;
+            }
+        .like-btn_color_gray:hover,
+        .like-btn_type_logo:hover {
+            background: #13b5fd;
+            border: #13b5fd solid 1px;
+            }
+        .like-btn_type_micro {
+            padding: 2px 2px 2px 1px;
+            }
+        .like-btn_type_vert,
+        .like-btn_type_vert.like-btn_color_green {
+            padding: 6px 3px;
+            }
+        .like-btn_type_vert.like-btn_color_gray,
+        .like-btn_type_vert.like-btn_type_logo {
+            padding: 5px 2px;
+            }
+        .like-btn_type_moto {
+            background: none;
+            border: none;
+            padding: 0;
+            }
+        .like-btn_type_mini {
+            padding: 5px 2px 5px 2px;
+            }
+        .like-btn_type_logo {
+            background: #f3f3f3;
+            border: #e6e4e4 solid 1px;
+            padding: 3px 2px 3px 1px;
+            }
+            .like-icon {
+                background: url(/img/share/share-icon-small.png?v=1) -19px 0 no-repeat transparent;
+                display: inline-block;
+                float: left;
+                height: 15px;
+                margin-right: 2px;
+                width: 17px;
+                }
+            .like-icon_type_mini {
+                background: url(/img/share/share-icon-medium.png?v=1) -46px 1px no-repeat transparent;
+                height: 19px;
+                width: 23px;
+                }
+            .like-icon_type_logo {
+                background: url(/img/share/share-icon-medium.png?v=1) 0 1px no-repeat transparent;
+                height: 21px;
+                width: 22px;
+                }
+            .like-icon_type_logogray {
+                background: url(/img/share/share-icon-medium.png?v=1) -23px 1px no-repeat transparent;
+                height: 21px;
+                width: 22px;
+                }
+            .like-btn:hover .like-icon_type_logogray,
+            .like-btn:hover .like-icon_type_logo {
+                background: url(/img/share/share-icon-medium.png?v=1) -46px 1px no-repeat transparent
+                }
+            .like-icon_type_micro {
+                margin-right: 0;
+                }
+            .like-icon_type_vert {
+                background: url(/img/share/vert-btn.png?v=1) -126px 0 no-repeat transparent;
+                height: 34px;
+                margin-right: 0;
+                width: 41px;
+                }
+            .like-icon_color_gray {
+                background: url(/img/share/vert-btn.png?v=1) -84px 0 no-repeat transparent;
+                }
+            .like-icon_type_vert.like-icon_type_logo {
+                background: url(/img/share/vert-btn.png?v=1) 0 0 no-repeat transparent;
+                }
+            .like-btn:hover .like-icon_color_gray {
+                background: url(/img/share/vert-btn.png?v=1) -83px 0 no-repeat transparent;
+                }
+            .like-icon_color_graysmall {
+                background: url(/img/share/share-icon-small.png?v=1) 0 0 no-repeat transparent;
+                }
+            .like-icon_color_all {
+                background: url(/img/share/share-icon-small.png?v=1) -36px 0 no-repeat transparent;
+                }
+            .like-btn:hover .like-icon_type_vert.like-icon_color_gray,
+            .like-btn:hover .like-icon_type_vert.like-icon_type_logo {
+                background: url(/img/share/vert-btn.png?v=1) -126px 0 no-repeat transparent;
+                }
+            .like-btn:hover .like-icon_color_graysmall,
+            .like-btn:hover .like-icon_color_all {
+                background: url(/img/share/share-icon-small.png?v=1) -19px 0 no-repeat transparent;
+                }
+            .like-text {
+                color: #fff;
+                display: inline-block;
+                max-width: 91px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                }
+            .like-text_color_gray {
+                color: #596e7e;
+                }
+            .like-btn:hover .like-text_color_gray {
+                color: #fff;
+                }
+    .like-count-container {
+        background: #fff;
+        border: 1px solid #ced5e2;
+        float: left;
+        margin-right: 4px;
+        padding: 5px 4px;
+        *padding: 2px 4px 3px 4px;
+        position: relative;
+        }
+    .like-count-container_type_mini {
+        margin-top: 4px;
+        }
+    .like-count-container_type_vert {
+        clear: left;
+        float: none;
+        margin-right: 0;
+        }
+        .stats-num {
+            color: #596e7e;
+            font: normal 11px Tahoma;
+            line-height: 0.7;
+            position: relative;
+            }
+        .arrow {
+            background: transparent url(/img/share-counter-bg.png?v=3) 0 -4px no-repeat;
+            display: block;
+            height: 8px;
+            left: -5px;
+            position: absolute;
+            top: 5px;
+            width: 5px;
+            }
+        .arrow_type_mini {
+            top: 5px;
+            }
+        .arrow_type_vert {
+            background-position: -4px 0;
+            left: 18px;
+            top: -5px;
+            width: 8px;
+            }
+    .user-text-container {
+        line-height: 24px;
+        overflow: hidden;
+        position: relative;
+        }
+        .user-text {
+            color: #596E7E;
+            }
+/** end widget */

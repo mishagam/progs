@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/TableLayout01" 
+android:paddingLeft="20px"
+android:paddingTop="20px"
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content" >
+
+<TableRow android:layout_width="wrap_content" 
+android:layout_height="wrap_content">
+<TextView android:text="First Move:" 
+android:textAppearance="@style/MisTextHeader2" 
+android:textSize="44px" android:layout_width="wrap_content" android:layout_height="wrap_content" 
+android:enabled="true" />
+</TableRow>
+
+<TableRow android:layout_width="wrap_content" 
+android:layout_height="wrap_content">
+<RadioGroup android:id="@+id/FirstRadioGroup"
+android:layout_width="wrap_content" android:layout_height="wrap_content"  android:paddingLeft="40px">
+
+<RadioButton android:id="@+id/HumanFirstRadio" android:text="Human" 
+		android:textAppearance="@style/MisTextAppearance"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content">
+</RadioButton>
+
+<RadioButton android:id="@+id/ComputerFirstRadio" android:text="Android" 
+		android:textAppearance="@style/MisTextAppearance"
+		android:layout_width="wrap_content" android:layout_height="wrap_content">
+</RadioButton>
+
+</RadioGroup>
+</TableRow>
+
+<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+<TextView android:text="Difficulty Level"  
+ android:textAppearance="@style/MisTextHeader2" 
+ android:layout_width="wrap_content" android:layout_height="wrap_content"  />
+</TableRow>
+
+<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+<RadioGroup android:id="@+id/DifficultyRadioGroup"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"  android:paddingLeft="40px">
+
+<RadioButton android:id="@+id/RadioEasy" 
+		android:text="Easy" 
+		android:textAppearance="@style/MisTextAppearance"
+		android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+<RadioButton android:id="@+id/RadioHard" 
+		android:text="Hard" 
+		android:textAppearance="@style/MisTextAppearance"
+		android:layout_width="wrap_content"  android:layout_height="wrap_content" />
+</RadioGroup>
+</TableRow>
+
+<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+<TextView android:text="Time Per Move"  
+ android:textAppearance="@style/MisTextHeader2" 
+ android:layout_width="wrap_content" android:layout_height="wrap_content"  />
+</TableRow>
+
+<TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
+<RadioGroup android:id="@+id/TimeRadioGroup"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"  android:paddingLeft="40px">
+
+<RadioButton android:id="@+id/Time5Sec" 
+		android:text="About 5 sec" 
+		android:textAppearance="@style/MisTextAppearance"
+		android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+<RadioButton android:id="@+id/Time30sec" 
+		android:text="About 30 sec" 
+		android:textAppearance="@style/MisTextAppearance"
+		android:layout_width="wrap_content"  android:layout_height="wrap_content" />
+</RadioGroup>
+</TableRow>
+
+</TableLayout>

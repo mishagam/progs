@@ -1,0 +1,10 @@
+compil_mode/btree.exe=native
+compil_mode/cod.exe=native
+compil_mode/deik.exe=native
+compil_mode/deikpri.exe=native
+compil_mode/expr.exe=native
+compil_mode/nsort.exe=native
+compil_mode/oma.exe=native
+compil_mode/pat.exe=native
+compil_mode/sexpr.exe=native
+eclipse.preferences.version=1

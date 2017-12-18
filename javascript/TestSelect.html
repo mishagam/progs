@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> Тест опросник с выбором фигурок </title>
+<link href="oprosStyle.css" rel="stylesheet" type="text/css" />
+<script language="JavScript" type="text/javascript">
+
+var totline = ''
+
+function myClick(e) {
+	el = document.getElementById(e);
+	placed = document.getElementById('placedImages');
+	if (el)
+	{
+		placed.appendChild(el);
+		el.onclick = '';
+		totline = totline + ' ' + el.id;
+	} else {
+		alert('cannot find element with id ' + e);
+	}	
+}
+</script>
+</head>
+<body>
+<h1>Тест опросник с выбором фигурок</h1>
+<h2> выбирите наиболее приятную вам фигурку щелкнув мышкой </h2>
+<div id=sourceImages  >
+<a id=a1 onclick="myClick('a1');"><img src="images/Buratino.gif" /> </a>
+<a id=a2 onclick="myClick('a2')"><img src="images/Cheburashka.gif" /> </a>
+<a id=a3 onclick="myClick('a3')"><img src="im trimages/KarabasBarabas.gif" /> </a>
+<a id=a4 onclick="myClick('a4')"><img src="images/Pomidor.gif" /> </a>
+<a id=a5 onclick="myClick('a5')"><img src="images/Chipolino.gif" /> </a>
+</div>
+<p>Внизу лежат выбранные фигурки, в указанном вами порядке</p>
+<div id=placedImages   >
+</div>
+
+<button id=doneButton name=doneButton value="Done" onclick="alert('totline = ' + totline)"> Done
+</button>
+
+</body>
+</html>

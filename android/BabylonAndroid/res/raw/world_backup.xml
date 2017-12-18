@@ -1,0 +1,46 @@
+<world anglex="-30" anglez="0" >
+<misFig name="found" type="foundation" 
+ support=""  >
+<pos x="-70.000000" y="-70.000000" z="1.000000" />
+<size x="300.000000" y="200.000000" z="3.000000" />
+<color top="aaaaaa" side="aaaaaa" bottom="aaaaaa" />
+</misFig>
+
+<misFig name="found" type="storage" 
+ support=""  >
+<pos x="-230.000000" y="90.000000" z="1.000000" />
+<size x="100.000000" y="80.000000" z="3.000000" />
+<color top="aaaa77" side="aaaa77" bottom="aaaa77" />
+</misFig>
+
+<misFig name="box2" type="brick" 
+ texfilename="onebrick1.jpg"  support="found"  >
+<pos x="-30.000000" y="-30.000000" z="4.000000" />
+<size x="40.000000" y="20.000000" z="12.000000" />
+</misFig>
+
+<misFig name="box3" type="tbox" 
+ texfilename="onebrick.jpg"  support=""  >
+<pos x="-180.000000" y="-100.000000" z="1.000000" />
+<size x="70.000000" y="30.000000" z="40.000000" />
+</misFig>
+
+<misFig name="box2_1" type="brick" 
+ texfilename="onebrick1.jpg"  support="found"  >
+<pos x="50.000000" y="-10.000000" z="4.000000" />
+<size x="40.000000" y="20.000000" z="12.000000" />
+</misFig>
+
+<misFig name="box2_2" type="brick" 
+ texfilename="onebrick1.jpg"  support="found"  >
+<pos x="30.000000" y="50.000000" z="4.000000" />
+<size x="20.000000" y="40.000000" z="12.000000" />
+</misFig>
+
+<misFig name="box2_3" type="brick" 
+ texfilename="onebrick1.jpg"  support="found"  >
+<pos x="-210.000000" y="110.000000" z="4.000000" />
+<size x="40.000000" y="20.000000" z="12.000000" />
+</misFig>
+
+</world>

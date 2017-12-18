@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"UgQAVVVQGwEHV1RTBAU="};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(t,e){function n(t,e,n){n||(n={});for(var r=o[t],a=r&&r.length||0,s=n[i]||(n[i]={}),u=0;a>u;u++)r[u].apply(s,e);return s}function r(t,e){var n=o[t]||(o[t]=[]);n.push(e)}var o={},i="nr@context";e.exports={on:r,emit:n}},{}],2:[function(t){function e(t,e,n,i,s){return u?u-=1:r("err",[s||new UncaughtException(t,e,n)]),"function"==typeof a?a.apply(this,o(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function n(t){r("err",[t,(new Date).getTime()])}var r=t("handle"),o=t(6),i=t(5),a=window.onerror,s=!1,u=0;t("loader").features.push("err"),window.onerror=e,NREUM.noticeError=n;try{throw new Error}catch(d){"stack"in d&&(t(1),t(2),"addEventListener"in window&&t(3),window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&t(4),s=!0)}i.on("fn-start",function(){s&&(u+=1)}),i.on("fn-err",function(t,e,r){s&&(this.thrown=!0,n(r))}),i.on("fn-end",function(){s&&!this.thrown&&u>0&&(u-=1)}),i.on("internal-error",function(t){r("ierr",[t,(new Date).getTime(),!0])})},{1:5,2:4,3:3,4:6,5:1,6:14,handle:"D5DuLP",loader:"G9z0Bl"}],3:[function(t){function e(t){r.inPlace(t,["addEventListener","removeEventListener"],"-",n)}function n(t){return t[1]}var r=t(1),o=(t(3),t(2));if(e(window),"getPrototypeOf"in Object){for(var i=document;i&&!i.hasOwnProperty("addEventListener");)i=Object.getPrototypeOf(i);i&&e(i);for(var a=XMLHttpRequest.prototype;a&&!a.hasOwnProperty("addEventListener");)a=Object.getPrototypeOf(a);a&&e(a)}else XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&e(XMLHttpRequest.prototype);o.on("addEventListener-start",function(t){if(t[1]){var e=t[1];"function"==typeof e?this.wrapped=e["nr@wrapped"]?t[1]=e["nr@wrapped"]:e["nr@wrapped"]=t[1]=r(e,"fn-"):"function"==typeof e.handleEvent&&r.inPlace(e,["handleEvent"],"fn-")}}),o.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{1:15,2:1,3:14}],4:[function(t){var e=(t(3),t(1)),n=t(2);e.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),n.on("raf-start",function(t){t[0]=e(t[0],"fn-")})},{1:15,2:1,3:14}],5:[function(t){function e(t){var e=t[0];"string"==typeof e&&(e=new Function(e)),t[0]=n(e,"fn-")}var n=(t(3),t(1)),r=t(2);n.inPlace(window,["setTimeout","setInterval","setImmediate"],"setTimer-"),r.on("setTimer-start",e)},{1:15,2:1,3:14}],6:[function(t){function e(){o.inPlace(this,s,"fn-")}function n(t,e){o.inPlace(e,["onreadystatechange"],"fn-")}function r(t,e){return e}var o=t(1),i=t(2),a=window.XMLHttpRequest,s=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"];window.XMLHttpRequest=function(t){var n=new a(t);try{i.emit("new-xhr",[],n),o.inPlace(n,["addEventListener","removeEventListener"],"-",function(t,e){return e}),n.addEventListener("readystatechange",e,!1)}catch(r){try{i.emit("internal-error",r)}catch(s){}}return n},window.XMLHttpRequest.prototype=a.prototype,o.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",r),i.on("send-xhr-start",n),i.on("open-xhr-start",n)},{1:15,2:1}],7:[function(t){function e(){function e(t){if("string"==typeof t&&t.length)return t.length;if("object"!=typeof t)return void 0;if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if("undefined"!=typeof FormData&&t instanceof FormData)return void 0;try{return JSON.stringify(t).length}catch(e){return void 0}}function n(t){var n=this.params,r=this.metrics;if(!this.ended){this.ended=!0;for(var i=0;u>i;i++)t.removeEventListener(s[i],this.listener,!1);if(!n.aborted){if(r.duration=(new Date).getTime()-this.startTime,4===t.readyState){n.status=t.status;var a=t.responseType,d="arraybuffer"===a||"blob"===a||"json"===a?t.response:t.responseText,f=e(d);if(f&&(r.rxSize=f),this.sameOrigin){var c=t.getResponseHeader("X-NewRelic-App-Data");c&&(n.cat=c.split(", ").pop())}}else n.status=0;r.cbTime=this.cbTime,o("xhr",[n,r])}}}function r(t,e){var n=i(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}t("loader").features.push("xhr");var o=t("handle"),i=t(1),a=t(5),s=["load","error","abort","timeout"],u=s.length,d=t(2);t(3),t(4),a.on("new-xhr",function(){this.totalCbs=0,this.called=0,this.cbTime=0,this.end=n,this.ended=!1,this.xhrGuids={}}),a.on("open-xhr-start",function(t){this.params={method:t[0]},r(this,t[1]),this.metrics={}}),a.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),a.on("send-xhr-start",function(t,n){var r=this.metrics,o=t[0],i=this;if(r&&o){var d=e(o);d&&(r.txSize=d)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof n.onload))&&i.end(n)}catch(e){try{a.emit("internal-error",e)}catch(r){}}};for(var f=0;u>f;f++)n.addEventListener(s[f],this.listener,!1)}),a.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),a.on("xhr-load-added",function(t,e){var n=""+d(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),a.on("xhr-load-removed",function(t,e){var n=""+d(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),a.on("addEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-added",[t[1],t[2]],e)}),a.on("removeEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-removed",[t[1],t[2]],e)}),a.on("fn-start",function(t,e,n){e instanceof XMLHttpRequest&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),a.on("fn-end",function(t,e){this.xhrCbStart&&a.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)&&e()},{1:8,2:11,3:3,4:6,5:1,handle:"D5DuLP",loader:"G9z0Bl"}],8:[function(t,e){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");return!r.port&&o[1]&&(r.port=o[1].split("/")[0].split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname),r.sameOrigin=!e.hostname||e.hostname===document.domain&&e.port===n.port&&e.protocol===n.protocol,r}},{}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],D5DuLP:[function(t,e){function n(t,e){var n=r[t];return n?n.apply(this,e):(o[t]||(o[t]=[]),void o[t].push(e))}var r={},o={};e.exports=n,n.queues=o,n.handlers=r},{}],11:[function(t,e){function n(t){if(!t||"object"!=typeof t&&"function"!=typeof t)return-1;if(t===window)return 0;if(o.call(t,"__nr"))return t.__nr;try{return Object.defineProperty(t,"__nr",{value:r,writable:!0,enumerable:!1}),r}catch(e){return t.__nr=r,r}finally{r+=1}}var r=1,o=Object.prototype.hasOwnProperty;e.exports=n},{}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],G9z0Bl:[function(t,e){function n(){var t=p.info=NREUM.info;if(t&&t.agent&&t.licenseKey&&t.applicationID&&u&&u.body){p.proto="https"===c.split(":")[0]||t.sslForHttp?"https://":"http://",a("mark",["onload",i()]);var e=u.createElement("script");e.src=p.proto+t.agent,u.body.appendChild(e)}}function r(){"complete"===u.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),s=window,u=s.document,d="addEventListener",f="attachEvent",c=(""+location).split("?")[0],p=e.exports={offset:i(),origin:c,features:[]};u[d]?(u[d]("DOMContentLoaded",o,!1),s[d]("load",n,!1)):(u[f]("onreadystatechange",r),s[f]("onload",n)),a("mark",["firstbyte",i()])},{handle:"D5DuLP"}],14:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}],15:[function(t,e){function n(t,e,r,s){function nrWrapper(){try{var n,a=u(arguments),d=this,f=r&&r(a,d)||{}}catch(c){i([c,"",[a,d,s],f])}o(e+"start",[a,d,s],f);try{return n=t.apply(d,a)}catch(p){throw o(e+"err",[a,d,p],f),p}finally{o(e+"end",[a,d,n],f)}}return a(t)?t:(e||(e=""),nrWrapper[n.flag]=!0,nrWrapper)}function r(t,e,r,o){r||(r="");var i,s,u,d="-"===r.charAt(0);for(u=0;u<e.length;u++)s=e[u],i=t[s],a(i)||(t[s]=n(i,d?s+r:r,o,s,t))}function o(t,e,n){try{s.emit(t,e,n)}catch(r){i([r,t,e,n])}}function i(t){try{s.emit("internal-error",t)}catch(e){}}function a(t){return!(t&&"function"==typeof t&&t.apply&&!t[n.flag])}var s=t(1),u=t(2);e.exports=n,n.inPlace=r,n.flag="nr@wrapper"},{1:1,2:14}]},{},["G9z0Bl",2,7]);</script>
+
+  <!-- Site Properities -->
+  <title>Allure of Normalcy: What America Still Owes the World | New Republic</title>
+
+  
+  <!-- Mobile Properities -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/sites/all/themes/tnr/assets/images/apple/apple-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/sites/all/themes/tnr/assets/images/apple/apple-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/sites/all/themes/tnr/assets/images/apple/apple-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/sites/all/themes/tnr/assets/images/apple/apple-icon-144x144.png" />
+
+  <meta name="apple-mobile-web-app-title" content="New Republic">
+  <meta name="google-site-verification" content="yjAiUZ-nXs91TSe9Er7xAnQBp2C8V2gg-mpTF7aZh20" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Social Properities -->
+  <meta property="twitter:account_id" content="82689705" />
+  <meta property="fb:app_id" content="219642118178156" />
+  <meta property="fb:admins" content="100001770781440" />
+  <meta property="fb:admins" content="19000185" />
+  <meta property="fb:admins" content="2400669" />
+  <meta property="fb:admins" content="600931" />
+  <meta property="fb:admins" content="5" />
+  <link href="https://plus.google.com/+thenewrepublic/" rel="publisher" />
+
+  <meta name="parsely-page" content='{"title":"Superpowers Don\u0027t Get to Retire","link":"http:\/\/www.newrepublic.com\/article\/117859\/allure-normalcy-what-america-still-owes-world","section":"Foreign Policy","pub_date":"2014-05-26T18:45:00-04:00","post_id":"117859","author":"Robert Kagan","type":"post","tags":["Foreign Policy","Politics","Normalcy","Isolationism","Internationalism","George H.W. Bush"]}' />
+  <link rel="canonical" href="http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world" />
+<meta property="og:title" content="Superpowers Don&#039;t Get to Retire" />
+<meta property="og:url" content="http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world" />
+<meta property="og:site_name" content="New Republic" />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="http://www.newrepublic.com/sites/default/files/u35543/sam.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1250" />
+<meta property="og:image:height" content="517" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta property="dcterms.identifier" content="http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world" />
+<meta property="dcterms.date" content="2014-05-26T18:45-04:00" />
+<meta property="og:description" content="What our tired country still owes the world." />
+<meta name="description" content="What our tired country still owes the world." />
+<meta property="article:section" content="Politics" />
+<meta name="generator" content="Drupal 7 (http://drupal.org)" />
+<meta name="keywords" content="Foreign Policy, Politics, Normalcy, Isolationism, Internationalism, George H.W. Bush" />
+<meta name="sailthru.articleID" content="117859" />
+<link rel="shortcut icon" href="http://www.newrepublic.com/sites/default/files/newrepublic-icon.ico" type="image/vnd.microsoft.icon" />
+<meta name="twitter:description" content="What our tired country still owes the world." />
+<meta property="sailthru.rubric" content="Foreign Policy" />
+<meta property="dcterms.type" content="Text" />
+<meta property="dcterms.format" content="text/html" />
+<meta name="parsely-metadata" content='{"thumb_image":"http:\/\/www.newrepublic.com\/sites\/default\/files\/styles\/homepage_bottom_feature\/public\/u35543\/sam.png?itok=J4jrjdoE"}' /><link rel="alternate" type="application/rss+xml" title="The New Republic | The Plank" href="http://www.newrepublic.com/plank-rss.xml" />
+<meta name="twitter:title" content="Superpowers Don&#039;t Get to Retire" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@tnr" />
+<meta property="article:tag" content="Foreign Policy" />
+<meta property="sailthru.author" content="Robert Kagan" />
+<meta property="author" content="Robert Kagan" />
+<meta property="sailthru.date" content="2014-05-26 18:45:00" />
+<meta content="Superpowers Don&#039;t Get to Retire" about="/article/117859/allure-normalcy-what-america-still-owes-world" property="dc:title" />
+<meta about="/article/117859/allure-normalcy-what-america-still-owes-world" property="sioc:num_replies" content="0" datatype="xsd:integer" />
+<link rel="alternate" type="application/rss+xml" title="The New Republic" href="http://www.newrepublic.com/rss.xml" />
+<meta name="twitter:image:src" content="http://www.newrepublic.com/sites/default/files/styles/large/public/u35543/sam.png?itok=QS1QPr3m" />
+<meta property="article:published_time" content="2014-05-26T18:45:00-04:00" />
+<meta property="dcterms.creator" content="Robert Kagan" />
+  <link type="text/css" rel="stylesheet" href="http://www.newrepublic.com/sites/default/files/css/css_4hPmAO_Nvj6jiRjsl7yjW6iGzgIXcDYAzsF_zjCZPRU.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://www.newrepublic.com/sites/default/files/css/css_Q0igcaG4Fe6PzDvesS6W8NyDK8z5Brc9SdxrBC6pMtc.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/sites/all/themes/tnr/build/devices/print.css" media="print" >  <!-- Reset JS before Page Load !-->
+<script src="/sites/all/themes/tnr/javascript/reset.js"></script>
+  <!-- Google Analytics -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  var pluginUrl =
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-10465183-1']);
+  _gaq.push(['_setDomainName', 'newrepublic.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<!-- comScore -->
+<script>
+var _comscore = _comscore || [];
+_comscore.push({ c1: "2", c2: "15230262" });
+(function() {
+var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+el.parentNode.insertBefore(s, el);
+})();
+</script>  
+<!-- Google Ads -->
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+
+// pusher
+window.googletag     = window.googletag || {}
+window.googletag.cmd = window.googletag.cmd || [];
+
+// loader
+(function() {
+  var
+    gads = document.createElement('script'),
+    useSSL = 'https:' == document.location.protocol,
+    node
+  ;
+  gads.async = true;
+  gads.type  = 'text/javascript';
+  gads.src   = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+  node       = document.getElementsByTagName('script')[0];
+  node.parentNode.insertBefore(gads, node);
+})();
+//--><!]]>
+</script>
+
+<!-- Google Ad Leaderboards -->
+<script type="text/javascript">
+// push ads available on all pages onready without jquery (not available till end of page)
+document.onreadystatechange = function () {
+  var
+    state = document.readyState
+  ;
+  if (state === 'interactive' && window.site !== undefined) {
+    site.utilities.load.ads([
+      {
+        name  : '/25738720/Web-LB0',
+        id    : 'leaderboard-ad',
+        sizes : [
+          [970, 90],
+          [728, 90]
+        ]
+      },
+      {
+        name  : '/25738720/Mobile-LB1',
+        id    : 'mobile-leaderboard-ad',
+        sizes : [
+          [320, 50]
+        ]
+      }
+    ]);
+  }
+};
+</script>
+
+</head>
+<body id="article">
+    <!-- Header !-->
+
+
+  <div class="ui page navigation container">
+    <div class="leaderboard advertisement" id="leaderboard-ad"></div>
+<div class="mobile advertisement" id="mobile-leaderboard-ad"></div>    <div class="ui relaxed fitted grid">
+      <div class="ten wide left column">
+                <h2>New Republic</h2>
+                <div itemscope itemtype="http://schema.org/Organization">
+          <a class="logo ui image" itemprop="url" href="/" >
+            <img itemprop="logo" src="/sites/all/themes/tnr/assets/images/logo.png">
+          </a>
+        </div>
+        <div class="ui compact basic large mobile button">
+          <i class="list layout icon"></i> Menu
+        </div>
+        <nav class="ui divided horizontal category list">
+          <a href="/latest" class="item">The Latest</a>
+          <a href="/tags/politics" class="item">Politics</a>
+          <a href="/tags/culture" class="item">Culture</a>
+          <a href="/current-issue" class="item">Magazine</a>
+        </nav>
+      </div>
+      <div class="six wide right column">
+                <div class="ui right floated red subscribe buttons">
+          <a class="ui button" href="/subscription/self/header">Subscribe Now</a>
+          <div class="ui floating dropdown icon button">
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item" href="/subscription/gift/header">Give a Gift</a>
+              <a class="item" href="/subscription/international/header">International Orders</a>
+              <a class="item" href="/subscription/canada/header">Canadian Orders</a>
+              <a class="item" href="/subscription/digital/header">Digital Subscription</a>
+            </div>
+          </div>
+        </div>
+        <div class="ui small secondary user menu">
+          <a class="login item">Log-in</a><div class="ui login popup"><form class="ui form" action="/article/117859/allure-normalcy-what-america-still-owes-world?destination=node/117859" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="field"><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name--2">E-mail / Username </label>
+ <span class="field-prefix"><a href="/subscription/self/header" data-content="User accounts are for The New Republic subscribers only. Click here to gain full access to the site." data-title="Get Complete Access" tabindex="5" class="create">Subscribe for Access</a><div class="ui left icon input"><i class="mail icon"></i></span> <input tabindex="1" autocomplete="email" data-validate="username" type="text" id="edit-name--2" name="name" value="" maxlength="60" class="form-text" /> <span class="field-suffix"></div></span>
+</div>
+</div><div class="field"><div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass--2">Password </label>
+ <span class="field-prefix"><a class="forgot" tabindex="6" href="/user/password">Forgot Your Password?</a><div class="ui left icon input"><i class="lock icon"></i></span> <input tabindex="2" data-validate="password" type="password" id="edit-pass--2" name="pass" maxlength="128" class="form-text" /> <span class="field-suffix"></div></span>
+</div>
+</div><div class="ui inline field"><div class="ui checkbox"><div class="form-item form-type-checkbox form-item-remember-me">
+ <input tabindex="3" type="checkbox" id="edit-remember-me--2" name="remember_me" value="1" checked="checked" class="form-checkbox" />  <label class="option" for="edit-remember-me--2">Remember me on this computer </label>
+
+</div>
+</div></div><input type="hidden" name="form_build_id" value="form-Ff07fMZL_Tnqy8QCqL3QcsoHz_sk3H6g17cTgulEEDo" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions--3"><input tabindex="4" class="ui submit button form-submit" type="submit" id="edit-submit--3" name="op" value="Log-in" /></div></div></form></div>        </div>
+                <div class="ui search">
+          <div class="ui small icon input">
+            <input class="prompt" type="text" name="q" autocomplete="off" placeholder="Search...">
+            <i class="search icon"></i>
+          </div>
+          <div class="results"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui fluid inverted vertical logged-out mobile menu">
+            <a class="item" href="/user/login">Log in</a>
+      <a class="item" href="/subscription/self/header">Subscribe</a>
+            <div class="header item">Sections</div>
+      <a href="/latest" class="item">The Latest</a>
+      <a href="/tags/politics" class="item">Politics</a>
+      <a href="/tags/culture" class="item">Culture</a>
+      <a href="/current-issue" class="item">The Magazine</a>
+    </div>
+  </div>
+
+<div class="page body">
+    <script type="text/javascript">
+site.page.config = {
+  enablePaywall: false,
+  adInterval : 30,
+    ads        : [
+    {
+      name  : '/25738720/Web-LR1',
+      id    : 'rail-ad',
+      sizes : [
+        [300, 250],
+        [300, 600]
+      ]
+    },
+    {
+      name  : '/25738720/Web-LR2',
+      id    : 'sticky-rail-ad',
+      sizes : [
+        [300, 250],
+        [300, 600]
+      ]
+    },
+    {
+      name  : '/25738720/Mobile-WS1',
+      id    : 'tablet-sticky-rail-ad',
+      sizes : [
+        [160, 600]
+      ]
+    },
+    {
+      name  : '/25738720/Mobile-LR1',
+      id    : 'mobile-article-bottom-ad',
+      sizes : [
+        [300, 250],
+        [300, 600]
+      ]
+    }
+  ],
+    node: {
+    id: 117859  }
+};
+</script>
+
+<div class="ui page content container">
+    <div class="story image"
+    data-image="http://www.newrepublic.com/sites/default/files/u35543/sam.png"
+      >
+    <div class="ui active flipping loader">
+      <div class="shape"></div>
+    </div>
+        <span class="attribution">
+      Photo: Zohar Lazar    </span>
+      </div>
+  <img src="http://www.newrepublic.com/sites/default/files/styles/static_cover_img_500/public/u35543/sam.png?itok=6oOgrYZO" class="ui fluid inline image" alt="Superpowers Don't Get to Retire">
+  
+  <div class="article container" itemscope itemtype="http://schema.org/Article">
+
+    <div class="header">
+      <div class="story title">
+                  <a href="/tags/foreign-policy" itemprop="articleSection" class="category">Foreign Policy</a>                <h5 class="date" itemprop="datePublished"><span property="dc:date dc:created" content="2014-05-26T18:45:00-04:00" datatype="xsd:dateTime">May 26, 2014</span></h5>
+        <h1 class="title">
+          <span class="headline" itemprop="name">Superpowers Don't Get to Retire</span>
+                    <span class="caption">
+            What our tired country still owes the world          </span>
+                  </h1>
+      </div>
+    </div>
+    <div class="content">
+      <div class="story">
+        <div class="inline tools">
+          <div class="share module">
+            <div class="twitter slim"
+              data-url="http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world"
+              data-text="Superpowers Don't Get to Retire"
+              data-title="Tweet">
+            </div>
+            <div class="facebook slim"
+              data-url="http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world"
+              data-text="Superpowers Don't Get to Retire"
+              data-title="Share">
+            </div>
+          </div>
+        </div>
+        <div class="tracking">
+          <div class="body text">
+                        <h5 class="ui author dividing header">
+              By <a href="/authors/robert-kagan" itemprop="author" rel="author">Robert Kagan</a>                              <span class="attribution">
+                  Photo: Zohar Lazar                </span>
+                          </h5>
+                                                            <div class="body" itemprop="articleBody" >
+              <h4 class="rounded"><strong>I.</strong></h4><p class="TEXT-JUSTIFIED-NOINDENT"><span class="dropcap">A</span>lmost 70 years ago, a new world order was born from the rubble of World War II, built by and around the power of the United States. Today that world order shows signs of cracking, and perhaps even collapsing. The Russia-Ukraine and Syria crises, and the world’s tepid response, the general upheaval in the greater Middle East and North Africa, the growing nationalist and great-power tensions in East Asia, the worldwide advance of autocracy and retreat of democracy<span class="em">&mdash;</span>taken individually, these problems are neither unprecedented nor unmanageable. But collectively they are a sign that something is changing, and perhaps more quickly than we may imagine. They may signal a transition into a different world order or into a world disorder of a kind not seen since the 1930s. </p><p class="TEXT-JUSTIFIED-INDENT">If a breakdown in the world order that America made is occurring, it is not because America’s power is declining<span class="em">&mdash;</span>America’s wealth, power, and potential influence remain adequate to meet the present challenges. It is not because the world has become more complex and intractable<span class="em">&mdash;</span>the world has always been complex and intractable. And it is not simply war-weariness. Strangely enough, it is an intellectual problem, a question of identity and purpose. </p><p class="TEXT-JUSTIFIED-INDENT">Many Americans and their political leaders in both parties, including President Obama, have either forgotten or rejected the assumptions that undergirded American foreign policy for the past seven decades. In particular, American foreign policy may be moving away from the sense of global responsibility that equated American interests with the interests of many others around the world and back toward the defense of narrower, more parochial national interests. This is sometimes called “isolationism,” but that is not the right word. It may be more correctly described as a search for normalcy. At the core of American unease is a desire to shed the unusual burdens of responsibility that previous generations of Americans took on in World War II and throughout the cold war and to return to being a more normal kind of nation, more attuned to its own needs and less to those of the wider world. </p><p class="TEXT-JUSTIFIED-INDENT">If this is indeed what a majority of Americans seek today, then the current period of retrenchment will not be a temporary pause before an inevitable return to global activism. It will mark a new phase in the evolution of America’s foreign policy. And because America’s role in shaping the world order has been so unusually powerful and pervasive, it will also begin a new phase in the international system, one that promises not to be marginally different but radically different from what we have known these past 70 years. Unless Americans can be led back to an understanding of their enlightened self-interest, to see again how their fate is entangled with that of the world, then the prospects for a peaceful twenty-first century in which Americans and American principles can thrive will be bleak.</p><p class="TEXT-JUSTIFIED-INDENT"> </p><p class="TEXT-JUSTIFIED-NOINDENT"><span class="dropcap">T</span>o understand where America, and the world, may be heading, it is useful to remind ourselves where we have been<span class="em">&mdash;</span>of the choices that Americans made decades ago and of the profound, world-changing consequences of those choices. </p><p class="TEXT-JUSTIFIED-INDENT">For Americans, the choice was never been between isolationism and internationalism. With their acquisitive drive for wealth and happiness, their love of commerce, their economic and (in earlier times) territorial expansiveness, and their universalistic ideology, they never had it in them to wall themselves off from the rest of the world. Tokugawa Japan and Ming China were isolationist. Americans have always been more like republican Rome or ancient Athens, a people and a nation on the move.</p><div class="pull-right-wide"><div><img src="/sites/default/files/u184683/article_inset_kagan1_514.jpg" /></div><div class="caption"><div class="credit">The Associated Press<div class="pull-right"> </div></div><div class="caption-header"><span>The United States should not range “over the world like a knight-errant,” argued Senator Robert A. Taft.</span></div></div></div><p>When, roughly 70 years ago, American foreign policy underwent a revolutionary transformation, it was not a transformation from isolationism to internationalism. What Americans had rejected before World War II was a steady global involvement, with commitments to other nations and responsibilities for the general well-being of the world. That was what the so-called “internationalists” of the time wanted for the United States. Theodore Roosevelt, John Hay, Henry Cabot Lodge, Elihu Root, Henry Stimson, Woodrow Wilson, and many others believed that Americans ought to take on a much bigger role in world affairs, as befitted their growing power. The United States had become “more and more the balance of power of the whole globe,” Roosevelt observed, and it ought to behave accordingly. And indeed, following the Spanish-American War and for the first two decades of the twentieth century, the United States did pursue a wider and deeper global involvement than it had ever done before, culminating in the dispatch of two million troops to France. When World War I ended, Wilson, like Roosevelt before him, ambitiously set out to make the United States a central player in world affairs. Beseeched by all the European powers after the war<span class="em">&mdash;</span>for American financing aid to steady their economies and for American security guarantees against each other<span class="em">&mdash;</span>Wilson wanted the United States to commit itself to an enduring global role. The world, he warned Americans, would be “absolutely in despair if America deserts it.” Wilson’s League of Nations (actually it had been Roosevelt’s idea first), although couched in the idealistic language of universal principles and collective security, was meant above all to serve as the vehicle for American power and influence in support of a new liberal world order. </p><p class="TEXT-JUSTIFIED-INDENT">But Americans rejected this role. Disillusioned by the compromises and imperfections of the Versailles Treaty, mourning the loss of more than 100,000 dead soldiers, skeptical about American participation in the league, and spurred on by Republicans eager to defeat Wilson and recapture the White House, a majority of Americans came to oppose not only the league but also the internationalists’ broad vision of America’s global role. This was no absentminded lapse back into nonexistent isolationist traditions. It was a deliberate decision to turn away from the increasingly active global involvement of the previous two decades, to adopt a foreign policy of far greater restraint, and above all to avoid future military interventions beyond the Western Hemisphere. Wilson’s Republican successors promised, and the American public welcomed, what Warren Harding called a “return to normalcy.” </p><div class="pull-right-wide"><div><img src="/sites/default/files/u184683/article_inset_kagan2_514.jpg" /></div><div class="caption"><div class="credit">Corbis</div><div class="caption-text">Franklin Roosevelt urged Americans to look beyond their immediate physical security. </div></div></div><p class="TEXT-JUSTIFIED-INDENT">Normalcy in the 1920s did not mean isolation. Americans continued to trade, to invest, and to travel overseas; their navy was equaled in size only by Britain’s, and had fleets in the Atlantic and the Pacific; and their diplomats pursued treaties to control the arms race and to “outlaw” war. Normalcy simply meant defining America’s national interests the way most other nations defined theirs. It meant defending the homeland, avoiding overseas commitments, preserving the country’s independence and freedom of action, and creating prosperity at home. The problems of Europe and Asia were not America’s problems, and they could be solved, or not solved, without American help. This applied to global economic issues as well. Harding wanted to “prosper America first,” and he did. The 1920s were boom years for the American economy, while Europe’s postwar economies stagnated. </p><p class="TEXT-JUSTIFIED-INDENT">To the vast majority of Americans, normalcy seemed a reasonable response to the world of the 1920s, after the enormous exertions of the Wilson years. There were no obvious threats on the horizon. Postwar Weimar Germany was a faltering republic more likely to collapse than to take another stab at continental dominance. Bolshevik Russia was wracked by civil war and economic crisis. Japan, though growing in power and ambition, was a fragile democracy with a seat on the League of Nations permanent council. To most Americans in the 1920s, the greatest risk to America came not from foreign powers but from those misguided “internationalists” and the greedy bankers and war profiteers who would involve the nation in foreign conflicts that were none of America’s business. </p><p class="TEXT-JUSTIFIED-INDENT">This consensus was broad, deep, and bipartisan, and Americans stayed on the course of normalcy for two full decades. They did so even as the world order<span class="em">&mdash;</span>no longer upheld by the old combination of British naval might and a relatively stable balance of power in Europe and Asia<span class="em">&mdash;</span>began to fray and then collapse. The Japanese invasion of Manchuria in 1931; Hitler’s rise to power in 1933; Mussolini’s invasion of Ethiopia in 1935; Germany’s remilitarization of the Rhineland, and the German and Italian intervention in the Spanish Civil War, in 1936; Japan’s invasion of central China in 1937; Hitler’s absorption of Austria, followed by his annexation and eventual conquest of Czechoslovakia in 1938 and 1939<span class="em">&mdash;</span>all these events troubled and at times appalled Americans. They were not ignorant of what was going on. Even back then information traveled widely and rapidly, and the newspapers and newsreels were filled with stories about each unfolding crisis. Reports of Mussolini’s dive-bombers dropping their ordnance on spear-carrying Ethiopians; Germany’s aerial bombing of the civilian population of Guernica; Japan’s rampage of rape, pillage, and murder in Nanking<span class="em">&mdash;</span>they were horrific and regrettable. But they were not reasons for the United States to get involved. On the contrary, they were reasons for not getting involved. The worse things looked around the world, the more hopeless it all seemed, the less Americans wanted to have anything to do with it. The United States, it was widely believed, had no vital interests at stake in Manchuria, Ethiopia, Spain, or Czechoslovakia.</p><p class="TEXT-JUSTIFIED-INDENT">In fact, it was not clear that the United States had vital interests anywhere outside the Western Hemisphere. Even after the German invasion of Poland in 1939, and the outbreak of a general European war that followed, respected American strategic thinkers, priding themselves on “realistic thinking,” the “banishment of altruism and sentiment” from their analysis, and “single-minded attention to the national interests,” advised that, with two oceans and a strong navy standing between America and every great power in the world, the United States was invulnerable.A Japanese attack on, say, Hawaii, they ruled out as literally impossible. Republican Senator Robert A. Taft felt confident in saying that no power “would be stupid enough” to attack the United States “from across thousands of miles of ocean.”<span class="char-style-override-2"> </span>Nor would the United States suffer appreciably if Nazi Germany did manage to conquer all of Europe, including Great Britain, which by 1940 the realists regarded as a foregone conclusion. Taft saw no reason why the United States could not trade and conduct normal diplomacy with a Europe dominated by Nazi Germany just as it had with Great Britain and France. As the historian Howard K. Beale put it, nations “do not trade with one another because they like each other’s governments but because both sides find the exchange of goods desirable.”</p><p class="TEXT-JUSTIFIED-INDENT">Holders of such views were tagged with the disparaging label of “isolationist,” but as Hans Morgenthau later pointed out, they believed at the time that they were upholding the “realist tradition of American foreign policy.” The United States should not range “over the world like a knight-errant,” Taft admonished, “[protecting] democracy and ideals of good faith and [tilting] like Don Quixote against the windmills of fascism.” Taft insisted on seeing the world as it was, not as idealists wished it to be. The European war was the product of “national and racial animosities” that had existed “for centuries” and would continue to exist “for centuries to come,” he argued. To make a difference in the war, the United States would have to send millions of troops across the ocean, make an impossible amphibious landing on shores heavily defended by German forces, and then march across Europe against the world’s strongest army. The very thought was inconceivable. Much as they might wish to help Europe, therefore, Americans had “no power, even if we have the will, to be its savior.” </p><div class="pull-right-wide"><div><img src="/sites/default/files/u184683/article_inset_kagan3_514.jpg" /></div><div class="caption"><div class="credit">Associated Press/HWG</div><div class="caption-text">Hans Morgenthau led a slashing attack on Lyndon Johnson’s Vietnam policy. </div></div></div><p class="TEXT-JUSTIFIED-INDENT">This view was so dominant and so politically popular that Franklin Roosevelt spent his first years in office muzzling his internationalist instincts and vowing to keep America out of another war<span class="em">&mdash;</span>“I hate war!” he roared in a famous address in 1936. After Munich, however, he grew panicked, sensing that the Western powers, Britain and France, had lost the will to stand up to Hitler. And so he began trying to warn Americans of what he regarded as the coming threat. Yet it was difficult to counter the realists’ hardheaded analysis. Roosevelt could not prove that American security was directly endangered by what was happening in Europe. He was left making a case that really did appeal more to sentiment and idealism than to demonstrable threats to the American homeland.</p><p class="TEXT-JUSTIFIED-INDENT">Even if the United States faced no immediate danger of military attack, Roosevelt argued, if Hitler, Mussolini, and Imperial Japan were allowed to have their way, the world would be a “shabby and dangerous place to live in<span class="em">&mdash;</span>yes, even for Americans to live in.”<span class="char-style-override-2"> </span>America would become a “lone island” in a world dominated by the “philosophy of force.” The “institutions of democracy” would be placed at risk even if America’s security was not, because America would have to become an armed camp to defend itself. Roosevelt urged Americans to look beyond their immediate physical security. “There comes a time in the affairs of men,” he said, “when they must prepare to defend, not their homes alone, but the tenets of faith and humanity on which their churches, their governments, and their very civilization are founded. The defense of religion, of democracy, and of good faith among nations is all the same fight. To save one we must now make up our minds to save all.”</p><p class="TEXT-JUSTIFIED-INDENT">Such arguments, along with the fall of France and the Battle of Britain, did help convince Americans that they had a stake in the outcome of the European struggle, but it did not convince them to go to war. That decision followed only after Pearl Harbor. The Japanese attack, Hitler’s subsequent declaration of war, and America’s full-scale entry into the conflicts in both Europe and Asia were a traumatic shock to Americans, especially for those in positions of power. That which had been deemed impossible had proved possible, and long-held assumptions about American security in a troubled world collapsed in a single day. </p><p class="TEXT-JUSTIFIED-INDENT"> </p><p class="TEXT-JUSTIFIED-NOINDENT"><span class="dropcap">T</span>he events of 1941 forced a fundamental reassessment not only of America’s global strategy but also of how to define America’s interests. Even as they waged the struggle against Germany and Japan, Roosevelt and his advisers during the war began thinking of how the postwar world ought to be shaped, and they took as their guide what they considered the lessons of the previous two decades. </p><p class="TEXT-JUSTIFIED-INDENT">The first had to do with security. The Japanese attack had proved that vast oceans and even a strong navy no longer provided adequate defense against attack. More broadly, there was the realization<span class="em">&mdash;</span>or rather the rediscovery<span class="em">&mdash;</span>of an old understanding: that the rise of a hostile hegemonic power on the Eurasian landmass could eventually threaten America’s core security interests as well as its economic well-being. As a corollary, there was the “lesson of Munich”: would-be aggressors in Eurasia had to be deterred before they became too strong to be stopped short of all-out war.</p><p class="TEXT-JUSTIFIED-INDENT">Another lesson was that the United States had an interest in political developments in Eurasia. Walter Lippmann argued that, for Americans to enjoy both “physical security” and the preservation of their “free way of life,” they had to ensure that “the other shore of the Atlantic” remained always in the hands of “friendly,” “trustworthy” democracies. For two decades, people had sneered at “Woodrow Wilson’s demand that the world must be made safe for democracy,” Lippmann commented, but Wilson had been right. Under the control of “free governments the shores and waters of the Atlantic” had become the “geographical center of human liberty.” The Atlantic Charter and Roosevelt’s Four Freedoms reflected this revived conviction that the well-being of democracy in the world was not only desirable but important to America’s security. </p><div class="pull-right-wide"><div><img src="/sites/default/files/u184683/article_inset_kagan4_514.jpg" /></div><div class="caption"><div class="credit">AFP/Getty Images</div><div class="caption-text">Henry Kissinger championed a “concert” of nations poised in rough equilibrium. </div></div></div><p class="TEXT-JUSTIFIED-INDENT">Then there was the global economy. In the late 1920s and throughout the 1930s, the United States had sought mostly domestic remedies for the Great Depression, raising its own tariffs, choking off lending abroad, refusing to join other nations in a common monetary policy, and generally protecting the American economy while ignoring the world economy. By 1941, however, Roosevelt and his advisers had concluded that both America’s prosperity and its security depended on a healthy world economy. Poverty and economic dislocation had played a major role in the rise of both Hitler and Bolshevism. The United States bore much of the blame, for although it had been the world’s leading economic power in the 1920s and 1930s, it had failed to play a constructive and responsible role in stabilizing the global economy. </p><p class="TEXT-JUSTIFIED-INDENT">Finally, there was the issue of American public support for global involvement. In the 1920s and 1930s, Americans had been allowed and even encouraged by their political leaders to believe that the United States was immune to the world’s troubles. They could not be allowed to fall back into such complacency. They could no longer regard events thousands of miles away as of no concern to them. To Roosevelt, assuring public support for a larger and more consistent American role in the world was going to be among the greatest challenges after the war. Americans had to understand, as Reinhold Niebuhr wrote in April 1943, that “the world problem cannot be solved if America does not accept its full share of responsibility in solving it.” </p><p class="TEXT-JUSTIFIED-INDENT"> </p><p class="TEXT-JUSTIFIED-NOINDENT"><span class="dropcap">T</span>hat share was to be sizeable. convinced that World War II had been the result not of any single incident but rather of the overall breakdown of world order, politically, economically, and strategically, American leaders set out to erect and sustain a new order that could endure. This time it was to be a world order built around American economic, political, and military power. Europeans had proved incapable of keeping the peace. Asia was entirely unstable on its own. Any new order would depend on the United States. It would become the center of a new economic system that would encourage open trade and provide financial assistance and loans to nations struggling to stay afloat. It would take a substantial and active part in the occupation and transformation of the defeated powers, ensuring that some form of democracy took root in place of the dictatorships that had led those nations to war. America would also have to possess preponderant military strength and when necessary deploy sufficient power to preserve stability and security in Europe, Asia, and the Middle East.</p><p class="TEXT-JUSTIFIED-INDENT">Military force played a central part in the calculations of Roosevelt and his advisers as they set out to establish and defend the new liberal world order. “Peace must be kept by force,” Roosevelt insisted. There was “no other way.” He anticipated that an American occupation force of one million troops would be necessary to keep the peace in Europe, for at least a year and perhaps longer. During the war, the Joint Chiefs envisioned establishing military bases around the world in “areas well removed from the United States” so that any fighting would take place “nearer the enemy” rather than near American territory. </p><div class="pull-right-wide"><div><img src="/sites/default/files/u184683/article_inset_kagan5_514.jpg" /></div><div class="caption"><div class="credit">Susan Biddle/White House/Time Life Pictures/Getty Images</div><div class="caption-text">George H. W. Bush described American objectives in terms of national ideals, not national interest. </div></div></div><p class="TEXT-JUSTIFIED-INDENT">Roosevelt naturally hoped to avoid the repeated and extended deployment of American ground forces overseas, since he feared the public would not tolerate it. But he did expect that the United States would have to send at least planes and ships whenever called upon by the U.N. Security Council. As Cordell Hull insisted at the Dumbarton Oaks conference in 1944, American military forces had to be “available promptly, in adequate measure, and with certainty.” In fact, Roosevelt anticipated that requests from the Security Council would be so frequent that he did not want the president to have to go to Congress each time for approval of the use of force. The Security Council had to have “the power to act quickly and decisively to keep the peace by force, if necessary,” Roosevelt explained, and so the American representative had to be given advance authority to act. </p><p class="TEXT-JUSTIFIED-INDENT">Roosevelt supported the United Nations but was not a great believer in collective security. American power, he believed, would be the key. He saw the United Nations much as Wilson had seen the League of Nations, as a vehicle for U.S. global involvement. Indeed, as the historian Robert Dallek has noted, for Roosevelt the United Nations was partly meant to “obscure” the central role American power was to play in the new world order<span class="em">&mdash;</span> obscure it, that is, from Americans. </p><p class="TEXT-JUSTIFIED-INDENT"> </p><h4 class="TEXT-JUSTIFIED-INDENT para-style-override-1 rounded"><strong><span class="char-style-override-3">II.</span></strong></h4><p class="TEXT-JUSTIFIED-NOINDENT"><span class="dropcap">T</span>his new American grand strategy for the postwar world could not have been a more radical departure from “normalcy.” Its goals were not simply defense of the territory, prosperity, and sovereign independence of the American people, but also the promotion of a liberal world order that would defend not only America’s interests but those of many other nations as well. The rise of a Eurasian hegemon would threaten other nations long before it would threaten the United States, for instance, yet Americans now accepted primary responsibility for preventing it. The new strategy was not selfless or altruistic. American officials believed that it was in the best interest of the United States. But neither did it fit the normal definition of the “national interest.” As Dean Acheson explained, Americans had to learn to “operate in a pattern of responsibility which is greater than our own interests.” This was the real revolution in American foreign policy.</p><p class="TEXT-JUSTIFIED-INDENT">The new strategy was not directed at any particular nation or any specific threat<span class="em">&mdash;</span>at least not at first. The Soviet Union had not yet emerged as the next great challenge to the new global order. During World War II, Roosevelt and most other top officials expected mutual cooperation with the Soviets after the war, and even as late as 1945, Acheson still believed in the possibility of partnership with Moscow. Rather than responding to a specific threat, the new grand strategy aimed at preventing a general collapse of global order, which meant supporting an open international economic system, enforcing principles of international behavior, supporting, where possible, democratic governments, encouraging a minimum of respect for human rights, as defined in the U.N. Charter, and generally promoting the kind of world that suited Americans and those who shared their beliefs. </p><p class="TEXT-JUSTIFIED-INDENT">This new and wide-ranging set of goals and responsibilities completely reoriented the posture of American foreign policy. Instead of essentially leaning back, waiting for threats to emerge, responding, and then pulling back again, the new strategy required a constant and pervasive forward involvement in the affairs of the world. The new economic strategy aimed to prevent economic crises before they resulted in revolution or despotism. The new military strategy aimed to discourage would-be aggressors before they became aggressors, or as Roosevelt put it, to “end future wars by stepping on their necks before they grow up.” </p><p class="TEXT-JUSTIFIED-INDENT">The new forward-leaning posture became especially pronounced as the postwar era transitioned into the cold war. The Marshall Plan aimed to shore up Western European economies and democracies before they collapsed and succumbed to communism. The Truman Doctrine aimed to bolster Greece and Turkey before they fell to communist subversion. When the communist revolution triumphed in China in 1949, American critics blamed the Truman administration for not doing enough to prevent it<span class="em">&mdash;</span>a charge, fair or not, that no one would have thought to make before World War II. The unanticipated North Korean invasion of the South produced panic in Washington and, in the minds of Truman and his advisers, powerfully reinforced the “lesson of Munich.” Henceforth the United States would have to be vigilant and ready to act, with force, anywhere in the world.</p><p class="TEXT-JUSTIFIED-INDENT">All of this was precisely what the anti-interventionist critics had warned about in the 1930s. Taft, a thoughtful and intelligent man, had indeed predicted that, once sent off to the war, American forces would never come home again. Victory would prove as much a curse as a blessing. American troops, Taft had warned, “would have to police Europe or maintain the balance of power there by force of arms” indefinitely. Beale had cautioned that, if freedom and democracy were the goals, as Roosevelt claimed, then the United States was going to have to “maintain democracy by armed force on the Continent of Europe” and keep a “navy large enough to establish ‘freedom of the seas’ ... on all the oceans of the world.” It was a prescription at once for bankruptcy and militarism at home and “unadulterated imperialism” abroad. </p><p class="TEXT-JUSTIFIED-INDENT">Roosevelt and other American statesmen originally hoped that the United States would not have to do everything by itself. Roosevelt planned to share global management among the “Four Policemen”<span class="em">&mdash;</span>the United States, Great Britain, the Soviet Union, and China. And Truman in 1945 was bound and determined to slash the defense budget and bring as many troops home as possible. Yet within two years after the war ended, the new world order was already teetering on the edge of collapse along with hopes for global partnership with the other great powers. Britain quickly signaled its inability to play its historic role, even in the Mediterranean. China descended into civil war and revolution. And the Soviet Union emerged not as a supporter of the new order but, to American eyes, as its greatest opponent. The result was the disheartening realization that the United States was going to carry the lion’s share of the burden, just as Taft had warned. As Acheson later put it, the United States was going to have to be “the locomotive at the head of mankind,” while the rest of the world was going to be “the caboose.”</p><p class="TEXT-JUSTIFIED-INDENT">Roosevelt had always worried that the American people would never accept such an expansive and seemingly open-ended global role. Three months before he died, in his last State of the Union address, in January 1945, he attempted to rally them for the task ahead. “In our disillusionment after the last war,” he reminded the American public, “we gave up the hope of gradually achieving a better peace because we had not the courage to fulfill our responsibilities in an admittedly imperfect world. We must not let that happen again, or we shall follow the same tragic road again<span class="em">&mdash;</span>the road to a third world war.”</p><p class="TEXT-JUSTIFIED-INDENT"> </p><p class="TEXT-JUSTIFIED-NOINDENT"><span class="dropcap">T</span>hat was the last time, before 1989, that an American<span class="char-style-override-5"> statesman would think</span> of American global responsibilities without reference to the Soviet Union or to international communism. The onset of the cold war, the panicked American response to Soviet policies in Eastern Europe and in the Middle East, and the recurrent American paranoia about the danger of communist subversion at home answered FDR’s fears about public support. To many Americans, Soviet communism seemed an even more direct threat to their way of life than Hitler and the Nazis. Fighting it, therefore, proved an easier strategy to comprehend and support than shouldering “responsibilities in an admittedly imperfect world.” Although there was intense and often divisive debate over foreign policy during the cold war, and much dissent voiced by critics of anti-communist containment, especially during and just after the Vietnam war, a majority of Americans proved consistently willing to go to great lengths in the name of containing communism. In the late 1940s and 1950s, they provided billions of dollars for European reconstruction and made military alliances with former adversaries such as Japan and Germany and other European powers they had once disdained and mistrusted. They even extended nuclear guarantees to deter a Soviet conventional invasion of Europe, voluntarily making themselves targets of Soviet nuclear weapons in the event of a European war. In the 1950s and 1960s, they often spent 10 percent or more of their GDP on defense. They deployed hundreds of thousands of troops overseas, indefinitely, in Europe and Asia<span class="em">&mdash;</span>almost a million during the Eisenhower years. They fought in costly wars in Korea and Vietnam, with uncertain and unsatisfying results.</p><div class="pull-right-wide"><div><img src="/sites/default/files/u184683/article_inset_kagan6_514.jpg" /></div><div class="caption"><div class="credit">Associated Press</div><div class="caption-text">Bill Clinton proclaimed the United States to be the “indispensable nation.”</div></div></div><p class="TEXT-JUSTIFIED-INDENT">Justifying everything in terms of the anti-communist struggle may have been, to borrow Acheson’s phrase, “clearer than truth,” but it worked. Fear of communism, combined with fear of the Soviet Union as a geopolitical threat, allowed a majority of Americans and American policymakers to view practically any policy directed against communist forces, or even against suspected communist forces, anywhere in the world as directly serving the nation’s vital interests. In 1965, even David Halberstam believed that preventing a communist victory in Vietnam was “vital to our national interest.” A decade and a half later, Jimmy Carter, who had come to office warning, not entirely unreasonably, against an “inordinate fear of communism,” was forced to announce a dramatic shift of policy in response to a Soviet invasion of Afghanistan, a country that not two Americans in a million could have found on a map and where no direct American interest could be identified, other than the fact that the Soviets were there. Yes, the general feeling went, the United States had taken on unprecedented global responsibilities, but it had done so because American interests were directly threatened by an unprecedented global challenge. </p><p class="TEXT-JUSTIFIED-INDENT">So Americans for more than four decades proved willing to support the expansive and active foreign policy that Roosevelt and his advisers had envisioned<span class="em">&mdash;</span>indeed, probably much more than they envisioned<span class="em">&mdash;</span>and the results were extraordinary. In the half-century following World War II, the United States successfully established, protected, and advanced a liberal world order, carving out a vast “free world” within which an unprecedented era of peace and prosperity could flower in Western Europe, East Asia, and the Western Hemisphere. Although tensions between the United States and the Soviet Union sometimes rose to dangerous levels, the period was characterized above all by peace among the great powers. The United States and the Soviet Union did not come to blows, and just as importantly, the American presence in Europe and East Asia put an end to the cycles of war that had torn both regions since the late nineteenth century. The number of democracies in the world grew dramatically. The international trading system expanded and deepened. Most of the world enjoyed an unprecedented prosperity. There was no shortage of disasters and near-disasters, as well as the two costly wars in Asia<span class="em">&mdash;</span>but the strategy was largely successful, so much so that the Soviet empire finally collapsed or voluntarily withdrew, peacefully, under the pressure of the West’s economic and political success, and the liberal order then expanded to include the rest of Europe and most of Asia. All of this was the result of many forces<span class="em">&mdash;</span>the political and economic integration of Europe, the success of Japan and Germany, and the rise of other successful Asian economies<span class="em">&mdash;</span>but none of it would have been possible without a United States willing and able to play the abnormal and unusual role of preserver and defender of a liberal world order. </p><p class="TEXT-JUSTIFIED-INDENT"> </p><p class="TEXT-JUSTIFIED-NOINDENT"><span class="dropcap">A</span>merica’s ability to play this role at all was due lessto the special virtues of the American people than to some remarkable advantages that put the United States in a historically unique position. The most important advantage was geography. For centuries the world’s cockpits of conflict had been in Europe, Asia, and the Middle East, where multiple powers shared common neighborhoods, jostled for primacy, and engaged in endless cycles of military competition and warfare. When the United States emerged as a great power at the end of the nineteenth century, it alone enjoyed fundamental security in a neighborhood in which it was already the unquestioned hegemon. This, along with its wealth and large population, gave the United States the ability to dispatch the bulk of its armed forces thousands of miles away to engage in protracted military operations. It also allowed the United States to station large numbers of troops permanently overseas if it so desired. And it could do all of this without leaving itself vulnerable to a neighboring power. </p><p class="TEXT-JUSTIFIED-INDENT">No other nation in the world was ever so situated. Even that other great island superpower, Great Britain, sat too close to the European continent to be invulnerable to attack, especially when the airplane and the long-range missile became major tools of warfare. Nor had Britain succeeded in securing its core strategic requirement: preventing the emergence of a hegemon on the continent. Although successful for two centuries in maintaining and managing its overseas empire, Britain failed to prevent the rise of German hegemony twice in the twentieth century, leading to two devastating wars that ultimately undid British global power. Britain failed because it had tried to play the role of balancer in Europe from “offshore.” Britons’ main concern was always defense of their far-flung empire, and they preferred to stay out of Europe if possible. Their inability or unwillingness to station troops on the continent in sufficient number, or at least reliably to guarantee that sufficient force would arrive quickly in an emergency, led would-be aggressors to calculate that decisive British military force would either not arrive on time or not arrive at all. </p><p class="TEXT-JUSTIFIED-INDENT para-style-override-2">After World War II, Americans’ unique geographical advantage made possible an unprecedented global strategy. The United States was able to move beyond traditional national defense and beyond offshore balancing. It was able to become effectively both a European power and an Asian power, with troops permanently stationed “onshore” in both theaters simultaneously. The presence of American troops acted to remove doubt by potential aggressors that the United States would fight if its allies were attacked. For the next seven decades, this American presence enforced a general peace and stability in two regions that for at least a century had known almost constant great-power conflict. </p><p class="TEXT-JUSTIFIED-INDENT">Just as remarkable was the degree to which the rest of the nations in the liberal world generally accepted and even welcomed America’s overwhelming power. Again, the reason had as much to do with power and geography as with ideological affinity. It was true that for most nations in the world the United States appeared to be a relatively benign hegemon. But the core geopolitical reality was that other nations faced greater and more immediate threats from their neighbors than from the distant Americans. When those neighbors grew menacing, they looked to the United States as a natural partner<span class="em">&mdash;</span>comforting for its ability to project power and defend them but comforting also for its distance.</p><p class="TEXT-JUSTIFIED-INDENT">The United States thus violated some of the cardinal rules of international relations. For decades, realists had believed that the only peaceful and stable world order was one based on a multipolar balance of power, a “concert” of nations poised in rough equilibrium in a system that all the players regarded as necessary and legitimate<span class="em">&mdash;</span>like Europe in the years following the Congress of Vienna. This was the world with which Henry Kissinger felt comfortable and which he constantly predicted, even in the 1960s, was just right around the corner. Unipolarity was supposed to be inherently unstable and short-lived, because other great powers would always band together to balance against a power grown too strong<span class="em">&mdash;</span>as had happened in Europe in response to the rise of France and Germany in the nineteenth and twentieth centuries. Richard Nixon expressed this alleged realist truism in a speech, no doubt penned under Kissinger’s influence, in 1972. “We must remember,” Nixon declared, that “the only time in the history of the world that we have had any extended period of peace is when there has been balance of power. It is when one nation becomes infinitely more powerful in relation to its potential competitor that the danger of war arises. So I believe in a world in which the United States is powerful. I think it will be a safer world and a better world if we have a strong, healthy United States, Europe, Soviet Union, China, Japan, each balancing.” But the United States was already disproving this thesis.</p><p class="TEXT-JUSTIFIED-INDENT">The broad acceptance of American power, best demonstrated by the large number of its allies and the absence of powerful nations joining the Soviet Union against it, created a unique situation in the world. No other nation in history had ever played such a role on a global scale, and arguably no other nation possibly could. The situation could not conform to a theory because it could not be replicated. It was sui generis.</p><p class="TEXT-JUSTIFIED-INDENT">Geography made it possible for the United States to play this unique role in the world, but as the 1920s and 1930s showed, the question of whether the United States would take it on was up to the American people. Nothing required them to play such an abnormal part in world affairs. During the cold war, they did it primarily out of fear of communism. But what would happen when the Soviet Union disappeared and the threat of communism vanished? The question seemed moot for four excruciatingly long decades when no one ever really expected the Soviet Union to give up the geopolitical competition. But the unanticipated fall of the Soviet empire and the collapse of international communism after 1989 inevitably raised anew the question of how to define America’s purpose and its interests in the absence of an obvious threat. Suddenly, Americans were back to where Roosevelt had left off in the early 1940s, when the challenge had been to avoid the mistakes of the 1920s and 1930s. But would anyone remember the original grand strategy, devised in the brief moment before the Soviet Union arose to dominate American strategic thinking? Would the original grand strategy still seem relevant at the end of the twentieth century? Or had Americans, as the political scientist Robert Osgood worried in the 1950s, “become so transfixed by their fears of communism” that they had forgotten “what they are for in their obsession with what they are against”?</p><p class="TEXT-JUSTIFIED-INDENT"> </p><h4 class="TEXT-JUSTIFIED-INDENT para-style-override-1 rounded"><strong><span class="char-style-override-3">III.</span></strong></h4><p class="TEXT-JUSTIFIED-INDENT para-style-override-1"><span class="char-style-override-5"><span class="dropcap">W</span>hen the cold war ended, many did believe that the United States could </span>finally unburden itself of the vast global responsibilities that it had shouldered for more than four decades. As in the 1920s, the world of the early 1990s seemed safe enough. The former Soviet Union was in a state of economic and political collapse; China, following the Tiananmen Square massacre, was diplomatically and economically isolated. Americans’ biggest concern at the time was the booming economy of Japan, which, as it turned out, was just about to fall into 20 years of stagnation. So what grave threat required America to continue its abnormal, outsized role in the world? Could not the United States return to being more of a normal nation with a more normal definition of its national interests?</p><p class="TEXT-JUSTIFIED-INDENT">In September 1990, in an article titled “A Normal Country in a Normal Time,” Jeane Kirkpatrick argued precisely that. With the Soviet Union collapsing, there was no longer a “pressing need for heroism and sacrifice.” The cold war had given foreign policy “an unnatural importance” in American life. The “foreign policy elite” had grown accustomed to thinking of the United States as having “expansive, expensive, global purposes” that “transcended ... apparent American interests.” It was time for the United States “to focus again on its own national interests,” by which she meant national interests as “conventionally conceived”<span class="em">&mdash;</span>“to protect its territory, wealth, and access to necessary goods; to defend its nationals.” This was the “normal condition for nations.”</p><p class="TEXT-JUSTIFIED-INDENT">Kirkpatrick expressed what many felt after the fall of the Berlin Wall in 1989, and not just the followers of Patrick Buchanan, who found much to praise in her essay. Francis Fukuyama also argued that with communism vanquished and democracy triumphant, there were no other great geopolitical or ideological challenges on the horizon. The chief threat of the future­<span class="em">&mdash;</span>as he suggested in his famous essay “The End of History?”<span class="em">&mdash;</span>would be boredom, the empty tediousness of life lived under a vapid, soul-killing Western liberalism. Others noted Paul Kennedy’s warnings about “imperial overstretch” and worried that America’s extensive global military commitments, no longer justified by a Soviet enemy, would put it at a disadvantage in a world where geoeconomics trumped geopolitics. Realists called for a sharp retraction of American military commitments overseas, the withdrawal of troops from Europe and Asia, and even a return to what they called the “offshore balancing” of the 1920s and 1930s.</p><p class="TEXT-JUSTIFIED-INDENT">Still, and remarkably, for the first two decades of the post-cold-war era the United States pursued the original pre-cold-war grand strategy. The event that set the tone for the next dozen years was comparatively minor. In August 1990, Saddam Hussein’s Iraqi army invaded Kuwait, and in a matter of days conquered and annexed it. Brutal though the action was, by comparison with the seismic events of the bloody twentieth century, it was small beer. The border between the two nations, like most boundaries in the Arab world, had been arbitrarily drawn by the British Empire. Kuwait had been under Iraqi suzerainty under the Ottomans, and leaders in Baghdad had long regarded it as an Iraqi province. Saddam further justified the invasion as support for an allegedly popular (though largely manufactured) rebellion against the Kuwaiti royal family. </p><p class="TEXT-JUSTIFIED-INDENT">Inside and outside the Bush administration, self-described realists argued that the United States draw the line not at Kuwait but at Saudi Arabia. Kuwait’s oil was not that important, Colin Powell argued, and the risks of “a major confrontation” with Saddam and his army were high, so the “most prudent” option would be to defend the Saudis. “We can’t make a case for losing lives for Kuwait,” Powell argued, “but Saudi Arabia is different.” Dick Cheney worried that driving Saddam out of Kuwait was going to cost “one hell of a lot of money,” that Americans had a “short tolerance for war,” and that, after all, “the oil goes mostly to Japan.” James Baker took a similar view, as did a majority of Democrats in Congress, as did a majority of Americans. A poll taken in November 1990 showed that 51 percent of Americans were opposed to trying to drive the Iraqis out of Kuwait by force and that only 37 percent were in favor of it. Most favored economic sanctions to punish Saddam. </p><p class="TEXT-JUSTIFIED-INDENT">Other Bush advisers, however, led by Brent Scowcroft, saw things differently. Saddam’s invasion, they believed, was “the first test of the postwar system.” For half a century the United States had taken the lead role in deterring and punishing would-be aggressors. Although driving Iraqi forces out of Kuwait would be “costly and risky,” Scowcroft feared that failure to do so would set “a terrible precedent<span class="em">&mdash;</span>one that would only accelerate violent centrifugal tendencies<span class="em">&mdash;</span>in this emerging ‘post-Cold War’ era.” Appeasement of aggression in one region would breed aggression elsewhere. To President Bush, it was all reminiscent of the 1930s. This time, he recalled in his memoirs, “I wanted no appeasement.” Speaking to the American people on the eve of war, Bush described American objectives not in terms of national interests but in terms of a “new world order,” in which “the rule of law, not the law of the jungle, governs the conduct of nations.” Much like Roosevelt in 1939, he argued that “a world in which brutality and lawlessness are allowed to go unchecked isn’t the kind of world we’re going to want to live in.”</p><p class="TEXT-JUSTIFIED-INDENT">Thus did Roosevelt’s original grand strategy<span class="em">&mdash;</span>the defense of a liberal world order against collapse, responding not to any single, specific threat but to whatever political, economic, or strategic challenges might arise<span class="em">&mdash;</span>seem to reemerge after the long cold war. After 1990, the United States, despite occasional protectionist pressures at home, generally sought to expand free trade and worked in cooperation with other governments, even at moments of economic crisis, to prevent a collapse of the global economic system. The United States also undertook to expand its alliance system, especially in Central and Eastern Europe.</p><p class="TEXT-JUSTIFIED-INDENT">In the decade following the fall of the Berlin Wall, moreover, the United States also conducted a number of sizeable military operations<span class="em">&mdash;</span>seven to be precise, roughly one every 17 months: in Panama (1989), Iraq (1991), Somalia (1992), Haiti (1994), Bosnia (1995), Iraq again (1998), and Kosovo (1999). None were a response to perceived threats to vital national interests. All aimed at defending and extending the liberal world order<span class="em">&mdash;</span>by toppling dictators, reversing coups, and attempting to restore democracies in Panama and Haiti; preventing mass killing or starvation in Somalia, Bosnia, and Kosovo; deterring or reversing aggression in the Persian Gulf in 1991; and attempting to prevent the proliferation of nuclear or other weapons of mass destruction in Iraq in 1998. When Bush sent 30,000 troops to remove the corrupt dictator Manuel Noriega, it was not, as George Will wrote approvingly at the time, in order to pursue national interests “narrowly construed,” but to fulfill “the rights and responsibilities that come with the possession of great power.” When Bush then carried out in Somalia what was arguably the most purely humanitarian, and therefore most purely selfless, intervention in American history, he told the public, “I understand that the United States alone cannot right the world’s wrongs.” But the “people of Somalia need ... our help” and “some crises in the world cannot be resolved without American involvement.” </p><p class="TEXT-JUSTIFIED-INDENT">The United States, in short, was the “indispensable nation,” as Bill Clinton would proclaim<span class="em">&mdash;</span>indispensable, that is, to the preservation of a liberal world order. Such was the thinking behind most of Clinton’s foreign policy initiatives: the enlargement of NATO, which included the extension of unprecedented military guarantees to such nations as Poland, the Czech Republic, and the Baltic states; the billions sent to try to save Boris Yeltsin’s faltering democratic experiment in Russia; and the intense focus on containing North Korea, Iraq, and Iran, designated as “rogue states” because they defied the principles of a liberal world order. Conflicts in remote and troubled parts of the world were not considered irrelevant to American interests but were viewed within this broader context. After the massacre at Srebrenica in 1995, Clinton officials argued, according to David Halberstam, that “Serb aggression” was intolerable<span class="em">&mdash;</span> not because it threatened American interests directly, which obviously it did not, but because it tore at “the very fabric of the West.”</p><p class="TEXT-JUSTIFIED-INDENT">Even the American confrontation with Iraq, beginning in the late 1990s and culminating in the U.S. invasion in 2003, had begun as a world order issue, before it became subsumed by George W. Bush’s “War on Terror.” When President Clinton ordered four days of bombing and missile attacks against suspected Iraqi weapons production facilities at the end of 1998, he warned that, if Saddam were not stopped, “The community of nations may see more and more of the very kind of threat Iraq poses now: a rogue state with weapons of mass destruction, ready to use them or provide them to terrorists. ... If we fail to respond today, Saddam and all those who would follow in his footsteps will be emboldened tomorrow.” In the twentieth century, Americans had “often made the difference between chaos and community, fear and hope. Now, in the new century, we’ll have a remarkable opportunity to shape a future more peaceful than the past.” At the end of the day, George W. Bush’s decision to remove Saddam Hussein, whether that decision was wise or foolish, was driven more by concerns for world order than by narrow self-interest. Of all the American interventions of the post-cold-war era, only the invasion of Afghanistan could be understood as directly related to America’s own national security. </p><p class="TEXT-JUSTIFIED-NOINDENT">The long interventions in Iraq and Afghanistan <span class="char-style-override-5">certainly played a part in</span> undermining American support, not just for wars but for the grand strategy that led to those wars. However, that support had been shaky from the beginning. Polls throughout the 1990s showed Americans wary of overseas interventions, even though the public generally supported their presidents when they used force. Opposition parties generally opposed the interventions undertaken by both Democratic and Republican presidents. Democrats voted against George H. W. Bush’s Persian Gulf war; Republicans opposed the Clinton administration’s interventions in Haiti and the Balkans as superfluous “international social work” and “nation-building” that were divorced from American national interests. Realists in the academy and the think tanks pecked away at successive administrations, warning of overreach and “imperialism.” Perhaps like the cartoon character that runs beyond the edge of the cliff and hangs with legs churning in the air before falling, support for the globally active policies of the 1990s was a kind of forward inertia, fueled by the energy of the late cold war, and gravity was eventually going to bring it to Earth. </p><p class="TEXT-JUSTIFIED-INDENT"> </p><p class="TEXT-JUSTIFIED-NOINDENT"><span class="dropcap">T</span>he conventional wisdom these days is that Americans are war-weary. But it may be more accurate to say they are world-weary. During the cold war, after all, Americans had much greater reason for war-weariness<span class="em">&mdash;</span>Korea and Vietnam were 14 times more costly in terms of American deaths than Afghanistan and Iraq<span class="em">&mdash;</span>but they never fully rejected the global anti- communist containment strategy that had gotten them into the wars. Today’s mood seems more analogous to the 1920s. More than 50 percent of Americans today believe that the United States “should mind its own business internationally and let other countries get along the best they can on their own”<span class="em">&mdash;</span>the highest number ever recorded since Pew started asking the question 50 years ago.</p><p class="TEXT-JUSTIFIED-INDENT">At the core of this public attitude is no doubt the desire to avoid more wars. But as the 1920s and 1930s showed, a determination to stay out of war can affect broader foreign and economic policies. In the 1930s, the desire to avoid war led Congress to pass the Neutrality Acts, to prevent Americans from even trading with belligerents in a foreign war lest the United States be dragged in on one side or the other. Such an action may be inconceivable today, but the reasoning behind it is visible. Polls these days show that Americans are not only averse to using military force but also to actions short of war. More than 50 percent agreed that it was “more important” that the United States “not get too involved in the situation in Ukraine” than that it “take a firm stand” against Russia, which 29 percent found more important. Many of those not wanting to get “too involved” may fear that any involvement could eventually lead to a possible military confrontation<span class="em">&mdash;</span>and they’re not entirely wrong. As in the 1920s and 1930s, Americans can see the slippery slope.</p><p class="TEXT-JUSTIFIED-INDENT"> </p><h4 class="TEXT-JUSTIFIED-INDENT para-style-override-1 rounded"><strong><span class="char-style-override-3">IV.</span></strong></h4><p class="TEXT-JUSTIFIED-INDENT para-style-override-1"><span class="char-style-override-5"><span class="dropcap">H</span>istorians often refer to the “maturing” of American foreign policy since </span>the nineteenth century. But if nations can learn, they can also unlearn. These days it is hard to watch both the conduct and the discussion of American foreign policy and not sense a certain unlearning, a forgetting of the old lessons on which the grand strategy was premised. Perhaps this was inevitable. World War II is as distant from today’s “millennials” as the Civil War was from the generation of the 1930s. A generation that does not remember the cold war, but grew up knowing only Iraq and Afghanistan, is going to view America’s role in the world differently. Combine that with the older generations that have tired of playing the old role, and it is hardly surprising that enthusiasm is flagging. Americans today are not isolationists, any more than they were in the 1920s. They favor the liberal world order insofar as they can see how it touches them. But they are no longer prepared to sacrifice very much to uphold it.</p><p class="TEXT-JUSTIFIED-INDENT">This is understandable. Americans have been Atlas carrying the world on their shoulders. They can be forgiven for feeling the temptation to put it down. Under the best of circumstances, playing the role of upholder of the liberal world order was always a monumental task. At the dawn of the American era, Truman called it “the most terrible responsibility that any nation ever faced.” George Kennan was convinced that the American people were “not fitted, either institutionally or temperamentally, to be an imperial power in the grand manner.” Actually, he underestimated them, for Americans maintained their global commitments for decades, better than most nations.</p><p class="TEXT-JUSTIFIED-INDENT">Yet the burden has been immense, and not just the obvious costs in lives and treasure. Americans have spent vast amounts on defense budgets, more than all other major powers combined. Can’t U.S. allies carry more of the burden? The question has been asked since the dawn of the cold war, but the answer has always been: probably not. The same factors that have made the United States uniquely capable of supporting a world order<span class="em">&mdash;</span>great wealth and power and the relative security afforded by geography<span class="em">&mdash;</span>help explain why American allies have always been less capable and less willing. They have lacked the power and the security to see and act beyond their narrow interests. So where they failed before they will fail again. Even twenty-first-century Europeans, for all the wonders of their union, seem incapable of uniting against a predator in their midst, and are willing, as in the past, to have the weak devoured if necessary to save their own (financial) skins. There are moral costs, too. Like most people, Americans generally like to believe that they are behaving justly in the world, that they are on the side of the right. If possible, they like to have legal or institutional sanctions for their action, or at least the general approval of like-minded nations. On the two occasions in the past 100 years when the United States contemplated taking on a central role in global affairs, in 1918 and 1945, American leaders insisted on simultaneously creating world organizations that could, at least in theory, provide this legitimacy for American actions. </p><p class="TEXT-JUSTIFIED-INDENT">The problem is, the world lacks any genuine overarching legal or institutional authority, much less a democratic authority, to which all nations subordinate themselves. Questions of right and wrong are settled not according to impartial justice but usually according to the distribution of power in the system. Americans have usually had to use their power to enforce their idea of justice without any assurance beyond their own faith that they are right. This is a heavy moral burden for a democratic people to bear. In their domestic lives, Americans are accustomed to having that burden spread evenly across society. The people make the laws, the police enforce the laws, judges and juries mete out justice, and the prison officials carry out the punishment. But in the international sphere, Americans have had to act as judge, jury, police, and, in the case of military action, executioner. What gives the United States the right to act on behalf of a liberal world order? In truth, nothing does, nothing beyond the conviction that the liberal world order is the most just. </p><p class="TEXT-JUSTIFIED-INDENT">This moral conundrum was easier to ignore during the cold war, when every action taken, even in the most obscure corners of the world, was justified as being in defense of vital national interests. But actions taken in defense of world order are fraught with moral complexity. Americans and Europeans argue that Ukraine’s sovereignty should be inviolate and that the people of Ukraine should be allowed to pursue their aspirations to be part of Europe. Vladimir Putin justifies his invasion of Crimea on the grounds of ancient historical ties and in response to American and European meddling in Russia’s historical sphere of influence. Who is there to adjudicate between these competing claims of justice? Who can determine which side is right and which side is wrong? It does no good to invoke some allegedly superior twenty-first-century morality against an inferior nineteenth-century morality. No more in this century than in previous centuries is there either perfect morality or perfect justice to be found in the international system. Nor do great powers come to disputes with clean hands, in this or any other century. All are selfish; all are morally compromised. And indeed, the more power a nation has, the more it is likely to act in ways that cannot be squared with a Christian or Enlightenment morality. </p><p class="TEXT-JUSTIFIED-INDENT">Who is to say that even defense of the liberal world order is necessarily good? The liberal world order was never put to a popular vote. It was not bequeathed by God. It is not the endpoint of human progress, despite what our Enlightenment education tells us. It is a temporary and transient world order that suits the needs, interests, and above all the ideals of a large and powerful collection of people, but it does not necessarily fit the needs and desires of everyone. For decades many abroad and some Americans at home saw it as a form of Western imperialism, and many still do. Communism may have failed, but authoritarianism and autocracy live on. And it is that form of government, not democracy, that has been the norm throughout history. In recent decades the democracies, led by the United States and Europe, have had the power to shape the world. But who is to say that Putinism in Russia or the particular brand of authoritarianism practiced in China will not survive as far into the future as European democracy, which, outside of Great Britain, is itself only a little over a century old? </p><p class="TEXT-JUSTIFIED-INDENT">A liberal world order, like any world order, is something that is imposed, and as much as we in the West might wish it to be imposed by superior virtue, it is generally imposed by superior power. Putin seeks to impose his view of a world order, at least in Russia’s neighborhood, just as Europe and the United States do. Whether he succeeds or fails will probably not be determined merely by who is right and who is wrong. It will be determined by the exercise of power.</p><p class="TEXT-JUSTIFIED-INDENT">This is a disturbing thought for a nation that has grown weary of exercising power. Hans Morgenthau once observed that Americans are attracted to the “illusion that a nation can escape ... from power politics,” that at some point “the final curtain would fall and the game of power politics would no longer be played.” Many escapes have been offered over the past two decades. In 1989, Fukuyama told Americans that with the end of history there would be no more “serious ideological competitors left to liberal democracy.” Liberal progress was inevitable, and therefore nothing need be done to promote or defend it. Such thoughts were echoed throughout the 1990s. The age of geopolitics had supposedly given way to the age of geoeconomics. What America needed in the new era was less “hard power” and more “soft power.”</p><p class="TEXT-JUSTIFIED-INDENT">Such was the reigning conventional wisdom, at least from the end of the cold war until 2008 and the beginning of the financial crisis. Then the paradigm shifted. Suddenly, instead of the end of history, it was the end of America, the end of the West. Triumphalism turned to declinism. From the post-cold-war utopia it became the post-American world. Yet this, too, turned out to be a form of escapism, for remarkably, whether the liberal world order was triumphing or America and the West were declining, the prescription remained the same: There was nothing to be done. Whereas before it had been unnecessary, and even wrong, for the United States to use its power to shape the world, now, suddenly, it was impossible, because the United States no longer had sufficient power. </p><p class="pullquote para-style-override-3"><span>Today more than 50 percent of Americans believe the United States plays “a less important and powerful role as a world leader than it did a decade ago.” One senses that, for many Americans, this decline is not a reason for panic but comes as something of a relief. Less power means fewer responsibilities. A sense of futility, today as much as in the 1920s and 1930s, is both an invitation and a justification for a return to normalcy. </span></p><p class="TEXT-JUSTIFIED-INDENT">The sense of futility has affected policymakers, too. Senior White House officials, especially the younger ones, look at problems like the struggle in Syria and believe that there is little if anything the United States can do. This is the lesson of their generation, the lesson of Iraq and Afghanistan: that America has neither the power nor the understanding nor the skill to fix problems in the world. </p><p class="TEXT-JUSTIFIED-INDENT">This is also escapism, however, for there is a myth embedded in this plea of futility. It is that wielding power effectively was ever any easier than it is today. With rose-colored glasses we look back at the cold war and imagine that the United States used to get others to do what it wanted, used to know what it was doing, and used to wield such overwhelming power that the world simply bent to its will or succumbed to its charms. But American policy during the cold war, despite its ultimate success, was filled with errors, folly, many near-disasters, and some disasters. From the beginning, allies proved rebellious, resentful, and unmanageable. American domestic politics made sensible policies difficult and sometimes impossible to sustain. The world economy, and the American economy, lurched from crisis to crisis. American military power was at its best a most uncertain instrument. In Vietnam, whether inevitably or because of bad policymaking in Washington, it failed miserably. In Korea, it almost suffered a complete catastrophe. The most successful presidents of the era, from Truman to Reagan, did not always seem successful to their contemporaries and suffered significant setbacks in their foreign policies. Can the architects of today’s foreign policies really believe that Acheson and his colleagues, or the policymakers in the Johnson or Nixon or Carter administrations, had an easier time of it? </p><p class="TEXT-JUSTIFIED-INDENT">Any nation’s foreign policy is bound to fail more often than it succeeds. The attempt to influence the behavior of people even in the domestic setting is difficult enough. To influence other peoples and other nations without simply annihilating them is the most difficult of all human tasks. It is also in the very nature of foreign policy, as in human affairs generally, that all solutions to problems only breed more problems. This is certainly true of all wars. There is no perfect ending to any war, even those fought with the clearest and most straightforward of objectives. The Civil War did not put an end to the terrible plight of blacks in America, though it cost over half a million lives. World War II ended with the Soviet Union in control of half of Europe and opened the way to another four decades of superpower confrontation.</p><p class="TEXT-JUSTIFIED-INDENT">When a nation uses its power to shape a world order, rather than merely for self-defense or conquest, the tenuousness of solutions is even more pronounced. Military actions for world order preservation are almost by definition limited both in scope and objectives. World order maintenance requires operating in the gray areas between victory and defeat. The measure of success is often not how wonderful the end result is, but whether the unsatisfying end result is better or worse than the outcome if there had been no action. To insist on outcomes that always achieve maximum ends at minimal cost is yet another form of escapism. </p><p class="TEXT-JUSTIFIED-INDENT"> </p><p class="TEXT-JUSTIFIED-NOINDENT"><span class="dropcap">T</span>oday, however, Americans seem overwhelmed by <span class="char-style-override-5">the difficulty and </span>complexity of it all. They yearn to return to what Niebuhr called “the innocency of irresponsibility,” or at least to a normalcy in which the United States can limit the scope of its commitments. In this way America has perhaps returned to the mood of the 1920s. There is a difference, however. In the 1920s, it was not America’s world order that needed shoring up. Americans felt, mistakenly as it turned out, that it was Britain’s and Europe’s job to preserve the world order they had created. Today, it is America’s world order that needs propping up. Will Americans decide that it matters this time, when only they have the capacity to sustain it? </p><p class="TEXT-JUSTIFIED-INDENT">You never miss the water ’til the well runs dry, or so the saying goes. One wonders whether Americans, including their representatives and their president, quite understand what is at stake. When President Obama first took office five years ago, Peter Baker of <em class="italic">The New York Times</em> reported that he intended to deal “with the world as it is rather than as it might be.” It is a standard realist refrain and has been repeated time and again by senior Obama officials as a way of explaining why he decided against pursuing some desirable but unreachable “ideal” in this place or that. What fewer and fewer seem to realize, however, is that the last 70 years have offered Americans and many others something of a reprieve from the world “as it is.”</p><p class="TEXT-JUSTIFIED-INDENT">Periods of peace and prosperity can make people forget what the world “as it is” really looks like, and to conclude that the human race has simply ascended to some higher plateau of being. This was the common view in Europe in the first decade of the twentieth century. At a time when there had not been a war between great powers in 40 years, or a major Europe-wide war in a century, the air was filled with talk of a new millennium in which wars among civilized nations had become impossible. Three-quarters of a century and two world wars and a cold war later, millennial thoughts return. Studies cited by Fareed Zakaria purport to show that some “transformation of international relations” has occurred. “Changes of borders by force” have dropped dramatically “since 1946.” The nations of Western Europe, having been responsible for two new wars a year for 600 years, had not even started one “since 1945.” Steven Pinker observes that the number of deaths from war, ethnic conflict, and military coups has declined<span class="em">&mdash;</span>since 1945<span class="em">&mdash;</span>and concludes that the human race has become “socialized” to prefer peace and nonviolence. </p><p class="TEXT-JUSTIFIED-INDENT">The dates when these changes supposedly began ought to be a tip-off. Is it a coincidence that these happy trends began when the American world order was established after World War II, or that they accelerated in the last two decades of the twentieth century, when America’s only serious competitor collapsed? Imagine strolling through Central Park and, after noting how much safer it had become, deciding that humanity must simply have become less violent<span class="em">&mdash;</span>without thinking that perhaps the New York Police Department had something to do with it.</p><p class="TEXT-JUSTIFIED-INDENT">In fact, the world “as it is” is a dangerous and often brutal place. There has been no transformation in human behavior or in international relations. In the twenty-first century, no less than in the nineteenth and twentieth centuries, force remains the ultima ratio. The question, today as in the past, is not whether nations are willing to resort to force but whether they believe they can get away with it when they do. If there has been less aggression, less ethnic cleansing, less territorial conquest over the past 70 years, it is because the United States and its allies have both punished and deterred aggression, have intervened, sometimes, to prevent ethnic cleansing, and have gone to war to reverse territorial conquest. The restraint showed by other nations has not been a sign of human progress, the strengthening of international institutions, or the triumph of the rule of law. It has been a response to a global configuration of power that, until recently, has made restraint seem the safer course.</p><p class="TEXT-JUSTIFIED-INDENT">When Vladimir Putin failed to achieve his goals in Ukraine through political and economic means, he turned to force, because he believed that he could. He will continue to use force so long as he believes that the payoff exceeds the cost. Nor is he unique in this respect. What might China do were it not hemmed in by a ring of powerful nations backed by the United States? For that matter, what would Japan do if it were much more powerful and much less dependent on the United States for its security? We have not had to find out the answers to these questions, not yet, because American predominance, the American alliance system, and the economic, political, and institutional aspects of the present order, all ultimately dependent on power, have mostly kept the lid closed on this Pandora’s box.</p><p class="TEXT-JUSTIFIED-INDENT">Nor have we had to find out yet what the world “as it is” would do to the remarkable spread of democracy. Skeptics of “democracy promotion” argue that the United States has often tried to plant democracy in infertile soil. They may be right. The widespread flowering of democracy around the world in recent decades may prove to have been artificial and therefore tenuous. As Michael Ignatieff once observed, it may be that “liberal civilization” itself “runs deeply against the human grain and is achieved and sustained only by the most unremitting struggle against human nature.” Perhaps this fragile democratic garden requires the protection of a liberal world order, with constant feeding, watering, weeding, and the fencing off of an ever-encroaching jungle. In the absence of such efforts, the weeds and the jungle may sooner or later come back to reclaim the land.</p><p class="TEXT-JUSTIFIED-INDENT">One wonders if even the current economic order reflects the world “as it is.” A world in which autocracies make ever more ambitious attempts to control the flow of information, and in which autocratic kleptocracies use national wealth and resources to further their private interests, may prove less hospitable to the kind of free flow of commerce the world has come to appreciate in recent decades. </p><p class="TEXT-JUSTIFIED-INDENT">In fact, from the time that Roosevelt and Truman first launched it, the whole project of promoting and defending a liberal world order has been a concerted effort <em class="italic">not</em> to accept the world “as it is.” The American project has aimed at shaping a world different from what had always been, taking advantage of America’s unique situation to do what no nation had ever been able to do. Today, however, because many Americans no longer recall what the world “as it is” really looks like, they cannot imagine it. They bemoan the burdens and failures inherent in the grand strategy but take for granted all the remarkable benefits. </p><p class="TEXT-JUSTIFIED-INDENT">Nor do they realize, perhaps, how quickly it can all unravel. The international system is an elaborate web of power relationships, in which every nation, from the biggest to the smallest, is constantly feeling for shifts or disturbances. Since 1945, and especially since 1989, the web has been geared to respond primarily to the United States. Allies observe American behavior and calculate America’s reliability. Nations hemmed in or threatened by American power watch for signs of growing or diminishing power and will. When the United States appears to retrench, allies necessarily become anxious, while others look for opportunities. </p><p class="TEXT-JUSTIFIED-INDENT">In recent years, the world has picked up unmistakable signals that Americans may no longer want to carry the burden of global responsibility. Others read the polls, read the president’s speeches calling for “nation-building at home,” see the declining defense budgets and defense capabilities, and note the extreme reticence, on the part of both American political parties, about using force. The world judges that, were it not for American war-weariness, the United States probably would by now have used force in Syria<span class="em">&mdash;</span>just as it did in Kosovo, in Bosnia, and in Panama. President Obama himself recently acknowledged as much when he said, “It’s not that it’s not worth it. It’s that after a decade of war, you know, the United States has limits.” Such statements set the web vibrating. In East Asia, nations living in close proximity to an increasingly powerful China want to know whether Americans will make a similar kind of calculation when it comes to defending them; in the Middle East, nations worried about Iran wonder if they will be left to confront it alone; in Eastern Europe and the Baltic states, American security guarantees are meaningless unless Americans are able and willing to meet them.</p><p class="TEXT-JUSTIFIED-INDENT">Are they? No one has taken a poll lately on whether the United States should come to the defense of its treaty allies in the event of a war between, say, China and Japan; or whether it should come to the defense of Estonia in a Ukraine-like conflict with Russia. The answers might prove interesting.</p><p class="TEXT-JUSTIFIED-INDENT">Meanwhile, the signs of the global order breaking down are all around us. Russia’s invasion of Ukraine and seizure of Crimea was the first time since World War II that a nation in Europe had engaged in territorial conquest. If Iran manages to acquire a nuclear weapon, it will likely lead other powers in the region to do the same, effectively undoing the nonproliferation regime, which, along with American power, has managed to keep the number of nuclear-armed powers limited over the past half century. Iran, Saudi Arabia, and Russia are engaged in a proxy war in Syria that, in addition to the 150,000 dead and the millions displaced, has further destabilized a region that had already been in upheaval. In East Asia, nervousness about China’s rise, combined with uncertainty about America’s commitment, is exacerbating tensions. In recent years the number of democracies around the world has been steadily declining, while the number of autocracies grows. If these trends continue, in the near future we are likely to see increasing conflict, increasing wars over territory, greater ethnic and sectarian violence, and a shrinking world of democracies.</p><p class="TEXT-JUSTIFIED-INDENT">How will Americans respond? If the test is once again to be “national interests” narrowly construed, then Americans may find all of this tolerable, or at least preferable to doing something to stop it. Could the United States survive if Syria remains under the control of Assad or, more likely, disintegrates into a chaos of territories, some of which will be controlled by jihadi terrorists? Could it survive if Iran acquires a nuclear weapon, and if in turn Saudi Arabia, Turkey, and Egypt acquire nuclear weapons? Or if North Korea launches a war on the South? Could it survive in a world where China dominates much of East Asia, or where China and Japan resume their old conflict? Could it survive in a world where Russia dominates Eastern Europe, including not only Ukraine but the Baltic states and perhaps even Poland? Of course it could. From the point of view of strict “necessity” and narrow national interest, the United States could survive all of this. It could trade with a dominant China and work out a modus vivendi with a restored Russian empire. Those alarmed by such developments will be hard-pressed, as Roosevelt was, to explain how each marginal setback would affect the parochial interests of the average American. As in the past, Americans will be among the last to suffer grievously from a breakdown of world order. And by the time they do feel the effects, it may be very late in the day.</p><p class="TEXT-JUSTIFIED-INDENT">Looking back on the period before World War II, Robert Osgood, the most thoughtful of realist thinkers of the past century, discerned a critical element missing from the strategic analyses of the day. Mere rational calculations of the “national interest,” he argued, proved inadequate. Paradoxically, it was the “idealists,” those who were “most sensitive to the Fascist menace to Western culture and civilization,” who were “among the first to understand the necessity of undertaking revolutionary measures to sustain America’s first line of defense in Europe.” Idealism, he concluded, was “an indispensable spur to reason in leading men to perceive and act upon the real imperatives of power politics.”<span class="char-style-override-2"> </span>This was Roosevelt’s message, too, when he asked Americans to defend “not their homes alone, but the tenets of faith and humanity on which their churches, their governments, and their very civilization are founded.”</p><p class="TEXT-JUSTIFIED-INDENT">Perhaps Americans can be inspired in this way again, without the threat of a Hitler or an attack on their homeland. But this time they will not have 20 years to decide. The world will change much more quickly than they imagine. And there is no democratic superpower waiting in the wings to save the world if this democratic superpower falters.</p>
+              
+                              <div class="ui tertiary biography segment">
+                  <p><em><span class="char-style-override-4">Robert Kagan is a senior fellow at the Brookings Institution and a contributing editor at </span></em>The New Republic<em><span class="char-style-override-4">. He is the author, most recently, of </span></em><a href="http://www.amazon.com/The-World-America-Made-Vintage/dp/0345802713" target="_blank">The World America Made</a><span class="char-style-override-4">.</span></p>                </div>
+              
+              
+            </div>
+          </div>
+          <div class="apostrophe"></div>
+          <div class="variable advertisement" id="mobile-article-bottom-ad"></div>
+          <div class="taboola">
+            <div class="ui active flipping loader">
+              <div class="shape"></div>
+              Loading Related Articles...
+            </div>
+            <div id="taboola-main"></div>
+            <div id="taboola-text"></div>
+          </div>
+
+                    <div class="inline category">
+            <a href="/tags/politics"><img typeof="foaf:Image" src="/sites/all/themes/tnr/assets/images/tags/tnr-politics-187x80.gif" alt="Politics" /></a>          </div>
+          
+                    <div class="ui basic vertical inline tag segment">
+            <h4 class="ui header">More articles tagged as</h4>
+            <div class="ui labels">
+              <a href="/tags/foreign-policy" class="ui label">Foreign Policy</a><a href="/tags/politics" class="ui label">politics</a><a href="/tags/normalcy" class="ui label">normalcy</a><a href="/tags/isolationism" class="ui label">isolationism</a><a href="/tags/internationalism" class="ui label">internationalism</a><a href="/tags/george-hw-bush" class="ui label">george h.w. bush</a>            </div>
+          </div>
+          
+          <div class="inline recirculation">
+            <div class="recirculation module">
+  <div class="ui three item tabular top attached menu">
+        <a class="active item" data-tab="related">Related</a>
+        <a class="item" data-tab="trending">Trending</a>
+        <a class="item" data-tab="author">This Author</a>
+      </div>
+    <div class="ui active bottom attached piled tab segment" data-tab="related">
+    <div class="filter">More Articles in <a Href="/tags/foreign-policy" Itemprop="articleSection" Class="category">Foreign Policy</a></div>
+    <div class="ui relaxed bulleted list">
+            <div href="/article/117935/obamas-2014-speech-west-point-wont-help-iran-syria-strategy?utm_source=internal&utm_medium=between&utm_campaign=related" class="item">
+  <a href="/article/117935/obamas-2014-speech-west-point-wont-help-iran-syria-strategy?utm_source=internal&utm_medium=between&utm_campaign=related">
+    Obama's New Guidelines for War Don't Provide Much Guidance on Iran and Syria  </a>
+</div>
+<div href="/article/117854/indian-leader-narendra-modi-and-peace-pakistan?utm_source=internal&utm_medium=between&utm_campaign=related" class="item">
+  <a href="/article/117854/indian-leader-narendra-modi-and-peace-pakistan?utm_source=internal&utm_medium=between&utm_campaign=related">
+    India's Nationalistic New Leader Just Made an Extraordinarily Warm Gesture Towards Pakistan  </a>
+</div>
+<div href="/article/117316/john-kerry-could-revive-peace-process-supporting-un?utm_source=internal&utm_medium=between&utm_campaign=related" class="item">
+  <a href="/article/117316/john-kerry-could-revive-peace-process-supporting-un?utm_source=internal&utm_medium=between&utm_campaign=related">
+    John Kerry Could Revive Peace Talks, but Don't Count on It  </a>
+</div>
+<div href="/article/117214/republicans-and-democrats-part-ways-israel?utm_source=internal&utm_medium=between&utm_campaign=related" class="item">
+  <a href="/article/117214/republicans-and-democrats-part-ways-israel?utm_source=internal&utm_medium=between&utm_campaign=related">
+    Republicans and Democrats Are Reversing Roles on Israel  </a>
+</div>
+<div href="/article/116988/barack-obama-foreign-policy-speak-loudly-and-carry-small-stick?utm_source=internal&utm_medium=between&utm_campaign=related" class="item">
+  <a href="/article/116988/barack-obama-foreign-policy-speak-loudly-and-carry-small-stick?utm_source=internal&utm_medium=between&utm_campaign=related">
+    Speak Loudly and Carry a Small Stick  </a>
+</div>
+    </div>
+  </div>
+    <div class="ui bottom attached piled tab segment" data-tab="trending">
+    <div class="filter">Popular Articles
+      <div class="inline ui dropdown">
+          <span class="text">Now</span>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="active item" data-value="now">Now</div>
+            <div class="item" data-value="week">This Week</div>
+            <div class="item" data-value="month">This Month</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui relaxed ordered list">
+            <div href="/article/117898/lethal-injection-photos-angel-diazs-botched-execution-florida?utm_source=internal&utm_medium=between&utm_campaign=trending" class="item">
+  <a href="/article/117898/lethal-injection-photos-angel-diazs-botched-execution-florida?utm_source=internal&utm_medium=between&utm_campaign=trending">
+    Photos from a Botched Lethal Injection  </a>
+</div>
+<div href="/article/117947/maya-angelou-was-ms-not-dr-against-title-inflation-america?utm_source=internal&utm_medium=between&utm_campaign=trending" class="item">
+  <a href="/article/117947/maya-angelou-was-ms-not-dr-against-title-inflation-america?utm_source=internal&utm_medium=between&utm_campaign=trending">
+    Why Do People Call Ms. Maya Angelou "Dr. Maya Angelou"?  </a>
+</div>
+<div href="/article/117922/elliott-rodger-race-isla-vista-shooter-was-not-just-white-guy-killer?utm_source=internal&utm_medium=between&utm_campaign=trending" class="item">
+  <a href="/article/117922/elliott-rodger-race-isla-vista-shooter-was-not-just-white-guy-killer?utm_source=internal&utm_medium=between&utm_campaign=trending">
+    Not Just a 'White Guy Killer'  </a>
+</div>
+<div href="/article/117876/feminists-should-embrace-home-economics?utm_source=internal&utm_medium=between&utm_campaign=trending" class="item">
+  <a href="/article/117876/feminists-should-embrace-home-economics?utm_source=internal&utm_medium=between&utm_campaign=trending">
+    Feminists Killed Home Ec. Now They Should Bring It Back—for Boys and Girls.  </a>
+</div>
+<div href="/article/117928/wwii-photography-blitz-england-people-wearing-gas-masks?utm_source=internal&utm_medium=between&utm_campaign=trending" class="item">
+  <a href="/article/117928/wwii-photography-blitz-england-people-wearing-gas-masks?utm_source=internal&utm_medium=between&utm_campaign=trending">
+    An Eerie Look at Life Under the Blitz  </a>
+</div>
+    </div>
+  </div>
+    <div class="ui bottom attached piled tab segment" data-tab="author">
+    <div class="filter">More by <b><a href="/authors/robert-kagan" itemprop="author" rel="author">Robert Kagan</a></b></div>
+    <div class="ui relaxed bulleted list">
+            <div href="/article/politics/magazine/99521/america-world-power-declinism?utm_source=internal&utm_medium=between&utm_campaign=author" class="item">
+  <a href="/article/politics/magazine/99521/america-world-power-declinism?utm_source=internal&utm_medium=between&utm_campaign=author">
+    Not Fade Away  </a>
+</div>
+<div href="/article/environment-energy/the-end-the-end-history?utm_source=internal&utm_medium=between&utm_campaign=author" class="item">
+  <a href="/article/environment-energy/the-end-the-end-history?utm_source=internal&utm_medium=between&utm_campaign=author">
+    The End of the End of History  </a>
+</div>
+<div href="/article/90784/fareed-zakaria-democracy?utm_source=internal&utm_medium=between&utm_campaign=author" class="item">
+  <a href="/article/90784/fareed-zakaria-democracy?utm_source=internal&utm_medium=between&utm_campaign=author">
+    The Ungreat Washed  </a>
+</div>
+    </div>
+  </div>
+  </div>          </div>
+        </div>
+
+        <div class="left article rail">
+          <div class="ui sticky">
+            <div class="share module">
+  <div class="social">
+    <div class="vertical facebook"
+      data-url="http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world"
+      data-text="The Ungreat Washed"
+      data-title="Share">
+    </div>
+    <div class="vertical twitter"
+      data-url="http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world"
+      data-text="Superpowers Don't Get to Retire"
+      data-title="Tweet"></div>
+  </div>
+</div>            <div class="tools module">
+  <div class="ui vertical icon menu">
+    <div class="link email item" data-position="right center"  data-content="E-mail this article">
+      <i class="mail icon"></i>
+    </div>
+    <div class="link save ui dropdown item" data-position="right center"  data-content="Save for Later">
+      <i class="bookmark icon"></i>
+      <div class="vertical menu">
+        <div class="header item">
+          Choose Service
+        </div>
+        <a class="item" target="_blank" href="http://www.instapaper.com/hello2?url=http%3A%2F%2Fwww.newrepublic.com%2Farticle%2F117859%2Fallure-normalcy-what-america-still-owes-world&amp;title=Superpowers+Don%27t+Get+to+Retire&amp;description=What+our+tired+country+still+owes+the+world.">
+          Save to Instapaper
+        </a>
+        <a class="item" target="_blank" href="http://readability.com/save?url=http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world">
+          Save to Readability
+        </a>
+        <div class="item">
+          <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
+          <script type="text/javascript">
+          !function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");
+          </script>
+        </div>
+      </div>
+    </div>
+    <div class="ui font dropdown link item" data-position="right center" data-content="Font Size">
+      <i class="font icon"></i>
+      <div class="menu">
+        <div class="small item" data-value="1/1.8">Small</div>
+        <div class="active medium item" data-value="">Medium</div>
+        <div class="large item" data-value="1.4/1.6">Large</div>
+        <div class="x-large item" data-value="1.5/1.65">Extra Large</div>
+      </div>
+    </div>
+    <div class="link print item" data-position="right center" data-content="Print">
+      <i class="print icon"></i>
+    </div>
+  </div>
+</div>          </div>
+        </div>
+
+        <div class="right article rail">
+                    <div class="variable advertisement module" id="rail-ad"></div>          <div class="trending module">
+  <div class="selection">
+        Most Shared
+        <div class="inline ui dropdown">
+      <span class="text">Now</span>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <div class="active item" data-value="now">Now</div>
+        <div class="item" data-value="week">This Week</div>
+        <div class="item" data-value="month">This Month</div>
+      </div>
+    </div>
+  </div>
+  <div class="ui headlines">
+        <div class="headline">
+  <div class="image">
+    <a href="/article/117898/lethal-injection-photos-angel-diazs-botched-execution-florida?utm_source=internal&utm_medium=margin&utm_campaign=mostshared"><img src="/sites/default/files/styles/static_cover_img_500/public/angel-diaz-lede.jpg"></a>
+  </div>
+  <h4 class="header">
+    <a href="/article/117898/lethal-injection-photos-angel-diazs-botched-execution-florida?utm_source=internal&utm_medium=margin&utm_campaign=mostshared">
+      Photos from a Botched Lethal Injection    </a>
+  </h4>
+</div>
+<div class="headline">
+  <div class="image">
+    <a href="/article/117947/maya-angelou-was-ms-not-dr-against-title-inflation-america?utm_source=internal&utm_medium=margin&utm_campaign=mostshared"><img src="/sites/default/files/styles/static_cover_img_500/public/maya-angelou-doctor.jpg"></a>
+  </div>
+  <h4 class="header">
+    <a href="/article/117947/maya-angelou-was-ms-not-dr-against-title-inflation-america?utm_source=internal&utm_medium=margin&utm_campaign=mostshared">
+      Why Do People Call Ms. Maya Angelou "Dr. Maya Angelou"?    </a>
+  </h4>
+</div>
+<div class="headline">
+  <div class="image">
+    <a href="/article/117948/how-obamacare-affects-cobra-why-unemployed-widows-are-better?utm_source=internal&utm_medium=margin&utm_campaign=mostshared"><img src="/sites/default/files/styles/static_cover_img_500/public/donielle_scherff.jpg"></a>
+  </div>
+  <h4 class="header">
+    <a href="/article/117948/how-obamacare-affects-cobra-why-unemployed-widows-are-better?utm_source=internal&utm_medium=margin&utm_campaign=mostshared">
+      Obamacare Is Slashing Those Crazy COBRA Premiums    </a>
+  </h4>
+</div>
+<div class="ui active flipping loader">
+  <div class="shape"></div>
+  Loading
+</div>    <div class="ui active flipping loader">
+      <div class="shape"></div>
+      Loading
+    </div>
+  </div>
+</div>          <div class="newsletter module">
+  <h5 class="ui dividing header">Sign Up For The New Republic Daily</h5>
+  Sign up now to get your dose of politics, culture, and big ideas with our free daily newsletter.
+  <form class="ui fluid form" action="/article/117859/allure-normalcy-what-america-still-owes-world" method="post" id="tnr-article-sailthru-form" accept-charset="UTF-8"><div><div class="field"><div class="form-item form-type-textfield form-item-email">
+ <input autocomplete="email" type="text" name="email" placeholder="Enter e-mail" id="edit-email" value="" size="60" maxlength="128" class="form-text required" />
+</div>
+</div><input class="ui blue submit button form-submit" type="submit" id="edit-submit--4" name="op" value="Sign-up" /><input type="hidden" name="form_build_id" value="form-k7zuQ0FDRIziLMyPlEIpDaYSxh06BugfXt7k372n9Yg" />
+<input type="hidden" name="form_id" value="tnr_article_sailthru_form" />
+</div></form></div>                    <div class="ui sticky">
+            <div class="share module">
+  <div class="social">
+    <div class="inline facebook"
+      data-url="http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world"
+      data-text="Obamacare Is Slashing Those Crazy COBRA Premiums"
+      data-title="Share">
+    </div>
+    <div class="inline twitter"
+      data-url="http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world"
+      data-text="Superpowers Don't Get to Retire"
+      data-title="Tweet"></div>
+  </div>
+</div>            <div class="variable advertisement module">
+  <div id="sticky-rail-ad"></div>
+  <div id="tablet-sticky-rail-ad"></div>
+</div>            <div class="ui clearing section expand divider"></div>
+            <div class="ui fluid expand button">
+              <i class="list layout icon"></i> Article Tools
+            </div>
+          </div>
+        </div>
+
+                            <div class="comments">
+            <div class="ui active flipping loader">
+              <div class="shape"></div>
+              Loading Comments
+            </div>
+            <div id="livefyre-comments"></div>
+            <div class="right rail">
+              <div class="ui sticky">
+                <div class="recirculation module">
+  <div class="ui small three item secondary pointing menu">
+    <a class="active blue item" data-tab="trending">Trending</a>
+        <a class="item" data-tab="related">Related</a>
+            <a class="item" data-tab="author">This Author</a>
+      </div>
+  <div class="ui active bottom attached stacked secondary tab segment" data-tab="trending">
+    <div class="filter">Popular Articles
+      <div class="inline ui dropdown">
+          <span class="text">Now</span>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="active item" data-value="now">Now</div>
+            <div class="item" data-value="week">This Week</div>
+            <div class="item" data-value="month">This Month</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui relaxed ordered list">
+            <div href="/article/117898/lethal-injection-photos-angel-diazs-botched-execution-florida?utm_source=internal&utm_medium=below&utm_campaign=trending" class="item">
+  <a href="/article/117898/lethal-injection-photos-angel-diazs-botched-execution-florida?utm_source=internal&utm_medium=below&utm_campaign=trending">
+    Photos from a Botched Lethal Injection  </a>
+</div>
+<div href="/article/117947/maya-angelou-was-ms-not-dr-against-title-inflation-america?utm_source=internal&utm_medium=below&utm_campaign=trending" class="item">
+  <a href="/article/117947/maya-angelou-was-ms-not-dr-against-title-inflation-america?utm_source=internal&utm_medium=below&utm_campaign=trending">
+    Why Do People Call Ms. Maya Angelou "Dr. Maya Angelou"?  </a>
+</div>
+<div href="/article/117922/elliott-rodger-race-isla-vista-shooter-was-not-just-white-guy-killer?utm_source=internal&utm_medium=below&utm_campaign=trending" class="item">
+  <a href="/article/117922/elliott-rodger-race-isla-vista-shooter-was-not-just-white-guy-killer?utm_source=internal&utm_medium=below&utm_campaign=trending">
+    Not Just a 'White Guy Killer'  </a>
+</div>
+<div href="/article/117876/feminists-should-embrace-home-economics?utm_source=internal&utm_medium=below&utm_campaign=trending" class="item">
+  <a href="/article/117876/feminists-should-embrace-home-economics?utm_source=internal&utm_medium=below&utm_campaign=trending">
+    Feminists Killed Home Ec. Now They Should Bring It Back—for Boys and Girls.  </a>
+</div>
+<div href="/article/117928/wwii-photography-blitz-england-people-wearing-gas-masks?utm_source=internal&utm_medium=below&utm_campaign=trending" class="item">
+  <a href="/article/117928/wwii-photography-blitz-england-people-wearing-gas-masks?utm_source=internal&utm_medium=below&utm_campaign=trending">
+    An Eerie Look at Life Under the Blitz  </a>
+</div>
+    </div>
+  </div>
+    <div class="ui bottom attached stacked secondary tab segment" data-tab="related">
+    <div class="filter">More Articles in <a Href="/tags/foreign-policy" Itemprop="articleSection" Class="category">Foreign Policy</a></div>
+    <div class="ui relaxed bulleted list">
+            <div href="/article/117935/obamas-2014-speech-west-point-wont-help-iran-syria-strategy?utm_source=internal&utm_medium=below&utm_campaign=related" class="item">
+  <a href="/article/117935/obamas-2014-speech-west-point-wont-help-iran-syria-strategy?utm_source=internal&utm_medium=below&utm_campaign=related">
+    Obama's New Guidelines for War Don't Provide Much Guidance on Iran and Syria  </a>
+</div>
+<div href="/article/117854/indian-leader-narendra-modi-and-peace-pakistan?utm_source=internal&utm_medium=below&utm_campaign=related" class="item">
+  <a href="/article/117854/indian-leader-narendra-modi-and-peace-pakistan?utm_source=internal&utm_medium=below&utm_campaign=related">
+    India's Nationalistic New Leader Just Made an Extraordinarily Warm Gesture Towards Pakistan  </a>
+</div>
+<div href="/article/117316/john-kerry-could-revive-peace-process-supporting-un?utm_source=internal&utm_medium=below&utm_campaign=related" class="item">
+  <a href="/article/117316/john-kerry-could-revive-peace-process-supporting-un?utm_source=internal&utm_medium=below&utm_campaign=related">
+    John Kerry Could Revive Peace Talks, but Don't Count on It  </a>
+</div>
+<div href="/article/117214/republicans-and-democrats-part-ways-israel?utm_source=internal&utm_medium=below&utm_campaign=related" class="item">
+  <a href="/article/117214/republicans-and-democrats-part-ways-israel?utm_source=internal&utm_medium=below&utm_campaign=related">
+    Republicans and Democrats Are Reversing Roles on Israel  </a>
+</div>
+<div href="/article/116988/barack-obama-foreign-policy-speak-loudly-and-carry-small-stick?utm_source=internal&utm_medium=below&utm_campaign=related" class="item">
+  <a href="/article/116988/barack-obama-foreign-policy-speak-loudly-and-carry-small-stick?utm_source=internal&utm_medium=below&utm_campaign=related">
+    Speak Loudly and Carry a Small Stick  </a>
+</div>
+    </div>
+  </div>
+      <div class="ui bottom attached stacked secondary tab segment" data-tab="author">
+    <div class="filter">More by <b><a href="/authors/robert-kagan" itemprop="author" rel="author">Robert Kagan</a></b></div>
+    <div class="ui relaxed bulleted list">
+            <div href="/article/politics/magazine/99521/america-world-power-declinism?utm_source=internal&utm_medium=below&utm_campaign=author" class="item">
+  <a href="/article/politics/magazine/99521/america-world-power-declinism?utm_source=internal&utm_medium=below&utm_campaign=author">
+    Not Fade Away  </a>
+</div>
+<div href="/article/environment-energy/the-end-the-end-history?utm_source=internal&utm_medium=below&utm_campaign=author" class="item">
+  <a href="/article/environment-energy/the-end-the-end-history?utm_source=internal&utm_medium=below&utm_campaign=author">
+    The End of the End of History  </a>
+</div>
+<div href="/article/90784/fareed-zakaria-democracy?utm_source=internal&utm_medium=below&utm_campaign=author" class="item">
+  <a href="/article/90784/fareed-zakaria-democracy?utm_source=internal&utm_medium=below&utm_campaign=author">
+    The Ungreat Washed  </a>
+</div>
+    </div>
+  </div>
+  </div>              </div>
+            </div>
+          </div>
+                    </div>
+    </div>
+  </div>
+</div>
+
+<div class="ui very thin inverted vertical icon mobile sidebar tools module menu">
+  <div class="email link item" title="E-mail Story">
+    <i class="mail icon"></i>
+  </div>
+  <div class="link save ui dropdown item" data-position="right center"  data-content="Save for Later">
+    <i class="bookmark icon"></i>
+    <div class="vertical menu">
+      <div class="header item">
+        Choose Service
+      </div>
+      <a class="item" target="_blank" href="http://www.instapaper.com/hello2?url=http%3A%2F%2Fwww.newrepublic.com%2Farticle%2F117859%2Fallure-normalcy-what-america-still-owes-world&amp;title=Superpowers+Don%27t+Get+to+Retire&amp;description=What+our+tired+country+still+owes+the+world.">
+        Save to Instapaper
+      </a>
+      <a class="item" target="_blank" href="http://readability.com/save?url=http://www.newrepublic.com/article/117859/allure-normalcy-what-america-still-owes-world">
+        Save to Readability
+      </a>
+      <!--div class="item">
+        <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
+        <script type="text/javascript">
+        !function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");
+        </script>
+      </div!-->
+    </div>
+  </div>
+  <div class="ui font dropdown link item" title="Font Size"><i class="font icon"></i>
+    <div class="menu">
+      <div class="small item" data-value="1/1.8">Small</div>
+      <div class="active medium item" data-value="">Medium</div>
+      <div class="large item" data-value="1.4/1.6">Large</div>
+      <div class="x-large item" data-value="1.5/1.65">Extra Large</div>
+    </div>
+  </div>
+  <div class="print link item" title="Print"><i class="print icon"></i></div>>
+</div><div class="ui email modal">
+  <i class="close icon"></i>
+  <div class="header">
+    <img src="/sites/all/themes/tnr/assets/images/logo.png" class="ui small image">
+    <h3 class="ui header">
+      Share by e-mail
+    </h3>
+  </div>
+  <div class="content">
+    <form class="ui form">
+      <input type="hidden" name="form_id" value="tnr_article_email_form">
+      <input type="hidden" name="form_build_id" value="YM7ta0xvt7RwW5oQdCJ3Yafi4-xNav8s5o50oXh2EHI">
+      <input type="hidden" name="js" value="true">
+      <div class="required field">
+        <label>Friend's e-mails (separated by comma)</label>
+        <div class="ui input">
+          <input type="email" name="email_to">
+        </div>
+      </div>
+      <div class="ui divider"></div>
+      <div class="two required fields">
+        <div class="field">
+          <label>Your name</label>
+          <div class="ui input">
+            <input type="text" name="sender_name">
+          </div>
+        </div>
+        <div class="field">
+          <label>Your e-mail</label>
+          <div class="ui input">
+            <input type="email" name="sender_email">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui checkbox">
+          <input type="checkbox" id="send_copy" name="send_copy" checked>
+          <label for="send_copy">Send yourself a copy</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Personal message</label>
+        <textarea name="opt_msg"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <div class="ui cancel button">Cancel</div>
+    <div class="ui right green labeled icon approve button">
+      <i class="mail icon"></i>
+      Send E-mail
+    </div>
+  </div>
+</div></div>
+<!-- Without the following, metatags are not rendered properly -->
+
+<div class="ui page footer container">
+  <div class="ui relaxed stackable fitted grid">
+    <div class="sixteen wide mobile only center aligned column">
+      <div class="ui horizontal inverted icon divider">
+        <i class="circular inverted sitemap icon"></i>
+      </div>
+      <h5 class="ui inverted header">Sections</h5>
+      <div class="ui relaxed inverted fitted selection list">
+        <a href="/latest" class="item">The Latest</a>
+        <a href="/tags/politics" class="item">Politics</a>
+        <a href="/tags/culture" class="item">Culture</a>
+        <a href="/current-issue" class="item">The Magazine</a>
+      </div>
+      <select name="section" class="sections">
+        <option value="">More</option>
+        <optgroup label="Categories">
+          <option value="/tags/books/">Books</option>
+          <option value="/tags/economy/">Economy</option>
+          <option value="/tags/film/">Film</option>
+          <option value="/tags/plank/">The Plank</option>
+          <option value="/tags/politics/">Politics</option>
+          <option value="/tags/technology/">Technology</option>
+          <option value="/tags/world/">World</option>
+        </optgroup>
+        <optgroup label="New Republic">
+          <option value="/current-issue">Current Issue</option>
+          <option value="/page/about-new-republic">About</option>
+          <option value="/page/advertise-new-republic">Advertise</option>
+          <option value="/page/contact-us">Contact Us</option>
+          <option value="/page/jobs-and-internships">Jobs &amp; Internships</option>
+          <option value="/page/privacy-policy" rel="nofollow">Privacy Policy</option>
+          <option value="/tags/home-news">Home News</option>
+          <option value="/tags/events">Events</option>
+          <option value="/ebsco">Archives</option>
+          <option value="/page/rss-feeds">RSS</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="ten wide sitemap column">
+      <div class="ui horizontal inverted icon divider">
+        <i class="circular inverted sitemap icon"></i>
+      </div>
+      <div class="ui three column grid">
+        <div class="column">
+          <h5 class="ui inverted header">Sections</h5>
+          <div class="ui small relaxed inverted fitted selection list">
+            <a class="item" href="/tags/books/">Books</a>
+            <a class="item" href="/tags/economy/">Economy</a>
+            <a class="item" href="/tags/film/">Film</a>
+            <a class="item" href="/tags/plank/">The Plank</a>
+            <a class="item" href="/tags/politics/">Politics</a>
+            <a class="item" href="/tags/technology/">Technology</a>
+            <a class="item" href="/tags/world/">World</a>
+            <a class="item" href="/tags/events/">Events</a>
+          </div>
+        </div>
+        <div class="column">
+          <h5 class="ui inverted header">The Magazine</h5>
+          <div class="ui small relaxed inverted fitted selection list">
+            <a class="item" href="/latest">Our Latest</a>
+            <a class="item" href="/current-issue">Current Issue</a>
+          </div>
+          <h5 class="ui inverted header">Subscribers</h5>
+          <div class="ui small relaxed inverted fitted selection list">
+            <a class="item" href="/page/subscriber-services">Subscriber Services</a>
+            <a class="item" href="/ebsco">Archives</a>
+            <a class="item" href="/page/frequently-asked-questions">FAQ</a>
+          </div>
+        </div>
+        <div class="column">
+          <h5 class="ui inverted header">The New Republic</h5>
+          <div class="ui small relaxed inverted fitted selection list">
+            <a class="item" href="/page/about-new-republic">About</a>
+            <a class="item" href="/page/advertise-new-republic">Advertise</a>
+            <a class="item" href="/page/contact-us">Contact Us</a>
+            <a class="item" href="/page/jobs-and-internships">Jobs &amp; Internships</a>
+            <a class="item" href="/page/privacy-policy" rel="nofollow">Privacy Policy</a>
+            <a class="item" href="/tags/home-news">Home News</a>
+            <a class="item" href="/page/rss-feeds">RSS</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="six wide signup column">
+      <div class="ui horizontal inverted icon divider">
+        <i class="circular inverted bullhorn icon"></i>
+      </div>
+      <h4 class="ui red header">Sign Up For The New Republic Daily</h4>
+      <p>Sign up now to get your dose of politics, culture, and big ideas with our free daily newsletter.</p>
+      <form class="ui fluid form" action="/article/117859/allure-normalcy-what-america-still-owes-world" method="post" id="tnr-article-sailthru-form--2" accept-charset="UTF-8"><div><div class="field"><div class="form-item form-type-textfield form-item-email">
+ <input autocomplete="email" type="text" name="email" placeholder="Enter e-mail" id="edit-email--2" value="" size="60" maxlength="128" class="form-text required" />
+</div>
+</div><input class="ui blue submit button form-submit" type="submit" id="edit-submit--6" name="op" value="Sign-up" /><input type="hidden" name="form_build_id" value="form-2Nh3TOrXOBcBT7Djlr3JYwZ-RtTG-PIKbs3EzZ0mrLc" />
+<input type="hidden" name="form_id" value="tnr_article_sailthru_form" />
+</div></form>    </div>
+    <div class="six wide promo column">
+      <div class="ui horizontal inverted icon divider">
+        <i class="circular inverted bullhorn icon"></i>
+      </div>
+      <h4 class="ui header">
+        <a href="/subscription/self/footer/callout">Subscribe Now</a>
+      </h4>
+      <h5 class="ui inverted header">
+        Get The New Republic for <b>$34.97/year</b>
+      </h5>
+      <a class="ui left floated image" href="/subscription/self/footer/callout">
+        <img typeof="foaf:Image" src="http://www.newrepublic.com/sites/default/files/styles/curr_issue_cover_footer/public/u184683/060914_cover.online_1.jpg?itok=qEBTbXx3" alt="" />      </a>
+      <div class="ui small inverted fitted selection list">
+        <a class="item" href="/subscription/self/footer/callout">
+          <i class="book icon"></i>
+          Subscribe Now
+        </a>
+        <a class="item" href="/subscription/gift/footer">
+          <i class="gift icon"></i>
+          Give a Gift
+        </a>
+        <a class="item" href="/subscription/international/footer">
+          <i class="globe icon"></i>
+          International Orders
+        </a>
+        <a class="item" href="/subscription/digital/footer">
+          <i class="tablet icon" ></i>
+          Digital Subscription
+        </a>
+      </div>
+    </div>
+  </div>
+  <a class="ui centered small logo image" href="/">
+    <img src="/sites/all/themes/tnr/assets/images/logo-white.png">
+  </a>
+  <div class="social">
+    <div class="slim twitter sharrre"
+      data-user="tnr"
+      data-url="http://www.newrepublic.com"
+      data-title="Follow"
+    ></div>
+    <div class="slim facebook sharrre"
+      data-url="http://www.facebook.com/thenewrepublic"
+      data-title="Like">
+    </div>
+    <div class="slim google sharrre"
+      data-url="http://www.newrepublic.com"
+      data-title="Plus">
+    </div>
+  </div>
+  <div class="ui mini centered divided inverted horizontal copyright link list">
+    <a class="item" href="/page/masthead">Masthead</a>
+    <div class="item">
+      Copyright 2014 &copy; The New Republic.
+      All Rights Reserved.
+    </div>
+  </div>
+</div>    <div class="ui modal" id="overlay"></div>  <div class="script">
+  <!--[if lt IE 9]>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <![endif]-->
+  <!--[if (gte IE 9) | (!IE)]><!-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+  <!--<![endif]-->
+<script type="text/javascript" src="http://www.newrepublic.com/sites/default/files/js/js_CSe8Rn71jUe1giBlK6IIliw3UwaHDkJJSh2nUdXB7Xs.js"></script>
+
+  <!-- Site Config !-->
+  <script src="/sites/all/themes/tnr/build/ui/definitions/globals/site.js"></script>
+
+  <!-- Site Overlay !-->
+    <script type="text/javascript">
+  site.config.overlay = $.parseJSON('{"force_display_nodes":[],"targeted_overlay_nodes":[],"tnr_overlay_nodes":[],"tnr_paywall_nodes":[],"visit_times_targeted":["1"],"visit_times_general":["99"],"visit_times_paywall":false}');
+  </script>
+
+  <script type="text/javascript">
+  $.extend(true, site.config, {
+    loggedIn : false  });
+  $.site('disable debug');
+    $.site('disable console');
+    </script>
+
+  <script type="text/javascript" src="http://www.newrepublic.com/sites/default/files/js/js_Wjf5ejhdPid4DSI3RVH3tVoDH_X11UZs6jD5_7gZw8o.js"></script>
+
+    <!-- Ebuzzing -->
+  <script type="text/javascript" src="http://as.ebz.io/api/choixPubJS.htm?pid=721108&screenLayer=1&mode=NONE&home=http://www.newrepublic.com"></script>
+  
+</div>  <div class="tracking">
+
+  <!-- Krux -->
+  <script class="kxct" data-id="JDjkQwAo" data-timing="async" data-version="1.9" type="text/javascript">
+    window.Krux||((Krux=function(){Krux.q.push(arguments)}).q=[]);
+    (function(){
+      var k=document.createElement('script');k.type='text/javascript';k.async=true;
+      var m,src=(m=location.href.match(/\bkxsrc=([^&]+)/))&&decodeURIComponent(m[1]);
+      k.src = /^https?:\/\/([a-z0-9_\-\.]+\.)?krxd\.net(:\d{1,5})?\//i.test(src) ? src : src === "disable" ? "" :
+        (location.protocol==="https:"?"https:":"http:")+"//cdn.krxd.net/controltag?confid=JDjkQwAo"
+    ;
+      var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(k,s);
+    }());
+
+  </script>
+
+  <!-- Google Remarketing -->
+  <script type="text/javascript">
+  /* <![CDATA[ */
+  var
+    google_conversion_id = 993343767,
+    google_conversion_label = 'gzoeCIDN0QMQkLP42wM',
+    google_custom_params = window.google_tag_params,
+    google_remarketing_only = true
+  ;
+  /* ]]> */
+  </script>
+  <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+
+  <!-- Quantcast Script -->
+  <script type="text/javascript">
+  _qoptions={
+    qacct : 'p-abwxcJNao5fsc'
+  };
+  </script>
+  <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+
+  <!-- Parse.ly -->
+  <div id="parsely-root" style="display: none">
+    <div id="parsely-cfg" data-parsely-site="tnr.com"></div>
+  </div>
+  <script>
+  (function(s, p, d) {
+    var h=d.location.protocol, i=p+"-"+s,
+        e=d.getElementById(i), r=d.getElementById(p+"-root"),
+        u=h==="https:"?"d1z2jf7jlzjs58.cloudfront.net"
+        :"static."+p+".com";
+    if (e) return;
+    e = d.createElement(s); e.id = i; e.async = true;
+    e.src = h+"//"+u+"/p.js"; r.appendChild(e);
+  })("script", "parsely", document);
+  </script>
+ 
+    <!-- START horizon sailthru -->
+  <script type="text/javascript">
+    (function() {
+      function loadHorizon() {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = location.protocol + '//ak.sail-horizon.com/horizon/v1.js';
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+      }
+      loadHorizon();
+      var oldOnLoad = window.onload;
+      window.onload = function() {
+        if (typeof oldOnLoad === 'function') {
+          oldOnLoad();
+        }
+        Sailthru.setup({
+          domain: 'horizon.newrepublic.com'
+        });
+      };
+    })();
+  </script>
+  
+  <!-- Nielsen Online SiteCensus V6.0 -->
+  <script type="text/javascript">
+    (function () {
+      var image = new Image(1, 1);
+      image.onerror = image.onload = function () {
+        image.onerror = image.onload = null;
+      };
+      image.src = ["//secure-us.imrworldwide.com/cgi-bin/m?ci=us-106312h&cg=0&cc=1&si=", escape(window.location.href), "&rp=", escape(document.referrer), "&ts=compact&rnd=", (new Date()).getTime()].join('');
+    })();
+  </script>
+
+  <!-- AdRoll -->
+  <script type="text/javascript">
+  adroll_adv_id = "SIJVU24MGJE47PAYLLPPOJ";
+  adroll_pix_id = "6WNJ733UAJGY3LIFHE43PT";
+  (function () {
+  var oldonload = window.onload;
+  window.onload = function(){
+     __adroll_loaded=true;
+     var scr = document.createElement("script");
+     var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+     scr.setAttribute('async', 'true');
+     scr.type = "text/javascript";
+     scr.src = host + "/j/roundtrip.js";
+     ((document.getElementsByTagName('head') || [null])[0] ||
+      document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+     if(oldonload){oldonload()}};
+  }());
+  </script>
+
+  <!-- ChartBeat -->
+  <script type="text/javascript">
+  var _sf_async_config={uid:34517,domain:"tnr.com"};
+  _sf_async_config.useCanonical = true;
+  (function(){
+    function loadChartbeat() {
+    window._sf_endpt=(new Date()).getTime();
+    var e = document.createElement('script');
+    e.setAttribute('language', 'javascript');
+    e.setAttribute('type', 'text/javascript');
+    e.setAttribute('src',
+       (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+       "js/chartbeat.js");
+    document.body.appendChild(e);
+    }
+    var oldonload = window.onload;
+    window.onload = (typeof window.onload != 'function') ?
+     loadChartbeat : function() { oldonload(); loadChartbeat(); };
+  })();
+  </script>
+
+  <!-- Optimizely -->
+  <!--script src="//cdn.optimizely.com/js/113744585.js"></script!-->
+
+  <div class="pixels">
+    <!-- Collective Media pixel -->
+    <img src="http://b.collective-media.net/seg/cm/l1dd" width="1" height="1" />
+    <noscript>
+      <!-- Quantcast Pixel -->
+      <img src="http://pixel.quantserve.com/pixel/p-abwxcJNao5fsc.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
+      <!-- Google Re-marketing Pixel -->
+      <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/993343767/?value=0&amp;label=gzoeCIDN0QMQkLP42wM&amp;guid=ON&amp;script=0"/>
+      <!-- Neilsen Census Pixel -->
+      <img src="//secure-us.imrworldwide.com/cgi-bin/m?ci=us-106312h&amp;cg=0&amp;cc=1&amp;ts=noscript"
+      width="1" height="1" alt="" />
+      <!-- ComScore -->
+      <img src="http://b.scorecardresearch.com/p?c1=2&c2=15230262&cv=2.0&cj=1" />
+    </noscript>
+  </div>
+</div><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"beacon-2.newrelic.com","licenseKey":"71240f55fe","applicationID":"2735134","transactionName":"YFRUZkcECEcHV0ZaXFkeY0BcSkldCFBXSx1HWUY=","queueTime":0,"applicationTime":7,"ttGuid":"","agentToken":"","userAttributes":"","errorBeacon":"jserror.newrelic.com","agent":"js-agent.newrelic.com\/nr-411.min.js"}</script></body>
+</html>

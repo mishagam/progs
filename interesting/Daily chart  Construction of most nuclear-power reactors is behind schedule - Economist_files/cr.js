@@ -1,0 +1,1 @@
+zinr_geodata = "72591_B"; 

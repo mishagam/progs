@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/ScrollTestTopLayout"
+  android:layout_width="fill_parent"  
+  android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+<HorizontalScrollView android:id="@+id/HorizontalScrollView02"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content">
+
+<LinearLayout android:id="@+id/scroll_layout"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:orientation="vertical" >
+    
+    <TextView  android:text="Nasha masha"
+        android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"  >
+    </TextView>
+   
+    <TextView android:text="Goriko plachet xfjksdhf dskjh fksdla kldsfhhr jkfhklfjdhg kjlhail ahlkasjasdklhgsiulf yuier lbdsblkfs gaskh u gsdfkb fdghila ghalkurd hkjfd ghlkud thkkhbfdkjhg"
+        android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"  >
+    </TextView>
+</LinearLayout>
+
+</HorizontalScrollView>
+</LinearLayout>

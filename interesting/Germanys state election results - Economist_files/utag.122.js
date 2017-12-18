@@ -1,0 +1,4 @@
+//tealium universal tag - utag.122 ut4.0.201602091545, Copyright 2016 Tealium.com Inc. All Rights Reserved.
+try{(function(id,loader,u){u=utag.o[loader].sender[id]={};u.ev={'view':1};u.data={};u.data.bcHostname="economist.blueconic.net";u.map={};u.extend=[];u.send=function(a,b){if(u.ev[a]||typeof u.ev.all!="undefined"){var c,d,e,f;c=[];for(d in utag.loader.GV(u.map)){if(typeof b[d]!=="undefined"&&b[d]!==""){e=u.map[d].split(",");for(f=0;f<e.length;f++){u.data[e[f]]=b[d];}}}
+u.data.base_url=u.data.base_url||("//"+u.data.bcHostname+"/frontend/static/javascript/blueconic/blueconic.min.js");u.s=document.getElementsByTagName("script")[0];u.scr=document.createElement("script");u.scr.type="text/javascript";u.scr.async=true;u.scr.src=u.data.base_url;u.s.parentNode.insertBefore(u.scr,u.s);}}
+utag.o[loader].loader.LOAD(id);})('122','teg.main');}catch(e){}

@@ -1,0 +1,12 @@
+syntax: glob
+**.cache
+**.pdb
+**.dll
+**.exe
+**.suo
+**.class
+**.rar
+**.jar
+obj
+Debug
+bin

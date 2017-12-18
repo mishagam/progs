@@ -1,0 +1,31 @@
+var html_ad = '';
+html_ad+='<div class="auto-v" style="width: 280px; height: 400px; text-align: left !important; margin: auto; background: url(http://banners.adfox.ru/141126/adfox/433558/1159309_13.png);">\n';
+html_ad+='<div class="header-v" style="display: block; width: 100%; height: 50px;"></div>\n';
+html_ad+='<div class="article-adv-4i">\n';
+html_ad+='<ul style="padding: 0; margin:0 0;display: table;">\n';
+html_ad+='<li style="list-style: none; margin: 8px 5px 8px 11px; height: 69px; float: left;display: table-row; width:245px;">\n';
+html_ad+='<a href="http://ads.adfox.ru/166267/goLink?hash=4f9f786165716054&pr=igumxqb&p5=dclzi&rand=cvnmxaz&p1=brknm&p2=errh@http://ads.adfox.ru/166267/event?hash=380ae9f06d5d635e&pm=b&lts=etaonbr&pr=igumxqb&p5=dclzi&rand=fmdkock&p1=brknm&p2=errh@http://www.vesti.ru/doc.html?id=2663846&cid=2161" style="color: #255171; clear: both; text-decoration:none;" target="_blank"><img src="http://banners.adfox.ru/150917/adfox/433558/1414174_1.jpg" style="width: 92px; height: 69px; float:left; margin: 0 8px 0 0; border: 2px solid #255171" alt="dfsdfsdf">\n';
+html_ad+='<h4 style="float:left; width: 120px;  margin: 0; font: normal 11px Tahoma, Arial, sans-serif; display: table-cell; vertical-align:middle; text-transform: none; color: #255171">&#1042; &#1050;&#1080;&#1090;&#1072;&#1077; &#1086;&#1073;&#1085;&#1072;&#1088;&#1091;&#1078;&#1080;&#1083;&#1080; &#1087;&#1083;&#1077;&#1084;&#1103; &#1083;&#1102;&#1076;&#1077;&#1081; &#1089; &#1090;&#1088;&#1077;&#1090;&#1100;&#1080;&#1084; &#1075;&#1083;&#1072;&#1079;&#1086;&#1084;</h4></a>\n';
+html_ad+='</li>\n';
+html_ad+='<li style="list-style: none; margin: 8px 5px 8px 11px; height: 69px; float: left;display: table-row; width:225px;">\n';
+html_ad+='<a href="http://ads.adfox.ru/166267/goLink?hash=4f9f786165716054&pr=igumxqb&p5=dclzi&rand=cvnmxaz&p1=brknm&p2=errh@http://ads.adfox.ru/166267/event?hash=c03d1c680335cbd0&pm=c&lts=etaonbr&pr=igumxqb&p5=dclzi&rand=gnmlubm&p1=brknm&p2=errh@http://www.vesti.ru/doc.html?id=2662967&cid=2161" style="color: #255171; clear: both; text-decoration:none;" target="_blank"><img src="http://banners.adfox.ru/150917/adfox/433558/1414174_4.jpg" style="width: 92px; height: 69px; float:left; margin: 0 8px 0 0; border: 2px solid #255171" alt="dfsdfsdf">\n';
+html_ad+='<h4 style="float:left; width: 120px;  margin: 0; font: normal 11px Tahoma, Arial, sans-serif; display: table-cell; vertical-align:middle; text-transform: none; color: #255171">&#1052;&#1077;&#1076;&#1080;&#1082;&#1080; &#1085;&#1072;&#1091;&#1095;&#1080;&#1083;&#1080;&#1089;&#1100; &#1083;&#1077;&#1095;&#1080;&#1090;&#1100; &#1088;&#1072;&#1082; &#1090;&#1072;&#1073;&#1072;&#1082;&#1086;&#1084;</h4></a>\n';
+html_ad+='</li>\n';
+html_ad+='<li style="list-style: none; margin: 8px 5px 8px 11px; height: 69px; float: left;display: table-row; width:225px;">\n';
+html_ad+='<a href="http://ads.adfox.ru/166267/goLink?hash=4f9f786165716054&pr=igumxqb&p5=dclzi&rand=cvnmxaz&p1=brknm&p2=errh@http://ads.adfox.ru/166267/event?hash=9a6316f22a272787&pm=d&lts=etaonbr&pr=igumxqb&p5=dclzi&rand=bjxqzzf&p1=brknm&p2=errh@http://www.vesti.ru/doc.html?id=2674480&cid=2161" style="color: #255171; clear: both; text-decoration:none;" target="_blank"><img src="http://banners.adfox.ru/151021/adfox/433558/1452748_1.jpg" style="width: 92px; height: 69px; float:left; margin: 0 8px 0 0; border: 2px solid #255171" alt="dfsdfsdf">\n';
+html_ad+='<h4 style="float:left; width: 120px;  margin: 0; font: normal 11px Tahoma, Arial, sans-serif; display: table-cell; vertical-align:middle; text-transform: none; color: #255171">&#1059;&#1095;&#1077;&#1085;&#1099;&#1077; &#1085;&#1072;&#1096;&#1083;&#1080; &#1079;&#1072;&#1074;&#1080;&#1089;&#1080;&#1084;&#1086;&#1089;&#1090;&#1100; &#1086;&#1088;&#1080;&#1077;&#1085;&#1090;&#1072;&#1094;&#1080;&#1080; &#1086;&#1090; &#1095;&#1080;&#1089;&#1083;&#1072; &#1088;&#1086;&#1076;&#1089;&#1090;&#1074;&#1077;&#1085;&#1085;&#1080;&#1082;&#1086;&#1074;</h4></a>\n';
+html_ad+='</li>\n';
+html_ad+='<li style="list-style: none; margin: 8px 5px 8px 11px; height: 69px; float: left;display: table-row; width:225px;">\n';
+html_ad+='<a href="http://ads.adfox.ru/166267/goLink?hash=4f9f786165716054&pr=igumxqb&p5=dclzi&rand=cvnmxaz&p1=brknm&p2=errh@http://ads.adfox.ru/166267/event?hash=eff135d0411ac0e0&pm=e&lts=etaonbr&pr=igumxqb&p5=dclzi&rand=gjrttdx&p1=brknm&p2=errh@http://www.vesti.ru/doc.html?id=2677467&cid=2161" style="color: #255171; clear: both; text-decoration:none;" target="_blank"><img src="http://banners.adfox.ru/151021/adfox/433558/1452748_7.jpg" style="width: 92px; height: 69px; float:left; margin: 0 8px 0 0; border: 2px solid #255171" alt="dfsdfsdf">\n';
+html_ad+='<h4 style="float:left; width: 120px;  margin: 0; font: normal 11px Tahoma, Arial, sans-serif; display: table-cell; vertical-align:middle; text-transform: none; color: #255171">&#1057;&#1087;&#1077;&#1094;&#1080;&#1072;&#1083;&#1080;&#1089;&#1090;&#1099; &#1088;&#1072;&#1079;&#1074;&#1077;&#1085;&#1095;&#1072;&#1083;&#1080; &#1084;&#1080;&#1092; &#1086; &#1087;&#1088;&#1086;&#1080;&#1089;&#1093;&#1086;&#1078;&#1076;&#1077;&#1085;&#1080;&#1080; &#1078;&#1080;&#1079;&#1085;&#1080; &#1085;&#1072; &#1047;&#1077;&#1084;&#1083;&#1077;</h4></a>\n';
+html_ad+='</li>\n';
+html_ad+='</ul>\n';
+html_ad+='<div class="clear" style="clear: both; width: 95%;"></div>\n';
+html_ad+='</div>\n';
+html_ad+='</div>\n';
+if (0) {
+	setTimeout(function(){ document.close(); }, 10);
+	parent.document.getElementById('AdFox_banner_0').innerHTML = html_ad;
+} else {
+	document.write(html_ad);
+}

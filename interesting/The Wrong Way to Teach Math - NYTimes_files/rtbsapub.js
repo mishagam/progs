@@ -1,0 +1,3 @@
+window.rtbsBidA = (typeof window.rtbsBidA  === 'object' ) ? window.rtbsBidA : {}; 
+window.rtbsBidA["782647924"] = {bl:[{bidder_id: 9, ext_placement_code: "254501352", no_bid: false, logging_pixels: ["http://opt.media.net/ybnca/exchangenotify?aid=null&domain=nytimes.com&price=1.0&cgid=17354&cid=87046&rid=2234072&url=&cc=RU&td=&lid=&t=1456612246981"], og_bid: 1.0, bidderInfoBean: {cmpId: "87046"}, fb: false}]}
+window.rtbsBidA["427700124"] = {bl:[{bidder_id: 9, ext_placement_code: "641762762", no_bid: false, logging_pixels: ["http://opt.media.net/ybnca/exchangenotify?aid=null&domain=nytimes.com&price=1.0&cgid=17354&cid=87319&rid=2235580&url=&cc=RU&td=&lid=&t=1456612246981"], og_bid: 1.0, bidderInfoBean: {cmpId: "87319"}, fb: false}]}

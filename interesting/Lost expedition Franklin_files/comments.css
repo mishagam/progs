@@ -1,0 +1,180 @@
+
+.comment_no_items {
+  color:#818181;
+  font-size:18px;
+  padding:0 0 30px 0;
+  font-family:'PFD', Arial, Tahoma, sans-serif;
+}
+
+.comment_block {
+  margin:0 0 10px 0;
+  background:#ebebeb;
+  padding:0 0 10px 0;
+}
+
+.comment_block:nth-child(odd) {
+  background:#f4f4f4;
+}
+
+.comment_block:nth-child(odd) .comment_form_answer  .comment_form_button a {
+  border:5px solid #f4f4f4;;
+}
+
+.comment_one {
+  padding:10px 0 0 10px;
+  border-top:1px solid #fff;
+}
+
+.comment_one:first-child {
+  border-top:0;
+}
+
+.comment_one_ava {
+  float:left;
+  width:50px;
+  height:50px;
+  font-size:0px;
+}
+
+
+.comment_one_content {
+  overflow:hidden;
+}
+
+.comment_one_panel {
+  background:#f4f4f4;
+  position:relative;
+  padding:6px 20px 6px 20px;
+  margin-top:8px;
+}
+
+.comment_one_panel_shadow {
+  position:absolute;
+  width:100%;
+  height:11px;
+  left:0;
+  bottom:-11px;
+  background:url(images/main/short_object_panel_shadow.png) repeat-x left top;
+  display:none;
+}
+
+.comment_one_likes {
+  float:right;
+}
+
+.comment_one_likes a {
+  display:block;
+  width:16px;
+  height:16px;
+  font-size:0px;
+  float:left;
+}
+
+.comment_one_likes_voted a {
+  cursor:default;
+}
+
+.comment_one_likes .comment_one_like {
+  float:left;
+  color:#51c1d7;
+  font-size:11px;
+  font-family:Arial, Tahoma, sans-serif;
+  padding:0 7px;
+  line-height:16px;
+  min-width:12px;
+  text-align:center;
+}
+
+.comment_one_likes .comment_one_like_red {
+  color:#da4f38;
+}
+
+.comment_one_text {
+  padding:20px;
+  font-size:14px;
+  font-family:Arial, Tahoma, sans-serif;
+  color:#4c4c4c;
+  line-height:1.4;
+}
+
+.comment_one_text a {
+  color:#51c1d7;
+}
+
+.comment_form_no_rights {
+  padding:20px;
+  background:#e04a32;
+  font-size:18px;
+  color:#fff;
+  font-family:'PFD', Arial, Tahoma, sans-serif;
+}
+
+.comment_form {
+  padding:20px;
+  background:#ebebeb;
+  margin-bottom:40px;
+}
+
+.comment_form_for_answer {
+  display:none;
+}
+
+.comment_form_answer {
+  padding:0 20px 32px 70px;
+}
+
+.comment_form_title {
+  font-size:24px;
+  color:#3c3c3c;
+  padding:0 0 10px 0;
+  font-family:'PFD', Arial, Tahoma, sans-serif;
+}
+
+.comment_form_textarea .ui_clear {
+  font-family:Arial, Tahoma, sans-serif;
+  height:100px;
+}
+
+.comment_form_textarea textarea {
+  font-family:Arial, Tahoma, sans-serif;
+  height:100px;
+  color:#4c4c4c;
+}
+
+.comment_form_textarea  .ui_textarea {
+  
+}
+
+.comment_form_button {
+  position:relative;
+  height:2px;
+}
+
+.comment_form_button a {
+  top:2px;
+  right:0;
+  position:absolute;
+  border:5px solid #ebebeb;
+}
+
+
+.comment_one_report_link{
+
+}
+
+.comments_report_form_select_wrap{
+	padding: 10px 0 20px 0;
+}
+
+.comments_report_radio_one{
+	padding: 5px 0 5px 0;
+}
+
+.comments_report_radio_one .comments_report_left {
+	float:left;
+}
+
+.comments_report_radio_one .comments_report_right{
+	float:left;
+	padding: 0 0 0 5px;
+}

@@ -1,0 +1,89 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+    package="mis.android"
+    android:versionCode="1"
+      android:versionName="1.0.1">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <application android:label="@string/app_name"
+                 android:debuggable="true" >
+        <uses-library android:name="com.google.android.maps" />
+        <activity android:name=".MisGameMenuActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".TestScrollActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.MIS_ANDROID_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".RendzuCanvasActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.MIS_ANDROID_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".TestButtonActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.MIS_ANDROID_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".SimpleFastGlActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.MIS_ANDROID_CODE" />
+            </intent-filter>
+        </activity>        
+       
+        <activity android:name=".MisOpenGlActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.MIS_ANDROID_CODE" />
+            </intent-filter>
+        </activity>        
+           
+        <activity android:name=".MisWebActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.MIS_ANDROID_CODE" />
+            </intent-filter>
+        </activity>
+           
+        <activity android:name=".game.MisGameActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.MIS_ANDROID_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".GetImageActivity"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.MIS_ANDROID_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".TestSpeedActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.MIS_ANDROID_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".TestVideoActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.MIS_ANDROID_CODE" />
+            </intent-filter>
+        </activity>
+        
+    </application>
+</manifest> 

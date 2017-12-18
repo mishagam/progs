@@ -1,0 +1,118 @@
+/**
+ * Styles common to all print pages.
+ */
+body {
+  -webkit-font-smoothing: antialiased;
+  padding: 20px;
+}
+a {
+  text-decoration: none;
+}
+body > a {
+  display: block;
+  clear: left;
+  margin-bottom: 30px;
+}
+body > a img {
+  width: 100px;
+  height: 50px;
+  border: 0;
+}
+#hub-leaderboard,
+#leaderboard {
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+#hub-leaderboard div,
+#leaderboard div {
+  float:left;
+}
+#hub-leaderboard #leaderboard-ad,
+#leaderboard #leaderboard-ad {
+  width: 735px;
+}
+.main-content {
+  font-family: georgia;
+  font-size: 15px;
+}
+.main-content a {
+  color: blue;
+  text-decoration: none;
+}
+.main-content p:empty {
+  display: none;
+}
+.main-content p {
+  line-height: 24px;
+}
+.main-content a:link:after, .main-content a:visited:after {
+  content: " (" attr(href) ") ";
+  color: #000000;
+}
+.fly-title {
+  font-family: arial;
+  font-size: 18px;
+  margin: 0;
+}
+.headline {
+  font-size: 34px;
+  margin: 0 0 20px;
+}
+.rubric {
+  font-size: 15px;
+  font-weight: bold;
+  font-family: georgia;
+}
+.content-image-full,
+.content-image-float-290,
+.content-image-float {
+  float: right;
+  margin: 0 0 15px 15px;
+}
+.content-image-full img {
+   width: 290px;
+   height: 163px;
+}
+.source {
+  color: #000000;
+  margin-left: 5px;
+}
+.blog-title img,
+#blog_post_sublinks,
+.special-report-article-list,
+.special-report-header-sponsor {
+  display: none;
+}
+.blog-post-header,
+.special-report-header {
+  border-top: 2px solid #dedede;
+  border-bottom: 3px solid #cccccc;
+  font-family: arial;
+  padding: 10px 0;
+  margin-bottom: 30px;
+}
+.blog-post-header a {
+  color: #4a4a4a;
+  font-size: 18px;
+  cursor: default;
+}
+.blog-post-header h2,
+.special-report-header a {
+  display: block;
+  margin: 0;
+  color: #4a4a4a;
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: default;
+}
+.special-report-header h4 {
+  margin: 0;
+  font-weight: normal;
+}
+@media print {
+  #hub-leaderboard,
+  #leaderboard {
+    display: none;
+  }
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<ScrollView android:id="@+id/ScrollView01"
+  android:layout_width="fill_parent"
+  android:layout_height="600px">
+  
+<HorizontalScrollView android:id="@+id/HorizontalScrollView01"
+  android:layout_height="fill_parent"
+  android:layout_width="wrap_content">
+
+<LinearLayout android:id="@+id/rendzu_canvas_layout"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent" >
+</LinearLayout>
+</HorizontalScrollView>
+</ScrollView>
+<LinearLayout 
+	android:orientation="vertical"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent" >
+	
+<LinearLayout 
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content" >
+	
+<TextView android:id="@+id/human_side_char"
+	android:textAppearance="@style/MisTextAppearance"
+	android:paddingLeft="6dp"
+	android:text="O"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" />
+	
+<TextView  android:text=" - Human"
+	android:paddingLeft="6dp"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" />	
+	
+<TextView android:id="@+id/game_state"
+        android:text="GameState"
+	android:paddingLeft="40dp"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" />
+	
+<TextView  android:text="Computer - "
+	android:paddingLeft="40dp"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" />
+	
+<TextView android:id="@+id/computer_side_char"
+	android:textAppearance="@style/MisTextAppearance"
+	android:paddingLeft="6dp"
+	android:text="X"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" />
+	
+</LinearLayout>
+	
+<LinearLayout
+	android:gravity="center_horizontal"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content" >
+<Button android:text="Undo" android:id="@+id/undo_btn"
+	android:padding="10dp"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" />
+<Button android:text="Analyse" android:id="@+id/analyse_btn"
+	android:padding="10dp"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" />
+<Button android:text="Quit" android:id="@+id/quit_btn"
+	android:padding="10dp"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" />
+	
+</LinearLayout>
+</LinearLayout>
+
+</LinearLayout>

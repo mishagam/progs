@@ -1,0 +1,121 @@
+ 
+     /* adblock code added to main JS to allow it to be stored and controlled in one place */
+  	var setAdblockerCookie = function(adblocker) {
+    var d = new Date();
+    	d.setTime(d.getTime() + 60 * 60 * 24 * 30 * 1000);
+   		document.cookie = "__adblocker=" + (adblocker ? "true" : "false") + "; expires=" + d.toUTCString() + "; path=/";
+}
+		var script = document.createElement("script");
+			script.setAttribute("async", true);
+			script.setAttribute("src", "//www.npttech.com/advertising.js");
+			script.setAttribute("onerror", "setAdblockerCookie(true);");
+			script.setAttribute("onload", "setAdblockerCookie(false);");
+			document.getElementsByTagName("head")[0].appendChild(script);
+
+  (function () {
+    tp = window["tp"] || [];
+
+    /* Checkout related */
+    /**
+     * Event properties
+     *
+     * chargeAmount - amount of purchase
+     * chargeCurrency
+     * uid
+     * email
+     * expires
+     * rid
+     * startedAt
+     * termConversionId
+     * termId
+     * promotionId
+     * token_list
+     * cookie_domain
+     * user_token
+     *
+     */
+    function onCheckoutComplete(data) {
+    }
+
+    function onCheckoutExternalEvent() {
+    }
+
+    function onCheckoutClose(event) {
+        /* Default behavior is to refresh the page on successful checkout */
+        if (event && event.state == "checkoutCompleted") {
+            location.reload();
+        }
+    }
+
+    function onCheckoutCancel() {
+    }
+
+    function onCheckoutError() {
+    }
+
+    /* Meter callback */
+    function onMeterExpired() {
+
+    }
+
+    /* Meter callback */
+    function onMeterActive() {
+
+    }
+
+    /* Callback executed when a user must login */
+    function onLoginRequired() {
+        // this is a reference implementation only
+        // your own custom login/registration implementation would
+        // need to return the tinypass-compatible userRef inside the callback
+
+        // mysite.showLoginRegistration(function (tinypassUserRef)
+        // tp.push(["setUserRef", tinypassUserRef]); // tp.offer.startCheckout(params); // }
+        // this will prevent the tinypass error screen from displaying
+
+        return false;
+    }
+
+    /* Callback executed after a tinypassAccounts login */
+    function onLoginSuccess() {
+    }
+	tp.push(['setCustomVariable', 'url', location.pathname+location.search]); /* Used to control destination= redirects */
+    tp.push(["setAid", 'CgenXrprgH']);
+    tp.push(["setEndpoint", 'https://buy.tinypass.com/api/v3']);
+    tp.push(["setUseTinypassAccounts", false ]);
+
+    /* checkout related events */
+    tp.push(["addHandler", "checkoutComplete", onCheckoutComplete]);
+    tp.push(["addHandler", "checkoutClose", onCheckoutClose]);
+    tp.push(["addHandler", "checkoutCustomEvent", onCheckoutExternalEvent]);
+    tp.push(["addHandler", "checkoutCancel", onCheckoutCancel]);
+    tp.push(["addHandler", "checkoutError", onCheckoutError]);
+
+
+    /* user login events */
+    tp.push(["addHandler", "loginRequired", onLoginRequired]);
+    tp.push(["addHandler", "loginSuccess", onLoginSuccess]);
+
+    /* meter related */
+    tp.push(["addHandler", "meterExpired", onMeterExpired]);
+    
+    /* patched to override class and elements until feature updated  */
+    tp.push(["addHandler", "meterActive", onMeterActive]);
+		tp.push(["addHandler", "showOffer", function( offerParams ){
+    if ( ( offerParams.templateId == 'OTOCUR7Q4L2Q' ) || ( offerParams.templateId == 'OTCIIJJUJJYH' ) ){ 
+        (function(callback){document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);})(function(){
+            var elements = document.querySelectorAll('.story-collection__wrapper, .blog-post__image, .blog-post__asideable-content, .blog-post__asideable-content--meta');
+            for (var i = 0; i < elements.length; i++ ) {
+                elements[i].style.display="none";
+            }
+        });
+    }
+} ]);
+})();
+
+
+    // do not change this section
+    // |BEGIN INCLUDE TINYPASS JS|
+    (function(src){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src=src;var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})("//cdn.tinypass.com/api/tinypass.min.js");
+    // |END   INCLUDE TINYPASS JS|
+

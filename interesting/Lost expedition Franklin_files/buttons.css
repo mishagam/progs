@@ -1,0 +1,84 @@
+﻿
+/* Кнопки */
+
+.button_clubcard {
+  display:block;
+  height:23px;
+  background:url(images/buttons/clubcard_bg.png) no-repeat 0px 0px #d84c36;
+  text-transform:uppercase;
+  text-align:center;
+  padding:7px 0 0 0;
+  position:relative;
+  margin:0 20px 0 0;
+}
+
+.button_clubcard .hms4 {
+  text-shadow: 0px 1px 1px rgba(0,0,0,0.4);
+  font-size:14px;
+  text-decoration:underline;
+}
+
+.button_clubcard:hover .hms4 {
+  text-decoration:none;
+}
+
+.button_clubcard:hover {
+  cursor:pointer;
+}
+
+.button_clubcard .hms1 {
+  display:block;
+  position:absolute;
+  top:0;
+  left:2px;
+  width:28px;
+  height:30px;
+  background:#ac2619;
+  z-index:1;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
+}
+
+.button_clubcard .hms2 {
+  display:block;
+  position:absolute;
+  top:0;
+  left:2px;
+  width:28px;
+  height:30px;
+  z-index:2;
+  background:url(images/buttons/clubcard_icon.png) no-repeat 6px 8px;
+}
+
+
+.button_clubcard .hms4 {
+  display:block;
+  position:absolute;
+  top:0;
+  left:0px;
+  width:255px;
+  text-align:center;
+  height:30px;
+  z-index:4;
+  padding:0 0 0 5px;
+  font-family:'PFD', Arial, Tahoma, sans-serif;
+  font-size:16px;
+  line-height:30px;
+}
+
+/* Рекламки */
+
+.right_column_blocks_wrapper {
+  padding-left:20px;
+}
+
+.nofs_block_img {
+  text-align:left;
+  font-size:0px;
+}
+
+.nofs_container {
+  font-size:16px;
+}

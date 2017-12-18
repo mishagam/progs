@@ -1,0 +1,168 @@
+# kill all get_mf processes
+pkill -f get_mf
+
+./droper -def FRACS_OUT.def -r -on-update -id 108 -keypath /home/misha
+   // droper accepting data from risk_sender
+
+ipcrm -m 6619159     // close shared memory region with id 6619159
+
+ipcs -ms             // show shared memory and semaphors
+
+ipcrm -s 77777       // remove semaphore
+
+du -hs data/temp     // show memory used by files in data/temp
+
+export LANG=C        // hg starts to talk in english
+
+// install Mercurial 2.2 on Centos5
+1) download / extract tar for mercurian 2.2
+2) download / ecstract tar for docutils
+3) install docultils: python setup.py install
+4) copy roman.py to /usr/lib/python.../site-packages
+5) run in mercu.... folder make all / make install
+
+cat /etc/redhat-release  // get version of Centos (in my case centos 5.8)
+
+nanosleep in C works for sleep specified nanoseconds and to yield thread
+
+to get access to /dev/shm - you need to be root
+
+to get program output in python:
+ll = subproces.Popen(["ls"], stdout=subprocess.PIPE)
+for line in ll.stdout:
+    print line
+
+to get file lines in python
+f = open(fn)
+ll = f.readlines()
+f.close()
+
+ === To check if folder exists in python
+os.path.isdir( path )
+os.path.exists( file )
+
+svn co svn://192.168.3.3/fracs/trunk     // works to checkout FRACS svn (assumes user misha)
+
+intel fortran. In free source form, the ampersand character (&) 
+in the end of line indicates a continuation line
+
+
+In intel fortran you can copy structures: inp = inpBuf, sizeof(InputArray) = 3432 bytes
+
+to view Java bytecode issue command:
+javap -v com.company.package.MainClass > bytecode.out
+
+to trace in ocamls, issue in Toplevel
+#trace function_name
+
+to execute scala program in windows:
+scalac OFact.scala
+java -cp "c:/Java/scala/lib/scala-library.jar;./" OFact
+
+python arguments: sys.argv
+
+python if...: if elif else, compare with ==
+
+default program for file type is set using file
+~/.local/share/applications/mimeapps.list
+
+od -c filename - display all characters in file, little bit like hex dump, can see \n =\r
+
+mount nexus 7 (worked for me but very slow)
+
+in vi, :set line - show line ends, :set ff - show linux or windows filename
+
+To recall last command starting with bin:
+!bin<CR>
+
+To remove environment variable
+unset FRACS_ROOT
+
+To set environment variable
+export FRACS_ROOT=/home/misha/fracs
+
+ === To set java interclick interval 500 (tested on Mint) ==
+Make file ~/.Xdefaults with content
+*.multiClickTime: 500
+Then execute command
+sudo xrdb ~/.Xdefaults
+
+  =========== Midnight Commander =================
+Alt-O opens the directory your cursor is on.
+Alt-I opens the active panel's directory on the other panel.
+
+ ========== Check Linux Mint version =============
+inxi -S
+or
+cat /etc/*-release
+
+# determine  gnome or KDE 
+use System Monitor (actually good program on Mint)
+
+echo $DESKTOP_SESSION
+
+In a terminal or console, you can run:
+pgrep -l "gnome|kde|mate|cinnamon"
+or
+ps -A | egrep -i "gnome|kde|mate|cinnamon"
+The item that appears in more lines should be the answer.
+
+# number of CPU cores in linux
+lscpu
+or
+nproc
+
+# tetravex scores
+~/.local/share/gnome-tetravex/history
+
+# show number lines and size of all your java source files
+find . -name *.java -print0 | wc --files0-from=-
+
+# open terminal with 2 tabs
+gnome-terminal --tab -t fracs --working-directory=/home/misha/fracs --tab -t progs --working-directory=/home/misha/progs
+
+# select in files line with one of two words
+cat mf.out | grep -E "(mgstat|Early)"
+
+# install NTFS on Centos 6.6 64 bit
+yum install fuse fuse-ntfs-3g
+
+# run intel fortran on Centos 6.6 64 bit:
+yum install gcc-c++.x86_64     # installs g++
+yum install glibc-devel.i686   # видимо главное это
+
+# show sizes of files in .hg repository
+du -ak .hg/store/data | egrep -e '*.i$' -e '*.d$' | sort -rg | less
+
+# mount MediaD
+sudo ntfs-3g /dev/sdb2 /media/MediaD
+
+# rename files in many folders
+for f in K02/hort_data/*; do mv -f $f/G1K_Vol.dat $f/G1k_Vol.dat; done
+
+# show partitions of hard drive
+sudo parted /dev/sda 'print'
+sudo parted /dev/sdb 'print'
+or run gparted (if exists)
+
+# get graphical interface to other computer
+ssh misha@192.168.1.9
+password: ...
+export DISPLAY=:0
+gedit <opens graphical interface of your computer>
+
+# work with arduino over USB not root.
+# need to add misha to dialout group
+sudo usermod -a -G dialout misha
+# or use GUI (check [ ] dialout) in: 
+System/Administration/<Users and Groups>/misha/Properties/Groups
+
+# rename a lot of files (works)
+for fn in *.for; do mv $fn "${fn/.for}".f90; done
+
+# find process by name
+pgrep arch
+
+# kill process by name
+pkill archiver
+

@@ -1,0 +1,80 @@
+십 - десять - ten
+백 - сто - hundred
+전 - тысяча - thousand
+만 - 10000
+위 - верх - top
+위에 - вверху, на - over
+앞 - фронт, перед - front
+앞에 - спереди, перед чл - in front
+가운데 - середина - middle
+가운데에 - в середине - in the middle
+오른쪽 - правая сторона - right side
+오른쪽에 - справа - to the right
+안 - внутр.часть_1 - inner part 1
+속 - внутр.часть_2 - inner part 2
+안에 - внутри_1 - inside 1
+속에 - внутри_2 - inside 2
+아래 - низ-1 - bottom 1
+밑 - низ-2 - bottom 2
+아래에 - внизу,под-чл-1 - below 1
+밑에 - внизу,под-чл-2 - below 2
+뒤 - зад - rear
+뒤에 - сзади, за чл - after, behind
+옆 - бок - size
+옆에 - сбоку, рядом - next to, beside
+왼쪽 - левая сторона - left side
+왼쪽에 - слева - to the left
+밖 - наружная часть - out
+겉 - поверхность - surface
+밖에 - снаружи - outside
+겉에 - на поверхности - on the surface
+거기 - там средн - there
+쪽 - сторона - side
+문방구 - канцтовары, маг канц - stationery
+사진관 - фотоателье - photo studio
+카페 - кафе - cafe
+몇 - сколько, несколько - some, how many
+살 - год (возраст) - years of age
+시 - час - hour
+시간 - часов - hours
+일 - день - day
+년 - год - year
+월 - месяц - month
+번 - раз, номер - one time, number
+분 - минут, человек - minute, man
+초 - секунд - second
+명 - сч людей,человек - persons
+개 - сч штук - items
+마리 - сч животных - cnt animals
+수 - число, количество - number
+배 - груша - pear
+샌드위치 - сандвич - sandwich 
+남편 - муж - husband
+아내 - жена - wife
+킬로 - килограмм - kilo
+그램 - грам - gram
+센티 - сантиметр - santimeter
+미터 - метр - meter
+리터 - литр - liter
+인분 - порция - portion
+감사합니다 - спасибо-1 - thank you 1
+고맙습니다 - спасибо-2 - thank you 2
+아니에요 - нет (не стоит благодарности) - no, thank you
+복도 - коридор - corridor
+운동장 - спорт площадка - playground
+냉장고 - холодильник - refrigerator
+며칠 - какое число - what date
+나이 - возраст - age
+남자 - мужчина - man
+사과 - яблоко - apple
+주스 - сок - juice
+노트 - тетрадь - notes
+탄자 - столик - table
+담배 - сигареты, табак - Tobacco
+책장 - книжный шкаф - Bookcase 
+우산 - зонт - umbrella
+시장 - рынок - market
+공원 - парк - park
+내일 - завтра - tomorrow
+휴일 - выходной день - holiday
+모스크바 - Москва - Moscow

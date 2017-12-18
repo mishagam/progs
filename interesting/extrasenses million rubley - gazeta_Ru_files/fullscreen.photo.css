@@ -1,0 +1,74 @@
+	        	/********************* full screen photo *************************/
+	        	/*** remove center .main_pick{margin: 0 auto;} ***/
+		        .main_pick, .main_pick_full{
+	        		display:table;
+	        		width:1px;
+	        		font-family: 'Open Sans', sans-serif;
+	        		font-weight: 400;
+	        		position:relative;
+	        	}
+	        	.main_pick figure, .main_pick_full figure{
+	        		position:relative; 
+	        		overflow:hidden;
+	        		width:100%;
+	        		    			
+	        	}
+	        	.main_pick figcaption, .main_pick_full figcaption{
+	        		font-size: 14px;    			
+	    			line-height: 18px;
+	    			color: #4d555a;
+	    			padding: 10px 0;
+			}     
+			.main_pick_full figcaption{
+				color: #fff;
+			}   	
+	        	.main_pick figure autor{
+	        		position:absolute;
+	        		bottom: 0;
+	   			right: 0;
+	        		background: rgba(0, 0, 0, 0.3);        		
+				font-size: 12px;
+	    			line-height: 14px;
+	    			color: #fff;
+	   			padding: 10px 10px;
+	   			z-index:1;
+	        	}
+	        	.main_pick .full-img, .dark-screen-page{
+	        		cursor:pointer;
+	        	}
+	        	
+	        	.main_pick .dark-screen-page{
+	        		position:fixed;
+	        		top:0;
+	        		left:0;
+	        		background:rgba(0, 0, 0, 0.7);
+	        		width:100%;
+	        		height:100%;
+	        		z-index:15; 
+	        		display:table;        		
+	        	}
+	        	
+	        	.main_pick .dark-screen-page .close{
+	        		position:absolute;
+	        		top:20px;
+	        		right:20px;
+	        		height:16px;
+	        		width:16px;
+	        		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkRCQ0UyMUZCNjA0QTExRTVBRkVDQzg5RjYyRjVFQUQxIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkRCQ0UyMUZDNjA0QTExRTVBRkVDQzg5RjYyRjVFQUQxIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6REJDRTIxRjk2MDRBMTFFNUFGRUNDODlGNjJGNUVBRDEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6REJDRTIxRkE2MDRBMTFFNUFGRUNDODlGNjJGNUVBRDEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz67jGi8AAAAfElEQVR42qSTCwrAIAhAZQfT3f8qHcISVrjQ1E0Q+vBeZQjM3EbiSCimME0G9EGCD3PPhYpkwTLXGxnJC94FkWTCpNetUyyJCXuCXeLCJ4GWuLDkBX4wZCKoNqmbpJ9gvZmyRTwVjKJvxKhglqQCmxINV5ppSeBvO3cBBgBiZPcQ3Nk6MAAAAABJRU5ErkJggg==');	
+	        	}
+	        	.main_pick_full{
+	        		display:table-cell;        		
+	        		z-index:3;
+	        		vertical-align:middle;
+	        	}
+	        	.size-full{        		
+				width: 40px;
+				height: 40px;
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAY9JREFUeNrsmL9qhEAQxs8/rQELbaysQjpByDMEsbkHOMHCKkmfJwh5gasshHuBsH2eIAqWd2ksLGxs5HpJHIggcoY9F3eH4DQKgv6Y+b7ZcaTvLjZIo6qqBxVuJEm6xQbX5e0rTVND3iCPFfDfA6pLfyCO4zvDMLSp50mSnAghZ2GAEL7v7xVFuZl4vOsAP4WVOIqiY5eloG3bM1oNAmRZlge0gFmWbW3bfkIJCHCu676hbDNTcE3TfNBqUuYNV9f1u67rj7TGUXnDmab50hunuwTcAWnghu7mXuI8z0/j0l2CE2aScWNmgVtMg72+PM/bWpb1inJY+IU8sr5HZjUETCsox63erY7jgNYCGkdyy+CwlcAYFYbhYalMyixwfQAkGIIrIGRknJW/mjCrW68GhDF9WLprTghuJe71VRTFswg4Kg0C5KVhkwfcbBfzgpsFCMMmL7hZgJqm3S99ejABLt2YqY86+OOHn2rRqw8JFphY94OEkN263VoBRYfaCxItIKz6YZuOEQ5a3Y8AAwC8PuTAqyFhigAAAABJRU5ErkJggg==');
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				cursor: pointer;
+	        	}
+
+	        	/************************ full screen photo end ***************************/

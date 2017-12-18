@@ -1,0 +1,292 @@
+
+.device-mobile section.banner {
+    display: none;
+}
+
+.device-mobile section#header,
+.device-mobile section#menu,
+.device-mobile section#latest,
+.device-mobile section#footer,
+.device-mobile section#copyright {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.device-mobile #menu .cats a {
+    margin-right: 40px;
+}
+
+.device-mobile #menu .cats {
+    width: 100%;
+    max-width: 100%;
+}
+
+.device-mobile #menu .search-box {
+    float: none;
+    margin-top: 20px;
+}
+
+.device-mobile #menu .search-box:before {
+    content: '';
+    border-top: 1px solid #c0c0c0;
+    position: absolute;
+    left: 0;
+    margin-top: -20px;
+    width: 100%;
+    
+}
+
+.device-mobile #header {
+    height: auto;
+}
+
+.device-mobile #logo {
+    width: 100%;         
+    background-position: left center; 
+    background-size: contain !important;
+}
+
+.device-mobile #auth {
+    display: block;
+    position: static;
+    float: none;
+    height: auto;
+    margin-left: -20px;
+    padding: 0px 0px 0px 20px;
+    width: calc(100% + 40px);
+    margin-top: 0px;
+    -o-transform: none;
+    -moz-transform: none;
+    -webkit-transform: none;
+}
+
+.device-mobile #auth>div {
+    -o-transform: none;
+    -moz-transform: none;
+    -webkit-transform: none;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-left: 0px;
+}
+
+.device-mobile #headline .wr section {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    height: auto !important;
+}
+
+.device-mobile #headline .wr section:before {
+    display: none;
+}
+
+.device-mobile #headline .items {
+    width: 40%;
+    display: none;
+}
+
+.device-mobile #headline .items-view {
+    width: 96% !important;
+}
+
+.device-mobile #headline .items a {
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.device-mobile #headline .items a.s:before {
+    margin-left: -42px;
+}
+
+.device-mobile #headline .items a.s:after {
+    display: none;
+}
+
+.device-mobile #headline .items a.s {
+    overflow: hidden;
+}
+
+.device-mobile #headline .items a span:last-child {
+    font-size: 16px;
+}
+
+.device-mobile section>.wr>section {
+    width: 100%;
+}
+
+.device-mobile aside {
+    display: none;
+}
+
+.device-mobile #page .page-header,
+.device-mobile #page .page-options,
+.device-mobile #page .page-content {
+    padding-left: 20px;
+}
+
+.device-mobile #page .page-options {
+    height: auto;
+    background-image: none !important;
+}
+
+.device-mobile #page .page-options>nav>div {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: none;
+}
+
+.device-mobile #page .page-options>nav>select,
+.device-mobile #page .page-options>nav>span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.device-mobile .article-list.special {
+    width: 100%;
+}
+
+.device-mobile .article-list.special img {
+    width: 90%;
+}
+
+.device-mobile .article-list.special .table {
+    width: 100%;
+}
+
+.device-mobile .article-list.special .table>div>div:first-child {
+    width: 20%;
+    min-width: 120px;
+}
+
+.device-mobile .article-list>div span.comments {
+    margin-left: 0px;
+    margin-top: 5px;
+    display: block;
+}
+
+.device-mobile #page .page-header {
+    height: auto;
+    background-image: none !important;
+}
+
+.device-mobile #footer .table>div>div:first-child {
+    display: none;
+}
+
+.device-mobile #latest #sorting>span:first-child {
+    display: block;
+    background: none;
+    padding-left: 0px;
+}
+
+.device-mobile #latest #sorting>div {
+    height: auto;
+}
+
+.device-mobile div.popup {
+    width: 100%;
+    left: 0;
+}
+
+.device-mobile #latest #ajax-container .table>div>div {
+    display: block;
+    width: 100%;
+}
+
+.device-mobile #footer .submenu {
+    width: 100%;
+}
+
+.device-mobile #footer .information {
+    width: 100%;
+    text-align: left;
+    float: none;
+    margin-top: 20px;
+}
+
+.device-mobile #copyright span {
+    width: 100%;
+    float: none;
+}
+
+.device-mobile .article-lead {
+    font-size: 14px !important;
+    line-height: 16px !important;
+}
+
+.device-mobile .article-image-social {
+    display: none;
+}
+
+.device-mobile .page-content article .article-image-frame img {
+    margin-top: 20px;
+}
+
+.device-mobile #page .page-options #mail {
+    float: none;
+    margin-top: 10px;
+    
+}
+
+.device-mobile .page-content article .article-social {
+    background: #3289C8 !important;
+    padding-left: 10px !important;
+}
+
+.device-mobile .page-content article .article-social:after {
+    display: none;
+}
+
+.device-mobile .page-content article .article-social .table>div>div {
+    padding-right: 10px;
+}
+
+.device-mobile .page-content article .article-social .table>div>div span {
+    display: none;
+}
+
+.device-mobile .page-content article .article-tags {
+    text-align: left;
+    padding-top: 10px;
+}
+
+.device-mobile .page-header .author  {
+    float: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.device-mobile .dialog {
+    padding: 10px;
+}
+
+.device-mobile .dialog h3 {
+    line-height: 30px;
+}
+
+.device-mobile .dialog p {
+    padding-bottom: 0px;
+}
+
+.device-mobile .dialog button {
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+
+.device-mobile .page-content article .article-image-frame {
+    margin: 0px 0px 20px 0px !important;
+    padding: 0px !important;
+}
+
+.device-mobile .page-content article .article-content img,
+.device-mobile .page-content article .article-image-frame img {
+    width: 95%;
+    max-width: 100%;
+    height: auto !important;
+}
+
+.device-mobile .article-list p {
+    height: auto;
+}

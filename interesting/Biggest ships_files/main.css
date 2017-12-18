@@ -1,0 +1,234 @@
+﻿
+/* Главная страница */
+
+#main_block_popular {
+  font-size:32px;
+  color:#000;
+  text-align:center;
+  background:url(images/main/lines_1.png) no-repeat center center;
+  font-family:'PFD', Arial, Tahoma, sans-serif;
+  text-transform:uppercase;
+}
+
+.win_chrome #main_block_popular {
+  height:37px;
+  line-height:40px;
+}
+
+#main_block_popular_content {
+  margin:0 0 0 0;
+}
+
+#main_block_popular_content td.td1, #main_block_popular_content td.td2 {
+  width:370px;
+  padding:0 0 20px 0;
+  vertical-align:top;
+}
+
+#main_block_popular_content td.td1 {
+  padding-right:20px;
+}
+
+#main_block_popular_content tr:last-child td {
+  padding-bottom:10px;
+}
+
+#main_block_popular_content .short_object_block {
+  
+}
+
+#main_news_block {
+  padding:20px 0 0 0;
+}
+
+#main_news_block a {
+  text-decoration:underline;
+}
+
+#main_block_report_c {
+
+}
+
+#main_block_report {
+  font-size:32px;
+  color:#fff;
+  text-align:center;
+  height:50px;
+  line-height:50px;
+  position:relative;
+  z-index:1;
+  background:url(images/main/lines_2.png) #51c1d7 no-repeat center center;
+  font-family:'PFD', Arial, Tahoma, sans-serif;
+  text-transform:uppercase;
+}
+
+
+
+.win_chrome #main_block_report {
+  line-height:55px;
+}
+
+
+
+#main_block_report_content {
+  margin:0 0 0 0;
+}
+
+#main_block_report_content td.td1, #main_block_report_content td.td2, #main_block_report_content td.td3 {
+  width:340px;
+  padding:0 20px 20px 0;
+  vertical-align:top;
+}
+
+#main_block_report_content tr:last-child td {
+  padding-bottom:10px;
+}
+
+
+#main_block_report_content td.td3 {
+  padding-right:0px;
+}
+
+#main_block_report_content .short_object_img {
+  width:340px;
+}
+
+#main_block_channel {
+  font-size:32px;
+  color:#fff;
+  text-align:center;
+  height:50px;
+  line-height:50px;
+  position:relative;
+  z-index:1;
+  background:url(images/main/lines_5.png) #51c1d7 no-repeat center center;
+  font-family:'PFD', Arial, Tahoma, sans-serif;
+  text-transform:uppercase;
+}
+
+.win_chrome #main_block_channel {
+  line-height:55px;
+}
+
+#main_block_channel_content {
+  margin:0px 0 0 0;
+}
+
+#main_block_channel_content td.td1, #main_block_channel_content td.td2 {
+  width:370px;
+  padding:0 0 20px 0;
+  vertical-align:top;
+}
+
+#main_block_channel_content td.td1 {
+  padding-right:20px;
+}
+
+#main_block_channel_content tr:last-child td {
+  padding-bottom:10px;
+}
+
+#main_block_channel_button {
+  text-align:right;
+  padding:10px 0 0 0;
+}
+
+#main_block_faces_content {
+  margin:10px 0 0 0;
+}
+
+#main_block_faces_content td.td1, #main_block_faces_content td.td2, #main_block_faces_content td.td3, #main_block_faces_content td.td4  {
+  width:240px;
+  padding:0 40px 20px 0;
+  vertical-align:top;
+}
+
+#main_block_faces_content td.td4 {
+  padding-right:0px;
+}
+
+#main_block_faces_content tr:last-child td {
+  padding-bottom:10px;
+}
+
+/* Сейчас в эфире */
+
+#main_now_in_tv_wrapper {
+  padding:20px 20px 40px 20px;
+}
+
+#main_now_in_tv {
+  background:#f1f1f1;
+  position:relative;
+}
+
+#main_now_in_tv_liner {
+  position:absolute;
+  width:340px;
+  height:15px;
+  left:50%;
+  margin-left:-170px;
+  top:-15px;
+  background:#f1f1f1;
+}
+
+#main_now_in_tv_title {
+  font-size:32px;
+  color:#000;
+  text-align:center;
+  font-family:'PFD', Arial, Tahoma, sans-serif;
+  text-transform:uppercase;
+  background:url(images/main/main_lines.png) no-repeat center center;
+}
+
+#main_now_in_tv_items {
+  padding:10px 0 20px 20px;
+}
+
+#main_now_in_tv_items_table td.main_now_in_tv_item {
+  width:286px;
+  padding:20px;
+  background:#fff;
+}
+
+#main_now_in_tv_items_table td.spacer {
+  width:20px;
+  padding:0;
+  font-size:0px;
+}
+
+#main_now_in_tv_items a {
+  text-decoration:underline;
+}
+
+#main_now_in_tv_button {
+  background:url(images/main/main_now_in_tv_button.png) #308db0 repeat-x left top;
+  height:30px;
+  display:block;
+  position:absolute;
+  right:0;
+  top:0;
+  font-family:'PFD', Arial, Tahoma, sans-serif;
+  font-size:16px;
+  color:#fff;
+  text-transform:uppercase;
+  text-decoration:none;
+  line-height:30px;
+  padding:0 20px 0 44px;
+}
+
+#main_now_in_tv_button:hover {
+  text-decoration:underline;
+}
+
+#main_now_in_tv_button .icon {
+  display:block;
+  position:absolute;
+  top:50%;
+  margin-top:-8px;
+  left:20px;
+  font-size:0px;
+  width:14px;
+  height:14px;
+  background:url(images/main/main_now_in_tv_button_icon.png) no-repeat left top;
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start_first_text">Start First?</string>
+    <string name="hello">Hello World, AndroidRendzuActivity!</string>
+    <string name="app_name">CrossNil</string>
+</resources>

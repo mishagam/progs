@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "model-osprey-185600",
+  "private_key_id": "c8442d7fa17407f65b7befe916afa19da0cb6b67",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCTa6q2aNfxJXxm\nCPgcx/iCa/R+qExLk6feRZVn2pYhjgbewnaEylP/8BJxxY/IfFgoasiuBh3B8Ubh\nd5mfhtRJjVoe5ZSzUwPOYQDjgM2RetPlc0ss5vrs70U+KF4+7pgz2vBRH9wpDYdy\neOiAimI0fOGDRcxaVJhVZYy8U5xCKEtpi0WsKQKjvug7EKUk9b/6yjEe5YtD+IA9\nuXIu00fWEIUPkKAp4PAeGmOcaZjZR82C9LlfYc2yngqbM5loB9cGErb1uXAqGik/\n3SLPQOuYJGrv5wHkT4NsJDTBEY2KzoFYifphWm5S9N3Euc9+qtGxfeNRu/pTQblb\nkgVN//I9AgMBAAECggEAHB8GLgya4LPDYp1kYu0ccRiRx5VoFGSiuYoxgWGXkOgM\nVHLo89S6qFBN3GkQz/A0SuVvyY5+H7BcUocjhWRNW4h8v/cQYhK8X6Jubndz/0Pc\nZuES3opjJE5SOZSuwbd2zjF99SOsNiKQC1yYEWkUaanGxOlMHZEUi/m2mngijxXh\naU82HkocXcY1RjCPqeEqdlgWz6kxuZc7Yry0ExMYW7PvSEnw1owXzj//zlzTHBR7\nkzN5pgtLNxkB5sdg2znJ1cu4N9LZpEoZwNvl45+pPbnj30gIX25wHEjl7nRfwF5j\nZRZAaYNSN4T6zJnXFlzV8G2LR/LkUzeU3eHQagk1QQKBgQDOOB6K1JThC29lkFsW\nC6sJXb4xGWQuKxWIkXHOHnoZwtLxzDuT7WlOYYz4S5z3eYfY3wU3/acoQ5Fl87dV\nT2+R98aeHOKhZhXm6bbKlRWdt6O2/Zgx1caOLAUFY7ajuTLXUIDe9jA9K2LASUSY\nTX20hy+7jG+kqYszmTGwOCaFIQKBgQC3AeyvbQTgnKE8PIXeql5VhNyh4ZEvVZU5\nlz9hzZaNdBVD+CoyKS3K82fPoLCWQbUW0En1MS2SNSUC7+3iBEnRrGSbv7OWRokY\nmAh+WIFvfj+x584JWoqQjC97EBuKl95nxD3eFTx75p9JMz2v13SYR/UFxzL1FBCk\nd1KI4EmtnQKBgFWqmH2BzAsk7fTaIAyrcjTk3XKWIrjPKxXdndJLdNuoxGqwNfvA\nv2NRQPeQqbdgpB9ink9hLwSZ9RfOQ9XLtwSDUt4yD6+OsgCIDGhhwGYReJA3Dvd8\n4AwFm1xezOt8rvMlPTPiP63ZjR9mEHnYjyTkl96oe2SDDhG0TSDwYoghAoGAW6Z+\nFzi8yZQHd3hD/shJqAB60iN6Jz9wFUB2wI9KR5sMD1cYIrjWsx4FLkkmRomvnDZB\n46Z2UROGbpskAh3trjDszcdKtAatIAD7t/KxF9odIgaZ+7s5S7y5BqOBd34pJsRz\ny2XNPau4t9sOmKKJRL48qmEhVvVuhD8xuVTB8U0CgYBNDf0P1dJ104DOc5GRKwnK\nurxqv0fRnTPJqf7AWxLcUfmAFsgq9hnxLvWBtU+qdC3Kod61YdrjjeBpTUAqga8f\nY5IoQiDmBB/5nmNUrFhsCBeRc0BjVIs8Af50TWD1JRS8mgsuzoE+BIU5xRXs4xoo\nrVBCkBtuL/E2UDf6TGrDlA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "model-osprey-185600@appspot.gserviceaccount.com",
+  "client_id": "106021917981746361831",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/model-osprey-185600%40appspot.gserviceaccount.com"
+}

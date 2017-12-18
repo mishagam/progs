@@ -1,0 +1,51 @@
+#Builder to use:
+# OCAMLC= C:\OCaml\bin\ocamlc.exe
+OCAMLC=ocamlc
+
+#Is it native?
+OPT= no
+
+LIBS = str.cma nums.cma unix.cma
+FLAGS = -g
+#TARGETS = oma NSort cod.exe btree.exe expr.exe sexpr.exe pat.exe
+TARGETS = cod
+all: $(TARGETS)
+
+oma: oma.exe
+NSort: nsort.exe
+
+%.cmo:	%.ml
+	$(OCAMLC) $(FLAGS) -c $<
+
+oma.exe:	oma.cmo
+	$(OCAMLC) $^ $(LIBS) $(FLAGS) -o $@
+
+cod:	Codeforces.cmo
+	$(OCAMLC)  $(FLAGS) $(LIBS) $^ -o $@
+
+btree.exe:	BTree.cmo
+	$(OCAMLC) $^ $(LIBS)  $(FLAGS) -o $@
+
+Expression.cmo:	Expression.ml
+	$(OCAMLC) $(FLAGS) -pp camlp4o -c $<
+
+expr.exe: Expression.cmo
+	$(OCAMLC) $^ $(LIBS) $(FLAGS) -o $@
+
+SimpleLexer.cmo: SimpleLexer.ml
+	$(OCAMLC) $(FLAGS) -pp camlp4o -c $<
+
+sexpr.exe: SimpleLexer.cmo
+	$(OCAMLC) $^ $(LIBS) $(FLAGS) -o $@
+
+pat.exe: PatternSamples.cmo
+	$(OCAMLC) $^ $(LIBS) $(FLAGS) -o $@
+
+%.exe: %.cmo
+	$(OCAMLC) $^ $(LIBS) $(FLAGS) -o $@
+
+clean:
+	rm -f *.cmo	 
+	rm -f *.exe
+	rm -f *.cmi	
+	rm -f $(TARGETS) 

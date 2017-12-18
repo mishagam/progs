@@ -1,0 +1,12 @@
+ToDo with select words.
+
+1(+). implement words table view.
+2(+). implement selection of active words.
+3(+). Implement storage of active words for dictionary.
+4.(+) сделать русский перевод.
+5. Спросить у Тани что можно было бы улучшить.
+6. Подумать, как можно было бы ускорить рисование таблицы.
+7. Experiment with GridLayout - may be it is faster.
+8. add reaction of first start after update (version > prefs version) - update dictionary from resource
+9.(+) Add words from 4-th lesson.
+10. показать тане пингвинов

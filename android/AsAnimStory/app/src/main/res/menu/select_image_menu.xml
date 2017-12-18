@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_settings"/>
+    <item android:id="@+id/menu_turtle_name" android:visible="true" android:title="" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_sel_type" android:visible="true" android:title="" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_fig_all" android:visible="true" android:title="@string/all" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_fig_figures" android:visible="true" android:title="@string/figures" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_fig_animals" android:visible="true" android:title="@string/animals" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_fig_moving" android:visible="true" android:title="@string/moving" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_fig_people" android:visible="true" android:title="@string/people" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_fig_pairs" android:visible="true" android:title="@string/pairs" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_one_image" android:visible="true" android:title="@string/one_image" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_many_images" android:visible="true" android:title="@string/many_images" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_ok" android:visible="true" android:title="@string/select" android:checkable="true" android:showAsAction="always" ></item>
+    
+</menu>

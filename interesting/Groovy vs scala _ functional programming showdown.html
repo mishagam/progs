@@ -1,0 +1,994 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Groovy vs scala : functional programming showdown</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="msvalidate.01" content="1D0BA4027C2564DD7CB4901501946185"/>
+<meta name="yandex-verification" content="7aaa753ff2e5e2c1"/>
+<meta name="google-site-verification" content="_JJi6wC9tcHlTpkxjg7vl4CIytIRSIk0XtpmQ8r3H_Y"/>
+<meta name="wmail-verification" content="3e69bfc6e7b6db35"/>
+<meta name="mailru-verification" content="610b4dce0d5a6faf"/>
+<meta name="alexaVerifyID" content="Jhd-Id4Ss_yaHMKvC3WiEPLp1_A"/>
+<style>table.table1 td{padding-left:10px}table.table2 td{padding-left:10px;padding-bottom:10px}</style>
+<link rel="shortcut icon" href="/static/img/icn.png" type="image/x-icon">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-responsive.min.css" type="text/css">
+<link rel="stylesheet" href="/static/img/icsw2_16/icsw2_16.css" type="text/css">
+<link rel="stylesheet" href="/static/img/splashy/splashy.css" type="text/css">
+<link rel="stylesheet" href="/static/img/flags/flags.css" type="text/css">
+<link rel="stylesheet" href="/static/js/lib/powertip/jquery.powertip.css" type="text/css">
+<link rel="stylesheet" href="/static/css/beoro.css" type="text/css">
+<!--[if lte IE 8]><link rel="stylesheet" href="/static/css/ie8.css" type="text/css"><![endif]-->
+<!--[if IE 9]><link rel="stylesheet" href="/static/css/ie9.css" type="text/css"><![endif]-->
+<!--[if lt IE 9]>
+            <script src="/static/js/ie/html5shiv.min.js"></script>
+	        <script src="/static/js/ie/respond.min.js"></script>
+	        <script src="/static/js/lib/flot-charts/excanvas.min.js"></script>
+	     <![endif]-->
+<script src="//platform.linkedin.com/in.js" type="text/javascript">   </script>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/jquery-migrate.js"></script>
+<script src="/static/js/jquery.fademenu.js"></script>
+<script src="/static/js/selectnav.min.js"></script>
+<script src="/static/js/jquery.actual.min.js"></script>
+<script src="/static/js/jquery.easing.1.3.min.js"></script>
+<script src="/static/js/moment.min.js"></script>
+<script src="/static/js/beoro_common.js"></script>
+<script src="/static/js/lib/jquery-validation/jquery.validate.min.js"></script>
+<script src="/static/js/lib/powertip/jquery.powertip-1.1.0.min.js"></script>
+<script src="/static/js/pages/beoro_form_validation.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/js/remoteNonStopPageScroll.js"></script>
+<script type="text/javascript">
+             var _gaq = _gaq || [];
+		      _gaq.push(['_setAccount', 'UA-24251888-1']);
+		      _gaq.push(['_trackPageview']);
+		    
+		      (function() {
+		        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		      })();
+        </script>
+</head>
+<body class="bg_c">
+<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=981484655200504&version=v2.0";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		</script>
+<div class="main-wrapper">
+<script>
+var delay = (function(){
+	  var timer = 0;
+	  return function(callback, ms){
+	    clearTimeout (timer);
+	    timer = setTimeout(callback, ms);
+	  };
+	})();
+
+	$(document).ready(function() {
+
+		$("#q-main").focusin(function(){
+		    if($("#q-main").val().length>0){
+
+		    	$.ajax({
+					url : "/shared/searchPeopleByAjax",
+					data : {
+						key : $("#q-main").val()
+					},
+					success : function(mesaj) {
+						$("#data").text("");
+						$("#data").append(mesaj);
+						$("#spinner").hide();
+						if ($("#result1").is(":hidden")) {
+							$("#result1").slideDown("slow");
+						}
+
+					},
+					error : function() {
+						alert('error');
+					}
+				});
+		    	
+			    }
+			    
+		  });
+		
+		
+		$('#q-main').keyup(function() {
+			$("#spinner1").show();
+				if($("#q-main").val().length<1){
+				$("#result1").hide();
+				
+				return false;	
+			}
+				delay(function(){
+			$.ajax({
+				url : "/shared/searchPeopleByAjax",
+				data : {
+					key : $("#q-main").val()
+				},
+				success : function(mesaj) {
+					$("#data").text("");
+					$("#data").append(mesaj);
+					$("#spinner1").hide();
+					if ($("#result1").is(":hidden")) {
+						$("#result1").slideDown("slow");
+					}
+
+				},
+				error : function() {
+					alert('error');
+				}
+			});
+				 }, 300 );
+		});
+
+		$('body').click(function(event) {
+		    if (!$(event.target).closest('#result1').length) {
+		    	$("#result1").hide();
+		    };
+		}); 
+
+		
+
+		
+
+	});
+</script>
+<style>.result{background-color:#fff;width:600px;height:auto;max-height:600px;overflow-x:hidden;overflow-y:auto;display:none;border:2px solid #006666;border-bottom:4px solid #006666;margin-left:auto;margin-right:auto;-webkit-box-shadow:-3px 10px 18px 4px rgba(46,46,46,1);-moz-box-shadow:-3px 10px 18px 4px rgba(46,46,46,1);box-shadow:-3px 10px 18px 4px rgba(46,46,46,1);}</style>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<div style="vertical-align: middle !important" class="pull-right top-search">
+<form action="/find" method="post">
+<input type="hidden" name="org.codehaus.groovy.grails.SYNCHRONIZER_TOKEN" value="27328af1-dee9-463d-9bf6-378b6a6ce0f1" id="org.codehaus.groovy.grails.SYNCHRONIZER_TOKEN"/>
+<input type="hidden" name="org.codehaus.groovy.grails.SYNCHRONIZER_URI" value="/article/articleDetails/211" id="org.codehaus.groovy.grails.SYNCHRONIZER_URI"/>
+<input style="width: 220px;" type="text" name="fullname" autocomplete='off' id="q-main">
+<button style="vertical-align: middle" class="btn"><i class="icon-search"></i></button>
+</form>
+</div>
+<div id="fade-menu" class="pull-left">
+<ul class="clearfix" id="mobile-nav">
+<li>
+<a href="/newsfeed">Ana səhifə</a>
+</li>
+<li> <a href="/profile">Profilim</a>
+<ul>
+<li> <a href="/profile">Peşəkar Profilim</a> </li>
+<li> <a href="/company">Şirkət Profilim</a> </li>
+<li> <a href="/settings">Tənzimləmələr</a> </li>
+</ul>
+</li>
+<li>
+<a href="/contacts">Dostlarım</a>
+</li>
+<li>
+<a href="/forum/index">Forum</a>
+<ul>
+<li><a href="/forum/index">Suallar</a></li>
+<li><a href="/forum/askQuestion">Sual Ver</a></li>
+</ul>
+</li>
+<li>
+<a href="/meqale">Məqalə</a>
+<ul>
+<li><a href="/meqale">Məqalələr</a></li>
+<li><a href="/articleAdd">Yeni Məqalə Yaz</a></li>
+<li><a href="/article/myArticles">Mənim Məqalələrim</a> </li>
+</ul>
+</li>
+<li>
+<a href="/searchProfessionals">Axtar</a>
+<ul>
+<li><a href="/searchProfessionals/advancedSearch">Mütəxəssis Axtar</a> </li>
+<li><a href="/searchCompany">Şirkət/Xidmət/Məhsul Axtar</a></li>
+</ul>
+</li>
+<li> <a href="/is-elanlari-vakansiya">İş</a>
+<ul>
+<li><a href="/is-elanlari-vakansiya">İş Elanları</a></li>
+<li><a href="/newJob">İş Elanı Yerləşdir</a></li>
+<li><a href="/jobs/jobKeywords">Mənim Açar Sözlərim</a></li>
+<li><a href="/jobs/myJobs">Mənim Elanlarım</a></li>
+</ul>
+</li>
+<li> <a href="/contacts/contactUs">Yardim</a>
+<ul>
+<li><a href="/contacts/contactUs">Bizə yazın</a> </li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div style="text-align: center;" class="result" id="result1"><div style="text-align: left" id="data">
+</div>
+</div>
+</div>
+<header>
+<div class="container">
+<div class="row">
+<div class="span3">
+<div class="main-logo"><a href="/newsfeed"><img src="/static/img/logo.png"/> </a> </div>
+</div>
+<div class="span5">
+<nav class="nav-icons">
+<ul>
+<li><a href="/newsfeed" class="ptip_s"><i class="icsw16-home"></i></a></li>
+<li><a href="/profile" class="ptip_s"><i class="icsw16-admin-user-2"></i></a></li>
+<li><a href="/is-elanlari-vakansiya" class="ptip_s"><i class="icsw16-list"></i></a></li>
+<li><a href="/inbox" class="ptip_s"><i class="icsw16-mail"></i>
+<span class="badge badge-info"></span></a></li>
+<li><a href="/userProfile/friendRequests" class="ptip_s"><i class="icsw16-users-2"></i>
+<span class="badge badge-warning"></span></a></li>
+<li><a href="/notifications" class="ptip_s"><i class="icsw16-speech-bubbles"></i>
+<span class="badge badge-important"></span></a></li>
+<li><a href="/settings" class="ptip_s"><i class="icsw16-cog"></i></a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</header>
+<style>.example_responsive_1{width:320px;height:100px;}@media(min-width: 500px) { .example_responsive_1 { width: 550px; height: 70px; } }
+@media(min-width: 500px) { .example_responsive_1 { width: 550px; height: 70px; } }
+</style><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	   
+	     <div class="container">
+            <div class="row-fluid">
+                <div class="span6" align="left">
+		 		 <!-- Prof Panarama -->
+			     <ins class="adsbygoogle example_responsive_1"  style="display:inline-block;height:70px" data-ad-client="ca-pub-6000113049223669"   data-ad-slot="5284662035"></ins>
+			     <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+				  
+	              </div> 
+	              
+	              <div class="span6" align="right">
+		 		 <!-- Prof Panarama --> 
+			     <ins class="adsbygoogle example_responsive_1"  style="display:inline-block;height:70px" data-ad-client="ca-pub-6000113049223669"   data-ad-slot="4979556039"></ins>
+			     <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+				  
+	              </div>
+	              
+	           
+	           </div>
+	        </div>
+	       
+		 	                     
+		 	                  
+				                
+				     <div  class="container"  align="left" style="border: 0px solid;color: #E2E2E2"> 
+				       <div class="row-fluid"></div>
+			           </div> 
+			      <br/>
+		    
+		    
+		    
+		    
+       
+       <meta name="layout" content="main">
+
+      <title>Groovy vs scala : functional programming showdown</title>      
+       
+       <meta name="description" content="Groovy vs scala : functional programming showdown">  
+       <meta name="keywords" content="groovy,grails">
+       
+
+       <script>
+            $(document).ready(function (){
+
+            	$(function(){
+            	    var vidWidth  = 459; // youtbe video width
+            	    var vidHeight = 283; // youtube video height
+            	    var obj       = '<object width="' + vidWidth + '" height="' + vidHeight + '">' +
+            	        '<param name="movie" value="http://www.youtube.com/v/[vid]&amp;amp;hl=en&amp;amp;fs=1"/>' +
+            	        '<param name="allowFullScreen" value="true"/><param ' +
+            	        'name="allowscriptaccess" value="always"/>' +
+            	        '<param name="wmode" value="transparent"/><em ' +
+            	        'bed src="http://www.youtube.com/v/[vid]&amp;amp;hl=en&amp;amp;fs=1" ' +
+            	        'type="application/x-shockwave-flash" wmode="transparent" allowscriptaccess="always" ' +
+            	        'allowfullscreen="true" width="' + vidWidth + '" ' + 'height="' +
+            	        vidHeight + '"></em></object>';
+            	 
+            	    $('#blog .post').find('p:contains("youtube.com/watch")').each(function(){
+            	        var that = $(this);
+            	        var vid = that.html().match(/(?:v=)([w-]+)/g);
+            	        if (vid.length) {
+            	            $.each(vid, function(i){
+            	                that.replaceWith( obj.replace(/[vid]/g, this.replace('v=','')) );
+            	            });
+            	        }
+            	    });
+            	});
+
+                $(".share-inside").click(function () {
+                    if ($(".share-inside-warp").hasClass("share-inside-show")) {
+                        $(".share-inside-warp").slideUp("500");
+                        $(".share-inside-warp").removeClass("share-inside-show");
+                    }else {
+                        $(".share-inside-warp").slideDown("500");
+                        $(".share-inside-warp").addClass("share-inside-show");
+                    }
+                });
+
+            });
+        </script>
+<!-- Main Style -->
+<link rel="stylesheet" href="/static/forum/css/style1.css">
+<link rel="stylesheet" href="/static/forum/css/css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/forum/css/css/fontello/css/fontello.css">
+<link rel="stylesheet" href="/static/forum/css/css/lists.css">
+
+
+<div id="wrap">
+
+<section class="container main-content">
+<div class="row">
+<div class="span12">
+<article class="post single-post clearfix">
+    <div class="post-inner">
+
+        <h2 class="post-title">Groovy vs scala : functional programming showdown  
+        
+        </h2>
+        <div class="post-meta">
+            <span class="meta-author"><i class="icon-user"></i>
+                
+                    <a href="/publicProfile/publicProfile/1"> <b>Ziya Askerov</b> </a>
+                
+            </span>
+            <span class="meta-date"><i class="icon-time"></i>29-02-2016 14:57
+             </span>
+
+            <span class="pull-right">+0 -0</span>
+             <span class="pull-right">
+
+                 <a href="/article/unlike/211" class="single-question-vote-down pull-right" title="Bəyənmə">
+                 <i class="icon-thumbs-down"></i>
+             </a>
+                 <a href="/article/like/211" class="single-question-vote-up pull-right" title="Bəyən">
+                     <i class="icon-thumbs-up"></i>
+                 </a>
+             </span><br/>
+            <span class="pull-right"><i class="icon-eye-open"></i> 859</span>
+
+
+        </div>
+        <div class="post-content">
+            <p><p>Years ago when Ruby was at it's height, Twitter dropped Ruby and moved to Scala; shortly thereafter, the Ruby 'fad' came to an end and Ruby was dumped by hundreds of companies. Recently the VP of Engineering for Twitter stated that he wished he had never used Scala and LinkedIn has started moving away from Scala as well. Is this the beginning of an exodus from Scala and if so, what are our options?</p>
+<p>Well in Java there exists several functional languages bu currently the most popular are Java,&nbsp;<strong><a href="http://www.groovy-lang.org/" target="_blank">Groovy</a>&nbsp;</strong>and Scala (in that order).&nbsp;</p>
+<p>Groovy is most commonly known as being used in Netflix Asgard and as being part of the Android SDK for building Android Applications but aside from it being<strong><a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html" target="_blank">over 4&nbsp;times&nbsp;as popular as Scala</a></strong>&nbsp;and the only other Java language listed in the top 20 languages, there are&nbsp;<a href="http://philip.yurchuk.com/software/companies-using-grails/" target="_blank"><strong>alot of companies using Groovy&nbsp;in place of Scala</strong></a>...</p>
+<p>So why should you use Groovy over Scala? Well let's compare the two side by side on a variety of metrics:</p>
+<ul>
+<li><strong>Maturity</strong></li>
+<li><strong>Learning Curve</strong></li>
+<li><strong>Functional Programming</strong></li>
+<li><strong>Compatibility with Java</strong></li>
+<li><strong>Developer Knowledge</strong></li>
+<li><strong>Flexibility</strong></li>
+<li><strong>Scalability</strong></li>
+<li><strong>Syntax</strong></li>
+<li><strong>Speed (Language)</strong></li>
+<li><strong>Frameworks</strong></li>
+<li><strong>Test &amp; Deploy</strong></li>
+<li><strong>Mobile Development</strong></li>
+</ul>
+<p>&nbsp;</p>
+<h2>Maturity</h2>
+<ul>
+<li>Scala was created in 2003 as a small project by an University&nbsp;in Switzerland (EPFL - Lausane) and in 2011, the creator received a government grant to create&nbsp;his own company, Typesafe.</li>
+<li>Groovy was created in 2004 and the company was purchased by<strong>SpringSource</strong>&nbsp;(Makers of Spring, the most widely used Java Framework), then purchased by&nbsp;<strong>VMWare&nbsp;</strong>and<strong>&nbsp;</strong>managed by&nbsp;<strong>Pivotal</strong>&nbsp;for the last several years before&nbsp;moving on to become an&nbsp;<strong>Apache</strong>&nbsp;project.</li>
+</ul>
+<p>Groovy is integrated into&nbsp;<a href="http://projects.spring.io/spring-boot/" target="_blank">Springboot</a>,&nbsp;<a href="http://developer.android.com/sdk/installing/index.html" target="_blank">Android SDK</a>,&nbsp;<a href="http://gradle.org/" target="_blank">Gradle build system</a>&nbsp;and is used by Java and Scala developers every single day.</p>
+<p>Scala has not had the resources, funding and community that Groovy has in order to grow and mature as well as Groovy did. It is this kind of sponsorship and funding that stabilizes a language, enables the community to develop libraries and plugins for it and nurture it to grow into a mature product.</p>
+<p>At the same time however, Scala touted itself as '<span class="underline">the next Java</span>' and chose a go-it-alone approach in alot of it's code making it difficult at times to integrate with Java and Java libs. With time this got better but it still is problematic and is&nbsp;one of the reasons Scala's parent company listed for&nbsp;<a href="https://www.lightbend.com/blog/whats-in-a-name" target="_blank">it's recent rebranding</a>.</p>
+<p>In recent years, Scala was adopted by Twitter over Ruby but recently the VP of engineering stated that had they to do it all over again, they would not have chosen Scala due to it's&nbsp;<a href="https://en.wikipedia.org/wiki/Scala_(programming_language)#Criticism" target="_blank">difficulting in learning and integration</a>. LinkedIn is also scaling back it's own adoption as well due to similar issues with Scala.</p>
+<p>While Scala is being adopted slowly by businesses, Groovy has wide adoption in the devops community, web development and now in mobile development by companies like Netflix, Twitter, Facebook, Amazon and others through tools like Gradle, Spock and in frameworks like Android, Spring, Spring-Boot not to mention the popular Java&nbsp;convention over config framework, Grails.</p>
+<p>Scala is also being used in some of these places like &nbsp;Facebook, Netflix and Amazon... but some of these companies(like&nbsp;<a href="https://www.quora.com/Is-LinkedIn-getting-rid-of-Scala" target="_blank">Linkedin</a>&nbsp;and&nbsp;<a href="http://codahale.com/downloads/email-to-donald.txt" target="_blank">Yammer</a>) are also dropping it just as quickly as they are adopting.</p>
+<p>And but there is one place Scala is not being used... mobile.</p>
+<p>Google uses Groovy in the Android SDK and even uses Groovy internally on several projects;&nbsp;<a href="https://www.quora.com/Does-Google-use-Scala-for-any-products-or-projects" target="_blank">Scala is not used internally at Google</a>.</p>
+<p>In fact, alot of Scala projects even use Groovy tools (ie Gradle, Spock). But Groovy projects don't use Scala tools because they don't need to. Groovy already has a robust community, an enormous library of plugins and full integration with Java.</p>
+<p>In this case, Groovy has shown itself as a mature and proven technology. People<strong>TALK</strong>&nbsp;about Scala, but people&nbsp;<strong>USE</strong>&nbsp;Groovy through a variety of different tools, environments and even languages (Gradle is a build tool used by Ruby and Python too).</p>
+<p><strong>Points : Groovy +1 and Scala +0.5</strong></p>
+<h2>Learning Curve</h2>
+<p>In 2011,&nbsp;<a href="http://codahale.com/downloads/email-to-donald.txt" target="_blank">Yammer moved away from Scala</a>&nbsp;because the learning curve, development time and compile time were TOO LONG. Even the writer of the first beginners guide to Scala says it has a '<a href="http://samwize.com/2012/10/19/why-i-hate-scala/" target="_blank">High learning curve, slow to get productive</a>'.</p>
+<p>A VP for Twitter, Scala's main contributor, once stated at a public meeting, that given the choice,&nbsp;<a href="https://www.quora.com/Is-Twitter-getting-rid-of-Scala" target="_blank">they would not have chosen Scala again</a>. Some have taken this to mean the lack of integration with Java and Java libraries while others have taken it to mean the heavy learning curve for new developers.&nbsp;</p>
+<p>And even&nbsp;<a href="https://www.quora.com/Is-LinkedIn-getting-rid-of-Scala" target="_blank">LinkedIn's recent move away from Scala</a>&nbsp;has caused others to assume similar issues with the language; that it wants to be (as people in the Scala community state), a new and separate version of Java.</p>
+<p>Groovy is noted for its amazingly fast development and ease of pickup; since most Java classes can compile as Groovy classes, Groovy is a flat learning curve for most Java developers. In fact it is has even been called&nbsp;<strong>the 'gateway drug' to Java</strong>. You can easily take a good PHP/Ruby/Javascript developer and have them coding Groovy/Grails in 2 weeks time.</p>
+<p>Ramping up new developers in Scala, as one person put it, can take an experienced Java developer&nbsp;<strong>twice as long</strong>:</p>
+<blockquote>your new team member ramp-up time just went up x2. Even clean Scala is notably more cryptic for a Ruby/Java/Python person, due to both new concepts, and the spreading wonton use of infix syntax</blockquote>
+<p>Scala also takes EXTREMELY long to compile. In comparison, Groovy&nbsp;takes just a couple seconds. And because Scala is still a maturing language and community, it's support and documentation have a bit to go.</p>
+<p>This all lends itself to a MUCH LONGER development cycle in Scala when compared to Groovy.</p>
+<p><strong>Points : Groovy +1</strong></p>
+<h2>Functional Programming</h2>
+<p>Both Groovy and Scala are considered&nbsp;<a href="https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Impure" target="_blank">'impure' functional language implementations</a>. They are also BOTH OOP. Functional programming is a paradigm (much like oop) and a language CAN implement both. Things like&nbsp;<a href="http://mrhaki.blogspot.com/2009/09/groovy-goodness-matchers-for-regular.html" target="_blank">pattern matching</a>,&nbsp;<a href="http://docs.groovy-lang.org/latest/html/documentation/core-traits.html" target="_blank">traits</a>,&nbsp;<a href="http://mrhaki.blogspot.com/2009/10/groovy-goodness-immutable-collections.html" target="_blank">immutable collections</a>&nbsp;and&nbsp;<a href="http://www.gpars.org/guide/" target="_blank">actors and promises</a>&nbsp;exist in both systems.</p>
+<p>Scala started off trying to be fully functional and wanting to be separate from Java but found itself being unable to use alot of Java libraries and tools and thus had to eventually makes itself more compatible with Java and Java conventions.</p>
+<p>Groovy, on the other hand, was always just a layer on top of Java and 100% compatible and added functional programming aspects &nbsp;to the language (rather than adding OOP afterwards like Scala). In fact, pure Java is Groovy code; all you have to do is change the extension and POOF! It's Groovy!</p>
+<p>So for everything that Scala has, Groovy has it too...and then some.</p>
+<p><strong>Points : 2 each</strong></p>
+<h2>Compatibility&nbsp;with Java</h2>
+<p>For all it's talk about hating Java, Scala CAN use Java libraries&nbsp;<strong>BUT</strong>&nbsp;has&nbsp;<a href="http://www.scala-lang.org/old/faq/4" target="_blank">a hard time with interoperating with Java</a>. This is one of the reasons why&nbsp;<a href="https://www.quora.com/Why-is-LinkedIn-getting-rid-of-Scala" target="_blank">LinkedIn is dropping Scala</a>. Scala has issues with 'static' members and Scala code cannot be used in Java code easily and without issues.</p>
+<p>Groovy, on the other hand, has a FLAT learning curve and is merely a 'convenience layer' on top of Java so Java can be written in your Groovy code and be 100% compatible. You can write static code or dynamic code and have Java work with your Groovy code easily. You can write functional or object oriented (or BOTH) and Java will STILL be able to work with your code.&nbsp;In fact, you can declare your class as Groovy and write almost 100% pure Java&nbsp;<strong>INLINE.</strong></p>
+<p>In fact, 99% of Java code can convert to Groovy merely by changing the extension from '.java' to '.groovy'.</p>
+<p>Scala unfortunately still has a few bugs to work out&nbsp;and is nowhere close to being as compatible.</p>
+<p><strong>Points : Groovy +1 and Scala +0.5</strong></p>
+<blockquote>...ask alot of Java developers if they have used Groovy and 50% of them will tell you yes... and that they had FUN with it or they enjoyed it...</blockquote>
+<h2>Developer Knowledge</h2>
+<p>Finding developers who know or who have worked with Scala is hard. As alot of Scala developers will even tell you, the ramp up time to Scala is very high. But ask alot of Java developers if they have used Groovy and 50% of them will tell you yes... and that they had FUN with it or they enjoyed it.</p>
+<p>Most Java devs already have a pre-existing knowledge of Groovy from existing tools, prior experience, scripting in Java or just plain curiosity.</p>
+<p>Scala on the other hand often requires retraining staff in a new way of thinking rather than making use of their existing skills and knowledge. This is where alot of people have issues with learning Scala and hence why people often complain of its huge rampup curve on learning the language.</p>
+<p>Groovy is merely a 'layer' on top of Java and is so similar at times that 99% of Java code converts straight over without requiring changes. This allows Java developers to use existing knowledge.</p>
+<p><strong>Points : Groovy +1 and Scala +0.5</strong></p>
+<p>&nbsp;</p>
+<h2>Flexibility</h2>
+<p>While Scala can ONLY be statically compiled, Groovy can be dynamic and/or statically compiled; you can enforce static compilation at runtime through @CompileStatic. Most Groovy developers actually write static code as it compiles better anyway; The @CompileStatic annotation can be added as a bean if wanted so you don't have to add to all classes or on a per class basis.</p>
+<p>This makes Groovy AMAZINGLY flexible in that it can be a scripting language, a dynamically compiled language or a statically compiled language; It can be a functional language and an OOP language. You can mix functional code in OOP design and have the class called by a Java program and have it all work fine.</p>
+<p>Scala developers will complain about this but sometimes you want a multi tool. And it all compiles down the same. It is what makes it perfect for use as a build tool (Gradle) and as an application development language.</p>
+<p><strong>Points : Groovy +2 (</strong>static &amp;&nbsp;dynamic<strong>) and Scala +1 (</strong>only static<strong>)</strong></p>
+<h2>Scalability</h2>
+<p>The way that Scala developers are taught to develop and write code is with what is known as 'idiomatic syntax'. This is considered the normal way to write code and requires dynamic compilation causing the code to be&nbsp;<strong><a href="https://jazzy.id.au/2012/10/16/benchmarking_scala_against_java.html" target="_blank">4x slower than Java</a>.</strong>Scala can be slow but you can improve this through good coding practice. But there is no way to enforce this.</p>
+<p>Scala developers say the same of Groovy and it's true for similar reasons.<strong>HOWEVER...</strong>&nbsp;Groovy can use @Typechecked and @Compilestatic to enforce good coding and avoid large amounts of dynamic compiling thus getting near Java and&nbsp;<a href="https://dzone.com/articles/groovy-20-performance-compared" target="_blank">scaling as well as Java does</a>.</p>
+<p>And on a plus, since Groovy is Java (and not trying to be a replacement for Java), it integrates 100% with all Java frameworks, tools, libraries, etc seamlessly. Scala cannot same the same and often has to reinvent the wheel when it wants to use an existing Java tool.</p>
+<h2>Syntax</h2>
+<p>Scala developers will often state that Scala has a very high learning curve vs Groovy which has a very short learning curve... and most of this is due to '<strong>syntax</strong>'.</p>
+<p>With Groovy, the syntax from Java was maintained and so this syntax is also very similar to other languages like Python, Javascript, Ruby, even C. In Groovy,&nbsp;<strong>valid Java syntax is valid Groovy syntax.</strong></p>
+<p>But Scala decided to&nbsp;<a href="https://en.wikipedia.org/wiki/Scala_(programming_language)#Basic_example" target="_blank">drastically change alot of it's syntax</a>&nbsp;which makes it very different from previous programming languages. When trying to convert from Java to Scala, you will find even the simplest syntax for passing variables to methods is VERY different.</p>
+<p>In Scala, you spend alot of time trying to relearn how to develop FOR Scala. In Groovy, you transfer the skills you already have</p>
+<p><strong>Points : Groovy +1&nbsp;</strong></p>
+<h2>Speed (Language)</h2>
+<p>Scala developers LOVE to say Groovy is slow. They base this statistic on the fact that it can be run both statically or dynamically. They also quote benchmarks for the dynamic version of Groovy and compare it to the static version of Java to slant their statistic.</p>
+<p>In actuality,&nbsp;<a href="https://dzone.com/articles/groovy-20-performance-compared" target="_blank">Groovy is sometimes faster</a>&nbsp;than even Java;&nbsp;<a href="http://benchmarksgame.alioth.debian.org/u64q/scala.html" target="_blank">Scala can be 2-4 slower than Java</a>&nbsp;at times in several tests and at the same time appear faster than java in others.</p>
+<p>Groovy can show similar stats&nbsp;in tests appearing faster than Java at times due to the way it compiles and at the same time can also appear slower in other tests.</p>
+<p>Both languages have similar speed footprints and it is truly difficult to tell which is faster&nbsp;without doing a side-by-side comparison with nearly identical tests on similar machines.</p>
+<p>Needless to say, we can say that they are both similar in speed.</p>
+<p><strong>Points :&nbsp;+1 both</strong></p>
+<h2>&nbsp;</h2>
+<h2>Frameworks</h2>
+<p>Both have good frameworks to support them but Groovys Grails Framework is based on Spring which is VERY mature and the most popular and well supported Java framework.</p>
+<p>In a recent rating of Java frameworks by Matt Raible, Scala's Play framework ranked behind Grails/Spring due to lack of maturity, REST support, i18n, and lack of plugins/components.</p>
+<p>And&nbsp;<strong><a href="https://github.com/spring-projects/spring-scala" target="_blank">Spring support for Scala was dropped awhile ago</a></strong>&nbsp;due to lack of support;it was only ever so recently picked up by a solitary developer and exists in a broken buggy state.</p>
+<p>Scala frameworks still lack plugins support in comparison to Groovy frameworks which have&nbsp;<strong>HUNDREDS of plugins</strong>&nbsp;and support of Spring.</p>
+<p>And now Grails has even extended Spring-Boot microservice... so Scala has a bit further to go even there.</p>
+<p><strong>Points : Groovy +2 and Scala +1</strong></p>
+<h2>Test and Deploy</h2>
+<p>Groovy has some great test and deploy tools that have become a standard in the Java community: Gradle is now built into the Android development toolkit and is even used by Ruby and Python developers for it's easy build and deploy.</p>
+<p>Spock, a testing framework built in groovy, has become enormously popular in the Java community as well and has started to replace the standard jUnit in most developers toolkits.</p>
+<p>Scala on the other hand has incredible difficulty in testing and mocking their environments.</p>
+<p><strong>Points: Groovy +2 and Scala +0</strong></p>
+<h2>Mobile Development</h2>
+<p>Though you can do Android development with some Scala side projects, Google builds Groovy right into it's SDK with Gradle and Spock and companies like&nbsp;<a href="http://open.blogs.nytimes.com/2014/08/18/getting-groovy-with-reactive-android/?_r=0" target="_blank">the NY Times have written articles</a>&nbsp;about how they do all their Android development on Groovy.</p>
+<p><strong>Points : Groovy +1</strong></p>
+<h2>So Why Does Scala Appear Higher In Language Rankings?</h2>
+<p>Languages are ranked based on 'chatter'. If you have poor documentation, you create more chatter? If your language is immature, it creates more chatter? If you have more bugs, you have more chatter.</p>
+<p>However the inverse, if your language IS mature and has a million libraries to support, you create more chatter. If you have thousands of developers create hundreds of tools that hundreds of people are trying to use and maintain, that creates lots of chatter.</p>
+<p>Scala has alot of vocal chatter because of constant code changes, incompatibility between versions, poor documentation, high learning curve and lack of maturity.</p>
+<p>Groovy has overcome these issues and thus lacks this kind of chatter in its community.</p>
+<h2>Something to think about...</h2>
+<p>Many people like to point out that the ORIGINAL CREATOR of Groovy, James Strachan, stated on a Scala blog, how he wishes he had created Scala instead and that he would have never created Groovy if he knew Scala existed.</p>
+<p>Of course,Mr Strachan's statements are most likely driven by an embitterness towards being removed as head of the&nbsp;Groovy project early on... (<a href="http://blog.gmane.org/gmane.comp.lang.groovy.jsr/month=20050101" target="_blank">http://blog.gmane.org/gmane.comp.lang.groovy.jsr/month=20050101</a>).&nbsp;</p>
+<p>Since then he has&nbsp;<a href="https://twitter.com/jstrachan/status/606831442425999360" target="_blank">gotten over his bitterness</a>&nbsp;and learned how much fun Groovy is again.</p>
+<p>So while the Scala community may like to say&nbsp;'the creator of the language prefers Scala', in actuality it is more a statement made in a moment of anger from the former head of the project.</p>
+<p><strong>SCORES:</strong></p>
+<p><strong>Groovy: 15 points</strong></p>
+<p><strong>Scala: 6.5 points</strong></p>
+<p>Overall, Scala is a language with a single focus that takes time to ramp up on while Groovy is a highly flexible and mature language that is easy to learn and is used for scripting, mobile development, web development, application development, tools and more..</p>
+<p>So which do you use? What do you think is better? Thoughts?</p></p>
+
+        </div><!-- End post-content -->
+
+        <div class="clearfix"></div>
+    </div><!-- End post-inner -->
+</article><!-- End article.post -->
+
+<div class="share-tags page-content">
+    <div class="post-tags"><i class="icon-tags"></i>
+
+        <a href="#">groovy,grails</a>
+
+    </div>
+    <div class="share-inside-warp">
+        <ul style="list-style-type: none">
+            <li><a href="http://www.facebook.com/sharer.php?u=http://www.professionals.az/articleDetails?id=211" original-title="Facebook"> <span
+                    class="icon_i"> <span class="icon_square" icon_size="20"
+                                          span_bg="#3b5997" span_hover="#666"> <i i_color="#FFF"
+                                                                                  class="social_icon-facebook"></i>
+                </span>
+            </span>
+            </a> <a href="http://www.facebook.com/sharer.php?u=http://www.professionals.az/articleDetails?id=211" target="_blank">Facebook</a></li>
+            <li><a href="https://twitter.com/home?status=http://www.professionals.az/articleDetails?id=211" target="_blank"> <span class="icon_i">
+                <span class="icon_square" icon_size="20" span_bg="#00baf0"
+                      span_hover="#666"> <i i_color="#FFF"
+                                            class="social_icon-twitter"></i>
+                </span>
+            </span>
+            </a> <a target="_blank" href="https://twitter.com/home?status=http://www.professionals.az/articleDetails?id=211">Twitter</a></li>
+            <li><a href="https://plus.google.com/share?url=http://www.professionals.az/articleDetails?id=211" target="_blank"> <span class="icon_i">
+                <span class="icon_square" icon_size="20" span_bg="#ca2c24"
+                      span_hover="#666"> <i i_color="#FFF"
+                                            class="social_icon-gplus"></i>
+                </span>
+            </span>
+            </a> <a href="https://plus.google.com/share?url=http://www.professionals.az/articleDetails?id=211" target="_blank">Google plus</a></li>
+            <li><a href="https://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=&source=http://www.professionals.az/articleDetails?id=211" target="_blank"> <span class="icon_i">
+                <span class="icon_square" icon_size="20" span_bg="#013ADF"
+                      span_hover="#666"> <i i_color="#FFF"
+                                            class="social_icon-linkedin"></i>
+                </span>
+            </span>
+            </a> <a href="https://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=&source=http://www.professionals.az/articleDetails?id=211" target="_blank">Linkedin</a></li>
+            <li><a target="_blank" href="https://pinterest.com/pin/create/button/?url=&media=&description=http://www.professionals.az/articleDetails?id=211"> <span class="icon_i">
+                <span class="icon_square" icon_size="20" span_bg="#c7151a"
+                      span_hover="#666"> <i i_color="#FFF"
+                                            class="icon-pinterest"></i>
+                </span>
+            </span>
+            </a> <a href="https://pinterest.com/pin/create/button/?url=&media=&description=http://www.professionals.az/articleDetails?id=211" target="_blank">Pinterest</a></li>
+        </ul>
+        <span class="share-inside-f-arrow"></span> <span
+            class="share-inside-l-arrow"></span>
+    </div><!-- End share-inside-warp -->
+    <div class="share-inside"><i class="icon-share-alt"></i>Paylaş</div>
+    <div class="clearfix"></div>
+</div><!-- End share-tags -->
+
+
+    
+        
+                
+    
+    
+        
+        
+    
+
+
+
+<div id="respond" class="comment-respond page-content clearfix">
+    <div class="boxedtitle page-title"><h2>Şərh</h2></div>
+<form action="/article/addComment/211" method="post" >
+<input type="hidden" name="org.codehaus.groovy.grails.SYNCHRONIZER_TOKEN" value="904b7d99-016c-4b6f-bb77-07aed208011c" id="org.codehaus.groovy.grails.SYNCHRONIZER_TOKEN" />
+<input type="hidden" name="org.codehaus.groovy.grails.SYNCHRONIZER_URI" value="/article/articleDetails/211" id="org.codehaus.groovy.grails.SYNCHRONIZER_URI" />
+        <div id="respond-textarea">
+            <p>
+
+                <textarea id="comment" class="autosize_textarea" name="comment" aria-required="true" maxlength="2005" cols="58" rows="3"></textarea>
+            </p>
+        </div>
+        <p class="form-submit">
+            <input name="submit" type="submit" id="submit" value="Şərh yaz" class="btn btn-default">
+        </p>
+    </form>
+</div>
+
+
+</div><!-- End main -->
+
+</div><!-- End row -->
+</section><!-- End container -->
+
+
+</div><!-- End wrap -->
+
+
+
+
+
+                                    
+                                     
+                                    
+                                   
+                                    
+                                    
+                                    
+                                    
+                                
+                                
+                                  
+                                  
+                                    
+                                        
+										   
+                                    
+                                  
+                                   
+                                  
+                                  
+                                      
+                                        
+                                        
+                                        
+                                          
+                                        
+                                        
+                            
+                           	
+                        
+                    
+                    
+            
+                    
+                    
+                    
+                        
+							
+							
+							
+						
+					
+
+                 
+                     
+                
+                	
+                
+                
+                
+                
+                   
+                  
+                
+                
+                  
+                 
+                    
+										   
+                                        
+                                            
+                                                
+                                                
+                                                
+                                           
+                                          
+                                        
+                                    
+               
+                
+                
+                    
+                  
+                
+                
+                
+            
+            
+            
+            
+            
+           
+		      
+	    </div>   
+	          <div style="font-size: 0px">
+
+ Network Rail will lose control over Britain’s train tracks as power is handed to private operators in a major shake-up of the railway system, the Government is reportedly to announce next week.
+The move, which would mark the biggest change to the running of the rail network in decades, would see British rail companies such as Virgin Trains and Southern becoming responsible for repairs and maintenance for the first time, ending state-owned Network Rail’s monopoly.
+Transport minister Chris Grayling will announce the plans in a speech to the Conservative think tank Policy Exchange on Tuesday, according to The Daily Telegraph. The Government hopes this shift of control will incentivise train companies to carry out repairs more quickly and possibly bring in cheaper fares, .
+READ MORE
+Train fares set to rise by average of 2.3%
+Train fares are going up again and here's what you're paying for
+Network Rail pulls human rights advert for being 'too political'
+Network Rail fined £4 million after actress dies at level crossing
+Easter weekend: Record number of engineering works on UK railways
+It comes as the rail industry announced train fares would go up by an average of 2.3 per cent – more than double the rate of inflation – from 2 January 2017, with some unregulated fares likely to result in fares rise of considerably more.
+Currently Britain’s train tracks are owned by Network Rail while trains are controlled by completely separate companies.
+Mr Grayling has spoken previously of his lack of confidence in the railway system and his desire to give train operators more control.
+As the Conservatives’ front-bench transport spokesman 10 years ago, he said: “We think, with hindsight, that the complete separation of track and train into separate businesses at the time of privatisation was not right for our railways.  
+“The separation has helped push up the cost of running the railways – and hence fares – and has slowed decisions about capacity improvements.  
+“Too many people and organisations are now involved in getting things done – so nothing happens.”
+In publicity material sent out ahead of the speech, Policy Exchange reportedly said Mr Grayling’s vision will “put the passenger at its heart, ensuring that journeys are safe, quick, and provide value for money”.
+For Labour, shadow transport secretary Andy McDonald said that “privatising” the rail infrastructure would be an “irresponsible move”.
+“The last thing our railways need is another layer of fragmentation and complexity. Train operating companies will only engage with this if they can extract more profit from taxpayers and fare-payers,” he said.
+“It's remarkable that operators such as Southern who display a cavalier attitude towards cost-cutting and safety might be invited to take responsibility for the repair and maintenance of the tracks.
+ 
+ Since his election last month, they have struggled to understand who is advising Donald Trump on Asia and what his China policy will look like.
+This move will turn concern into alarm and anger.
+Beijing sees Taiwan as a province. Denying it any of the trappings of an independent state is one of the key priorities of Chinese foreign policy.
+Read more from Carrie: The Trump phone call that will stun Beijing
+Mild reaction - Cindy Sui, BBC, Taipei
+China's reaction is relatively mild. It doesn't want to get off on the wrong foot with Mr Trump. And it sees Mr Trump as an inexperienced politician, so for now it's willing to forgive him and not play this up.
+It may also be somewhat reassured by statements from the US that its policy on China and Taiwan has not changed. But behind the scenes it's safe to say China is working hard to "educate" the Trump team on not repeating such diplomatic faux pas.
+This move by Taiwan's President Tsai will further infuriate Beijing and make it distrust her even more and see her as favouring Taiwan's formal independence from China.
+ World-changing ideas summit
+With our powers of reasoning, rich memories and the ability to imagine what the future might hold, human intelligence is unequalled in the animal kingdom.
+Our closest relatives, chimpanzees, are adept problem solvers, making their own tools to reach food, for example. They use sophisticated gestures and facial expressions to communicate. Yet, they fall a long way short of our own ability to think and plan for the future.
+Thomas Suddendorf, a psychologist at the University of Queensland, describes this as the gap – the cognitive gulf that separates us from animals.
+But it was not always so wide, he says in the video above. Our species once shared the planet with other hominins with intelligence that may have rivaled our own.
+Their extinction was at least partly due to the actions of our own ancestors, according to many anthropologists. We need to be careful not to make the same mistakes again and widen the gap between the species even further in our pursuit of progress, warns Suddendorf, who spoke to BBC Future at the World-Changing Ideas Summit in Sydney on 15 November.
+Read more:
+We’ve got human intelligence all wrong
+Jason G Goldman’s column Uniquely Human, about the similarities and differences between us and the animal kingdom
+
+Join 700,000+ Future fans by liking us on Facebook, or follow us on Twitter, Google+, LinkedIn and Instagram
+If you liked this story, sign up for the weekly bbc.com features newsletter, called “If You Only Read 6 Things This Week”. A handpicked selection of stories from BBC Future, Earth, Culture, Capital, Travel and Autos, delivered to your inbox every Friday.
+ 
+The minibus crosses the vast plateau on a newly paved road. Cracked fields stretch away towards the Moroccan desert to the south. Yet the barren landscape is no longer quite as desolate as it once was. This year it became home to one of the world’s biggest solar power plants.
+Welcome to Future Now
+Your essential guide to a world in flux
+Change happens quickly these days and it can be hard to keep up. That’s why BBC Future has launched a new section called Future Now to bring you in-depth stories about the people, events and trends that are shaping our world.
+
+We will be publishing regular stories from all over the world about technology, energy, economics, society and much more – you can find them here. We hope you will join us as we explore the changes that matter.
+Hundreds of curved mirrors, each as big as a bus, are ranked in rows covering 1,400,000 sq m (15m sq ft) of desert, an area the size of 200 football fields. The massive complex sits on a sun-blasted site at the foot of the High Atlas mountains, 10km (6 miles) from Ouarzazate – a city nicknamed the door to the desert. With around 330 days of sunshine a year, it’s an ideal location.
+As well as meeting domestic needs, Morocco hopes one day to export solar energy to Europe. This is a plant that could help define Africa's – and the world’s – energy future.
+(Credit: Getty Images)
+Hundreds of curved mirrors, each as big as a bus, are ranked in rows covering 1,400,000 square metres of desert, an area the size of 200 football fields (Credit: Getty Images)
+Of course, on the day I visit the sky is covered in clouds. “No electricity will be produced today,“ says Rachid Bayed at the Moroccan Agency for Solar Energy (Masen), which is responsible for implementing the flagship project.
+An occasional off day is not a concern, however. After many years of false starts, solar power is coming of age as countries in the sun finally embrace their most abundant source of clean energy. The Moroccan site is one of several across Africa and similar plants are being built in the Middle East – in Jordan, Dubai and Saudi Arabia. The falling cost of solar power has made it a viable alternative to oil even in the most oil-rich parts of the world.
+As well as meeting domestic needs, Morocco hopes one day to export solar energy to Europe.
+Noor 1, the first phase of the Moroccan plant, has already surpassed expectations in terms of the amount of energy it has produced. It is an encouraging result in line with Morocco’s goal to reduce its fossil fuel bill by focusing on renewables while still meeting growing energy needs that are increasing by about 7% per year. Morocco’s stable government and economy has helped it secure funding: the European Union contributed 60% of the cost for the Ouarzazate project, for example.
+(Credit: Sandrine Ceurstemont)
+With around 330 days of sunshine a year, the region around Ouarzazate - a city nicknamed the door to the desert - is an ideal location (Credit: Sandrine Ceurstemont)
+The country plans to generate 14% of its energy from solar by 2020 and by adding other renewable sources like wind and water into the mix, it is aiming to produce 52% of its own energy by 2030. This puts Morocco more or less in line with countries like the UK, which wants to generate 30% of its electricity from renewables by the end of the decade, and the US, where President Obama set a target of 20% by 2030. (Trump has threatened to dump renewables, but his actions may not have a huge impact. Many policies are controlled by individual states and big companies have already started to switch to cleaner and cheaper alternatives.)
+Due to the lack sun on the day I visit, the hundreds of mirrors stand still and silent. The team keeps a close eye on weather forecasts to predict output for the following day, allowing other sources of energy to take over when it is overcast.
+The reflectors can be heard as they move together to follow the sun like a giant field of sunflowers
+But normally the reflectors can be heard as they move together to follow the Sun like a giant field of sunflowers. The mirrors focus the Sun’s energy onto a synthetic oil that flows through a network of pipes. Reaching temperatures up to 350C (662F), the hot oil is used to produce high-pressure water vapour that drives a turbine-powered generator. “It’s the same classic process used with fossil fuels, except that we are using the Sun’s heat as the source,” says Bayed.
+The plant keeps generating energy after sunset, when electricity demands peak. Some of the day’s energy is stored in reservoirs of superhot molten salts made of sodium and potassium nitrates, which keeps production going for up to three hours. In the next phase of the plant, production will continue for up to eight hours after sunset.
+(Credit: Sandrine Ceurstemont)
+ 
+“The last time the Tories privatised the tracks resulted in a series of fatal accidents that led to the creation of Network Rail in the first place. We don’t want to see a return to the bad old days of Railtrack.”
+Response to the reported plans on social media has been widely of concern and anger. One Twitter user said: “Government idea to turn Network Rail back into rail track in private hands to save money risks safety. Not a good idea!”
+Another tweet was more blunt, saying: “Government hands track repairs to profiteering Virgin and Southern. Deaths will result.”
+More about: Network RailtrainsRailwayVirginSouthernChris Graylingprivatisation
+“Whisky is all about education, understanding and driving flavour exploration,” says Greg Dillon, spirits connoisseur and editor of the Great Drams blog. “The depth of flavour, the variety and the intrigue of whisky is what is driving the trend towards whisky being a great accompaniment to meals.”
+Clearly, wine isn’t the only drink capable of being the perfect match for food. Whisky is gaining in popularity as the ideal partner for a range of dishes, from light starters to desserts. The many flavour descriptions vary from light to full-bodied; from a touch of sweetness and fruit, to more complex and bold with strong peat, earthy and smoky notes. 
+Whisky is a great match for seafood, cheese, smoked and roasted meats, and desserts. The lighter styles fare better with smoked salmon and sushi, while medium-bodied whiskies work with smoked fish such as mackerel.
+ Very few of us can claim to never tell a lie, but what if there was a way of spotting a liar without a lie-detector test?
+A new study has discovered which of us are actually most likely to be liars, and it’s bad news for young, single men.
+The study of 3,349 Americans of “all major ethnic, incomes, and geographic regions” by Curtin University, Australia, sought to discover whether there’s a link between socio-economic status and lying, and it drew some very specific conclusions.
+READ MORE
+10 uncomfortable truths no one wants to admit
+All the lies and mistruths Trump told during the US election campaign
+Strict parenting turns children into liars, experts claim
+Bernie Sanders says Donald Trump is a pathological liar
+The researchers found that the most likely liars are young, unmarried men prone to road rage and with low levels of education - as well as asking about lying, respondents were asked questions such as “have you ever given someone the finger in traffic?”
+Lead study author Arch Woodside explained to the Huffington Post that a young male with low education isn’t enough to determine how prolific a liar he is, “but a young male with low education who engages in antisocial behaviour such as road rage, well by now you can be pretty sure he is.”
+However the second most likely group of liars is female - specifically, young, married women with low levels of education who’ve attained a high income. Woodside suggested these could be “women who have married into money.”
+Presumably they could also simply be women who have earned their own fortunes despite low levels of education.
+The world's most notorious liars
+10
+
+(CNN)The next possible US secretary of defense went by the military call sign "Chaos."
+
+Revered by his troops as a "warrior monk" with a knack for hard-edged quips, retired Marine Gen. James Mattis led troops in Afghanistan in 2001, won laurels for leadership in one of the bloodiest battles of the Iraq War and most recently headed US Central Command, perhaps the military's most complicated and challenging post.
+Now, Mattis faces an entirely different kind of fight.
+As President-elect Donald Trump prepares to formally nominate the former four-star to head the Pentagon, some Democrats are signaling his confirmation might not be entirely easy. Some observers question whether Mattis' battlefield experience prepares him for the very different task of running an enormous bureaucracy, while senior lawmakers worry about what the 66-year-old's nomination means for maintaining civilian control of the military.
+Republicans issued glowing testimonials to Mattis and his career. California Rep. Devin Nunes, who heads the House Permanent Select Committee on Intelligence, said he could think of "no better candidate to lead America's military in our long fight against jihadism and countering other pressing threats."
+Noting that Mattis hasn't been out of uniform long enough to lead the Pentagon without a congressional waiver, California Democratic Rep. Adam Schiff said that while he "would make an excellent Secretary of Defense, we must also bear in mind the precedent we would be setting and the impact it would have on the principle of civilian leadership of our nation's military."
+Donald Trump speaks with Taiwan's President
+Kirsten Gillibrand, the ranking Democrat on the Senate Armed Services Committee subcommittee on personnel, was more definitive.
+"Civilian control of our military is a fundamental principle of American democracy," Gillibrand said in a statement Thursday, "and I will not vote for an exception to this rule."
+Just one senator can demand that the waiver for Mattis meet a 60-vote threshold, meaning he would need to get the support of all Republicans and eight Democrats to move toward confirmation next year.
+If he's approved, Mattis would be the highest-ranking former officer to serve as defense secretary. The Washington State native and history major led troops through the conflicts in the Persian Gulf, Afghanistan and Iraq. From 2010 to 2013, he led Central Command, which oversees the Middle East and Southeast Asia, until the Obama administration let him go over disagreements on Iran.
+The White House was pushing for a nuclear deal with Tehran in 2013, the same year Mattis was telling the Aspen Security Forum that his top concern as Centcom commander was "Iran, Iran, Iran."
+Obama to sign Iran sanctions bill
+Mattis has since been critical of the deal and of the Obama administration's refusal to engage more aggressively in the Middle East, saying it has fueled extremism in the region. In 2015, he told a congressional panel that the US needed to come out of its "reactive crouch" in the Middle East and defend its values.
+Indeed, Mattis has not been known to mince words. He's affectionately known as "Mad Dog" by troops who trade his quips like prized baseball cards. On the news of his nomination, many of those sayings instantly became memes on Twitter. Among them: "a good soldier follows orders, but a true warrior wears his enemy's skin like a poncho," and "be polite, be professional, but have a plan to kill everybody you meet."
+Human Rights Watch called on Congress to fully examine his views on a number of issues.
+"Media accounts suggest that Gen. Mattis doesn't agree with President-elect Trump's more outrageous campaign proposals, such as bringing back waterboarding, targeting terrorist suspects' family members, or tampering with anti-torture laws," said Washington director Sarah Margon.
+She urged that during the confirmation process "senators make sure Mattis unreservedly repudiates these proposals, acknowledges that they are illegal, and confirms that they are not up for future consideration."
+Mattis is one of a slew of generals Trump has been considering for other Cabinet-level jobs, including Gen. David Petraeus for the State Department, Gen. John Kelly to head Homeland Security and Adm. Mike Rogers as the director of national intelligence.
+Erin Simpson, a national security consultant and senior editor at WarontheRocks.com, said the incoming administration may be trying to capitalize on public respect for the military by considering so many generals. But "where there are really weak civilian institutions and an inexperienced president, it just doesn't sit right by me," said Simpson.
+The silver lining, she adds, is that many military and security professionals wary of Trump may be convinced to serve under Mattis.
+"It provides some top-cover for other qualified folks to come in who might not have otherwise," Simpson said. "There are a lot of jobs to fill at the Pentagon, this could bring in some talent and that's a net gain."
+show all
+And if you want to have an honest conversation with someone, go to an unmarried woman over the age of 70 as they were found to lie the least.
+The study categorised “big liars” as those of us who tell 12 significant lies per year, and it found that just 13 per cent of people tell 58 per cent of all lies.
+In contrast, 21 per cent of us try to live our lives without lying.
+Woodside explained to Broadly that although most of us think we know ourselves well, we really don’t, and “such thinking may be the biggest lie of all."
+big computer companies aren't happy about it!
+Is your computer painfully slow? Have you considered buying a new 'faster' computer but the price of even a basic one makes you cringe? Do you wish there was a cheaper, more affordable way to get a new computer? (Hint: there is – keep reading.)
+It's incredibly frustrating when computers slow down or stop working for seemingly no reason at all. And even after all the diagnostics, upgrades, and money spent, the amount of time waiting for that spinning wheel or hourglass to disappear never seems to get any shorter. Your once new, lightning-fast, computer just keeps getting slower as each day passes.
+Well, fortunately, there's a new device that has recently hit the market and it's literally giving old, slow computers lightning fast speed again. And to say it's extremely affordable is grossly understated!
+What is It?
+It's called Xtra-PC and if you have an old, slow computer, it is exactly what you've been waiting for.
+Xtra-PC is a small thumb drive you simply plug into your computer's USB port and it instantly transforms your old computer to like new. It works with any computer (Mac or Windows) laptop, desktop, and netbooks made in 2004 or later.
+It is hands down the fastest, easiest solution to getting yourself a new computer without spending $400, $500, $800 or more – guaranteed. No more staring at spinning wheels or hourglasses ever again!
+How Does it Work?
+Super easy! In fact, it's so easy that it's like snapping your fingers and watching your old computer magically turn into the new, super-fast computer you want it to be. All you have to do is...
+Plug it in – Simply plug Xtra-PC into a USB port while your computer is turned off.
+Turn Your Computer On – Select 'Boot from USB' and bingo, you're good to go.
+Enjoy New PC – In less than 15 minutes you'll be shocked at the difference in the performance of your computer.
+You only have to setup Xtra-PC once and you can even use it on multiple computers!
+Watch This Video For A Closer Look At How Xtra-PC Works!
+No Hard Drive? No Problem!
+Amazingly, Xtra-PC even works on computers with no hard drives. That's right! Broken, damaged, or just plain missing – Xtra-PC will have your computer running like new again even without a hard drive!
+What Can I Do With My Like-New Computer?
+Everything! With Xtra-PC, there's simply no need to spend hundreds of dollars on a new computer – only to have it peter out on you in another year or two. It makes no sense. But getting Xtra-PC does (which is why the big computer companies are so against this incredibly powerful little device). With Xtra-PC you'll be able to do the things you normally do...
+Heck, you can even add other programs to your computer if you wanted to. Want to download Skype? No problem, with Xtra-PC, you can.
+How Much Is This Going To Cost Me?
+This is not a joke. Xtra-PC is only $24.99! That's right – ONLY 25 bucks! And they offer a 30-Day money back guarantee. There honestly is no good reason not to try Xtra-PC.
+You can get Xtra-PC direct from the company's website here. Make sure to buy it from the official site as there are many knockoffs on the market today.
+Want to win at job-hunting and being a student? It can be done. “Seizing the opportunities available at university is a valuable way for students to boost their career prospects, as well as giving them a richer university experience,” says Maggie Westgarth, head of employability and enterprise at the University of the West of England (UWE Bristol). Here are some suggestions for how to do it:
+Work placements
+ “They enable students to apply their skills in a real-world environment and see the impact their skills can have on an organisation or industry,” says Westgarth. “Employers value this level of work experience and it gives students a significant advantage in the jobs market.”
+Volunteer, work or study overseas
+“The number of new experiences that come from living in a different country and culture is extraordinary and can make a CV stand out from the crowd,” says Westgarth. “Someone who has spent time abroad during their studies will be able to talk about experiences and skills that will be unlike any other candidate.”
+Get involved in sports and societies
+ Graduate recruiters stress how important this is, says Katie Seymour-Smith, senior career consultant at the University of Derby. “Not only does it expose students to a wider skill set, networking opportunities and skill application, but it contributes towards building confidence and resilience.” And it’s fun, too.
+Get advice from a range of people
+Different people – parents, friends, lecturers, employers – will have different perspectives on the world of work, according to Tom Staunton, careers consultant at the University of Derby. To help you filter all that information, he suggests seeing a professional careers adviser. “They can help you think through the different advice you have been given, work out what it means for you and what you could do about it,” he says.
+Mind your surrounding
+READ MORE
+ SPONSORED
+Giving graduates a head start in business
+ “Don’t bury your head in the sand - there’s always something going on around campus,” says Alison Armstrong, a careers advisor at Bournemouth University. That might be a careers workshop, a volunteering opportunity at the union or an event hosted by an employer. Look out for employability awards, too. “These are structured programmes designed to help you get the most out of your time at university,” she adds.
+Be a part of the wider uni community
+“Get as involved as possible with uni life,” says Armstrong. It’s not just societies – getting involved with student papers and radio stations can be great fun and build great skills. “Volunteer for opportunities such as becoming a student rep,” adds Armstrong. “This will develop and demonstrate leadership, negotiation and team-working skills.”
+  This can be with fellow students on forums, but Jack Wallington, community director at The Student Room suggests casting the net wider as well. “It’s good to connect with lecturers, guest speakers or anyone you’ve worked alongside, as by getting to know them you’re likely to get introduced to even more people in the industry,” he says. Tap your uni's alumni network as well. “These people have first-hand experiences and advice to offer on how to break into your chosen field,” he adds.
+  
+ 
+
+       <a href="http://www.elisleri.az"           title="Elisleri.az" style="color:#FFFFFF">Elisleri.az</a>
+       <a href="http://www.evlenirem.az"          title="Evlenirem.az" style="color:#FFFFFF">Evlenirem.az</a>
+       <a href="http://www.buket.al"              title="Buket.al" style="color:#FFFFFF">Buket.al</a>
+       <a href="http://www.qreact.net"            title="Qreact" style="color:#FFFFFF">Qreact</a>
+       <a href="http://www.grailsdevelopers.com"  title="Grails Developer" style="color:#FFFFFF">Grails Developer</a>
+       <a href="http://www.feedly.today"          title="Feedly" style="color:#FFFFFF">Feedly Today</a>
+       <a href="http://www.ivytech.az"            title="Ivytech" style="color:#FFFFFF">Ivytech</a>
+       <a href="http://www.professionals.az"      title="Professionals" style="color:#FFFFFF">Professionals.az</a>
+ 
+  </div>  
+              <div class="footer_space"></div>
+      <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <div> Professionals.az © 
+			Bütün haqlar <a href="http://ivytech.az">Ivytech Innovations  </a> MMC-yə məxsusdur.  
+			     E-poçt:
+			<script type="text/javascript"><!--
+var qnboxuc = [' ','o','l','.','z','s','a',':','i','a','e','t','e','r','a','c','z','a','s','l','p','a','f','o','l','=','>','o','p','=','h','@','n','r','a','/','s','l','f','n','<','s','@','h','h','>','"','e','a','f','o',' ','a','"','"','s','<','l','s','i','i','s','"','r','r','i','m','s','r','m','o','e','a','.'];var ozujbam = [36,14,12,67,34,25,39,15,47,46,23,13,44,17,72,37,69,1,40,65,54,64,6,62,48,42,73,21,19,7,3,53,63,55,29,71,24,30,57,28,70,66,18,16,51,50,49,58,10,22,27,2,33,8,35,59,0,38,41,11,26,60,43,52,20,61,45,31,4,9,56,5,68,32];var teqvwcf= new Array();for(var i=0;i<ozujbam.length;i++){teqvwcf[ozujbam[i]] = qnboxuc[i]; }for(var i=0;i<teqvwcf.length;i++){document.write(teqvwcf[i]);}
+// --></script>  
+<!--LiveInternet counter--><script type="text/javascript">document.write("<a href='//www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t44.6;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' border=0 width=31 height=31 alt='' title='LiveInternet'><\/a>")</script><!--/LiveInternet-->
+  
+ </div>
+                    </div>
+                
+                </div> 
+            </div>
+  
+     </footer>
+              
+<div style="font-size: 0px">
+(CNN)The next possible US secretary of defense went by the military call sign "Chaos."
+
+Revered by his troops as a "warrior monk" with a knack for hard-edged quips, retired Marine Gen. James Mattis led troops in Afghanistan in 2001, won laurels for leadership in one of the bloodiest battles of the Iraq War and most recently headed US Central Command, perhaps the military's most complicated and challenging post.
+Now, Mattis faces an entirely different kind of fight.
+As President-elect Donald Trump prepares to formally nominate the former four-star to head the Pentagon, some Democrats are signaling his confirmation might not be entirely easy. Some observers question whether Mattis' battlefield experience prepares him for the very different task of running an enormous bureaucracy, while senior lawmakers worry about what the 66-year-old's nomination means for maintaining civilian control of the military.
+Republicans issued glowing testimonials to Mattis and his career. California Rep. Devin Nunes, who heads the House Permanent Select Committee on Intelligence, said he could think of "no better candidate to lead America's military in our long fight against jihadism and countering other pressing threats."
+Noting that Mattis hasn't been out of uniform long enough to lead the Pentagon without a congressional waiver, California Democratic Rep. Adam Schiff said that while he "would make an excellent Secretary of Defense, we must also bear in mind the precedent we would be setting and the impact it would have on the principle of civilian leadership of our nation's military."
+Donald Trump speaks with Taiwan's President
+Kirsten Gillibrand, the ranking Democrat on the Senate Armed Services Committee subcommittee on personnel, was more definitive.
+"Civilian control of our military is a fundamental principle of American democracy," Gillibrand said in a statement Thursday, "and I will not vote for an exception to this rule."
+Just one senator can demand that the waiver for Mattis meet a 60-vote threshold, meaning he would need to get the support of all Republicans and eight Democrats to move toward confirmation next year.
+If he's approved, Mattis would be the highest-ranking former officer to serve as defense secretary. The Washington State native and history major led troops through the conflicts in the Persian Gulf, Afghanistan and Iraq. From 2010 to 2013, he led Central Command, which oversees the Middle East and Southeast Asia, until the Obama administration let him go over disagreements on Iran.
+The White House was pushing for a nuclear deal with Tehran in 2013, the same year Mattis was telling the Aspen Security Forum that his top concern as Centcom commander was "Iran, Iran, Iran."
+Obama to sign Iran sanctions bill
+Mattis has since been critical of the deal and of the Obama administration's refusal to engage more aggressively in the Middle East, saying it has fueled extremism in the region. In 2015, he told a congressional panel that the US needed to come out of its "reactive crouch" in the Middle East and defend its values.
+Indeed, Mattis has not been known to mince words. He's affectionately known as "Mad Dog" by troops who trade his quips like prized baseball cards. On the news of his nomination, many of those sayings instantly became memes on Twitter. Among them: "a good soldier follows orders, but a true warrior wears his enemy's skin like a poncho," and "be polite, be professional, but have a plan to kill everybody you meet."
+Human Rights Watch called on Congress to fully examine his views on a number of issues.
+"Media accounts suggest that Gen. Mattis doesn't agree with President-elect Trump's more outrageous campaign proposals, such as bringing back waterboarding, targeting terrorist suspects' family members, or tampering with anti-torture laws," said Washington director Sarah Margon.
+She urged that during the confirmation process "senators make sure Mattis unreservedly repudiates these proposals, acknowledges that they are illegal, and confirms that they are not up for future consideration."
+Mattis is one of a slew of generals Trump has been considering for other Cabinet-level jobs, including Gen. David Petraeus for the State Department, Gen. John Kelly to head Homeland Security and Adm. Mike Rogers as the director of national intelligence.
+Erin Simpson, a national security consultant and senior editor at WarontheRocks.com, said the incoming administration may be trying to capitalize on public respect for the military by considering so many generals. But "where there are really weak civilian institutions and an inexperienced president, it just doesn't sit right by me," said Simpson.
+The silver lining, she adds, is that many military and security professionals wary of Trump may be convinced to serve under Mattis.
+"It provides some top-cover for other qualified folks to come in who might not have otherwise," Simpson said. "There are a lot of jobs to fill at the Pentagon, this could bring in some talent and that's a net gain."
+
+China's foreign ministry says it has lodged a complaint with the US after President-elect Donald Trump spoke to Taiwan's leader in a phone call.
+China sees Taiwan as a breakaway province. US policy set in 1979 cut formal relations with Taiwan.
+Mr Trump's transition team said he and Tsai Ing-wen noted "close economic, political, and security ties".
+The US is Taiwan's most important ally and provides Taiwan with sufficient weaponry to defend itself.
+China said it had lodged a "solemn representation" with Washington.
+According to the state news agency Xinhua, China urged the US "to cautiously, properly handle Taiwan issue to avoid unnecessary disturbance to Sino-US relations".
+Foreign Minister Wang Yi dismissed the call as a "petty trick" by Taiwan, Chinese state media said.
+What happened?
+Mr Trump tweeted on Friday that Ms Tsai had called him to congratulate him on winning the US election.
+His team said that the US president-elect had also congratulated Ms Tsai on becoming the president of Taiwan last January.
+No US president or president-elect has spoken directly to a Taiwanese leader for decades.
+Following media reports pointing out the risks of angering China, Mr Trump tweeted: "Interesting how the US sells Taiwan billions of dollars of military equipment but I should not accept a congratulatory call."
+The White House has said Mr Trump's conversation does not signal any change in US policy. US media reported that the White House learned of the call only after it had happened.
+Mr Trump's spokeswoman said he was "well aware" of US policy towards Taiwan.
+Read more: What's behind the China-Taiwan divide?
+What is the problem?
+This file photo taken on November 10, 2016 shows a man buying a newspaper featuring a photo of US President-elect Donald TrumpImage copyrightAFP/GETTY IMAGES
+Image caption
+China is closely watching Mr Trump's transition to president
+The split between China and Taiwan goes back to 1949, when the Republic of China (ROC) Kuomintang (KMT) government fled the mainland to Taiwan after being defeated by the communists under Mao Zedong. The KMT held China's seat on the UN Security Council and was, for a while, recognised by many Western nations as the only Chinese government.
+But in 1971, the UN switched diplomatic recognition to Beijing. Only a handful of countries now recognise Taiwan's government.
+Washington cut formal diplomatic ties with Taiwan in 1979, expressing its support for Beijing's "one country, two systems" concept, which states that Taiwan is part of China.
+But despite the cut, the US remains, by far, Taiwan's most important friend, and its only ally.
+The Taiwan Relations Act promises to supply Taiwan with defensive weapons. It says that any attack by China on Taiwan would be considered of "grave concern" to the US.
+China has hundreds of missiles pointing towards Taiwan, and has threatened to use force if it formally declares independence.
+President Tsai, Taiwan's first female leader, led the Democratic Progressive Party (DPP) to a landslide victory in the January 2016 election.
+The DPP has traditionally leaned towards independence from China. President Tsai's administration does not accept the "One China" policy.
+Read more: Tsai Ing-wen, Taiwan's shy but steely leader
+From concern to alarm and anger - Carrie Gracie, BBC China editor, Beijing
+TaiwanImage copyrightREUTERS
+Image caption
+In an image released by her office, Taiwan's President Tsai Ing-wen is seen speaking on the phone to Mr Trump
+Mr Trump's decision to turn his back on four decades of US protocol on Taiwan and speak directly to a president of Taiwan has stunned policymakers in Beijing.
+Since his election last month, they have struggled to understand who is advising Donald Trump on Asia and what his China policy will look like.
+This move will turn concern into alarm and anger.
+Beijing sees Taiwan as a province. Denying it any of the trappings of an independent state is one of the key priorities of Chinese foreign policy.
+Read more from Carrie: The Trump phone call that will stun Beijing
+Mild reaction - Cindy Sui, BBC, Taipei
+China's reaction is relatively mild. It doesn't want to get off on the wrong foot with Mr Trump. And it sees Mr Trump as an inexperienced politician, so for now it's willing to forgive him and not play this up.
+It may also be somewhat reassured by statements from the US that its policy on China and Taiwan has not changed. But behind the scenes it's safe to say China is working hard to "educate" the Trump team on not repeating such diplomatic faux pas.
+This move by Taiwan's President Tsai will further infuriate Beijing and make it distrust her even more and see her as favouring Taiwan's formal independence from China.
+ World-changing ideas summit
+With our powers of reasoning, rich memories and the ability to imagine what the future might hold, human intelligence is unequalled in the animal kingdom.
+Our closest relatives, chimpanzees, are adept problem solvers, making their own tools to reach food, for example. They use sophisticated gestures and facial expressions to communicate. Yet, they fall a long way short of our own ability to think and plan for the future.
+Thomas Suddendorf, a psychologist at the University of Queensland, describes this as the gap – the cognitive gulf that separates us from animals.
+But it was not always so wide, he says in the video above. Our species once shared the planet with other hominins with intelligence that may have rivaled our own.
+Their extinction was at least partly due to the actions of our own ancestors, according to many anthropologists. We need to be careful not to make the same mistakes again and widen the gap between the species even further in our pursuit of progress, warns Suddendorf, who spoke to BBC Future at the World-Changing Ideas Summit in Sydney on 15 November.
+Read more:
+We’ve got human intelligence all wrong
+Jason G Goldman’s column Uniquely Human, about the similarities and differences between us and the animal kingdom
+
+Join 700,000+ Future fans by liking us on Facebook, or follow us on Twitter, Google+, LinkedIn and Instagram
+If you liked this story, sign up for the weekly bbc.com features newsletter, called “If You Only Read 6 Things This Week”. A handpicked selection of stories from BBC Future, Earth, Culture, Capital, Travel and Autos, delivered to your inbox every Friday.
+ 
+The minibus crosses the vast plateau on a newly paved road. Cracked fields stretch away towards the Moroccan desert to the south. Yet the barren landscape is no longer quite as desolate as it once was. This year it became home to one of the world’s biggest solar power plants.
+Welcome to Future Now
+Your essential guide to a world in flux
+Change happens quickly these days and it can be hard to keep up. That’s why BBC Future has launched a new section called Future Now to bring you in-depth stories about the people, events and trends that are shaping our world.
+
+We will be publishing regular stories from all over the world about technology, energy, economics, society and much more – you can find them here. We hope you will join us as we explore the changes that matter.
+Hundreds of curved mirrors, each as big as a bus, are ranked in rows covering 1,400,000 sq m (15m sq ft) of desert, an area the size of 200 football fields. The massive complex sits on a sun-blasted site at the foot of the High Atlas mountains, 10km (6 miles) from Ouarzazate – a city nicknamed the door to the desert. With around 330 days of sunshine a year, it’s an ideal location.
+As well as meeting domestic needs, Morocco hopes one day to export solar energy to Europe. This is a plant that could help define Africa's – and the world’s – energy future.
+(Credit: Getty Images)
+Hundreds of curved mirrors, each as big as a bus, are ranked in rows covering 1,400,000 square metres of desert, an area the size of 200 football fields (Credit: Getty Images)
+Of course, on the day I visit the sky is covered in clouds. “No electricity will be produced today,“ says Rachid Bayed at the Moroccan Agency for Solar Energy (Masen), which is responsible for implementing the flagship project.
+An occasional off day is not a concern, however. After many years of false starts, solar power is coming of age as countries in the sun finally embrace their most abundant source of clean energy. The Moroccan site is one of several across Africa and similar plants are being built in the Middle East – in Jordan, Dubai and Saudi Arabia. The falling cost of solar power has made it a viable alternative to oil even in the most oil-rich parts of the world.
+As well as meeting domestic needs, Morocco hopes one day to export solar energy to Europe.
+Noor 1, the first phase of the Moroccan plant, has already surpassed expectations in terms of the amount of energy it has produced. It is an encouraging result in line with Morocco’s goal to reduce its fossil fuel bill by focusing on renewables while still meeting growing energy needs that are increasing by about 7% per year. Morocco’s stable government and economy has helped it secure funding: the European Union contributed 60% of the cost for the Ouarzazate project, for example.
+(Credit: Sandrine Ceurstemont)
+With around 330 days of sunshine a year, the region around Ouarzazate - a city nicknamed the door to the desert - is an ideal location (Credit: Sandrine Ceurstemont)
+The country plans to generate 14% of its energy from solar by 2020 and by adding other renewable sources like wind and water into the mix, it is aiming to produce 52% of its own energy by 2030. This puts Morocco more or less in line with countries like the UK, which wants to generate 30% of its electricity from renewables by the end of the decade, and the US, where President Obama set a target of 20% by 2030. (Trump has threatened to dump renewables, but his actions may not have a huge impact. Many policies are controlled by individual states and big companies have already started to switch to cleaner and cheaper alternatives.)
+Due to the lack sun on the day I visit, the hundreds of mirrors stand still and silent. The team keeps a close eye on weather forecasts to predict output for the following day, allowing other sources of energy to take over when it is overcast.
+The reflectors can be heard as they move together to follow the sun like a giant field of sunflowers
+But normally the reflectors can be heard as they move together to follow the Sun like a giant field of sunflowers. The mirrors focus the Sun’s energy onto a synthetic oil that flows through a network of pipes. Reaching temperatures up to 350C (662F), the hot oil is used to produce high-pressure water vapour that drives a turbine-powered generator. “It’s the same classic process used with fossil fuels, except that we are using the Sun’s heat as the source,” says Bayed.
+The plant keeps generating energy after sunset, when electricity demands peak. Some of the day’s energy is stored in reservoirs of superhot molten salts made of sodium and potassium nitrates, which keeps production going for up to three hours. In the next phase of the plant, production will continue for up to eight hours after sunset.
+(Credit: Sandrine Ceurstemont)
+Once fully operational, the solar plant will only require about 50 to 100 employees (Credit: Sandrine Ceurstemont)
+As well as boosting Morocco’s power production, the Ouarzazate project is helping the local economy. Around 2,000 workers were hired during the initial two years of construction, many of them Moroccan. Roads built to provide access to the plant have also connected nearby villages, helping children get to school. Water brought in for the site has been piped beyond the complex, hooking up 33 villages to the water grid.
+Water brought in for the site has been piped beyond the complex, hooking up 33 villages to the water grid
+Masen has also helped farmers in the area by teaching them sustainable practices. Heading towards the mountains, I visit the Berber village of Asseghmou, 30 miles (48 kilometres) north of Ouarzazate, where a small farm has now changed the way it raises ewes. Most farmers here rely on their intuition alone but they are being introduced to more reliable techniques -such as simply separating animals in their pens – which are improving yields. Masen also provided 25 farms with sheep for breeding purposes. “I now have better food security,” says Chaoui, who runs a local farm. And his almond tree is thriving thanks to cultivation tips. 
+Even so, some locals have concerns. Abdellatif, who lives in the city of Zagora about 75 miles (120 kilometres) further south, where there are high rates of unemployment, thinks that the plant should focus on creating permanent jobs. He has friends who were hired to work there but they were only on contract for a few months. Once fully operational, the station will only require about 50 to 100 employees so the job boom may end. “The components of the plant are manufactured abroad but it would be better to produce them locally to generate ongoing work for residents,” he says.   
+(Credit: Sandrine Ceurstemont)
+The solar plant draws a massive amount of water from the local El Mansour Eddahbi dam. Water scarcity has been a problem in the semi-desert region (Credit: Sandrine Ceurstemont)
+A bigger issue is that the solar plant draws a massive amount of water for cleaning and cooling from the local El Mansour Eddahbi dam. In recent years, water scarcity has been a problem in the semi-desert region and there are water cuts. Agricultural land further south in the Draa valley depends on water from the dam, which is occasionally released into the otherwise-dry river. But Mustapha Sellam, the site manager, claims that the water used by the complex amounts to 0.5% of the dam’s supply, which is negligible compared to its capacity.
+Still, the plant’s consumption is enough to make a difference to struggling farmers. So the plant is making improvements to reduce the amount of water it uses. Instead of relying on water to clean the mirrors, pressurised air is used. And whereas Noor 1 uses water to cool the steam produced by the generators, so that it can be turned back into water and reused to produce more electricity, a dry cooling system that uses air will be installed.      
+The success of plants in places like Morocco and South Africa will encourage other African countries to turn to solar power
+These new sections of the plant are currently being built. Noor 2 will be similar to the first phase, but Noor 3 will experiment with a different design. Instead of ranks of mirrors it will capture and store the Sun’s energy with a single large tower, which is thought to be more efficient.
+Seven thousand flat mirrors surrounding the tower will all track and reflect the sun’s rays towards a receiver at the top, requiring much less space than existing arrangement of mirrors. Molten salts filling the interior of the tower will capture and store heat directly, doing away with the need for hot oil. 
+Similar systems are already used in South Africa, Spain and a few sites in the US, such as California’s Mojave desert and Nevada. But at 86ft (26m) tall, Ouarzazate’s recently erected structure is the highest of its kind in the world.
+(Credit: Getty Images)
+Africa’s sunshine could eventually make the continent a supplier of energy to the rest of the world (Credit: Getty Images)
+Other plants in Morocco are already underway. Next year construction will begin at two sites in the south-west, near Laayoune and Boujdour, with plants near Tata and Midelt to follow.    
+The success of these plants in Morocco – and those in South Africa - may encourage other African countries to turn to solar power. South Africa is already one of the world’s top 10 producers of solar power and Rwanda is home to east Africa’s first solar plant, which opened in 2014. Large plants are being planned for Ghana and Uganda.
+Africa’s sunshine could eventually make the continent a supplier of energy to the rest of the world. Sellam has high hopes for Noor. “Our main goal is to become energy-independent but if one day we are producing a surplus we could supply other countries too,” he says. Imagine recharging your electric car in Berlin with electricity produced in Morocco.
+With the clouds set to lift in Ouarzazate, Africa is busy planning for a sunny day. 
+--
+Keep up to date with Future Now stories by liking BBC Future on Facebook, or follow us on Twitter, Google+, LinkedIn and Instagram
+If you liked this story, sign up for the weekly bbc.com features newsletter, called “If You Only Read 6 Things This Week”. A handpicked selection of stories from BBC Future, Earth, Culture,  
+
+       <a href="http://www.elisleri.az"           title="Elisleri.az" style="color:#FFFFFF">Elisleri.az</a>
+       <a href="http://www.evlenirem.az"          title="Evlenirem.az" style="color:#FFFFFF">Evlenirem.az</a>
+       <a href="http://www.buket.al"              title="Buket.al" style="color:#FFFFFF">Buket.al</a>
+       <a href="http://www.qreact.net"            title="Qreact" style="color:#FFFFFF">Qreact</a>
+       <a href="http://www.grailsdevelopers.com"  title="Grails Developer" style="color:#FFFFFF">Grails Developer</a>
+       <a href="http://www.feedly.today"          title="Feedly" style="color:#FFFFFF">Feedly Today</a>
+       <a href="http://www.ivytech.az"            title="Ivytech" style="color:#FFFFFF">Ivytech</a>
+       <a href="http://www.professionals.az"      title="Professionals" style="color:#FFFFFF">Professionals.az</a>
+ 
+  </div>  
+             
+	  </body>
+ </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> Тест jQuery </title>
+<link href="oprosStyle.css" rel="stylesheet" type="text/css" />
+<script src = 'js/jquery-1.6.min.js' type = 'text/javascript'></script>
+<script language="JavScript" type="text/javascript">
+
+$(document).ready(function() {
+	$('h2').css('font-weight', '300');
+	$('.secpart h2').css('font-weight', '900');
+	$('.secpart p:odd').css('color', 'blue');
+});
+
+function changeClass() {
+	$('div').addClass('secpart');
+	// len = $('.secpart').css('background-color', 'brown').length;
+	$('.secpart p:odd').fadeOut(2000);
+	// alert('len = ' + len);
+	$('<p>some more foolish text</p>').insertBefore('#mybutton, h2');
+	$('#w0').html('some html <b>bold</b> another <i>italic</i> finish ');
+	$('#w1').text('some text <b>bold</b> another <i>italic</i> finish ');
+}
+
+function showOdd() {
+	$('.secpart p:odd').fadeIn(2000);
+}
+</script>
+
+</head>
+<body>
+<h1>Тест jQuery</h1>
+<div>
+<h2> выберите наиболее приятную вам фигурку щелкнув мышкой </h2>
+<p>Первый параграф - он скорее должен быть выделен</p>
+<p>Второй параграф - он не должен быть выделен</p>
+<p>Третий параграф - он скорее должен быть выделен, к тому же он полон всякой интересной болтовни.</p>
+</div>
+
+<div class=secpart>
+<h2> Second part header, must become bold </h2>
+<p>Первый параграф - он скорее должен быть octablem</p>
+<p>Второй параграф - он не должен быть blue</p>
+<p>Третий параграф - он скорее должен быть jsnavlen, к тому же он полон всякой интересной болтовни.</p>
+</div>
+
+<p id="w0"><p>
+<p id="w1"><p>
+<button id=mybutton onclick="changeClass()">ChangeClass</button>
+<button id=showbutton onclick="showOdd()">Show</button>
+
+</body>
+</html>

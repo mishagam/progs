@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style parent="@android:style/TextAppearance.Medium" name="TextFontSize">
+        <item name="android:textSize">22dp</item>
+    </style>
+</resources>

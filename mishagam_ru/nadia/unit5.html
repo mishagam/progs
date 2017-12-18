@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Fish Home Page</title>
+<script language="Javascript">
+function onOver() {
+	var butImage = document.getElementById("my_button_image");
+	// alert("over, butIOmage = " + butImage);
+	butImage.src="jelleOver.jpg";
+}
+function onOut() {
+	var butImage = document.getElementById("my_button_image");
+	// alert("over, butIOmage = " + butImage);
+	butImage.src="jelleUp.jpg";
+}
+function onDown() {
+	butImage = document.getElementById("my_button_image");
+	butImage.src="jelleDown.jpg";
+}
+</script>
+</head>
+<body>
+<img src="NadezhdaMasich_logotype.jpg" alt="Piano Fishes Chirch">
+<br/> <br/>
+<div style="float:left"><a onmouseover="onOver()" 
+onmouseout="onOut()" onmousedown="onDown()"
+><img id="my_button_image" 
+src="jelleUp.jpg"></a>
+</div>
+<h1>&nbsp; &nbsp; Dynamic Button with JellyFish - Unit 5 </h1>
+<p align="center" style="font-family:Verdana, Sans serif;"> 
+<a href="unit1.html">Unit 1</a> -
+<a href="unit2.html">Unit 2</a> -
+<a href="unit3.html">Unit 3</a> -
+<a href="unit4.html">Unit 4</a> -
+- Dynamic Button -
+<a href="unit6.html">Unit 6</a> -
+<a href="unit7.html">Unit 7</a> -
+<a href="unit8.html">Unit 8</a> 
+</body>
+<html>

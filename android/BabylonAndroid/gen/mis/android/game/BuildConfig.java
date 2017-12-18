@@ -1,0 +1,6 @@
+/** Automatically generated file. DO NOT MODIFY */
+package mis.android.game;
+
+public final class BuildConfig {
+    public final static boolean DEBUG = true;
+}

@@ -1,0 +1,38 @@
+.multipage_liner{
+	border: 1px solid #d1d1d1;
+    padding: 1px 1px 1px 1px;
+}
+
+.multipage_liner_c{
+	background: #e4e4e4;
+}
+
+.multipage_prev_page, .multipage_next_page{
+	display: block;
+    float: left;
+    width: 36px;
+    height: 16px;
+	padding: 10px 0;
+	text-align: center;
+    border-right: 1px solid #fff;
+    font-size: 12px;
+	background: #51c1d7;
+	font-size: 0;
+}
+
+.multipage_page_wrap{
+	float: left;
+	padding: 0 0 0 20px;
+	line-height: 36px;
+	font-size: 14px;
+	font-family: Arial, Tahoma, sans-serif;
+	color: #000;
+}
+
+a.multipage_prev_page:hover, a.multipage_next_page:hover{
+	background: #e04a32;
+}
+
+.multipage_wrap{
+	padding: 10px 0;
+}

@@ -1,0 +1,1 @@
+window.SparrowConfig = {"title":"Ars Technica","origin":"ars-technica","infinityID": true,"events":[{"type":["click"],"selector":"a"},{"type":["click"],"selector":".share-buttons a","options":{"_t":"share"}},{"type":["scroll","pageview","timespent"],"selector":"window"}]}

@@ -1,0 +1,59 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:paddingBottom="@dimen/mis_vert_margin"
+    android:paddingLeft="@dimen/mis_horiz_margin"
+    android:paddingRight="@dimen/mis_horiz_margin"
+    android:paddingTop="@dimen/mis_vert_margin"
+    tools:context=".WordWeightsTable" >
+
+    <TableLayout
+        android:id="@+id/word_weights_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="@string/korean"
+                android:textAppearance="@style/MisTableHeaderA" />
+
+            <TextView
+                android:paddingLeft="@dimen/mis_horiz_margin"
+                android:text="@string/russian"
+                android:textAppearance="@style/MisTableHeaderA" />
+
+            <TextView
+                android:paddingLeft="@dimen/mis_horiz_margin"
+                android:text="@string/difficulty"
+                android:textAppearance="@style/MisTableHeaderA" />
+
+            <TextView
+                android:paddingLeft="@dimen/mis_horiz_margin"
+                android:text="@string/active"
+                android:textAppearance="@style/MisTableHeaderA" />
+
+            <TextView
+                android:paddingLeft="@dimen/mis_horiz_margin"
+                android:text="@string/n_correct"
+                android:textAppearance="@style/MisTableHeaderA" />
+            
+            <TextView
+                android:paddingLeft="@dimen/mis_horiz_margin"
+                android:text="@string/delay"
+                android:textAppearance="@style/MisTableHeaderA" />
+            
+            <TextView
+                android:paddingLeft="@dimen/mis_horiz_margin"
+                android:text="@string/perc_error"
+                android:textAppearance="@style/MisTableHeaderA" />
+            </TableRow>
+    </TableLayout>
+
+</ScrollView>

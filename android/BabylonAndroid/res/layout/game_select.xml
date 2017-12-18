@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<ImageButton 
+			android:id="@+id/log_cabin_btn" 
+			android:layout_width="160dp"
+			android:layout_height="160dp" 
+			android:src="@drawable/log_cabin_sm" />
+
+		<TextView android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:text="Log Cabin" 
+			android:textAppearance="@style/GameSelectMenuStyle"
+			android:textSize="26dp"
+			android:paddingTop="40dp"
+			android:paddingLeft="8dp"
+			/>
+	</LinearLayout>
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal" android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<ImageButton 
+			android:id="@+id/brick_home_btn" 
+			android:layout_width="160dp"
+			android:layout_height="160dp" 
+			android:src="@drawable/brick_home" />
+
+		<TextView android:layout_width="fill_parent"
+			android:layout_height="fill_parent" 
+			android:text="Brick Home"
+			android:textAppearance="@style/GameSelectMenuStyle"
+			android:textSize="26dp"
+			android:paddingTop="40dp"
+			android:paddingLeft="8dp"
+			/>
+
+	</LinearLayout>
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal" android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<ImageButton 
+			android:id="@+id/test_game_btn" 
+			android:layout_width="160dp"
+			android:layout_height="160dp" 
+			android:src="@drawable/test_game" />
+
+		<TextView android:layout_width="fill_parent"
+			android:layout_height="fill_parent" 
+			android:text="Test Game"
+			android:textAppearance="@style/GameSelectMenuStyle"
+			android:textSize="26dp"
+			android:paddingTop="40dp"
+			android:paddingLeft="8dp"
+			/>
+
+	</LinearLayout>
+</LinearLayout>

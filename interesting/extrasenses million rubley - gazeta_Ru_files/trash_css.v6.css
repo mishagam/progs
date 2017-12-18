@@ -1,0 +1,57 @@
+/* pants */
+
+#sbContainer div.sb-similar__item { font-family: Arial, sans-serif; font-size: 12px; line-height: 18px; color: #333; padding-bottom: 20px; min-height: 70px; }
+#sbContainer div.sb-similar__item img { height: 60px; float: left; margin-right: 20px; }
+#sbContainer div.sb-similar__item a { display: block; }
+#sbContainer div.sb-similar__item .sb-similar__item-title { font-family: Arial, sans-serif; font-size: 14px; line-height: 18px; font-weight: 700; color: #333; }
+
+/* news pants */
+.news_panst #mm-body{padding:10px 0; width: 100%;}
+.news_panst #mm-counter{height:0}
+.news_panst .mm-body__line--horizontal {width: 33% !important;}
+.news_panst .mm-body__line a img {margin-right: 10px !important;}
+.news_panst .mm-body__line--horizontal a {width: 95%;}
+.news_panst .mm-body__line--horizontal a span{width: 100% !important;font-size: 11px !important;}
+.news_panst .mm-body__line a:hover {text-decoration: none !important;}
+.news_panst .new_import_news {background: #f4f7fc!important;border: 0px solid #f4f7fc!important;border-radius: 0!important;box-shadow: 0 0 0 0!important;margin-top: 20px !important;padding: 6px 10px 10px 10px;height: 115px;}
+.news_panst .new_import_news h2 {border-bottom: 1px solid #c7cdd1;padding-top: 6px;background-repeat: no-repeat;background-position: 0px 50%;background-size: auto 13px;color: #596c73;font-family: "PT Sans Caption";font-size: 14px;text-transform: uppercase;}
+.news_panst .new_import_news .cont div img {width: 60px;height: 60px;color: #e8e8e8;background: #e8e8e8;font-size: 1px;margin-right: 10px;border-style: none;}									
+.news_panst .adf_isgg .cont div img {left: 0;}
+.news_panst .adf_isgg .cont div{padding:0;}
+.news_panst .cont{padding-top:10px;}
+.news_panst .cont div {display: block;width: 33%;float: left;}
+.news_panst .cont div p {margin-bottom: 0;}
+.news_panst .mm-body__line.mm-body__line--horizontal.mm-body__line--small a span, .cont div p a{font-family: Arial, sans-serif;font-size: 12px!important;line-height: 18px!important;color: #333;width: 65% !important;}
+.news_panst .cont div p{font-family: Arial, sans-serif;font-size: 12px!important;line-height: 18px!important;color: #333;width: 95% !important;}
+.news_panst .mm-body__line a:hover span{text-decoration: none !important;}
+@media (max-width: 1260px){
+	.news_panst .new_import_news .cont div img, .adf_isgg .a_cont div img, .adf_isgg .a_cont div > a:first-child {width: 40px;height: 40px;margin-right: 5px;left: 0 !important;}
+	.news_panst .mm-body__line a img {margin-right: 5px !important;width: 40px !important;height: 40px !important;}
+	.news_panst .mm-body__line.mm-body__line--horizontal.mm-body__line--small a span{line-height: 12px!important;}
+	.news_panst .adf_isgg .cont div > a:first-child {margin-right: 5px;height: 40px;width: 40px;}
+	.news_panst .cont div p a {line-height: 12px!important;}
+	.cont div p {line-height: 12px!important;}
+}
+.new_import_news { clear: both; padding: 0 0; margin-bottom: 10px; margin-top: 10px; }
+.new_import_news iframe { margin: 0 5px 0 5px; }
+.new_import_news h2 { background-repeat: no-repeat; height: 30px; background-size: auto 13px; }
+.cont div { float:left; width: 33%; margin-bottom: 10px; }
+.cont div img { margin-right: 10px; min-width: 60px; left: 0; margin-left: 0; }
+.cont div p { font-family: Arial, sans-serif; font-size: 12px; line-height: 18px; color: #333; }
+.adf_isgg .cont div img { left: 0; }
+.mm-body { width: 100%; background-color: none; }
+.mm-body__line--horizontal { width: 33% !important; }
+
+/* action1 */
+.wb.p_cmn{width: 100%;margin-top: 0px;padding-bottom: 20px;background-color: #fff;}
+.wb.p_cmn hr{display:none}
+.wb.p_cmn .dh{font-family: 'Open Sans', sans-serif;font-size: 11px;font-weight: 400;color: #333;text-transform: uppercase;padding: 20px;}
+.wb.p_cmn a.pic_href {width: 100%;text-align: center;}
+.wb.p_cmn a.pic_href img {width: 100%;min-height: 175px;}
+.wb.p_cmn a.pic_href img.pic220 { width: 100%; }
+.wb.p_cmn .h4.mb10{font-family: 'PT Serif', serif;font-weight: 700;font-size: 24px;color: #333;line-height: 28px;padding-left: 20px;padding-right: 20px;padding-top: 20px;}
+.wb.p_cmn .intro{font-family: 'PT Serif', serif;font-size: 14px;font-weight: 400;line-height: 20px;color: #333;padding-left: 20px;padding-right: 20px;}
+
+
+#billboard div[id^="AdFox_banner_"], #billboard iframe[id^="AdFox_iframe_"]{ display: block; margin: 0 auto; }
+

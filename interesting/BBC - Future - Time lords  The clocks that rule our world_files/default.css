@@ -1,0 +1,550 @@
+/* Normalize margin and padding */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,body{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;	
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+	color: #000;
+	background: #F9F9F9;
+}
+
+#waywire-player-container {
+	width: 100%;
+	height: 100%;
+}
+
+.row {
+	margin: 0;
+}
+
+#header {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 8px;
+}
+
+#header h4 {
+	display: inline;
+	line-height: 1.5;
+}
+
+#header a {
+	float: right;
+	margin-right: -8px;
+}
+
+@media (max-width: 580px) {
+	#header a {
+		margin-right: 8px;
+	}
+}
+
+#waywire-player-container {
+	position: relative;
+	-webkit-flex-grow: 2;
+	-moz-flex-grow: 2;
+	-ms-flex-grow: 2;
+	-o-flex-grow: 2;
+	flex-grow: 2;
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+	background-color: #000;
+}
+
+/* Fix for video centering in Sarfari.  Probably should be changed to something else more specific that doesn't require using !important for other margins on classes in the #player-container */
+#waywire-player-container * {
+	margin: 0 auto;
+}
+
+@media (max-width: 580px) {
+	.mvp #waywire-player-container {
+		max-height: 70%;
+	}
+}
+
+video {
+	position: absolute;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+	background: #000;
+}
+
+/* For AOL video objects */
+object {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.svp #waywire-player-container iframe {
+	position: absolute;
+	left: 0;
+}
+
+.cvp iframe {
+	height: 100% !important;
+}
+
+/* Implemented same functionality with javascript (not responsive)
+@media (max-width: 580px) {
+	.mvp video{
+		position: relative;
+	}
+}*/
+
+#footer {
+	width: 100%;
+	padding: 8px;
+}
+
+#footer a {
+	float: right;
+	margin-right: -4px;
+}
+
+@media (max-width: 580px) {
+	#footer a {
+		margin-right: 16px;
+	}
+}
+
+#splash_image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/* Implemented same functionality with javascript (not responsive)
+@media (max-width: 580px) {
+	.mvp #splash_image{
+		position: relative;
+	}
+}*/
+
+.custom_play_button {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 42.5%;
+	width: 15%;
+	cursor: pointer;
+}
+
+.play_button {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 42.5%;
+	width: 15%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+	background: #FF5800;
+	background: -webkit-linear-gradient(#ff5722, #bf360c); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#ff5722, #bf360c); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#ff5722, #bf360c); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#ff5722, #bf360c); /* Standard syntax */
+	color: #FFF;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+/*.svp, .mvp {
+	padding-left: 2.5%;
+	padding-right: 2.5%;
+}*/
+
+/*.chromeless {
+	padding-left: 0;
+	padding-right: 0;
+}*/
+
+#single-view-container {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	flex-direction: column;
+	height: 100vh;
+	padding-left: 12px;
+	padding-right: 12px;
+	background: #FFF;
+	-webkit-box-shadow: 4px 4px 16px #000;
+	-moz-box-shadow: 4px 4px 16px #000;
+	-ms-box-shadow: 4px 4px 16px #000;
+	-o-box-shadow: 4px 4px 16px #000;
+	box-shadow: 4px 4px 16px #000;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.multi-view-container {
+	height: 100%;
+}
+
+@media (max-width: 580px) {
+	.multi-view-container #single-view-container {
+		height: auto;
+		max-height: 70vh;
+	}
+}
+
+/* Start playlist styling */
+#playlist-container {
+		height: 100% !important;
+		padding-top: 16px;
+		padding-bottom: 16px;
+		overflow-y: scroll;
+}
+@media (max-width: 580px) {
+	#playlist-container {
+		/*position: absolute;
+		top: 0;
+		left: 0;*/
+	}
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.media {
+	position: relative;
+	background: #FFF;
+	box-shadow: 4px 4px 16px #000;
+}
+.media .btn {
+	position: absolute;
+	bottom: 4px;
+	right: 6px;
+	color: #bf360c;
+	font-weight: bold;
+	background-color: transparent;
+}
+.media .btn:hover {
+	color: #ff5722 !important;
+	background-color: transparent;
+}
+.pull-left {
+	width: 40%;
+}
+.media-object {
+	width: 100%;
+}
+.media-heading {
+	padding-top: 4px;
+	padding-right: 8px;
+}
+/* End playlist styling */
+
+/* Start big share styling */
+.module {
+	display: flex;
+	flex-direction: column;
+	height: inherit;
+}
+.module #waywire-player-container.big-share-player-container {
+	display: block;
+	text-align: center;
+	background: #000;
+}
+.module #waywire-player-container.big-share-player-container #newplayer-1 {
+	position: absolute;
+	left: 0;
+	height: 100%;
+}
+.module #big-share-buttons-container {
+	margin: 4px 0;
+}
+.module #big-share-buttons-container .big-share-button {
+	height: 100%;
+	margin-right: 4px;
+	padding: 4px 8px;
+	color: white;
+	font-size: 1.25em;
+	border: none;
+	border-radius: 4px;
+	vertical-align: text-bottom;
+}
+.module #big-share-buttons-container .big-share-button.facebook {
+	background-color: #305891;
+	border-bottom: 2px solid #305891;
+}
+.module #big-share-buttons-container .big-share-button.twitter {
+	background-color: #2ca8d2;
+	border-bottom: 2px solid #2ca8d2;
+}
+.module #big-share-buttons-container .big-share-button.more {
+	background-color: #f8694d;
+	border-bottom: 2px solid #f8694d;
+	font-weight: bold;
+	width: 48px;
+}
+.module #big-share-buttons-container .big-share-button.facebook:hover {
+	border-bottom: 2px solid #213B61;
+}
+.module #big-share-buttons-container .big-share-button.twitter:hover {
+	border-bottom: 2px solid #248BAE;
+}
+.module #big-share-buttons-container .big-share-button.more:hover {
+	border-bottom: 2px solid #D35A42;
+}
+.module #big-share-buttons-container .big-share-button i {
+	float: left;
+	padding-top: 4px;
+	padding-right: 4px;
+}
+.module #big-share-buttons-container .big-share-button.more i {
+	float: none;
+	padding-right: 0;
+}
+.module #big-share-meta-container {
+	margin: 4px 0;
+}
+.module #big-share-meta-container .title-cont .title {
+	margin: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.module #big-share-meta-container .desc-cont .desc {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+/* End big share styling */
+
+/* Start share shade styling */
+.fa-share-alt {
+	cursor: pointer;
+}
+.share-shade {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 16px;
+	background-color: rgba(0, 0, 0, .75);
+	color: #FFF;
+	z-index: 1;
+	overflow-y: scroll;
+}
+.share-shade-label {
+	display: block;
+	padding-top: 8px;
+}
+.btn-envelope {
+	background-color: #ff5722;
+	color: #FFF;
+	padding: 0px 4px;	
+}
+.share-container {
+	width: 80%;
+	text-align: left;
+}
+.share-container .btn {
+	margin-right: 4px !important;
+}
+.share-container input {
+	display: block;
+	width: 100%;
+	color: #000;
+}
+.close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-top: -4px !important;
+	margin-right: 8px !important;
+	text-decoration: none;
+	font-size: 32px;
+	color: #fff;
+}
+.close-button:hover {
+	color: #FFF;
+	text-decoration: none;
+}
+/* End share shade styling */
+
+/* Start floating AddThis share buttons */
+#at4-share {
+	top: 10%;
+	right: 0;
+	transition: right ease 0.5s;
+}
+
+#at4-share.hide {
+	right: -48px;
+}
+/* remove hide caret */
+#at4-scc {
+	display: none !important;
+}
+/* End floating AddThis share buttons */
+
+/* Start player skin classes */
+.blue, .blue #single-view-container, #single-view-container.blue {
+	background-color: #0E3666;
+	color: #FFF;
+}
+.blue #playlist-container {
+	background-color: #336699;
+}
+.blue .media {
+	background-color: #0E3666;
+	color: #FFF;
+}
+.black, .black #single-view-container, #single-view-container.black {
+	background-color: #000;
+	color: #FFF;
+}
+.black #playlist-container {
+	background-color: #333;
+}
+.black .media {
+	background-color: #666;
+	color: #FFF;
+}
+.gray, .gray #single-view-container, #single-view-container.gray {
+	background-color: #F1F1F1;
+	color: #666;
+}
+.gray #playlist-container {
+	background-color: #999;
+}
+.gray .media {
+	background-color: #CCC;
+	color: #333;
+}
+/* Start player skin classes */
+
+/* Controls not active ++++++++++++++++++++++
+
+.video-controls-container {
+	background: black;
+	color: white;
+	opacity: 0.7;
+	//height: 10%;
+    //width: 95%;
+    padding: 4px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    border-radius: 10px;
+    margin-left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -moz-transform: translateX(-50%); 
+}
+
+@media only screen 
+and (min-width : 1224px) {
+	.video-controls-container {
+	    width: 75%;
+	}
+}
+
+.video-controls-container .fa-2x {
+	font-size: 1.5em;
+}
+.video-time-slider {
+	width: 60%;
+}
+
+.video-time-display, 
+.video-mute-button,
+.video-volume-slider,
+.video-fullscreen-button {
+	margin-left: 12px;
+}
+
+.video-fullscreen-button {
+	margin-right: 8px;
+	cursor: pointer;
+}
+
+.video-play-button {
+	margin-left: 8px;
+	margin-right:8px;
+}
+
+.video-time-slider-elapsed {
+	position: absolute;
+}
+
+.video-skip-button {
+	position: absolute;
+	background: black;
+	color: white;
+	border-radius: 7px;
+	opacity: 0.7;
+	font-size: 1.3em;
+	width: 120px;
+	height: 40px;
+	bottom: 12%;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.waywire-tweet-button {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	right: 0;
+	bottom: 50%;
+	background: #000;
+	opacity: 0.7;
+	border-radius: 5px;
+	color: #FFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+.waywire-tweet-button i{
+	font-size: 1.5em;
+}
+progress[value] {
+    -webkit-appearance: none;
+   appearance: none;
+   color: #FF7127;
+   margin-left: 12px;
+}
+
+progress[value]::-webkit-progress-value { 
+	background: #FF7127; 
+	border-radius: 5px;
+}
+
+progress[value]::-webkit-progress-bar {
+	border-radius: 5px;
+}
+*/

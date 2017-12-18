@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<room>
+  <box color="bisque" height="484" id="1" width="424" x="3" y="3">
+    <parent>
+      <boxref idref="0"/>
+    </parent>
+    <children>
+      <boxref idref="2"/>
+      <boxref idref="3"/>
+      <boxref idref="4"/>
+      <boxref idref="5"/>
+      <boxref idref="8"/>
+      <boxref idref="9"/>
+    </children>
+  </box>
+  <box color="azure" height="46" id="2" width="67" x="245" y="73">
+    <parent>
+      <boxref idref="1"/>
+    </parent>
+    <children/>
+  </box>
+  <box color="black" height="30" id="3" width="30" x="135" y="96">
+    <parent>
+      <boxref idref="1"/>
+    </parent>
+    <children/>
+  </box>
+  <box color="bisque" height="30" id="4" width="30" x="104" y="160">
+    <parent>
+      <boxref idref="1"/>
+    </parent>
+    <children/>
+  </box>
+  <box color="aquamarine" height="81" id="5" width="78" x="288" y="302">
+    <parent>
+      <boxref idref="1"/>
+    </parent>
+    <children>
+      <boxref idref="6"/>
+      <boxref idref="7"/>
+    </children>
+  </box>
+  <box color="beige" height="30" id="6" width="30" x="289" y="126">
+    <parent>
+      <boxref idref="5"/>
+    </parent>
+    <children/>
+  </box>
+  <box color="DarkGrey" height="34" id="7" width="43" x="40" y="316">
+    <parent>
+      <boxref idref="5"/>
+    </parent>
+    <children/>
+  </box>
+  <box color="moccasin" height="30" id="8" width="30" x="172" y="397">
+    <parent>
+      <boxref idref="1"/>
+    </parent>
+    <children/>
+  </box>
+  <box color="peru" height="30" id="9" width="30" x="63" y="382">
+    <parent>
+      <boxref idref="1"/>
+    </parent>
+    <children/>
+  </box>
+</room>

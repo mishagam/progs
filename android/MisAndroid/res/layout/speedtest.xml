@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+  <LinearLayout 
+            android:layout_height="wrap_content" 
+            android:layout_width="wrap_content" 
+        android:orientation="horizontal"
+        android:id="@+id/layout_top_row"
+        >
+  
+    <Button android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:id="@+id/button_start_test" android:text="Start Speed Test">
+    </Button>
+  
+    <EditText android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:id="@+id/repeat_number" android:text="1000">
+    </EditText>
+  </LinearLayout>
+  <TableLayout 
+    android:id="@+id/TableLayout01" 
+        android:layout_below="@id/layout_top_row" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        >
+  
+    <TableRow 
+            android:layout_height="wrap_content" 
+            android:layout_width="wrap_content" 
+            android:id="@+id/TableRow01"
+            >
+        <TextView style="@style/TextFontSize"
+             android:text="Speed:">
+        </TextView>
+    </TableRow>
+  
+    <TableRow 
+            android:layout_height="wrap_content" 
+            android:layout_width="wrap_content" 
+            android:id="@+id/TableRow02"
+            android:textSize="22dp" >
+        <TextView style="@style/TextFontSize" android:text="Integer" 
+                android:layout_width="wrap_content" >
+        </TextView>
+        <TextView style="@style/TextFontSize" android:id="@+id/integer_speed_results" android:text="Not tested yet" 
+                android:layout_width="wrap_content" 
+                android:paddingTop="6px" 
+                android:paddingLeft="10px" >
+        </TextView>
+    </TableRow>
+  
+    <TableRow 
+            android:layout_height="wrap_content" 
+            android:layout_width="wrap_content" 
+            android:id="@+id/TableRow03">
+        <TextView style="@style/TextFontSize" 
+                android:text="Long" android:layout_width="wrap_content" >
+        </TextView>
+        <TextView style="@style/TextFontSize"
+                android:id="@+id/long_speed_results" android:text="Not tested yet" 
+                android:layout_width="wrap_content" 
+                android:paddingTop="6px" 
+                android:paddingLeft="10dp" >
+        </TextView>
+    </TableRow>
+  
+    <TableRow 
+            android:layout_height="wrap_content" 
+            android:layout_width="wrap_content" 
+            android:id="@+id/TableRow04">
+        <TextView style="@style/TextFontSize"
+                android:text="Float" android:layout_width="wrap_content" >
+        </TextView>
+        <TextView style="@style/TextFontSize" 
+                android:id="@+id/float_speed_results" android:text="Not tested yet" 
+                android:layout_width="wrap_content" 
+                android:paddingTop="6px" 
+                android:paddingLeft="10px" >
+        </TextView>
+    </TableRow>
+  
+    <TableRow 
+            android:layout_height="wrap_content" 
+            android:layout_width="wrap_content" 
+            android:id="@+id/TableRow05">
+        <TextView style="@style/TextFontSize" android:text="Double" android:layout_width="wrap_content" >
+        </TextView>
+        <TextView style="@style/TextFontSize" android:id="@+id/double_speed_results" android:text="Not tested yet" 
+                android:layout_width="wrap_content" 
+                android:paddingTop="6px" 
+                android:paddingLeft="10px" >
+        </TextView>
+    </TableRow>
+  
+    <TableRow 
+            android:layout_height="wrap_content" 
+            android:layout_width="wrap_content" 
+            android:id="@+id/TableRow06">
+        <TextView style="@style/TextFontSize" android:text="String" android:layout_width="wrap_content" >
+        </TextView>
+        <TextView style="@style/TextFontSize" 
+            android:id="@+id/string_speed_results" android:text="Not tested yet" 
+                android:layout_width="wrap_content" 
+                android:paddingTop="6px" 
+                android:paddingLeft="10px" >
+        </TextView>
+    </TableRow>
+
+
+</TableLayout>
+</RelativeLayout>

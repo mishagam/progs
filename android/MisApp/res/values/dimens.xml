@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="mis_top_margin">5sp</dimen>
+    <dimen name="skip_menu">30sp</dimen>
+</resources>

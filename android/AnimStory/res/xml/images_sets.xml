@@ -1,0 +1,60 @@
+<images-sets xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Sets of images to use in Anim Story -->
+    <animals>
+        piglet,horse
+    </animals>
+    <background>
+        bg_drawing1,
+        bg_drawing17,
+        bg_drawing24,
+        bg_drawing21,
+        bg_drawing34,
+        bg_drawing8,
+        nancy_trees,
+        indoor_pool
+    </background>
+    <figure>
+        cyberscooty_palm_trees,
+        house,many_trees0,
+        Tree_004,
+        wooden_chair_viyana,
+        car_zaz, harmonic_tree,
+        mis_flower
+    </figure>
+    <suits>
+        ballerina_skirt
+    </suits>
+    <moving_figures>
+        horse_walk_0,
+        horse_walk_1,
+        horse_walk_2,
+        horse_walk_3
+    </moving_figures>
+    <people>
+        closed,
+        addon_the_photographer,
+        ballerina_pencil_pal_in_bathing_suit,
+        ballerina_pencil_pal_in_gown,
+        boy_machovka_drawing,
+        business_man_vector,
+        man_one,
+        man_reading,
+        man_in_suit,
+        rebeca,
+        nedoumenie,
+        student_girl_book,
+        walking_baby,
+        woman_standing,
+        young_girl,
+        superhero_girl_in_purple,
+        stick_boy,
+        gopher_pink_anime_girl,
+        dragonfly,
+        man_with_braun_hair_and_braun_trousers
+    </people>
+    <pairs>
+        draka_t,draka_tp,family1,pair_biet
+    </pairs>
+
+</images-sets>

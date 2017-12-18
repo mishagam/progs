@@ -1,0 +1,7 @@
+[misha@misha ~]$ nmcli dev list iface eth0 | grep IP4
+IP4-SETTINGS.ADDRESS:           192.168.1.5
+IP4-SETTINGS.PREFIX:            24 (255.255.255.0)
+IP4-SETTINGS.GATEWAY:           192.168.1.1
+IP4-DNS1.DNS:                   195.98.160.26
+IP4-DNS2.DNS:                   80.253.27.101
+

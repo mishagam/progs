@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.5+" codebase="http://www.mishagam.ru/vania/" href="vania-model.jnlp">
+  <information>
+    <title>Vania Model</title>
+    <vendor>Mis Inc</vendor>
+    <homepage href="http://www.mishagam.ru/vania" />
+    <description>Vania aerodynamic model, version 0.7</description>
+    <icon href="http://www.mishagam.ru/favicon.gif" />
+  </information>
+  <security>
+    <all-permissions />
+  </security>
+  <resources>
+    <j2se version="1.5+" />
+    <jar href="VaniaModel.jar" />
+  </resources>
+  <application-desc main-class="vania.aero.model.ModelFrame" />
+</jnlp>

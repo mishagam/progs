@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>testJSON</title>
+<script src = 'js/jquery-1.6.1.min.js' type = 'text/javascript'></script>
+<script language="JavaScript" type="text/javascript">
+
+var json = {"aaa": 12, bbb:13, "ccc":14};
+var jsArray = [1,22,"3a3",4444];
+
+$(document).ready(function() {
+    var jsStr = "json.bbb = " + json.bbb;
+    var jsArr = jsArray[2];
+    $('#jsonStructId').html(jsStr);
+    $('#jsonArrayId').html(jsArr);
+});
+
+
+
+</script>
+
+</head>
+<body>
+<h1> Test JSON </h1>
+Below JSON generated text
+<div id=jsonStructId >
+
+</div>
+<div id=jsonArrayId >
+
+</div>
+</body>
+</html>

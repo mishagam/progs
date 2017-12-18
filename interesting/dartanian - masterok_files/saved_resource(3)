@@ -1,0 +1,1214 @@
+/* ---------------------------------------------------------------------------------
+   file-start: js/ads/criteo.js 
+*/
+
+var crtg_nid = '4024';
+var crtg_cookiename = 'crtg_rta';
+var crtg_varname = 'crtg_content';
+
+function crtg_getCookie(c_name) {
+  var i, x, y, ARRCookies = document.cookie.split(";");
+  for (i = 0; i < ARRCookies.length; i++) {
+    x = ARRCookies[i].substr(0, ARRCookies[i].indexOf("="));
+    y = ARRCookies[i].substr(ARRCookies[i].indexOf("=") + 1);
+    x = x.replace(/^\s+|\s+$/g, "");
+    if (x == c_name) {
+      return unescape(y);
+    }
+  }
+  return '';
+}
+var crtg_content = crtg_getCookie(crtg_cookiename);
+var crtg_rnd = Math.floor(Math.random() * 99999999999);
+(function() {
+  var crtg_url = location.protocol + '//rtax.criteo.com/delivery/rta/rta.js?netId=' + escape(crtg_nid);
+  crtg_url += '&cookieName=' + escape(crtg_cookiename);
+  crtg_url += '&rnd=' + crtg_rnd;
+  crtg_url += '&varName=' + escape(crtg_varname);
+  var crtg_script = document.createElement('script');
+  crtg_script.type = 'text/javascript';
+  crtg_script.src = crtg_url;
+  crtg_script.async = true;
+  if (document.getElementsByTagName("head").length > 0) document.getElementsByTagName("head")[0].appendChild(crtg_script);
+  else if (document.getElementsByTagName("body").length > 0) document.getElementsByTagName("body")[0].appendChild(crtg_script);
+})();
+;
+
+/* file-end: js/ads/criteo.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/ads/montblanc.js 
+*/
+
+(function(){
+/**
+ * namespace
+ * @const
+ */
+var montblanc = {};
+/**
+ * String namespace
+ * @const
+ */
+montblanc.string = {};
+/**
+ * @param {string} str
+ * @param {string} prefix
+ * @return {boolean}
+ */
+montblanc.string.startsWith = function(str, prefix) {
+    return str.lastIndexOf(prefix, 0) == 0;
+};
+/**
+ * @param {string} str
+ */
+montblanc.string.urlDecode = function(str) {
+    return decodeURIComponent(str.replace(/\+/g, ' '));
+};
+/**
+ * @param {Document} context
+ * constructor
+ */
+montblanc.Cookies = function(context){
+    this.document_ = context;
+};
+/**
+ * @type {RegExp}
+ * @private
+ */
+montblanc.Cookies.SPLIT_RE_ = /\s*;\s*/;
+/**
+ * @return {string}
+ * @private
+ */
+montblanc.Cookies.prototype.getCookie_ = function(){
+    return this.document_.cookie;
+};
+/**
+ * @return {Array}
+ * @private
+ */
+montblanc.Cookies.prototype.getParts_ = function(){
+    return (this.getCookie_() || '').split(montblanc.Cookies.SPLIT_RE_);
+};
+/**
+ * @param {string} name
+ * @param {string} opt_default
+ * @return {string|undefined}
+ */
+montblanc.Cookies.prototype.get = function(name, opt_default){
+    var nameEq = name + '=';
+    var parts = this.getParts_();
+    for (var i = 0, part; part = parts[i]; i++) {
+        if (montblanc.string.startsWith(part, nameEq)) {
+            return part.substr(nameEq.length);
+        }
+        if (part == name) {
+            return '';
+        }
+    }
+    return opt_default;
+};
+/**
+ * @type {montblanc.Cookies}
+ */
+montblanc.cookies = new montblanc.Cookies(document);
+/**
+ * DOM namespace
+ * @const
+ */
+montblanc.dom = {};
+/**
+ * @param {string} name
+ * @return {Element}
+ */
+montblanc.dom.createElement = function(name){
+    return document.createElement(name);
+};
+/**
+ * @param {string} src
+ * @param {=Boolean} opt_async
+ * @return {Element}
+ */
+montblanc.dom.createScript = function(src, opt_async){
+    var el = montblanc.dom.createElement('script');
+    el.src = src;
+    el.type = 'text/javascript';
+    el.async = !!opt_async;
+    return el;
+};
+/**
+ * @param {Element} script
+ */
+montblanc.dom.injectScript = function(script){
+    var fscript = document.getElementsByTagName('script')[0];
+    fscript.parentNode.insertBefore(script, fscript);
+};
+
+
+/** **/
+montblanc.COOKIE_KEY = '_montblanc';
+montblanc.PROTOCOL = 'https:' == document.location.protocol ? 'https:' : 'http:';
+montblanc.SYNC_URL = montblanc.PROTOCOL + '//montblanc.rambler.ru/mb';
+montblanc.sync = function(){
+    montblanc.dom.injectScript(
+        montblanc.dom.createScript(montblanc.SYNC_URL, true));
+};
+montblanc.getParts_ = function(){
+    var val = montblanc.cookies.get(montblanc.COOKIE_KEY, '');
+    return montblanc.string.urlDecode(val).split('&');
+};
+/**
+ * @param {string} key
+ * @param {string} opt_default
+ * @return {string|undefined}
+ */
+montblanc.get = function(key, opt_default){
+    var keyEq = key + '=';
+    var parts = montblanc.getParts_();
+    for (var i = 0, part; part = parts[i]; i++){
+        if (montblanc.string.startsWith(part, keyEq)) {
+            return montblanc.string.urlDecode(part.substr(keyEq.length));
+        }
+        if (part == key) {
+            return ''
+        }
+    }
+    return opt_default;
+};
+montblanc.sync();
+
+//api
+window['_montblanc'] = {};
+window['_montblanc']['get'] = montblanc.get;
+
+})();;
+
+/* file-end: js/ads/montblanc.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/ads/adfox.custom.js 
+*/
+
+(function() {
+
+  if (typeof _montblanc != 'undefined') {
+    var _mon = true;
+  } else {
+    var _mon = false;
+    console.log('_montblanc doesnt included');
+  }
+
+  var Adf = {};
+
+  Adf.dom = {};
+
+  Adf.counter = 1;
+
+  Adf.util = {
+
+    debugBase: window.location.search.indexOf('adfox_debug=1') !== -1,
+
+    debugExtend: window.location.search.indexOf('adfox_debug=2') !== -1,
+
+    DOC_READY: false,
+
+    CRTG_CONTENT: (typeof crtg_getCookie == 'function') ? crtg_getCookie(crtg_cookiename) : '',
+
+    getBodyScrollTop: function(opt_win) {
+
+      var _window = opt_win || window;
+
+      return _window.pageYOffset || (_window.document.documentElement && _window.document.documentElement.scrollTop) || (_window.document.body && _window.document.body.scrollTop);
+
+    },
+
+    getBodyScrollLeft: function(opt_win) {
+
+      var _window = opt_win || window;
+
+      return _window.pageXOffset || (_window.document.documentElement && _window.document.documentElement.scrollLeft) || (_window.document.body && _window.document.body.scrollLeft);
+
+    },
+
+    trackPixel: function(url) {
+
+      var tracking_url = url;
+      var Pixel_imp = new Image();
+
+      if (tracking_url != '') {
+
+        Pixel_imp.src = tracking_url;
+        tracking_url = '';
+
+      }
+
+    },
+
+    getElementPosition: function(id, opt_doc) {
+
+      var _document = opt_doc || document,
+        elem = _document.getElementById(id),
+        elemPos = {};
+      if (elem) {
+        elemPos['width'] = elem.offsetWidth;
+        elemPos['height'] = elem.offsetHeight;
+        elemPos['left'] = 0;
+        elemPos['top'] = 0;
+
+        while (elem) {
+          elemPos['left'] += elem.offsetLeft;
+          elemPos['top'] += elem.offsetTop;
+          elem = elem.offsetParent;
+        }
+
+        return elemPos;
+      } else {
+        return false;
+      }
+
+
+    },
+
+    createScript: function(src, is_async, opt_doc) {
+
+      var _document = opt_doc || document,
+        el = _document.createElement('script');
+
+      el.src = src;
+      el.type = 'text/javascript';
+      el.async = !!is_async;
+
+      return el;
+
+    },
+
+    insertScript: function(script, opt_doc) {
+
+      var _document = opt_doc || document,
+        f = _document.getElementsByTagName('script')[0];
+
+      f.parentNode.insertBefore(script, f);
+
+    },
+
+    getProtocol: function(opt_doc) {
+
+      var _document = opt_doc || document;
+
+      return _document.location.protocol == 'https:' ? 'https:' : 'http:';
+
+    },
+
+    getScreenSize: function() {
+
+      var scrheight = '',
+        scrwidth = '';
+
+      if (self.screen) {
+
+        scrwidth = screen.width;
+        scrheight = screen.height;
+
+      } else if (self.java) {
+
+        var jkit = java.awt.Toolkit.getDefaultToolkit(),
+          scrsize = jkit.getScreenSize();
+
+        scrwidth = scrsize.width;
+        scrheight = scrsize.height;
+
+      }
+
+      if (scrwidth && scrheight) {
+
+        return [scrwidth, scrheight]
+
+      } else {
+
+        return ['', '']
+
+      }
+
+    },
+
+    getWindowSize: function(opt_win) {
+
+      var width,
+        height,
+        _window = opt_win || window;
+
+      if (typeof(_window.innerWidth) == 'number') {
+
+        width = _window.innerWidth;
+        height = _window.innerHeight;
+
+      } else if (_window.document.documentElement && (_window.document.documentElement.clientWidth || _window.document.documentElement.clientHeight)) {
+
+        width = _window.document.documentElement.clientWidth;
+        height = _window.document.documentElement.clientHeight;
+
+      } else if (_window.document.body && (_window.document.body.clientWidth || _window.document.body.clientHeight)) {
+
+        width = _window.document.body.clientWidth;
+        height = _window.document.body.clientHeight;
+
+      }
+
+      return {
+        "width": width,
+        "height": height
+      };
+
+    },
+
+    getDate: function() {
+
+      var addate = new Date();
+
+      return {
+        'date': addate.getDate(),
+        'day': addate.getDay(),
+        'hour': addate.getHours()
+      }
+
+    },
+
+    wrapScript: function(source) {
+
+      return '<scr' + 'ipt type="text/javascript">' + source + '</scr' + 'ipt>';
+
+    },
+
+    createElement: function(elem, opt_id, opt_class, opt_doc) {
+
+      var _document = opt_doc || document,
+        elm = _document.createElement(elem);
+
+      if (typeof opt_id == 'string') elm.setAttribute('id', opt_id);
+      if (typeof opt_class == 'string') elm.className += opt_class;
+
+      return elm;
+
+    },
+
+    getCodeScript: function(i, src, id, banner_place, opt_callback) {
+
+      var frameDocument;
+
+      if (i < 10) {
+        try {
+          if (document.all && !window.opera) {
+            frameDocument = window.frames[id].document;
+          } else if (document.getElementById) {
+            frameDocument = document.getElementById(id).contentDocument;
+          }
+        } catch (e) {}
+
+        if (frameDocument) {
+
+          frameDocument.write('<scr' + 'ipt type="text/javascript" src="' + src + '"><\/scr' + 'ipt>');
+
+          // LJ.Sale.elementEvent
+          frameDocument.getElementsByTagName('script').item(0).onload = function(e) {
+            var event = document.createEvent('Event');
+
+            event.data = {
+              place: banner_place.getAttribute('id'),
+              script: e.target.src
+            };
+            event.initEvent('ljsale-adfox-init', true, false);
+            banner_place.dispatchEvent(event);
+          };
+
+          Adf.inner.checkBannerLoaded(banner_place, opt_callback, true);
+
+        } else {
+
+          setTimeout(function() {
+            Adf.util.getCodeScript(++i, src, id)
+          }, 100);
+
+        }
+
+      } else if (i == 10) {
+
+        window.console.log('Can not access to frameDocument && frameWindow; id = ' + id);
+        Adf.inner.checkBannerLoaded(banner_place, opt_callback, false);
+      }
+
+    },
+
+    createAdIframe: function(id, opt_doc) {
+
+      var _document = opt_doc || document,
+        ifr = _document.createElement('iframe');
+
+      ifr.setAttribute('id', id);
+      ifr.setAttribute('marginwidth', '0');
+      ifr.setAttribute('marginheight', '0');
+      ifr.setAttribute('scrolling', 'no');
+      ifr.setAttribute('frameBorder', '0');
+      ifr.setAttribute('width', '1');
+      ifr.setAttribute('height', '1');
+      ifr.style.position = 'absolute';
+
+      return ifr;
+
+    },
+
+    getReferrer: function() {
+
+      if (typeof(document.referrer) != 'undefined') {
+        if (typeof(afReferrer) == 'undefined') {
+          var afReferrer = escape(document.referrer);
+        }
+      } else {
+        var afReferrer = '';
+      }
+
+      return afReferrer;
+
+    },
+
+    ajaxLoad: function(url, callback) {
+
+      var _xmlhttp;
+
+      if (window.XMLHttpRequest) {
+        _xmlhttp = new XMLHttpRequest();
+      } else {
+        _xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      _xmlhttp.onreadystatechange = function() {
+
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+          callback(_xmlhttp.responseText);
+
+        }
+
+      };
+
+      _xmlhttp.open("GET", url, true);
+      _xmlhttp.send();
+
+    }
+
+  };
+
+  Adf.init = {
+
+    criteo: function(site_id) {
+
+      var crtg_nid = site_id,
+        crtg_cookiename = 'crtg_rta',
+        crtg_varname = 'crtg_content';
+
+      function crtg_getCookie(c_name) {
+
+        var i, x, y, ARRCookies = document.cookie.split(";");
+
+        for (i = 0; i < ARRCookies.length; i++) {
+          x = ARRCookies[i].substr(0, ARRCookies[i].indexOf("="));
+          y = ARRCookies[i].substr(ARRCookies[i].indexOf("=") + 1);
+          x = x.replace(/^\s+|\s+$/g, "");
+          if (x == c_name) {
+            return unescape(y);
+          }
+        }
+
+        return '';
+
+      };
+
+      (function() {
+
+        var crtg_url = Adf.util.getProtocol() + '//rtax.criteo.com/delivery/rta/rta.js?netId=' + escape(crtg_nid) + '&amp;cookieName=' + escape(crtg_cookiename) + '&amp;rnd=' + Math.floor(Math.random() * 99999999999) + '&amp;varName=' + escape(crtg_varname);
+
+        Adf.util.insertScript(Adf.util.createScript(crtg_url, true));
+
+      })();
+
+      if (Adf.util.debugBase || Adf.util.debugExtend) console.log('Criteo is initialized. Crtg_nid = ' + crtg_nid);
+
+      Adf.util.CRTG_CONTENT = crtg_getCookie(crtg_cookiename);
+
+    },
+
+    begun: function() {
+
+      var begun_url = Adf.util.getProtocol() + '//autocontext.begun.ru/autocontext2_async.js';
+
+      Adf.util.insertScript(Adf.util.createScript(begun_url, false));
+
+      if (Adf.util.debugBase || Adf.util.debugExtend) console.log('Begun is initialized');
+
+    }
+
+  };
+
+  Adf.inner = {
+
+    getBegunLevel: function(feed) {
+
+      var level = 0,
+        bannersCount = 0;
+
+      for (var bannersType in feed.banners) {
+        for (i = 0; i < feed.banners[bannersType].length; i++) {
+          banner = feed.banners[bannersType][i];
+          bannersCount++;
+          if (banner.priority && banner.priority > level) {
+            level = banner.priority;
+          }
+        }
+      }
+      return bannersCount > 0 ? level + 1 : 0;
+
+    },
+
+    show_b: function(threshold, startTime, _rand, number, i, div_id, options, options_b, opt_class, win) {
+
+
+      if (div_id == 'begun_test') {
+
+        var unicID = Math.floor(Math.random() * 10000000000000),
+          funcName = 'renderBegunResponse' + unicID;
+
+        window[funcName] = function(callback_options) {
+
+          options['puid52'] = Adf.inner.getBegunLevel(callback_options);
+          options['puid53'] = callback_options['params']['impression_id'];
+
+          var begunCallbackBeforeAdCall = new Date();
+          var delta = begunCallbackBeforeAdCall - startTime;
+          if (threshold) {
+            Adf.util.trackPixel('http://rcounter.rambler.ru/count?v=0.1&id=124&pid=1&path=' + options_b["begun-block-id"] + '.d' + Adf.inner.returnTimeInterval(delta));
+
+          }
+
+          Adf.banner.show(div_id, options, opt_class);
+
+        };
+
+        var _auctionScriptURL = 'http://autocontext.begun.ru/context.jsp?pad_id=' + options_b['begun-auto-pad'] + '&block_id=' + options_b['begun-block-id'] + '&json=1&callback=' + funcName + '&first=1&rq_sess=' + unicID + '&secure=' + (document.location.protocol == 'https:' ? '1' : '0') + '&real_refer=' + document.location.href;
+
+        var divIdType = typeof div_id;
+
+        if (divIdType == 'string') {
+
+          var banner_place = document.getElementById(div_id);
+
+        } else if (divIdType == 'object') {
+
+          var banner_place = div_id;
+
+        };
+
+        var _auctionScript = Adf.util.createScript(_auctionScriptURL, true);
+
+        if (banner_place) {
+
+          banner_place.appendChild(_auctionScript);
+
+        } else {
+
+          console.log('adfox can not insert Begun auction request. Start ordinary adfox adcall');
+
+          Adf.banner.show(div_id, options, opt_class);
+
+        };
+
+
+      } else {
+
+        if (Adf.util.debugExtend) console.log('before_begun_check_call: adCall = ' + number + '; bid = ' + options_b['begun-block-id'] + '; div_id = ' + div_id + '; unic_id = ' + _rand);
+
+        if (i < 20) {
+
+          if (win.Begun && win.Begun.Autocontext && win.Begun.Autocontext.addBlock) {
+
+            Begun.Autocontext.addBlock(options_b, function(level, auction_id, block_id) {
+              options['puid52'] = level;
+              options['puid53'] = auction_id;
+
+              // debug info
+
+              if (Adf.util.debugExtend) console.log('before_ban_call: adCall = ' + number + '; bid = ' + options_b['begun-block-id'] + '; div_id = ' + div_id + '; unic_id = ' + _rand);
+              var begunCallbackBeforeAdCall = new Date();
+              var delta = begunCallbackBeforeAdCall - startTime;
+              if (Adf.util.debugExtend) console.log('begun_callback_time : ' + delta + '; adCall = ' + number + '; bid = ' + options_b['begun-block-id'] + '; div_id = ' + div_id + '; unic_id = ' + _rand);
+              if (threshold) {
+                Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=124&pid=1&path=' + options_b["begun-block-id"] + '.d' + Adf.inner.returnTimeInterval(delta));
+                Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=125&pid=1&path=' + options_b["begun-block-id"] + '.d_yes');
+                Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=127&pid=1&path=' + options_b["begun-block-id"] + '.d' + level);
+              }
+              //
+              Adf.banner.show(div_id, options, opt_class, function(b, s) {
+
+                var bannerLoadedTime = new Date();
+                var fullDelta = bannerLoadedTime - startTime;
+                var bannerLoadDelta = bannerLoadedTime - begunCallbackBeforeAdCall;
+                if (threshold) {
+                  Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=126&pid=1&path=' + options_b["begun-block-id"] + '.d' + Adf.inner.returnTimeInterval(fullDelta) + '.d' + Adf.inner.returnTimeInterval(bannerLoadDelta));
+                  Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=126&pid=1&path=' + s);
+                }
+
+              });
+
+              if (Adf.util.debugExtend) console.log('after_ban_call: adCall = ' + number + '; bid = ' + options_b['begun-block-id'] + '; div_id = ' + div_id + '; unic_id = ' + _rand);
+            });
+
+          } else {
+            setTimeout(function() {
+              Adf.inner.show_b(threshold, startTime, _rand, number, ++i, div_id, options, options_b, opt_class, win)
+            }, 100);
+          }
+
+        } else {
+
+          if (Adf.util.debugExtend) console.log('win.Begun.Autocontext.addBlock is not defined.' + '; div_id = ' + div_id);
+          if (threshold) {
+            Adf.util.trackPixel('//rcounter.rambler.ru/count?v=0.1&id=125&pid=1&path=' + options_b["begun-block-id"] + '.d_no');
+          }
+          Adf.banner.show(div_id, options, opt_class);
+
+        }
+
+        if (Adf.util.debugExtend) console.log('after_begun_check_call: adCall = ' + number + '; bid = ' + options_b['begun-block-id'] + '; div_id = ' + div_id + '; unic_id = ' + _rand);
+
+      };
+
+
+
+
+    },
+
+    checkBannerLoaded: function(banner_place, opt_callback, status) {
+
+      if (typeof opt_callback === 'function') opt_callback(banner_place, status);
+
+    },
+
+    getMonblanc: function(key) {
+
+      if (_mon) {
+        return _montblanc.get(key, '');
+      } else {
+        return '';
+      }
+
+    },
+
+    returnTimeInterval: function(time) {
+
+      if (time < 500) {
+        return '05';
+      };
+      if (time >= 500 && time < 1000) {
+        return '0510';
+      };
+      if (time >= 1000 && time < 1500) {
+        return '1015';
+      };
+      if (time >= 1500 && time < 2000) {
+        return '1520';
+      };
+      if (time >= 2000 && time < 2500) {
+        return '2025';
+      };
+      if (time >= 2500 && time < 3000) {
+        return '2530';
+      };
+      if (time >= 3000 && time < 4000) {
+        return '3040';
+      };
+      if (time >= 4000 && time < 5000) {
+        return '4050';
+      };
+      if (time >= 5000) {
+        return '50';
+      };
+
+    }
+
+  };
+
+  Adf.banner = {
+
+    needReload: false,
+
+    account_id: 171817,
+
+    pr: Math.floor(Math.random() * 1000000),
+
+    dl: escape(document.location),
+
+    montblanc: {
+
+      'puid3': Adf.inner.getMonblanc('4i'),
+      'puid4': Adf.inner.getMonblanc('c6'),
+      'puid11': Adf.inner.getMonblanc('dd'),
+      'puid22': Adf.inner.getMonblanc('y1'),
+      'puid33': Adf.inner.getMonblanc('bj'),
+      'puid37': Adf.inner.getMonblanc('k4'),
+      'puid38': Adf.inner.getMonblanc('x3')
+
+    },
+
+    show: function(div_id, options, opt_class, opt_callback) {
+
+      var divIdType = typeof div_id;
+
+      if (typeof opt_class === 'function') opt_callback = opt_class;
+
+      if (divIdType == 'string') {
+        var banner_place = document.getElementById(div_id);
+      } else if (divIdType == 'object') {
+        var banner_place = div_id;
+      };
+
+      var pr1 = Math.floor(Math.random() * 1000000),
+        pr2 = Math.floor(Math.random() * 1000000),
+        criteo = 0,
+        ban_block = Adf.util.createElement('div', 'AdFox_banner_' + pr1, opt_class),
+        ifr = Adf.util.createAdIframe('AdFox_iframe_' + pr1),
+        reloadPr = !Adf.banner.needReload ? Adf.banner.pr : Math.floor(Math.random() * 1000000),
+
+        url = Adf.util.getProtocol() + '//ads.adfox.ru/' +
+        (options['account_id'] ? options['account_id'] : Adf.banner.account_id) +
+        '/prepareCode?pfc=' +
+        (options['pfc'] ? options['pfc'] : 'a') +
+        '&amp;pfb=' +
+        (options['pfb'] ? options['pfb'] : 'a') +
+        '&amp;pt=b' +
+        '&amp;pd=' + Adf.util.getDate()['date'] +
+        '&amp;pw=' + Adf.util.getDate()['day'] +
+        '&amp;pv=' + Adf.util.getDate()['hour'] +
+        '&amp;prr=' + Adf.util.getReferrer() +
+        '&amp;pdw=' + Adf.util.getScreenSize()[0] +
+        '&amp;pdh=' + Adf.util.getScreenSize()[1] +
+        '&amp;dl=' + Adf.banner.dl +
+        '&amp;pr1=' + pr1 +
+        '&amp;random=' + pr2 +
+        '&amp;pr=' + reloadPr;
+
+
+      //include montblanc params
+
+      for (var prop in Adf.banner.montblanc) {
+
+        url += '&amp;' + prop + '=' + Adf.banner.montblanc[prop]
+
+      }
+
+      //check banner params
+
+      if (typeof options == 'object') {
+
+        for (var prop in options) {
+
+          if (prop == 'criteo') {
+
+            if (Adf.util.CRTG_CONTENT) {
+              criteo = ((Adf.util.CRTG_CONTENT.indexOf(options[prop]) != -1)) ? (options[prop]) : ("0");
+            }
+
+            url += '&amp;puid23=' + criteo;
+
+          } else {
+
+            url += '&amp;' + prop + '=' + options[prop]
+
+          }
+
+        }
+
+      } else {
+        console.log('options =' + typeof options)
+      };
+
+      //insert banner
+
+      if (banner_place) {
+
+        banner_place.appendChild(ban_block);
+        banner_place.appendChild(ifr);
+
+      } else {
+
+        console.log('adfox can not access banner_place');
+
+      };
+
+      if (Adf.util.debugBase || Adf.util.debugExtend) console.log('div_id = ' + div_id);
+      if (Adf.util.debugBase || Adf.util.debugExtend) console.log(options);
+
+      Adf.util.getCodeScript(1, url, 'AdFox_iframe_' + pr1, banner_place, opt_callback);
+
+
+
+    },
+
+    reload: function(div_id, options, opt_class, opt_callback) {
+
+      Adf.banner.needReload = true;
+
+      document.getElementById(div_id).innerHTML = '';
+
+      Adf.banner.show(div_id, options, opt_class, opt_callback);
+
+      Adf.banner.needReload = false;
+
+    },
+
+    showScroll: function(div_id, options, opt_class, opt_callback) {
+
+      var winPos = Adf.util.getWindowSize(),
+        winWidth = winPos.width,
+        winHeight = winPos.height,
+        scrollY = Adf.util.getBodyScrollTop(),
+        scrollX = Adf.util.getBodyScrollLeft(),
+        ltwhPos = Adf.util.getElementPosition(div_id);
+      var lPos = (ltwhPos) ? ltwhPos.left : 20 * winWidth;
+      var tPos = (ltwhPos) ? ltwhPos.top : 20 * winHeight;
+
+      if (Adf.util.debugExtend) console.log('div_id = ' + div_id + '; elementPosition = ' + ltwhPos);
+
+      if (scrollY + winHeight + 5 >= tPos && scrollX + winWidth + 5 >= lPos) {
+        Adf.banner.show(div_id, options, opt_class, opt_callback);
+      } else {
+        setTimeout(function() {
+          Adf.banner.showScroll(div_id, options, opt_class, opt_callback);
+        }, 100);
+      }
+
+    },
+
+    showRich: function(div_id, options, opt_class, opt_callback) {
+
+      var winPos = Adf.util.getWindowSize(),
+        winHeight = winPos.height,
+        scrollY = Adf.util.getBodyScrollTop();
+
+      if (scrollY + 5 >= winHeight) {
+        Adf.banner.show(div_id, options, opt_class, opt_callback);
+      } else {
+        setTimeout(function() {
+          Adf.banner.showRich(div_id, options, opt_class, opt_callback);
+        }, 100);
+      }
+
+    },
+
+    showScroll_b: function(div_id, options, options_b, opt_class, opt_win) {
+
+      var winPos = Adf.util.getWindowSize(),
+        winWidth = winPos.width,
+        winHeight = winPos.height,
+        scrollY = Adf.util.getBodyScrollTop(),
+        scrollX = Adf.util.getBodyScrollLeft(),
+        ltwhPos = Adf.util.getElementPosition(div_id);
+      var lPos = (ltwhPos) ? ltwhPos.left : 20 * winWidth;
+      var tPos = (ltwhPos) ? ltwhPos.top : 20 * winHeight;
+
+      if (Adf.util.debugExtend) console.log('div_id = ' + div_id + '; elementPosition = ' + ltwhPos);
+
+      if (scrollY + winHeight + 5 >= tPos && scrollX + winWidth + 5 >= lPos) {
+        Adf.banner.show_b(div_id, options, options_b, opt_class, opt_win);
+      } else {
+        setTimeout(function() {
+          Adf.banner.showScroll_b(div_id, options, options_b, opt_class, opt_win);
+        }, 100);
+      }
+
+    },
+
+    show_b: function(div_id, options, options_b, opt_class, opt_win) {
+
+      if (Adf.util.debugExtend) console.log('show_b start; div_id = ' + div_id + '; adCall = ' + Adf.counter);
+
+      var _window = opt_win || window;
+
+      // debug variables -- start
+      var startTime = new Date(),
+        _rand = Math.floor(Math.random() * 100000000),
+        forPersentageThreshold = Math.floor(Math.random() * 1000),
+        threshold = (forPersentageThreshold >= 5 && forPersentageThreshold < 55) ? true : false;
+      // debug variables -- end
+
+      Adf.inner.show_b(threshold, startTime, _rand, Adf.counter, 1, div_id, options, options_b, opt_class, _window);
+
+      if (Adf.util.debugExtend) console.log('show_b end; div_id = ' + div_id + '; adCall = ' + Adf.counter);
+
+      Adf.counter = Adf.counter + 1;
+
+    },
+
+
+
+    reload_b: function(div_id, options, options_b) {
+
+      Adf.banner.needReload = true;
+
+      document.getElementById(div_id).innerHTML = '';
+
+      Adf.banner.show_b(div_id, options, options_b);
+
+      Adf.banner.needReload = false;
+
+    }
+
+  };
+
+  //api
+
+  window['Adf'] = {};
+  window['Adf']['util'] = Adf.util;
+  window['Adf']['init'] = Adf.init;
+  window['Adf']['banner'] = Adf.banner;
+
+
+})();
+
+function AdFox_SetLayerVis(spritename, state) {
+
+  document.getElementById(spritename).style.visibility = state;
+
+}
+
+function AdFox_Open(AF_id) {
+
+  AdFox_SetLayerVis('AdFox_DivBaseFlash_' + AF_id, "hidden");
+  AdFox_SetLayerVis('AdFox_DivOverFlash_' + AF_id, "visible");
+
+}
+
+function AdFox_Close(AF_id) {
+
+  AdFox_SetLayerVis('AdFox_DivOverFlash_' + AF_id, "hidden");
+  AdFox_SetLayerVis('AdFox_DivBaseFlash_' + AF_id, "visible");
+
+}
+
+function adfoxSdvigContent(banID, flashWidth, flashHeight) {
+
+  var obj = document.getElementById('adfoxBanner' + banID).style;
+  if (flashWidth == '100%') obj.width = flashWidth;
+  else obj.width = flashWidth + "px";
+  if (flashHeight == '100%') obj.height = flashHeight;
+  else obj.height = flashHeight + "px";
+
+}
+
+function adfoxVisibilityFlash(banName, flashWidth, flashHeight) {
+
+  var obj = document.getElementById(banName).style;
+  if (flashWidth == '100%') obj.width = flashWidth;
+  else obj.width = flashWidth + "px";
+  if (flashHeight == '100%') obj.height = flashHeight;
+  else obj.height = flashHeight + "px";
+
+}
+
+function adfoxStart(banID, FirShowFlNum, constVisFlashFir, sdvigContent, flash1Width, flash1Height, flash2Width, flash2Height) {
+
+  if (FirShowFlNum == 1) adfoxVisibilityFlash('adfoxFlash1' + banID, flash1Width, flash1Height);
+  else if (FirShowFlNum == 2) {
+    adfoxVisibilityFlash('adfoxFlash2' + banID, flash2Width, flash2Height);
+    if (constVisFlashFir == 'yes') adfoxVisibilityFlash('adfoxFlash1' + banID, flash1Width, flash1Height);
+    if (sdvigContent == 'yes') adfoxSdvigContent(banID, flash2Width, flash2Height);
+    else adfoxSdvigContent(banID, flash1Width, flash1Height);
+  }
+
+}
+
+function adfoxOpen(banID, constVisFlashFir, sdvigContent, flash2Width, flash2Height) {
+
+  var aEventOpenClose = new Image();
+  var obj = document.getElementById("aEventOpen" + banID);
+  if (obj) aEventOpenClose.src = obj.title + '&rand=' + Math.random() * 1000000 + '&prb=' + Math.random() * 1000000;
+  adfoxVisibilityFlash('adfoxFlash2' + banID, flash2Width, flash2Height);
+  if (constVisFlashFir != 'yes') adfoxVisibilityFlash('adfoxFlash1' + banID, 1, 1);
+  if (sdvigContent == 'yes') adfoxSdvigContent(banID, flash2Width, flash2Height);
+
+}
+
+
+function adfoxClose(banID, constVisFlashFir, sdvigContent, flash1Width, flash1Height) {
+
+  var aEventOpenClose = new Image();
+  var obj = document.getElementById("aEventClose" + banID);
+  if (obj) aEventOpenClose.src = obj.title + '&rand=' + Math.random() * 1000000 + '&prb=' + Math.random() * 1000000;
+  adfoxVisibilityFlash('adfoxFlash2' + banID, 1, 1);
+  if (constVisFlashFir != 'yes') adfoxVisibilityFlash('adfoxFlash1' + banID, flash1Width, flash1Height);
+  if (sdvigContent == 'yes') adfoxSdvigContent(banID, flash1Width, flash1Height);
+
+}
+;
+
+/* file-end: js/ads/adfox.custom.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/ads/adfox.asyn.code.ver3.js 
+*/
+
+function AdFox_SetLayerVis(spritename,state){
+   document.getElementById(spritename).style.visibility=state;
+}
+
+function AdFox_Open(AF_id){
+   AdFox_SetLayerVis('AdFox_DivBaseFlash_'+AF_id, "hidden");
+   AdFox_SetLayerVis('AdFox_DivOverFlash_'+AF_id, "visible");
+}
+
+function AdFox_Close(AF_id){
+   AdFox_SetLayerVis('AdFox_DivOverFlash_'+AF_id, "hidden");
+   AdFox_SetLayerVis('AdFox_DivBaseFlash_'+AF_id, "visible");
+}
+
+function AdFox_getCodeScript(AF_n,AF_id,AF_src){
+   var AF_doc;
+   if(AF_n<10){
+      try{
+	     if(document.all && !window.opera){
+		    AF_doc = window.frames['AdFox_iframe_'+AF_id].document;
+			}else if(document.getElementById){
+			         AF_doc = document.getElementById('AdFox_iframe_'+AF_id).contentDocument;
+					 }
+		 }catch(e){}
+    if(AF_doc){
+	   AF_doc.write('<scr'+'ipt type="text/javascript" src="'+AF_src+'"><\/scr'+'ipt>');
+	   }else{
+	      setTimeout('AdFox_getCodeScript('+(++AF_n)+','+AF_id+',"'+AF_src+'");', 100);
+		  }
+		  }
+}
+
+function adfoxSdvigContent(banID, flashWidth, flashHeight){
+	var obj = document.getElementById('adfoxBanner'+banID).style;
+	if (flashWidth == '100%') obj.width = flashWidth;
+	    else obj.width = flashWidth + "px";
+	if (flashHeight == '100%') obj.height = flashHeight;
+	    else obj.height = flashHeight + "px";
+}
+
+function adfoxVisibilityFlash(banName, flashWidth, flashHeight){
+    	var obj = document.getElementById(banName).style;
+	if (flashWidth == '100%') obj.width = flashWidth;
+	    else obj.width = flashWidth + "px";
+	if (flashHeight == '100%') obj.height = flashHeight;
+	    else obj.height = flashHeight + "px";
+}
+
+function adfoxStart(banID, FirShowFlNum, constVisFlashFir, sdvigContent, flash1Width, flash1Height, flash2Width, flash2Height){
+	if (FirShowFlNum == 1) adfoxVisibilityFlash('adfoxFlash1'+banID, flash1Width, flash1Height);
+	    else if (FirShowFlNum == 2) {
+		    adfoxVisibilityFlash('adfoxFlash2'+banID, flash2Width, flash2Height);
+	        if (constVisFlashFir == 'yes') adfoxVisibilityFlash('adfoxFlash1'+banID, flash1Width, flash1Height);
+		    if (sdvigContent == 'yes') adfoxSdvigContent(banID, flash2Width, flash2Height);
+		        else adfoxSdvigContent(banID, flash1Width, flash1Height);
+	}
+}
+
+function adfoxOpen(banID, constVisFlashFir, sdvigContent, flash2Width, flash2Height){
+	var aEventOpenClose = new Image();
+	var obj = document.getElementById("aEventOpen"+banID);
+	if (obj) aEventOpenClose.src =  obj.title+'&rand='+Math.random()*1000000+'&prb='+Math.random()*1000000;
+	adfoxVisibilityFlash('adfoxFlash2'+banID, flash2Width, flash2Height);
+	if (constVisFlashFir != 'yes') adfoxVisibilityFlash('adfoxFlash1'+banID, 1, 1);
+	if (sdvigContent == 'yes') adfoxSdvigContent(banID, flash2Width, flash2Height);
+}
+
+
+function adfoxClose(banID, constVisFlashFir, sdvigContent, flash1Width, flash1Height){
+	var aEventOpenClose = new Image();
+	var obj = document.getElementById("aEventClose"+banID);
+	if (obj) aEventOpenClose.src =  obj.title+'&rand='+Math.random()*1000000+'&prb='+Math.random()*1000000;
+	adfoxVisibilityFlash('adfoxFlash2'+banID, 1, 1);
+	if (constVisFlashFir != 'yes') adfoxVisibilityFlash('adfoxFlash1'+banID, flash1Width, flash1Height);
+	if (sdvigContent == 'yes') adfoxSdvigContent(banID, flash1Width, flash1Height);
+}
+;
+
+/* file-end: js/ads/adfox.asyn.code.ver3.js 
+----------------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------------
+   file-start: js/ads/adfox.asyn.code.scroll.js 
+*/
+
+function AdFox_getWindowSize() {
+var winWidth,winHeight;
+	if( typeof( window.innerWidth ) == 'number' ) {
+		//Non-IE
+		winWidth = window.innerWidth;
+		winHeight = window.innerHeight;
+	} else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+		//IE 6+ in 'standards compliant mode'
+		winWidth = document.documentElement.clientWidth;
+		winHeight = document.documentElement.clientHeight;
+	} else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+		//IE 4 compatible
+		winWidth = document.body.clientWidth;
+		winHeight = document.body.clientHeight;
+	}
+	return {"width":winWidth, "height":winHeight};
+}//END function AdFox_getWindowSize
+
+function AdFox_getElementPosition(elemId){
+    var elem;
+    
+    if (document.getElementById) {
+		elem = document.getElementById(elemId);
+	}
+	else if (document.layers) {
+		elem = document.elemId;
+	}
+	else if (document.all) {
+		elem = document.all.elemId;
+	}
+    var w = elem.offsetWidth;
+    var h = elem.offsetHeight;	
+    var l = 0;
+    var t = 0;
+	
+    while (elem)
+    {
+        l += elem.offsetLeft;
+        t += elem.offsetTop;
+        elem = elem.offsetParent;
+    }
+
+    return {"left":l, "top":t, "width":w, "height":h};
+} //END function AdFox_getElementPosition
+
+function AdFox_getBodyScrollTop(){
+	return self.pageYOffset || (document.documentElement && document.documentElement.scrollTop) || (document.body && document.body.scrollTop);
+} //END function AdFox_getBodyScrollTop
+
+function AdFox_getBodyScrollLeft(){
+	return self.pageXOffset || (document.documentElement && document.documentElement.scrollLeft) || (document.body && document.body.scrollLeft);
+}//END function AdFox_getBodyScrollLeft
+
+function AdFox_Scroll(elemId,elemSrc){
+   var winPos = AdFox_getWindowSize();
+   var winWidth = winPos.width;
+   var winHeight = winPos.height;
+   var scrollY = AdFox_getBodyScrollTop();
+   var scrollX =  AdFox_getBodyScrollLeft();
+   var divId = 'AdFox_banner_'+elemId;
+   var ltwhPos = AdFox_getElementPosition(divId);
+   var lPos = ltwhPos.left;
+   var tPos = ltwhPos.top;
+
+   if(scrollY+winHeight+5 >= tPos && scrollX+winWidth+5 >= lPos){
+      AdFox_getCodeScript(1,elemId,elemSrc);
+	  }else{
+	     setTimeout('AdFox_Scroll('+elemId+',"'+elemSrc+'");',100);
+	  }
+}//End function AdFox_Scroll;
+
+/* file-end: js/ads/adfox.asyn.code.scroll.js 
+----------------------------------------------------------------------------------*/

@@ -1,0 +1,48 @@
+ToDo for AnimStory, started May 10 2013.
+
+8) Implement selecting additional suits
+23) Implementing compressions of complete project with sounds and pictures
+24) Implement playing complete project
+25) Implement uploading complete project to website
+26) implement loading and playing complete project
+27) Add more pictures
+27a) Add more moving pictures
+28) Add basic editing of images (????)
+29) Save project to disk and check that it is written there
+31) ability to read selected project
+32) make sure that projects saves/reads correctly
+33) Implement vector stick editor + rotation 180 degrees
+34) add correct saving / reading of images and sounds (+ compression)
+56) Remove .story from SelectStory dialog existing story names
+
+// ----- will not do -----
+50)(-+) MB add option show all turtles and be able to show/hide turtles??
+11)(-+) Implement turtle context menu after long pressing selected turtle.
+39)(-) rename settings menu
+3)(-+) hide system menu like Android sample advised.
+16)(+-) Add not stick Art ????
+
+// ---- Done ----
+52)(+) Replaced space with _. Replicas truncated to one word. Need to put them in commas.
+53)(+) Editing from clear state instead of old replica.
+54)(+) Current Replicas not saved on play.
+55)(+) Editing animation name doesn't show prev name
+51)(+) Replace lists in SelectImageAdapter with List of images in may be some XML file?
+47)(+) Implement playing separate pages
+52)(+) Add menu choice remove turtle (removes selected turtle for given page)
+46e)(+) If add turtle also add to all cadrs from this point to the end of page
+46)(+) Implement pages with different backgrounds
+49)(+) Correctly deal with backgrounds during play
+48)(+) Fix saving stories so the arrive on stories list
+46a)(+) Add page field to cadr.
+46b)(+) whed dublicating copy page number
+46c)(+) when edit/menu new page issue new page number
+46d)(+) when selecting background add background to all cadres in the same page
+48)(+) better format story with turtles on new lines
+45)(+-) Why instant-run is in the list of stories.
+44)(+) remove instant-run from list of stories.
+41)(+) Debug main animation functionality
+43)(+) Add this show story to menu.
+42)(+) Add menu item show story which shows pretty formatted XML story.
+40)(+) show at menu choices including pentamino and select story (where we will have new story)
+

@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_settings"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/menu" 
+        android:menuCategory="system">
+        <menu>
+            <item android:id="@+id/select_story" android:title="Select story"/>
+            <item android:id="@+id/menu_play_pentamino" android:title="Play pentamino"/>
+        </menu>
+    </item>
+    <item android:id="@+id/menu_story_name" android:visible="true" android:title="" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_cadr_index" android:visible="true" android:title="" android:checkable="true" android:showAsAction="always" ></item>
+    <item android:id="@+id/menu_new_turtle" android:icon="@drawable/menu_man_one" android:title="@+string/new_turtle" android:showAsAction="always"></item>
+    <item android:id="@+id/menu_add_suit" android:icon="@drawable/menu_add_suit" android:title="@+string/add_suit" android:showAsAction="always"></item>
+    <item android:id="@+id/menu_select_back" android:icon="@drawable/menu_select_back" android:title="@+string/select_back" android:showAsAction="always"></item>
+    <item android:id="@+id/menu_record_sound" android:icon="@drawable/menu_record_sound" android:title="@+string/record_sound" android:showAsAction="always"></item>
+    <item android:id="@+id/menu_replica" android:icon="@drawable/menu_replica" android:title="@+string/replica" android:showAsAction="always"></item>
+    
+    <item android:id="@+id/menu_prev" android:title="@string/btn_prev" android:showAsAction="always"></item>
+    <item android:id="@+id/menu_next" android:title="@string/btn_next" android:showAsAction="always"></item>
+    <item android:id="@+id/menu_play" android:title="@string/btn_play" android:showAsAction="always"></item>
+    <item android:id="@+id/submenu_edit" android:title="@string/menu_editing" android:enabled="true" android:showAsAction="always">
+        <menu>
+            <item android:id="@+id/menu_play_page" android:title="@string/btn_play_page" android:showAsAction="always"></item>
+            <item android:id="@+id/menu_new_page" android:title="@string/btn_new_page"/>
+            <item android:id="@+id/menu_insert_cadr" android:title="@string/btn_insert"/>
+            <item android:id="@+id/menu_remove_cadr" android:title="@string/btn_remove"/>
+            <item android:id="@+id/menu_edit_turtle" android:title="Edit Turtle"/>
+            <item android:id="@+id/menu_remove_turtle" android:title="Remove Turtle"/>
+            <item android:id="@+id/menu_show_story" android:title="Show Story"/>
+        </menu>
+    </item>
+    <item android:id="@+id/menu_stop" android:title="@string/btn_stop" android:showAsAction="always"></item>
+
+</menu>

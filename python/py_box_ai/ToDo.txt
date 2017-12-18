@@ -1,0 +1,11 @@
+To Do Python Box API
+
+1. Write compatible xml
+2(+) Read compatible xml
+3. implement clearing box
+4. implement deleting box
+5. read book about additional features to have
+6. If we gone so far, try Java version. 
+7. More testing, move to other box should work
+8. Children somehow disappear from room
+

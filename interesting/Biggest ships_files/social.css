@@ -1,0 +1,84 @@
+
+.social_likes_c {
+  height:21px;
+  font-size:0px;
+}
+
+.social_likes {
+  position:relative;
+  z-index:10;
+}
+
+.social_likes td {
+  padding:0;
+}
+
+.fb_like_c {
+  padding:0 40px 0 0;
+}
+
+.tw_like_c {
+  padding:0 40px 0 0;
+}
+
+.shortlist_object_title .highlight {
+  background:#ffcd00;
+}
+
+.shortlist_object_preview .highlight {
+  background:#ffcd00;
+}
+
+.ok_like_c {
+  padding:0 40px 0 0;
+}
+
+/* Кастомные поделиться */
+
+.vk_share_link {
+  display:inline-block;
+  width:37px;
+  height:48px;
+  background:url(images/social_reposts/vk.png) left top no-repeat;
+  color:#fff !important;
+  font-size:9px;
+  text-align:center;
+  text-decoration:none;
+  padding-top:2px;
+}
+
+.fb_share_link {
+  display:inline-block;
+  width:37px;
+  height:48px;
+  background:url(images/social_reposts/fb.png) left top no-repeat;
+  color:#fff !important;
+  font-size:9px;
+  text-align:center;
+  text-decoration:none;
+  padding-top:2px;
+}
+
+.ok_share_link {
+  display:inline-block;
+  width:37px;
+  height:48px;
+  background:url(images/social_reposts/ok.png) left top no-repeat;
+  color:#fff !important;
+  font-size:9px;
+  text-align:center;
+  text-decoration:none;
+  padding-top:2px;
+}
+
+.tw_share_link {
+  display:inline-block;
+  width:37px;
+  height:48px;
+  background:url(images/social_reposts/tw.png) left top no-repeat;
+  color:#fff !important;
+  font-size:9px;
+  text-align:center;
+  text-decoration:none;
+  padding-top:2px;
+}

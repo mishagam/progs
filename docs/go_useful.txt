@@ -1,0 +1,16 @@
+# start local app engine server with myapp
+~/progs/go/appeng/myapp $ dev_appserver.py app.yaml 
+
+# deploy application of google ap engine server
+~/progs/go/appeng/myapp $ gcloud app deploy
+
+# show google ap engine server in browser
+~/progs/go/appeng/myapp $ gcloud app browse
+
+# app engine sources (and GOROOT)
+/home/misha/Distr/google-cloud-sdk/platform/google_appengine/goroot-1.8
+
+# show godoc on port 7000
+~/Distr/google-cloud-sdk/platform/google_appengine/goroot-1.8 $ godoc \
+               -http=localhost:7000  \
+               -goroot=/home/misha/Distr/google-cloud-sdk/platform/google_appengine/goroot-1.8

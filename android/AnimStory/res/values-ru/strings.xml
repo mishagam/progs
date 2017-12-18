@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ 
+    <!-- Story editing buttons -->
+    <string name="btn_back">Назад</string>
+    <string name="btn_forward">Вперед</string>
+    <string name="btn_prev">Назад</string>
+    <string name="btn_next">Вперед</string>
+    <string name="btn_play">Играть</string>
+    <string name="btn_play_page">Играть Лист</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="btn_new_page">Нов_лист</string>
+    <string name="btn_insert">Вставить_кадр</string>
+    <string name="btn_remove">Удалить_кадр</string>
+    <string name="btn_stop">Останов</string>
+    <string name="menu_editing">Правка</string>
+    
+</resources>
